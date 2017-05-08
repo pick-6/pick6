@@ -81,10 +81,9 @@ header .intro-text .intro-heading {
 	margin-top: 5%; 
 	color: black;
 }
-
-
-
-
+.box_textshadow {
+	 text-shadow: 2px 2px 2px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
 
