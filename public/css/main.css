@@ -1,0 +1,168 @@
+html {
+	background-color: black;
+}
+
+/****** NAVBAR ******/
+.nav {
+	text-align: center;
+}
+
+.menuTextColor {
+	color: black;
+}
+
+#logoName {
+	padding-right: 5px;
+	font-size: 3em;
+	font-family: 'Graduate', cursive;
+}
+
+.logoImage {
+	width: 3em;
+	height: 3em;
+	float: left;
+	margin-top: 3px;
+}
+
+/****** FOOTER ******/
+footer {
+	background-color: #333333;
+}
+
+.copyright {
+	color: #FEC503;
+}
+
+.copyright a {
+	color: #FEC503;
+	text-decoration: underline;
+}
+
+
+
+/************** HOMEPAGE **************/
+/*HEADER*/
+.welcome {
+	background-image: url(../img/field_lights.jpg);
+}
+
+header .intro-text .intro-lead-in {
+	font-size: 2em;
+}
+
+header .intro-text .intro-heading {
+	font-size: 1.75em;
+}
+
+.welcome span {
+	color: #FEC503;
+}
+
+/*HOW IT WORKS*/
+.howItWorks {
+	background-color: black;
+	color: white;
+	padding-top: 5%;
+}
+
+.howItWorks .section-heading {
+	font-size: 2.5em
+}
+
+.howItWorks .section-subheading {
+	display: none;
+}
+
+.howItWorks .icons {
+	color: black;
+}
+
+.howItWorks .getStartedBtn {
+	margin-top: 5%; 
+	color: black;
+}
+
+
+
+
+/****** TABLET STYLES ******/
+@media (min-width: 768px){
+
+nav .container {
+	width: 65%;
+}
+
+#logoName {
+	font-size: 2em;
+}
+
+.logoImage {
+	width: 2em;
+	height: 2em;
+	margin-top: 10px;
+}
+
+header .intro-text {
+	padding-top: 11%;
+}
+
+header .intro-text .intro-lead-in {
+	font-size: 3em;
+	margin-bottom: 0px;
+	margin-top: 1em;
+}
+
+header .intro-text .intro-heading {
+	font-size: 3em;
+	margin-bottom: 0px;
+}
+
+}
+
+
+
+
+/****** DESKTOP STYLES ******/
+
+@media (min-width: 992px){
+
+nav .container {
+	width: 55%;
+}
+
+.howItWorks .section-subheading {
+	display: block;
+}
+
+header .intro-text .intro-lead-in {
+	font-size: 3em;
+	margin-bottom: 25px;
+	margin-top: 0px;
+}
+
+header .intro-text .intro-heading {
+	font-size: 4em;
+	margin-bottom: 25px;
+}
+
+}
+
+
+@media (min-width: 1200px){
+
+#logoName {
+	font-size: 3em;
+}
+
+.logoImage {
+	width: 3em;
+	height: 3em;
+	margin-top: 3px;
+}
+
+header .intro-text {
+	padding-top: 17%;
+}
+
+}
+
