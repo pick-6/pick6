@@ -25,6 +25,13 @@ Route::post('/login', 'Auth\AuthController@postLogin');
 
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
+// Contact
+
+
+Route::get('/contact', function () {
+    return view('contact');
+});
+
 //Registration routes
 
 Route::get('/register', 'Auth\AuthController@getRegister');
