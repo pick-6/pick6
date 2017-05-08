@@ -19,6 +19,9 @@
                 <li>
                     <a href="#howtoplay">How To Play</a>
                 </li>
+                                <li>
+                    <a href="#charities">Charities</a>
+                </li>
                 <li>
                     <a href="#signup">Signup</a>
                 </li>
