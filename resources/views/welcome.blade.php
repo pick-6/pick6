@@ -8,7 +8,7 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To <span>Pick 6</span>!</div>
                 <div class="intro-heading">Where everyone wins!</div>
-                <div class="intro-paragraph box_textshadow">We're an organization that connects all sorts of people ranging from the true sports fanatic to the everyday person. Our goal is to bring people together with our competitive, friendly game, while giving back to the communities in need. We achieve this by giving <span>100%</span> of all proceeds from each game to the charity of the winner's choice. So if you're looking for some competitive fun while still being able to help others, look no further. <p><a href="#signup">Signup</a> today and start playing!</p></div>
+                <div class="intro-paragraph box_textshadow">We're an organization that connects all sorts of people ranging from the true sports fanatic to the everyday person. Our goal is to bring people together with our competitive, friendly game, while giving back to the communities in need. We achieve this by giving <span>100%</span> of all proceeds from each game to the charity of the winner's choice. So if you're looking for some competitive fun while still being able to help others, look no further. <p><a href="/register">Signup</a> today and start playing!</p></div>
             </div>
         </div>
     </header>
@@ -47,7 +47,7 @@
                     <h4 class="service-heading"><em>Step 3:</em></h4>
                     <p class="text-muted">Sit back, watch the game, and see your contributions benefit the communities in need.</p>
                 </div>
-                <a href="#signup" class="btn btn-xl getStartedBtn">Get Started</a>
+                <a href="/register" class="btn btn-xl getStartedBtn">Get Started</a>
             </div>
         </div>
     </section>
