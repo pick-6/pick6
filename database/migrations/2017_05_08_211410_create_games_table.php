@@ -19,8 +19,7 @@ class CreateGamesTable extends Migration
 			$table->string('away');
 			$table->integer('home_score');
 			$table->integer('away_score');
-			$table->integer('winning_selection')->unsigned();
-			// $table->foreign('winning_selection')->references('id')->on('selections');
+			$table->integer('winning_selection');
 		});
 	}
 

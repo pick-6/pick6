@@ -15,9 +15,11 @@ class CreateSelectionsTable extends Migration
 		Schema::create('selections', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id');
-			$table->integer('game_id');
+			$table->integer('user_id')->unsigned();
+			$table->integer('game_id')->unsigned();
 			$table->integer('square_selection');
+			$table->foreign('game_id')->references('id')->on('games');
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 
