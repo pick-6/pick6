@@ -18,6 +18,11 @@
     </div>
 
     <div class="form-group">
+        <label>Username</label>
+        <input style="background-color: #333333; color: #FED136" type="text" name="username" value="{{ old('username') }}" placeholder="Username" class="form-control">
+    </div>
+
+    <div class="form-group">
         <label>Email</label>
         <input style="background-color: #333333; color: #FED136" type="email" name="email" value="{{ old('email') }}" placeholder="Email" class="form-control">
     </div>
