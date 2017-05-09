@@ -9,12 +9,12 @@
 
     <div class="form-group">
         <label>First Name</label>
-        <input style="background-color: #333333; color: #FED136" type="text" name="name" value="{{ old('first_name') }}" placeholder="First Name" class="form-control">
+        <input style="background-color: #333333; color: #FED136" type="text" name="first_name" value="{{ old('first_name') }}" placeholder="First Name" class="form-control">
     </div>
 
     <div class="form-group">
         <label>Last Name</label>
-        <input style="background-color: #333333; color: #FED136" type="text" name="name" value="{{ old('last_name') }}" placeholder="Last Name" class="form-control">
+        <input style="background-color: #333333; color: #FED136" type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name" class="form-control">
     </div>
 
     <div class="form-group">
