@@ -8,11 +8,11 @@ class CreateUserBetsTable extends Migration
     public function up()
     {
         Schema::create('user_bets', function (Blueprint $user_bets) {
-        $user_bets->integer('user_id'); 
-        $user_bets->integer('game_id');
-        $user_bets->integer('gross_receipts');
-        $user_bets->foreign('user_id')->references('user_id')->on('games');
-        $user_bets->foreign('game_id')->references('game_id')->on('games');
+        $user_bets->integer('user_id')->unsigned(); 
+        $user_bets->integer('game_id')->unsigned();
+        $user_bets->integer('bet_total');
+        $user_bets->foreign('user_id')->references('id')->on('games');
+        $user_bets->foreign('game_id')->references('id')->on('games');
         });       
     }
 
