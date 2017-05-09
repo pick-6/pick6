@@ -20,6 +20,7 @@ class CreateGamesTable extends Migration
 			$table->integer('home_score');
 			$table->integer('away_score');
 			$table->integer('winning_selection');
+			// $table->timestamp();
 		});
 	}
 
