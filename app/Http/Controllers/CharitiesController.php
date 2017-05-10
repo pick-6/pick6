@@ -19,11 +19,11 @@ class CharitiesController extends Controller
     {
         if ($request->has('search')) {
             $posts = Post::join('user_bets', '', '=', 'user.id')
-               ->where('game_id', 'LIKE', )
-               ->orWhere('bet_total')
+               ->where('game_id', 'LIKE', '%request->search%')
+               ->orWhere('bet_total', 'LIKE', '%request->search%')
                ->orderBy('game_id', 'ASC')
         } else {
-            $posts = Post::orderBy('game_id', 'ASC')->paginate();
+            $posts = Post::orderBy('game_id', 'ASC')->paginate(3);
         }
 
         $data = [];
