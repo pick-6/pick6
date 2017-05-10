@@ -24,7 +24,7 @@ Route::get('/home', function () {
 
 // Play Game
 Route::get('/play', function () {
-    return view('gamesTable');
+    return view('playGame');
 });
 
 // How To Play
@@ -65,7 +65,7 @@ Route::get('/account/{username}/edit', 'AccountController@edit');
 
 Route::get('/account/{username}/info', 'AccountController@info');
 
-Route::get('/account/{username}', 'AccountController@index');
+Route::get('/account', 'AccountController@index');
 
 
 // Resource routing
