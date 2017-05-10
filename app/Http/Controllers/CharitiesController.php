@@ -36,9 +36,9 @@ class CharitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return view('charities');
     }
 
     /**
@@ -49,7 +49,16 @@ class CharitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, Post::$rules);
+        $charities = new Charity();
+        $charities->name = $request->name;
+        $charities->location = $request->location;
+        $charities->category = $request->category;
+        $charities->description = $request->description;
+        $charities->save();
+        Log::info("New charity created", $request->all());
+        $request->session()->flash('successMessage', 'Charity saved successfully');
+        return redirect()->action('CharitiesController@show', [$post->id]);
     }
 
     /**
@@ -60,7 +69,14 @@ class CharitiesController extends Controller
      */
     public function show($id)
     {
-        //
+        $charities = Charity::find($id);
+        if(!$charities) {
+            Log::error("Charity with id of $id not found.");
+            abort(404);
+        }
+        $data = [];
+        $data['charities'] = $charities;
+        return view('charities.show')->with($data);
     }
 
     /**
@@ -71,7 +87,14 @@ class CharitiesController extends Controller
      */
     public function edit($id)
     {
-        //
+       $charities = Charity::find($id);
+        if (!$charities) {
+            Log::error("Charity with id of $id not found.");
+            abort(404);
+        }
+        $data = [];
+        $data['charities'] = $charities;
+        return view('charaties.edit')->with($data);   
     }
 
     /**
@@ -83,7 +106,19 @@ class CharitiesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, Charity::$rules);
+        $charities = Charity::find($id);
+        if (!$charities) {
+            Log::error("Charity with id of $id not found.");
+            abort(404);
+        }
+        $charities->name = $request->name;
+        $charities->location = $request->location;
+        $charities->category = $request->content;
+        $charities->description = $request->description;
+        $charities->save();
+        $request->session()->flash('successMessage', 'Post updated successfully');
+        return redirect()->action('CharitiesController@show', [$post->id]);   
     }
 
     /**
@@ -94,6 +129,13 @@ class CharitiesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $charities = Charity::find($id);
+        if (!$charities) {
+            Log::error("charities with id of $id not found.");
+            abort(404);
+        }
+        $charities->delete();
+        $request->session()->flash('successMessage', 'charities deleted successfully');
+        return view('charities.index');
     }
 }
