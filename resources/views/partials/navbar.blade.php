@@ -16,7 +16,7 @@
                 <li><a href="/home">Home</a></li>
                 @if (Auth::check())
                     <li><a href="/play">Play Game</a></li>
-                    <li><a href="{{action('AccountController@index')}}">Account</a></li>
+                    <li><a href="{{action('AccountController@show', [Auth::user()->username])}}">Account</a></li>
                     <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
                 @else
                     <li><a href="/howtoplay">How To Play</a></li>
