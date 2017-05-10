@@ -51,5 +51,30 @@
             </div>
         </div>
     </section>
+
+    <!-- Featured Charities Section -->
+    <section class="featCharities">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Featured Charities</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <img class="img-responsive" src="http://michigan.wish.org/~/media/Shared/200x200%20icons/200x200-Make-A-Wish-Logo.ashx">
+                </div>
+                <div class="col-md-4">
+                    <img class="img-responsive" src="https://adc73194584bc554a722-6c876fe0fcae1416a4d62676b3759245.ssl.cf1.rackcdn.com/client_id_148_media_file_name_1455900624.6597.png">
+                </div>
+                <div class="col-md-4">
+                    <img class="img-responsive" src="http://curebowl.com/media/uploads/2014/09/BCRF_LogoGray-pink.png">
+                </div>
+                <a href="/charities" class="btn btn-xl allCharitiesBtn">See All Charities</a>
+            </div>
+        </div>
+    </section>
+
   
 @stop
