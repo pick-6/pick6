@@ -5,6 +5,9 @@
     <meta name="author" content="">
 
     <title>Pick 6</title>
+    
+    <!-- Logo -->
+    <link rel="shortcut icon" href="/img/pick6.png" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

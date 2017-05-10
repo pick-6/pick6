@@ -7,7 +7,7 @@
                 <span class="sr-only">Toggle navigation</span> <span class="menuTextColor">Menu <i class="fa fa-bars"></i></span>
             </button>
             <a class="navbar-brand" id="logoName" href="/home">PICK</a>
-            <a href="/home"><img class="logoImage"  src="/img/football6-logo.png" onContextMenu="return false;"></a> 
+            <a href="/home"><img class="logoImage"  src="/img/pick6.png" onContextMenu="return false;"></a> 
         </div>
         
         <!-- Collect the nav links, forms, and other content for toggling -->
