@@ -117,6 +117,19 @@ header .intro-text .intro-heading {
 }
 
 
+/*PLAY GAME*/
+.scrollable-menu {
+    height: auto;
+    max-height: 125px;
+    overflow-x: hidden;
+}
+th {
+	background-color: #FEC503;
+	color: black;
+}
+
+
+
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
 
