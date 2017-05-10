@@ -24,6 +24,9 @@ Route::get('/home', function () {
 
 // Play Game
 Route::get('/play', function () {
+	if (!Auth::check()) {
+		return redirect('/login');
+	}
     return view('playGame');
 });
 

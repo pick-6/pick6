@@ -66,7 +66,8 @@ class AccountController extends Controller
 	 */
 	public function edit($id)
 	{
-		//
+		// $user = Post::find($id);
+		// return view('edit')->with('user', $user);
 	}
 
 	/**

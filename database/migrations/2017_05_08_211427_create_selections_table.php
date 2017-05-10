@@ -17,9 +17,12 @@ class CreateSelectionsTable extends Migration
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->integer('game_id')->unsigned();
+			$table->decimal('amount', 5, 2);
 			$table->integer('square_selection');
-			$table->foreign('game_id')->references('id')->on('games');
+			$table->integer('charity_id')->unsigned();
+			$table->foreign('charity_id')->references('id')->on('charities');
 			$table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('game_id')->references('id')->on('games');
 		});
 	}
 
