@@ -61,11 +61,11 @@ Route::post('/register', 'Auth\AuthController@postRegister');
 
 //get requests for account and account information
 
-Route::get('/account/{username}/edit', 'AccountController@edit');
+Route::get('/account/edit', 'AccountController@edit');
 
-Route::get('/account/{username}/info', 'AccountController@info');
+Route::get('/account/info', 'AccountController@info');
 
-Route::get('/account', 'AccountController@index');
+Route::get('/account', 'AccountController@show');
 
 
 // Resource routing
