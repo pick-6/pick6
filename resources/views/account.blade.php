@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <section style="background-color: black">
-	<h1 class="text-center">Welcome, {{Auth::user()->first_name}}</h1>
+	<h1 class="text-center">Welcome, {{ $user->first_name }} {{ $user->last_name }}</h1>
 	<div class="container text-center">
 	    <a style="color: black" href="/play" class="btn btn-xl">Play Game</a>
 	    <a style="color: black" href="/howtoplay" class="btn btn-xl">How To Play</a>
