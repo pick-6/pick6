@@ -14,11 +14,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/home">Home</a></li>
-                <li><a href="/howtoplay">How To Play</a></li>
-                <li><a href="/charities">Charities</a></li>
                 @if (Auth::check())
+                    <li><a href="/play">Play Game</a></li>
+                    <li><a href="/account">Account</a></li>
                     <li><a href="{{action('Auth\AuthController@getLogout')}}">Logout</a></li>
                 @else
+                    <li><a href="/howtoplay">How To Play</a></li>
+                    <li><a href="/charities">Charities</a></li>
                     <li><a href="{{action('Auth\AuthController@getRegister')}}">Signup</a></li>
                     <li><a href="{{action('Auth\AuthController@getLogin')}}">Login</a></li>
                 @endif
