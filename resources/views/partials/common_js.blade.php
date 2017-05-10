@@ -13,3 +13,21 @@
 
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
+
+
+<script type="text/javascript">
+	$('td').mouseover(function(){
+		$(this).css('background-color','#222');
+	});
+
+	$('td').mouseout(function(){
+		$(this).css('background-color','#333');
+	});
+
+	$('#pickSquare').on('show.bs.modal', function(e) {
+    	var hscore = $(e.relatedTarget).data('hscore');
+    	var ascore = $(e.relatedTarget).data('ascore');
+    	$("#hscore").val(hscore);
+    	$("#ascore").val(ascore);
+	});
+</script> 
