@@ -47,7 +47,11 @@
                     <h4 class="service-heading"><em>Step 3:</em></h4>
                     <p class="text-muted">Sit back, watch the game, and see your contributions benefit the communities in need.</p>
                 </div>
-                <a href="/register" class="btn btn-xl getStartedBtn">Get Started</a>
+                @if (Auth::check())
+                    <a href="/play" class="btn btn-xl getStartedBtn">Start Playing</a>
+                @else
+                    <a href="/register" class="btn btn-xl getStartedBtn">Get Started</a>
+                @endif
             </div>
         </div>
     </section>

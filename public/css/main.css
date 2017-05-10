@@ -117,14 +117,66 @@ header .intro-text .intro-heading {
 }
 
 
-/*PLAY GAME*/
+/******** PLAY GAME PAGE **********/
+.playGamePage {
+	background-color: black;
+}
+
+.gameSteps {
+	color: white;
+}
+
+.gameBtn {
+	color: black;
+}
+.btn-xl:hover, .open .dropdown-toggle.btn-xl {
+	color: black;
+}
+
+.dropdown-menu {
+	margin-left: 39%;
+}
+
 .scrollable-menu {
     height: auto;
     max-height: 125px;
     overflow-x: hidden;
 }
+
+.pickSquare {
+	margin-top: 5%;
+}
+
+.pickSquare h3, p {
+	color: white;
+}
+
+.homeTeamName {
+	clear: both;
+}
+
+.homeTeamName h1 {
+	color: white;
+}
+
+.awayTeamName {
+	color: white;
+	float: left;
+	transform: rotate(-90deg);
+	transform-origin: right bottom 0;
+}
+
+table {
+	background-color: #333;
+	color: white;
+}
+
 th {
 	background-color: #FEC503;
+	color: black;
+}
+
+.userPick p {
 	color: black;
 }
 
