@@ -22,6 +22,11 @@ Route::get('/home', function () {
 });
 
 
+// Play Game
+Route::get('/play', function () {
+    return view('gamesTable');
+});
+
 // How To Play
 Route::get('/howtoplay', function () {
     return view('howtoplay');
