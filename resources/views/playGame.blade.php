@@ -81,7 +81,7 @@
                     <h4 class="modal-title">Picking A Square</h4>
                 </div>
                 <div class="modal-body">
-                    <form  method="POST" action="">
+                    <form  method="POST" action="{{ action('SelectionsController@create') }}">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4>Your Pick</h4>

@@ -14,7 +14,7 @@
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
 
-
+<!-- Square selection -->
 <script type="text/javascript">
 	$('td').mouseover(function(){
 		$(this).css('background-color','#222');
