@@ -230,7 +230,11 @@ th {
 @media (min-width: 768px){
 
 nav .container {
-	width: 65%;
+	width: 80%;
+}
+
+.nav>li>a {
+	padding: 15px 10px;
 }
 
 #logoName {
@@ -268,7 +272,7 @@ header .intro-text .intro-heading {
 @media (min-width: 992px){
 
 nav .container {
-	width: 55%;
+	width: 60%;
 }
 
 .howItWorks .section-subheading {
