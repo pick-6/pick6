@@ -8,7 +8,7 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To <span>Pick 6</span>!</div>
                 <div class="intro-heading">Where everyone wins!</div>
-                <div class="intro-paragraph box_textshadow">We're an organization that connects all sorts of people ranging from the true sports fanatic to the everyday person. Our goal is to bring people together with our competitive, friendly game, while giving back to the communities in need. We achieve this by giving <span>100%</span> of all proceeds from each game to the charity of the winner's choice. So if you're looking for some competitive fun while still being able to help others, look no further. <p><a href="/register">Signup</a> today and start playing!</p></div>
+                <div class="intro-paragraph box_textshadow">Pick 6 is the fun and easy way to contribute a small amount to charities you love, test your football knowledge and compete against friends and family - all at the same time. <p><a href="/register">Signup</a> today and start playing!</p></div>
             </div>
         </div>
     </header>
