@@ -181,6 +181,50 @@ th {
 }
 
 
+/********** HOW TO PLAY PAGE *********/
+.howtoplay {
+	background-color: black;
+}
+
+.howtoplay h1 {
+	color: white;
+}
+
+.htpSteps h1 {
+	color: grey;
+}
+
+.htpSteps .panel-primary {
+	background-color: grey;
+	border-color: grey;
+}
+
+.htpSteps .panel-heading {
+	background-color: #222;
+	border-color: #222;
+}
+
+.htpSteps .panel-footer {
+	color: white;
+	background-color: #222;
+	border-color: #222;
+}
+
+.htpSteps span {
+	color: #FEC503;
+}
+
+.howtoplay .playBtn {
+	clear: both;
+}
+
+.howtoplay .playBtn a {
+	color: black;
+	margin-top: 5%;
+}
+
+
+
 
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
