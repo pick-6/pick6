@@ -42,9 +42,10 @@ class SelectionsController extends Controller
         $selections->user_id = $request->user_id;
         $selections->game_id = $request->game_id;
         $selections->amount = $request->amount;
-        $selections->square_selection = strval($request->hscore).strval($request->ascore);
+        $selections->square_selection = intval(strval($request->hscore).strval($request->ascore));
         
         $selections->save();
+        $request->session()->flash('successMessage', 'Square selected');
 
     }
 
