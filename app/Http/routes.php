@@ -21,7 +21,6 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-
 // Play Game
 Route::get('/play', function () {
 	if (!Auth::check()) {
@@ -35,16 +34,10 @@ Route::get('/howtoplay', function () {
     return view('howtoplay');
 });
 
-// Charities
-Route::get('/charities', function () {
-    return view('charities');
-});
-
 // Contact
 Route::get('/contact', function () {
     return view('contact');
 });
-
 
 //Logging in and out
 
@@ -54,13 +47,11 @@ Route::post('/login', 'Auth\AuthController@postLogin');
 
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
-
 //Registration routes
 
 Route::get('/register', 'Auth\AuthController@getRegister');
 
 Route::post('/register', 'Auth\AuthController@postRegister');
-
 
 //get requests for account and account information
 
@@ -70,10 +61,10 @@ Route::get('/account/info', 'AccountController@info');
 
 Route::get('/account', 'AccountController@show');
 
-
 // Resource routing
 
 Route::resource('bets', 'BetsController');
 
 Route::resource('users', 'UsersController');
 
+Route::resource('charities', 'CharitiesController');
