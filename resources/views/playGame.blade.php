@@ -86,11 +86,13 @@
                             <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
                             <input type=hidden name="game_id" value= "3">
                             <input type=hidden name="amount" value= "6">
+                            <input type=hidden name="hscore" value= "" class="hscore">
+                            <input type=hidden name="ascore" value= "" class="ascore">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4>Your Pick</h4>
-                                <p>Team 1 score will end with <input type="button" name="hscore" id="hscore" value=""></p>
-                                <p>Team 2 score will end with <input type="button" name="ascore" id="ascore" value=""></p>
+                                <p>Team 1 score will end with <input type="button" name="hscore" class="hscore" value=""></p>
+                                <p>Team 2 score will end with <input type="button" name="ascore" class="ascore" value=""></p>
                             </div>
                         </div>
                         <div class="modal-footer">

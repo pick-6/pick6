@@ -27,7 +27,7 @@
 	$('#pickSquare').on('show.bs.modal', function(e) {
     	var hscore = $(e.relatedTarget).data('hscore');
     	var ascore = $(e.relatedTarget).data('ascore');
-    	$("#hscore").val(hscore);
-    	$("#ascore").val(ascore);
+    	$(".hscore").val(hscore);
+    	$(".ascore").val(ascore);
 	});
 </script> 
