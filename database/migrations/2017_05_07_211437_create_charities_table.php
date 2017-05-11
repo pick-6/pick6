@@ -10,7 +10,7 @@ class CreateCharitiesTable extends Migration
         Schema::create('charities', function (Blueprint $charities) {
             $charities->increments('id'); 
             $charities->string('name');
-            $charities->string('email', 100)->nullable();
+            $charities->string('website', 100)->nullable();
             $charities->string('description')->nullable();
             $charities->integer('gross_receipts')->nullable();
         });
