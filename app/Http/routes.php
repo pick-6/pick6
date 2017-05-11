@@ -68,3 +68,5 @@ Route::resource('bets', 'BetsController');
 Route::resource('users', 'UsersController');
 
 Route::resource('charities', 'CharitiesController');
+
+Route::resource('selections', 'SelectionsController');
