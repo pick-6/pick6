@@ -8,7 +8,7 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To <span>Pick 6</span>!</div>
                 <div class="intro-heading">Where everyone wins!</div>
-                <div class="intro-paragraph box_textshadow">Pick 6 is the fun and easy way to contribute a small amount to charities you love, test your football knowledge and compete against friends and family - all at the same time. <p><a href="/register">Signup</a> today and start playing!</p></div>
+                <div class="intro-paragraph box_textshadow">Pick 6 is the fun and easy way to contribute a small amount to charities you love, test your football knowledge and compete against friends and family - all at the same time. There are over 3,000 charities to choose from. <p><a href="/register">Signup</a> today and start playing now!</p></div>
             </div>
         </div>
     </header>
