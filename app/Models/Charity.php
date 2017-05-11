@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,5 +11,5 @@ class Charity extends Model
 
 	protected $fillable = ['name','location','category','description'];
 
-	protected $hidden = ['password']
+	protected $hidden = ['password'];
 }
