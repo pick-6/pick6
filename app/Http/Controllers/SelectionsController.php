@@ -37,7 +37,14 @@ class SelectionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $selections = new Selection();
+        $selections->user_id = $request->user_id;
+        $selections->game_id = $request->game_id;
+        $selections->amount = $request->amount;
+        $selections->square_selection = strval($request->hscore).strval($request->ascore);
+        
+        $selections->save();
+
     }
 
     /**
