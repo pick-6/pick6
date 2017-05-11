@@ -71,7 +71,7 @@
     </div>
 
 
-    <!-- Picking A Square Modal -->    <!-- (confirm button not working yet) -->
+    <!-- Picking A Square Modal -->
     <div id="pickSquare" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -81,21 +81,20 @@
                     <h4 class="modal-title">Picking A Square</h4>
                 </div>
                 <div class="modal-body">
-                    <form  method="POST" action="{{ action('SelectionsController@create') }}">
+                    <form  method="POST" action="{{ action('SelectionsController@store') }}"> 
+                        {!! csrf_field() !!}
+                            <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
+                            <input type=hidden name="game_id" value= "3">
+                            <input type=hidden name="amount" value= "6">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4>Your Pick</h4>
-                                <p>Team 1 score will end with <input type="button" id="hscore" value=""></p>
-                                <p>Team 2 score will end with <input type="button" id="ascore" value=""></p>
+                                <p>Team 1 score will end with <input type="button" name="hscore" id="hscore" value=""></p>
+                                <p>Team 2 score will end with <input type="button" name="ascore" id="ascore" value=""></p>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <input type=hidden name="id" value= "{{ Auth::user()->id }}">
-                            <!-- CONFIRM SQUARE BUTTON-->
-                            <form  method="POST" action="">
-                                {!! csrf_field() !!}
-                                <input class="btn btn-success pull-left" type="submit" value="Confirm Square">
-                            </form>
+                            <button class="btn btn-success pull-left" type="submit">Confirm Square</button>
                             <button type="submit" data-dismiss="modal" class="btn btn-default btn-danger">Cancel</button>
                         </div>
                     </form>
