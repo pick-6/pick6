@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Selections;
 
 class SelectionsController extends Controller
 {
@@ -37,7 +38,7 @@ class SelectionsController extends Controller
      */
     public function store(Request $request)
     {
-        $selections = new Selection();
+        $selections = new Selections();
         $selections->user_id = $request->user_id;
         $selections->game_id = $request->game_id;
         $selections->amount = $request->amount;
