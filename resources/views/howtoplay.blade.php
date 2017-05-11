@@ -1,36 +1,49 @@
 @extends('layouts.master')
 @section('content')
-<section style="background-color: black"> 
+<section class="howtoplay"> 
 	<h1 class="text-center">How To Play</h1>
-	<div class="container text-justify">
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 	
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="container">
+		<div class="col-sm-6 htpSteps">
+			<h1 class="text-center">Step 1</h1>
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"></div>
+				<div class="panel-body"><img src="/img/htp_table.png" class="img-responsive" id="itemsImages" alt="Image"></div>
+				<div class="panel-footer">After selecting a football game to participate in, a 10x10 table will appear with the available and unavailable squares. The table is listed 0-9 going across and down the table.</div>
+			</div>
+		</div>
 	
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		
-		<div class="text-center">
-			@if (Auth::check())
-				<a style="color: black" href="/play" class="btn btn-xl getStartedBtn">Play Game</a>
-			@else 
-				<a style="color: black" href="/register" class="btn btn-xl getStartedBtn">Play Game</a>
-			@endif
+		<div class="col-sm-6 htpSteps">
+			<h1 class="text-center">Step 2</h1>
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"></div>
+				<div class="panel-body"><img src="/img/htp_select.png" class="img-responsive" id="itemsImages" alt="Image"></div>
+				<div class="panel-footer">These numbers represent the last digit of each team's score at the end of the game. So if you believe Team 1 will finish with 3<span>5</span> points and Team 2 with 5<span>6</span> points, then you will select the square at column 5 and row 6.</div>
+			</div>
+		</div>
+	
+		<div class="col-sm-6 htpSteps" >
+			<h1 class="text-center">Step 3</h1>
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"></div>
+				<div class="panel-body"><img src="/img/htp_pick.png" class="img-responsive" id="itemsImages" alt="Image"></div>
+				<div class="panel-footer">You will next be asked to confirm your square selection. Once confirmed, your donation of $6 will be added to the game's pool. </div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 htpSteps" >
+			<h1 class="text-center">Step 4</h1>
+			<div class="panel panel-primary">
+				<div class="panel-heading text-center"></div>
+				<div class="panel-body"><img src="/img/htp_pick.png" class="img-responsive" id="itemsImages" alt="Image"></div>
+				<div class="panel-footer">If your selection turns out to be the winning square, you will be notified and the game's total donation pot will be given to the charity of your choice.</div>
+			</div>
+		</div>
+
+		<div class="text-center playBtn">
+			<a @if (Auth::check()) href="/play" @else href="/register" @endif class="btn btn-xl getStartedBtn">Start Playing</a>			
 		</div>
 	</div>
+	
 </section> 
 @stop

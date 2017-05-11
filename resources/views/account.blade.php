@@ -1,17 +1,27 @@
 @extends('layouts.master')
 @section('content')
-<section style="background-color: black">
-	<h1 class="text-center">Welcome, {{ $user->first_name }} {{ $user->last_name }}</h1>
-	<div class="container text-center">
-	    <a style="color: black" href="/play" class="btn btn-xl">Play Game</a>
-	    <a style="color: black" href="/howtoplay" class="btn btn-xl">How To Play</a>
-	</div>
-</section>
 
-<section style="background-color: black" class="text-center">
-	<h1 class="text-center">Your Account Info</h1>
-	<h3>Full Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
-	<h3>Username: {{Auth::user()->username}}</h3>
-	<h3>Email: {{Auth::user()->email}}</h3>
-</section>
+    <!-- Header -->
+    <header class="welcome">
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in" style="margin-bottom: 10px">Hello, <span>{{ $user->first_name }} {{ $user->last_name }}</span></div>
+                <div class="intro-heading" style="margin-bottom: 0px">Welcome to your account page!</div>
+                <div class="intro-paragraph box_textshadow">Start playing right away or give yourself a refresher on how to play. <p>Additionally, you can find your current account information and may update it if you would like.</div>
+                <div class="intro-heading" style="margin-bottom: 10px">
+                	<a style="color: black" href="/play" class="btn btn-xl">Play Game</a>
+	    			<a style="color: black" href="/howtoplay" class="btn btn-xl">How To Play</a>
+	    		</div>
+            </div>
+        </div>
+    </header>
+
+	<section style="background-color: black;color: white" class="text-center">
+		<h1 class="text-center">Your Account Info</h1>
+		<h3>Full Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
+		<h3>Username: {{Auth::user()->username}}</h3>
+		<h3>Email: {{Auth::user()->email}}</h3>
+		<a style="color: black" href="#" class="btn btn-xl">Update Info</a>
+	</section>
+	
 @stop
