@@ -89,6 +89,18 @@ class SelectionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $selections = Selection::find($id);
+
+        if (!$selections) {
+            Selection::error();
+            abort(404);
+        }
+
+        $selections->delete();
+
+        $request->session()->flash('successMessage', 'Selection deleted successfully');
+
+        return view('playGame');
+
     }
 }
