@@ -26,7 +26,7 @@ class SelectionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('playGame');
     }
 
     /**
