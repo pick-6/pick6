@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Games;
 
 class GamesController extends Controller
 {
@@ -16,8 +17,10 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games = Game::paginate(4);
-        return view('games.index')->with('games', $games);
+        $games = Games::get();
+
+
+        return view('games')->with('games', $games);
     }
 
     /**
