@@ -12,8 +12,16 @@ class Games extends Model
 
     public function getWinningScore() {
     	
-    	settype($this->away_score, 'string');
-    	settype($this->home_score, 'string');
+    	$homeScore = settype($this->home_score, 'string');
+    	$awayScore = settype($this->away_score, 'string');
+
+    	$homeScoreArray = str_split($homeScore);
+    	$homeScoreDigit = array_pop($homeScoreArray);
+
+    	$awayScoreArray = str_split($awayScore);
+    	$awayScoreDigit = array_pop($awayScoreArray);
+
+    	$winningScore = intval($homeScoreDigit . $awayScoreDigit);
 
     	// if ( === ) {
     	// 	return true;
