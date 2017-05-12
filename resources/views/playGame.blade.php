@@ -9,45 +9,37 @@
     <h1 class="gameSteps">Step 1:</h1>
         <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Choose A Game <span class="caret"></span></button>
         <ul class="dropdown-menu scrollable-menu">
-            <li><a class="page-scroll" href="#page-scroll">Game 1: Cowboys vs. Redskins</a></li>
-            <li><a href="#">Game 2: Eagles vs. Giants</a></li>
-            <li><a href="#">Game 3: Jets vs. Patriots</a></li>
-            <li><a href="#">Game 4: Cowboys vs. Redskins</a></li>
-            <li><a href="#">Game 5: Eagles vs. Giants</a></li>
-            <li><a href="#">Game 6: Jets vs. Patriots</a></li>
-            <li><a href="#">Game 7: Cowboys vs. Redskins</a></li>
-            <li><a href="#">Game 8: Eagles vs. Giants</a></li>
-            <li><a href="#">Game 9: Jets vs. Patriots</a></li>
-            <li><a href="#">Game 10: Cowboys vs. Redskins</a></li>
-            <li><a href="#">Game 11: Eagles vs. Giants</a></li>
-            <li><a href="#">Game 12: Jets vs. Patriots</a></li>
-            <li><a href="#">Game 13: Cowboys vs. Redskins</a></li>
-            <li><a href="#">Game 14: Eagles vs. Giants</a></li>
-            <li><a href="#">Game 15: Jets vs. Patriots</a></li>
-            <li><a href="#">Game 16: Jets vs. Patriots</a></li>
+            @foreach ($games as $game)
+                <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="#page-scroll">Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
+            @endforeach
         </ul>
     </div>
 
+<div id="page-scroll">
+<!-- User's Game Selection Test-->
+<input type="button" name="game_id" class="game_id" value="" style="color: red">
 
+@foreach ($games as $game) 
+@if ($game->id == 13)
     <!-- PICK A SQUARE -->
-    <div class="col-md-12 text-center pickSquare" id="page-scroll">
+    <div class="col-md-12 text-center pickSquare" >
     <h1 class="gameSteps">Step 2:</h1>
         <h3>Pick A Square From The Table Below</h3>
         <p>(Remember that the numbers represent the last digit of the final score for each team)</p>
     </div>
 
-
-    <!-- TEAM 1 NAME -->
-    <div class="col-md-12 homeTeamName">
-        <h1 class="text-center">Team 1</h1>
-    </div>
-
-    <!-- TEAM 2 NAME -->
-    <div class="col-md-2">  
-        <h1 class="text-center awayTeamName">Team 2</h1> 
-        <!-- <h1 class="text-center" style="color: white">Team 2</h1> -->
-    </div>
-
+    
+        <!-- TEAM 1 NAME -->
+        <div class="col-md-12 homeTeamName">
+            <h1 class="text-center">{{$game->home}}</h1>
+        </div>
+    
+        <!-- TEAM 2 NAME -->
+        <div class="col-md-2">  
+            <h1 class="text-center awayTeamName">{{$game->away}}</h1>
+            <!-- <h1 class="text-center" style="color: white">Team 2</h1> -->
+        </div>
+   
 
     <!-- SQUARES GAME TABLE -->
     <div class="table-responsive container col-md-8">
@@ -69,7 +61,9 @@
             @endfor
         </table>
     </div>
-
+    @endif
+    @endforeach
+</div>
 
     <!-- Picking A Square Modal -->
     <div id="pickSquare" class="modal fade" role="dialog">
