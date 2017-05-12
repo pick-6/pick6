@@ -22,3 +22,9 @@ class Selections extends Model
     }
   }
 }
+
+
+//Zac's code
+    // public function isWinner() {
+        
+    // }
