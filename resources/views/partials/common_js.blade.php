@@ -30,4 +30,10 @@
     	$(".hscore").val(hscore);
     	$(".ascore").val(ascore);
 	});
+
+	// Users Game Selection
+	$('.gameSelection').on('click', function(e) {
+    	var game_id = $(this).data('id');
+    	$(".game_id").val(game_id);
+	});
 </script> 
