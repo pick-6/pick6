@@ -1,13 +1,13 @@
 @extends('layouts.master')
 @section('content')
 
-<section class="playGamePage">
-    <div class="container">
+<section style="background-color: black">
+    <div class="container" >
     
         <!-- PICK A SQUARE -->
-        <div class="col-md-12 text-center pickSquare" >
+        <div class="col-md-12 text-center">
             <h1 class="gameSteps">Step 2:</h1>
-            <h3>Pick A Square From The Table Below</h3>
+            <h3 class="gameSteps">Pick A Square From The Table Below</h3>
             <p>(Remember that the numbers represent the last digit of the final score for each team)</p>
         </div>
     
