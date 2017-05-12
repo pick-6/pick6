@@ -41,16 +41,16 @@ class GamesController extends Controller
      */
     public function store(Request $request)
     {
-        $games = new Game();
-        $games->home = $request->home;
-        $games->away = $request->away;
-        $games->home_score = $request->home_score;
-        $games->away_score = $request->away_score;
+        // $games = new Game();
+        // $games->home = $request->home;
+        // $games->away = $request->away;
+        // $games->home_score = $request->home_score;
+        // $games->away_score = $request->away_score;
         
-        $games->save();
-        $request->session()->flash('successMessage', 'Post saved successfully');
+        // $games->save();
+        // $request->session()->flash('successMessage', 'Post saved successfully');
         
-        return redirect()->action('gamessController@show', $games->id);
+        // return redirect()->action('gamessController@show', $games->id);
     }
 
     /**
@@ -61,12 +61,12 @@ class GamesController extends Controller
      */
     public function show($id)
     {
-        $games = Game::find($id);
+        // $games = Game::find($id);
 
-        if(!$games) {
-            Log::info("Game with ID $id cannot be found");
-            $request->session()->flash('errorMessage', 'Post not found');
-            abort(404);
+        // if(!$games) {
+        //     Log::info("Game with ID $id cannot be found");
+        //     $request->session()->flash('errorMessage', 'Post not found');
+        //     abort(404);
 
     }
 
@@ -78,12 +78,12 @@ class GamesController extends Controller
      */
     public function edit($id)
     {
-        $games = Game::find($id);
+        // $games = Game::find($id);
         
-        if(!$games) {
-            Session::flash("errorMessage", "Game not found");
-        }
-        return view('games.edit')->with('games', $games);   
+        // if(!$games) {
+        //     Session::flash("errorMessage", "Game not found");
+        // }
+        // return view('games.edit')->with('games', $games);   
     }
 
     /**
@@ -95,20 +95,20 @@ class GamesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $games = Game::find($id);
+        // $games = Game::find($id);
         
-        if(!$games) {
-            Session::flash("errorMessage", "games not found");
-            return redirect()->action("GamesController@index");
-        }
+        // if(!$games) {
+        //     Session::flash("errorMessage", "games not found");
+        //     return redirect()->action("GamesController@index");
+        // }
         
-        $games->home = $request->home;
-        $games->away = $request->away;
-        $games->home_score = $request->home_score;
-        $games->away_score = $request->away_score;
+        // $games->home = $request->home;
+        // $games->away = $request->away;
+        // $games->home_score = $request->home_score;
+        // $games->away_score = $request->away_score;
         
-        $games->save();
-        return view('games.show')->with('games', $games);
+        // $games->save();
+        // return view('games.show')->with('games', $games);
     }
 
     /**
@@ -119,12 +119,12 @@ class GamesController extends Controller
      */
     public function destroy($id)
     {
-       $games = Game::find($id);
-        if(!$games) {
-            Session::flash('errorMessage', "Post not found");
-            return redirect()->action('GamesController@index');
-        }
-        $games->delete();
-        return redirect()->action('GamesController@index');
+       // $games = Game::find($id);
+       //  if(!$games) {
+       //      Session::flash('errorMessage', "Post not found");
+       //      return redirect()->action('GamesController@index');
+       //  }
+       //  $games->delete();
+       //  return redirect()->action('GamesController@index');
     }
 }
