@@ -39,6 +39,10 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+Route::get('/feed', function () {
+    return view('partials.feed');
+});
+
 //Logging in and out
 
 Route::get('/login', 'Auth\AuthController@getLogin');
