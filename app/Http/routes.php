@@ -75,4 +75,5 @@ Route::resource('charities', 'CharitiesController');
 
 Route::resource('selections', 'SelectionsController');
 
-Route::resource('playGame', 'GamesController')
+Route::resource('play', 'GamesController');
+
