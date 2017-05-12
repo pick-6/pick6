@@ -18,8 +18,6 @@ class GamesController extends Controller
     public function index()
     {
         $games = Games::get();
-
-
         return view('playGame')->with('games', $games);
     }
 
@@ -30,7 +28,7 @@ class GamesController extends Controller
      */
     public function create()
     {
-        return view('games.create');
+        //
     }
 
     /**
@@ -59,15 +57,15 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        // $games = Game::find($id);
+        $game = Games::find($id);
 
-        // if(!$games) {
-        //     Log::info("Game with ID $id cannot be found");
-        //     $request->session()->flash('errorMessage', 'Post not found');
-        //     abort(404);
-
+        if(!$game) {
+            abort(404);
+        }
+        
+        return view('showGame')->with('game', $game);
     }
 
     /**
