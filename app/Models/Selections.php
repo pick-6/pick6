@@ -9,22 +9,12 @@ class Selections extends Model
     protected $table = 'selections';
     public $timestamps = false;
 
-	// public function declareWinnner(){
-    
- //    $winner = Games::winning_selection;
-
- //    if ($this->square_selection === $winner) {
- //    	//send all of money to charity of choice.
- //    	sum(Selections::amount)
- //    	//send text message that you won and the money is going to x charity
- //    } else {
- //   		//send message that you lost 
- //    }
- //  }
+    public function isWinner() {
+	    $theGameForThisSelection = Game::find($this->game_id);	
+	    if ($this->score_selection == $theGameForThisSelection->getWinningScore() {
+	    	return true;
+	    }	else {
+	    	return false;
+	    }
+	}
 }
-
-
-//Zac's code
-    // public function isWinner() {
-        
-    // }
