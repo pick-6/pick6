@@ -22,12 +22,12 @@ Route::get('/home', function () {
 });
 
 // Play Game
-Route::get('/play', function () {
-	if (!Auth::check()) {
-		return redirect('/login');
-	}
-    return view('playGame');
-});
+// Route::get('/play', function () {
+	// if (!Auth::check()) {
+	// 	return redirect('/login');
+	// }
+//     return view('playGame');
+// });
 
 // How To Play
 Route::get('/howtoplay', function () {
@@ -74,3 +74,6 @@ Route::resource('users', 'UsersController');
 Route::resource('charities', 'CharitiesController');
 
 Route::resource('selections', 'SelectionsController');
+
+Route::resource('play', 'GamesController');
+
