@@ -21,14 +21,6 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
-// Play Game
-// Route::get('/play', function () {
-	// if (!Auth::check()) {
-	// 	return redirect('/login');
-	// }
-//     return view('playGame');
-// });
-
 // How To Play
 Route::get('/howtoplay', function () {
     return view('howtoplay');
@@ -67,13 +59,8 @@ Route::get('/account', 'AccountController@show');
 
 // Resource routing
 
-Route::resource('bets', 'BetsController');
-
-Route::resource('users', 'UsersController');
-
 Route::resource('charities', 'CharitiesController');
 
 Route::resource('selections', 'SelectionsController');
 
 Route::resource('play', 'GamesController');
-
