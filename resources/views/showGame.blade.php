@@ -3,7 +3,13 @@
 
 <section style="background-color: black">
     <div class="container" >
-    
+
+        <!-- Message user that their square selection has been saved successfully  -->
+        @if (Session::has('successMessage'))
+            <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
+        @endif
+
+
         <!-- PICK A SQUARE -->
         <div class="col-md-12 text-center">
             <h1 class="gameSteps">Step 2:</h1>
