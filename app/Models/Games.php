@@ -15,10 +15,10 @@ class Games extends Model
     	settype($this->away_score, 'string');
     	settype($this->home_score, 'string');
 
-    	if ( === ) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+    	// if ( === ) {
+    	// 	return true;
+    	// } else {
+    	// 	return false;
+    	// }
     }
 }
