@@ -20,7 +20,7 @@ class GamesController extends Controller
         $games = Games::get();
 
 
-        return view('games')->with('games', $games);
+        return view('playGame')->with('games', $games);
     }
 
     /**
