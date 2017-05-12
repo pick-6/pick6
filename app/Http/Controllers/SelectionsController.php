@@ -45,7 +45,8 @@ class SelectionsController extends Controller
         $selections->square_selection = intval(strval($request->hscore).strval($request->ascore));
         
         $selections->save();
-        $request->session()->flash('successMessage', 'Square selected');
+        $request->session()->flash('successMessage', 'Thank you for your donation. Your square selection has been saved successfully. You may pick another square if you\'d like.');
+        return redirect()->action('GamesController@show', $selections->game_id);
 
     }
 
