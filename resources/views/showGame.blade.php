@@ -18,37 +18,43 @@
         </div>
     
         
-        <!-- TEAM 1 NAME -->
+        <!-- HOME TEAM NAME -->
         <div class="col-md-12 homeTeamName">
             <h1 class="text-center">{{$game->home}}</h1>
         </div>
     
-        <!-- TEAM 2 NAME -->
+        <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
         <div class="col-md-2">  
-            <h1 class="text-center awayTeamName">{{$game->away}}</h1>
-            <!-- <h1 class="text-center" style="color: white">Team 2</h1> -->
+            <h1 class="text-center awayTeamNameDesktop">{{$game->away}}</h1>
         </div>
-    
     
         <!-- SQUARES GAME TABLE -->
         <div class="table-responsive container col-md-8">
             <table class="table table-bordered">
                 <tr>
                     <th style="border-color: black"></th>
+                    <!-- Creates numbers 0-9 going across -->
                     @for ($column = 0; $column < 10; $column++)
                         <th style="border-color: black">{{$column}}</th>
                     @endfor
                 </tr>
     
+                <!-- Creates numbers 0-9 going down -->
                 @for ($row = 0; $row < 10; $row++)
                     <tr>
                         <th style="border-color: black">{{$row}}</th>
+                        <!-- Creates all 100 squares on the table -->
                         @for ($column = 0; $column < 10; $column++)
                             <td href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
                         @endfor
                     </tr>
                 @endfor
             </table>
+        </div>
+
+        <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
+        <div class="col-md-2 awayTeamName">  
+            <h1 class="text-center">{{$game->away}}</h1>
         </div>
 
         <!-- CHOOSE ANOTHER GAME OPTION -->
@@ -62,7 +68,6 @@
     <!-- Picking A Square Modal -->
     <div id="pickSquare" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
