@@ -50,7 +50,12 @@
                 @endfor
             </table>
         </div>
-        
+
+        <!-- CHOOSE ANOTHER GAME OPTION -->
+        <div class="text-center">
+            <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
+        </div>
+
     </div>
 </section>
 
@@ -74,8 +79,8 @@
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4>Your Pick</h4>
-                                <p>Team 1 score will end with <input type="button" name="hscore" class="hscore" value=""></p>
-                                <p>Team 2 score will end with <input type="button" name="ascore" class="ascore" value=""></p>
+                                <p>{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore" value=""></p>
+                                <p>{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore" value=""></p>
                             </div>
                         </div>
                         <div class="modal-footer">
