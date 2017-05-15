@@ -65,11 +65,21 @@ class GamesController extends Controller
     {
         $game = Games::find($id);
 
+        $thisGameSelections = [];
+
+        $squaresSelected = Selections::where('game_id', '=', $id)->get();
+
+        foreach ($squaresSelected as $squareSelected) {
+            $squareStringSelected = "$squareSelected";
+            array_push($thisGameSelections, $squareStringSelected);
+        }
+
+
         if(!$game) {
             abort(404);
         }
         
-        return view('showGame')->with('game', $game);
+        return view('showGame')->with(compact('game', 'thisGameSelections'));
     }
 
     /**
