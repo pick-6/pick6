@@ -1,15 +1,15 @@
 @extends('layouts.master')
 @section('content') 
-<section style="background-color: black">	
-	<h1 class="text-center">Charities</h1>
-	<div class="container">
+<section class="charitiesPage">	
+	<h1 class="text-center">All Charities</h1>
+	<div class="container table-responsive">
 		<table class="table table-bordered">
 			<tr>
 				<th>Name</th>
-				<th>Wesbite</th>
+				<th>Website</th>
 				<th>Description</th>
-		</tr>
-				@foreach ($charities as $charity)
+			</tr>
+			@foreach ($charities as $charity)
 				<tr>
 					<td>{{ $charity->name }}</td>
 					<td><a href="http://{{ $charity->website }}" target="_blank">{{ $charity->website }}</a></td>
