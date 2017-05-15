@@ -162,10 +162,12 @@ header .intro-text .intro-heading {
 }
 
 .awayTeamName {
+	display: block;
 	color: white;
-	float: left;
-	transform: rotate(-90deg);
-	transform-origin: right bottom 0;
+}
+
+.awayTeamNameDesktop {
+	display: none;
 }
 
 table {
@@ -299,6 +301,18 @@ header .intro-text .intro-heading {
 .scrollable-menu {
 	margin-left: 33%;
     width: 35%; 
+}
+
+.awayTeamName {
+	display: none;
+}
+
+.awayTeamNameDesktop {
+	display: block;
+	color: white;
+	float: left;
+	transform: rotate(-90deg);
+	transform-origin: right bottom 0;
 }
 
 }
