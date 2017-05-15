@@ -21,6 +21,10 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 // How To Play
 Route::get('/howtoplay', function () {
     return view('howtoplay');
