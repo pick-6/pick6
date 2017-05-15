@@ -37,7 +37,7 @@
                         <i class="fa fa-usd fa-stack-1x fa-inverse icons"></i>
                     </span>
                     <h4 class="service-heading"><em>Step 2:</em></h4>
-                    <p class="text-muted">Decide the amount you wish to donate to the charity pool. ($5, $10, $20 or more per square.)</p>
+                    <p class="text-muted">Decide the amount you wish to donate to the charity pool. ($6, $10, $20 or more per square.)</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">

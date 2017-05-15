@@ -3,7 +3,8 @@
     <div class="container">
         <div class="row">
             <p class="footer-links">
-                <a href="/home">Home</a>
+
+                <a href="/about">About</a>
                 
                 <a href="/howtoplay">How To Play</a>
                 
