@@ -46,7 +46,11 @@
                         <th style="border-color: black">{{$row}}</th>
                         <!-- Creates all 100 squares on the table -->
                         @for ($column = 0; $column < 10; $column++)
-                            <td href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
+                            @if (in_array("$column$row", $thisGameSelections))
+                                <td style="background-color: red"></td>
+                            @else
+                                <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
+                            @endif
                         @endfor
                     </tr>
                 @endfor
