@@ -16,11 +16,11 @@
 
 <!-- Square selection -->
 <script type="text/javascript">
-	$('td').mouseover(function(){
+	$('.availableSquare').mouseover(function(){
 		$(this).css('background-color','#222');
 	});
 
-	$('td').mouseout(function(){
+	$('.availableSquare').mouseout(function(){
 		$(this).css('background-color','#333');
 	});
 
