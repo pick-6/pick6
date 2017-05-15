@@ -1,8 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-<section style="background-color: black">
-    <div class="container" >
+<section class="showGamePage">
+    <div class="container">
 
         <!-- Message user that their square selection has been saved successfully  -->
         @if (Session::has('successMessage'))
@@ -18,31 +18,33 @@
         </div>
     
         
-        <!-- TEAM 1 NAME -->
+        <!-- HOME TEAM NAME -->
         <div class="col-md-12 homeTeamName">
             <h1 class="text-center">{{$game->home}}</h1>
+            <p class="text-center">(Top of the table)</p>
         </div>
     
-        <!-- TEAM 2 NAME -->
+        <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
         <div class="col-md-2">  
-            <h1 class="text-center awayTeamName">{{$game->away}}</h1>
-            <!-- <h1 class="text-center" style="color: white">Team 2</h1> -->
+            <h1 class="text-center awayTeamNameDesktop">{{$game->away}}</h1>
         </div>
-    
     
         <!-- SQUARES GAME TABLE -->
         <div class="table-responsive container col-md-8">
             <table class="table table-bordered">
                 <tr>
                     <th style="border-color: black"></th>
+                    <!-- Creates numbers 0-9 going across -->
                     @for ($column = 0; $column < 10; $column++)
                         <th style="border-color: black">{{$column}}</th>
                     @endfor
                 </tr>
     
+                <!-- Creates numbers 0-9 going down -->
                 @for ($row = 0; $row < 10; $row++)
                     <tr>
                         <th style="border-color: black">{{$row}}</th>
+                        <!-- Creates all 100 squares on the table -->
                         @for ($column = 0; $column < 10; $column++)
                             <td href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
                         @endfor
@@ -50,18 +52,28 @@
                 @endfor
             </table>
         </div>
-        
+
+        <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
+        <div class="col-md-2 awayTeamName">  
+            <h1 class="text-center">{{$game->away}}</h1>
+            <p class="text-center">(Left side of the table)</p>
+        </div>
+
+        <!-- CHOOSE ANOTHER GAME OPTION -->
+        <div class="text-center anotherGameBtn">
+            <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
+        </div>
+
     </div>
 </section>
 
     <!-- Picking A Square Modal -->
-    <div id="pickSquare" class="modal fade" role="dialog">
+    <div id="pickSquare" class="modal fade pickSquareModal" role="dialog">
         <div class="modal-dialog">
-            <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Picking A Square</h4>
+                    <h4 class="modal-title text-center">Picking A Square</h4>
                 </div>
                 <div class="modal-body">
                     <form  method="POST" action="{{ action('SelectionsController@store') }}"> 
@@ -73,9 +85,9 @@
                             <input type=hidden name="ascore" value="" class="ascore">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
-                                <h4>Your Pick</h4>
-                                <p>Team 1 score will end with <input type="button" name="hscore" class="hscore" value=""></p>
-                                <p>Team 2 score will end with <input type="button" name="ascore" class="ascore" value=""></p>
+                                <h4 class="text-center">Your Pick</h4>
+                                <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: white;border-color: white"></p>
+                                <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: white;border-color: white"></p>
                             </div>
                         </div>
                         <div class="modal-footer">
