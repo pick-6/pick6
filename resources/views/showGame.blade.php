@@ -1,8 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-<section style="background-color: black">
-    <div class="container" >
+<section class="showGamePage">
+    <div class="container">
 
         <!-- Message user that their square selection has been saved successfully  -->
         @if (Session::has('successMessage'))
@@ -21,6 +21,7 @@
         <!-- HOME TEAM NAME -->
         <div class="col-md-12 homeTeamName">
             <h1 class="text-center">{{$game->home}}</h1>
+            <p class="text-center">(Top of the table)</p>
         </div>
     
         <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
@@ -55,10 +56,11 @@
         <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
         <div class="col-md-2 awayTeamName">  
             <h1 class="text-center">{{$game->away}}</h1>
+            <p class="text-center">(Left side of the table)</p>
         </div>
 
         <!-- CHOOSE ANOTHER GAME OPTION -->
-        <div class="text-center">
+        <div class="text-center anotherGameBtn">
             <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
         </div>
 
@@ -66,12 +68,12 @@
 </section>
 
     <!-- Picking A Square Modal -->
-    <div id="pickSquare" class="modal fade" role="dialog">
+    <div id="pickSquare" class="modal fade pickSquareModal" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Picking A Square</h4>
+                    <h4 class="modal-title text-center">Picking A Square</h4>
                 </div>
                 <div class="modal-body">
                     <form  method="POST" action="{{ action('SelectionsController@store') }}"> 
@@ -83,9 +85,9 @@
                             <input type=hidden name="ascore" value="" class="ascore">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
-                                <h4>Your Pick</h4>
-                                <p>{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore" value=""></p>
-                                <p>{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore" value=""></p>
+                                <h4 class="text-center">Your Pick</h4>
+                                <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: white;border-color: white"></p>
+                                <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: white;border-color: white"></p>
                             </div>
                         </div>
                         <div class="modal-footer">
