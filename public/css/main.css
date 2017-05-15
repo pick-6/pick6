@@ -115,10 +115,18 @@ header .intro-text .intro-heading {
 	margin-top: 5%; 
 	color: black;
 }
+/*ALL CHARITIES PAGE*/
+.charitiesPage {
+	background-color: black;
+}
+
+.charitiesPage h1 {
+	color: white;
+}
 
 
 /******** PLAY GAME PAGE **********/
-.playGamePage {
+.playGamePage, .showGamePage {
 	background-color: black;
 }
 
@@ -126,21 +134,20 @@ header .intro-text .intro-heading {
 	color: white;
 }
 
-.gameBtn {
+.btn-xl:hover, .open .dropdown-toggle.btn-xl, .gameBtn {
 	color: black;
-}
-.btn-xl:hover, .open .dropdown-toggle.btn-xl {
-	color: black;
-}
-
-.dropdown-menu {
-	margin-left: 39%;
 }
 
 .scrollable-menu {
     height: auto;
     max-height: 125px;
-    overflow-x: hidden;
+    overflow-x: scroll;
+    width: 100%; 
+}
+
+.dropdown-menu>li>a:hover{
+	color: #FEC503;
+	background-color: black;
 }
 
 .pickSquare {
@@ -153,17 +160,33 @@ header .intro-text .intro-heading {
 
 .homeTeamName {
 	clear: both;
+	margin-top: 10%;
 }
 
 .homeTeamName h1 {
 	color: white;
+	margin-bottom: 0px;
 }
 
 .awayTeamName {
+	display: block;
 	color: white;
-	float: left;
-	transform: rotate(-90deg);
-	transform-origin: right bottom 0;
+}
+
+.awayTeamName h1 {
+	margin: 0px;
+}
+
+.awayTeamNameDesktop {
+	display: none;
+}
+
+.anotherGameBtn {
+	margin-top: 10%;
+}
+
+.pickSquareModal {
+	margin-top: 15%;
 }
 
 table {
@@ -223,7 +246,13 @@ th {
 	margin-top: 5%;
 }
 
-
+/************* ACCOUNT PAGE *************/
+.btn-lg{
+	background-color: #FEC503;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+	border-radius: 3px;
+}
 
 
 /****** TABLET STYLES ******/
@@ -262,6 +291,11 @@ header .intro-text .intro-heading {
 	margin-bottom: 0px;
 }
 
+.scrollable-menu {
+	margin-left: 20%;
+    width: 60%; 
+}
+
 }
 
 
@@ -288,6 +322,30 @@ header .intro-text .intro-lead-in {
 header .intro-text .intro-heading {
 	font-size: 4em;
 	margin-bottom: 25px;
+}
+.scrollable-menu {
+	margin-left: 33%;
+    width: 35%; 
+}
+
+.homeTeamName {
+	margin-top: 5%;
+}
+
+.awayTeamName {
+	display: none;
+}
+
+.awayTeamNameDesktop {
+	display: block;
+	color: white;
+	float: left;
+	transform: rotate(-90deg);
+	transform-origin: right bottom 0; 
+}
+
+.anotherGameBtn {
+	margin-top: 68%;
 }
 
 }
