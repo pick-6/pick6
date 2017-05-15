@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Games;
+use App\Models\Selections;
 
 class GamesController extends Controller
 {
@@ -67,12 +68,12 @@ class GamesController extends Controller
 
         $thisGameSelections = [];
 
+        // $squaresSelected = Selections::where('game_id', '=', $id)->pluck('square_selection');
         $squaresSelected = Selections::where('game_id', '=', $id)->get();
-
         foreach ($squaresSelected as $squareSelected) {
-            $squareStringSelected = "$squareSelected";
-            array_push($thisGameSelections, $squareStringSelected);
+            $thisGameSelections[] =  "$squareSelected->square_selection";
         }
+        // dd($thisGameSelections);
 
 
         if(!$game) {
