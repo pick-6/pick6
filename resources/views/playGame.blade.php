@@ -8,7 +8,22 @@
             <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Choose A Game <span class="caret"></span></button>
             <ul class="dropdown-menu scrollable-menu">
                 @foreach ($games as $game)
-                    <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="{{action('GamesController@show', [$game->id])}}">Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
+                    <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="{{action('GamesController@show', [$game->id])}}">Week {{$game->week}} - Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+
+        <!-- OR -->
+        <div class="text-center">
+            <h2 style="color: white;margin-top: 5%">OR</h2>
+        </div>
+
+        <!-- SEE PAST GAMES -->
+        <div class="dropdown text-center" style="margin-top: 5%">
+            <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">See Past Game Results <span class="caret"></span></button>
+            <ul class="dropdown-menu scrollable-menu">
+                @foreach ($games as $game) <!-- PREVIOUSLY PLAYED GAMES GO HERE -->
+                    <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="{{action('GamesController@show', [$game->id])}}">Week {{$game->week}} - Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
                 @endforeach
             </ul>
         </div>
