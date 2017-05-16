@@ -1,46 +1,54 @@
 html {
-	background-color: black;
+    background-color: black;
+}
+
+section {
+    background-color: black;
+}
+
+.loginSignupPage {
+    background-color: #333333; color: #FED136;
 }
 
 /****** NAVBAR ******/
 .nav {
-	text-align: center;
+    text-align: center;
 }
 
 .menuTextColor {
-	color: black;
+    color: black;
 }
 
 #logoName {
-	padding-right: 5px;
-	font-size: 3em;
-	font-family: 'Graduate', cursive;
+    padding-right: 5px;
+    font-size: 3em;
+    font-family: 'Graduate', cursive;
 }
 
 .logoImage {
-	width: 3em;
-	height: 3em;
-	float: left;
-	margin-top: 3px;
+    width: 3em;
+    height: 3em;
+    float: left;
+    margin-top: 3px;
 }
 
 /****** FOOTER ******/
 footer {
-	background-color: #222;
-	font-family: 'Montserrat', sans-serif;
+    background-color: #222;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-links a{
-	padding: 10px;
+    padding: 10px;
 }
 
 .copyright {
-	color: #FEC503;
+    color: #FEC503;
 }
 
 .copyright a {
-	color: #FEC503;
-	text-decoration: underline;
+    color: #FEC503;
+    text-decoration: underline;
 }
 
 
@@ -48,94 +56,94 @@ footer {
 /************** HOMEPAGE **************/
 /*HEADER*/
 .welcome {
-	background-image: url(../img/field_lights.jpg);
+    background-image: url(../img/field_lights.jpg);
 }
 
 header .intro-text .intro-lead-in {
-	font-size: 2em;
+    font-size: 2em;
 }
 
 header .intro-text .intro-heading {
-	font-size: 1.75em;
+    font-size: 1.75em;
 }
 
 .box_textshadow {
-	 text-shadow: 2px 2px 2px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+     text-shadow: 2px 2px 2px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 
 .welcome span {
-	color: #FEC503;
+    color: #FEC503;
 }
 
 /*HOW IT WORKS*/
 .howItWorks {
-	background-color: black;
-	color: white;
-	padding-top: 5%;
+    background-color: black;
+    color: white;
+    padding-top: 5%;
 }
 
 .howItWorks .section-heading {
-	font-size: 2.5em
+    font-size: 2.5em
 }
 
 .howItWorks .section-subheading {
-	display: none;
+    display: none;
 }
 
 .howItWorks .icons {
-	color: black;
+    color: black;
 }
 
 .howItWorks .getStartedBtn {
-	margin-top: 5%; 
-	color: black;
+    margin-top: 5%; 
+    color: black;
 }
 
 /*FEATURED CHARITIES*/
 .featCharities {
-	background-color: #000b14;
-	color: white;
-	padding-top: 5%;
+    background-color: #000b14;
+    color: white;
+    padding-top: 5%;
 }
 
 .featCharities .section-heading {
-	font-size: 2.5em
+    font-size: 2.5em
 }
 
 .featCharities .section-subheading {
-	display: none;
+    display: none;
 }
 
 .featCharities img {
-	height: 200px;
-	width: 100%;
+    height: 200px;
+    width: 100%;
 }
 
 .featCharities .allCharitiesBtn {
-	margin-top: 5%; 
-	color: black;
+    margin-top: 5%; 
+    color: black;
 }
 /*ALL CHARITIES PAGE*/
 .charitiesPage {
-	background-color: black;
+    background-color: black;
 }
 
 .charitiesPage h1 {
-	color: white;
+    color: white;
 }
 
 
 /******** PLAY GAME PAGE **********/
 .playGamePage, .showGamePage {
-	background-color: black;
+    background-color: black;
 }
 
 .gameSteps {
-	color: white;
+    color: white;
 }
 
 .btn-xl:hover, .open .dropdown-toggle.btn-xl, .gameBtn {
-	color: black;
+    color: black;
 }
 
 .scrollable-menu {
@@ -146,112 +154,144 @@ header .intro-text .intro-heading {
 }
 
 .dropdown-menu>li>a:hover{
-	color: #FEC503;
-	background-color: black;
+    color: #FEC503;
+    background-color: black;
 }
 
 .pickSquare {
-	margin-top: 5%;
+    margin-top: 5%;
 }
 
 .pickSquare h3, p {
-	color: white;
+    color: white;
 }
 
 .homeTeamName {
-	clear: both;
-	margin-top: 10%;
+    clear: both;
+    margin-top: 10%;
 }
 
 .homeTeamName h1 {
-	color: white;
-	margin-bottom: 0px;
+    color: white;
+    margin-bottom: 0px;
 }
 
 .awayTeamName {
-	display: block;
-	color: white;
+    display: block;
+    color: white;
 }
 
 .awayTeamName h1 {
-	margin: 0px;
+    margin: 0px;
 }
 
 .awayTeamNameDesktop {
-	display: none;
+    display: none;
 }
 
 .anotherGameBtn {
-	margin-top: 10%;
+    margin-top: 10%;
 }
 
 .pickSquareModal {
-	margin-top: 15%;
+    margin-top: 15%;
 }
 
 table {
-	background-color: #333;
-	color: white;
+    background-color: #333;
+    color: white;
 }
 
 th {
-	background-color: #FEC503;
-	color: black;
+    background-color: #FEC503;
+    color: black;
 }
 
 .userPick p {
-	color: black;
+    color: black;
+}
+
+.donation-container {
+    margin: 20px 0 0 0
+}
+
+.donation-container label.btn-default.active {
+    background-color: #000;
+    color: #FEC503
+}
+
+.donation-container label.btn-default {
+    width: 90%;
+    border: 1px solid #efefef;
+    margin: 5px;
+    box-shadow: 5px 8px 8px 0 #ccc;
+}
+
+.donation-container label .bizcontent {
+    width: 100%;
+}
+
+.donation-container .btn-group {
+    width: 90%
+}
+
+.donation-container .btn span.glyphicon {
+    opacity: 0;
+}
+
+.donation-container .btn.active span.glyphicon {
+    opacity: 1;
 }
 
 
 /********** HOW TO PLAY PAGE *********/
 .howtoplay {
-	background-color: black;
+    background-color: black;
 }
 
 .howtoplay h1 {
-	color: white;
+    color: white;
 }
 
 .htpSteps h1 {
-	color: grey;
+    color: grey;
 }
 
 .htpSteps .panel-primary {
-	background-color: grey;
-	border-color: grey;
+    background-color: grey;
+    border-color: grey;
 }
 
 .htpSteps .panel-heading {
-	background-color: #222;
-	border-color: #222;
+    background-color: #222;
+    border-color: #222;
 }
 
 .htpSteps .panel-footer {
-	color: white;
-	background-color: #222;
-	border-color: #222;
+    color: white;
+    background-color: #222;
+    border-color: #222;
 }
 
 .htpSteps span {
-	color: #FEC503;
+    color: #FEC503;
 }
 
 .howtoplay .playBtn {
-	clear: both;
+    clear: both;
 }
 
 .howtoplay .playBtn a {
-	color: black;
-	margin-top: 5%;
+    color: black;
+    margin-top: 5%;
 }
 
 /************* ACCOUNT PAGE *************/
 .btn-lg{
-	background-color: #FEC503;
-	font-family: 'Montserrat', sans-serif;
-	font-weight: bold;
-	border-radius: 3px;
+    background-color: #FEC503;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    border-radius: 3px;
 }
 
 
@@ -259,40 +299,40 @@ th {
 @media (min-width: 768px){
 
 nav .container {
-	width: 80%;
+    width: 80%;
 }
 
 .nav>li>a {
-	padding: 15px 10px;
+    padding: 15px 10px;
 }
 
 #logoName {
-	font-size: 2em;
+    font-size: 2em;
 }
 
 .logoImage {
-	width: 2em;
-	height: 2em;
-	margin-top: 10px;
+    width: 2em;
+    height: 2em;
+    margin-top: 10px;
 }
 
 header .intro-text {
-	padding-top: 11%;
+    padding-top: 11%;
 }
 
 header .intro-text .intro-lead-in {
-	font-size: 3em;
-	margin-bottom: 0px;
-	margin-top: 1em;
+    font-size: 3em;
+    margin-bottom: 0px;
+    margin-top: 1em;
 }
 
 header .intro-text .intro-heading {
-	font-size: 3em;
-	margin-bottom: 0px;
+    font-size: 3em;
+    margin-bottom: 0px;
 }
 
 .scrollable-menu {
-	margin-left: 20%;
+    margin-left: 20%;
     width: 60%; 
 }
 
@@ -306,46 +346,46 @@ header .intro-text .intro-heading {
 @media (min-width: 992px){
 
 nav .container {
-	width: 60%;
+    width: 60%;
 }
 
 .howItWorks .section-subheading {
-	display: block;
+    display: block;
 }
 
 header .intro-text .intro-lead-in {
-	font-size: 3em;
-	margin-bottom: 25px;
-	margin-top: 0px;
+    font-size: 3em;
+    margin-bottom: 25px;
+    margin-top: 0px;
 }
 
 header .intro-text .intro-heading {
-	font-size: 4em;
-	margin-bottom: 25px;
+    font-size: 4em;
+    margin-bottom: 25px;
 }
 .scrollable-menu {
-	margin-left: 33%;
+    margin-left: 33%;
     width: 35%; 
 }
 
 .homeTeamName {
-	margin-top: 5%;
+    margin-top: 5%;
 }
 
 .awayTeamName {
-	display: none;
+    display: none;
 }
 
 .awayTeamNameDesktop {
-	display: block;
-	color: white;
-	float: left;
-	transform: rotate(-90deg);
-	transform-origin: right bottom 0; 
+    display: block;
+    color: white;
+    float: left;
+    transform: rotate(-90deg);
+    transform-origin: right bottom 0; 
 }
 
 .anotherGameBtn {
-	margin-top: 68%;
+    margin-top: 68%;
 }
 
 }
@@ -354,17 +394,17 @@ header .intro-text .intro-heading {
 @media (min-width: 1200px){
 
 #logoName {
-	font-size: 3em;
+    font-size: 3em;
 }
 
 .logoImage {
-	width: 3em;
-	height: 3em;
-	margin-top: 3px;
+    width: 3em;
+    height: 3em;
+    margin-top: 3px;
 }
 
 header .intro-text {
-	padding-top: 17%;
+    padding-top: 17%;
 }
 
 }
