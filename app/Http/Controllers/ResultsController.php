@@ -7,14 +7,16 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Selections;
+use App\Models\Charities;
+use App\Models\Games;
 
 class ResultsController extends Controller
 {
-    public function showGameWinner()
+    public static function showGameWinner()
     {
-        $gameWinner = 'app/Models/Selections::isWinner()';
-        $totalProceeds = 'app/Models/Charities::getMoney()';
-        return view('gameResults', compact('gameWinner', 'totalProceeds'));
+        // $gameWinner = Selections::isWinner();
+        $totalProceeds = Games::getUserMoneyToDonate();
+        return view('gameResults')->with('totalProceeds', $totalProceeds)->with('gameWinner', true);
     }
 
 }
