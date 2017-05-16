@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\Account;
+use App\Models\Games;
+use App\Models\Selections;
 
 class AccountController extends Controller
 {
@@ -54,8 +57,11 @@ class AccountController extends Controller
 	public function show()
 	{
 		$user = \Auth::user();
+		$games = Games::get();
 
-		return view('account')->with('user', $user);
+		$gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->get();
+		
+		return view('account')->with(compact('user', 'gamesUserIsPlaying', 'games'));
 	}
 
 	/**
