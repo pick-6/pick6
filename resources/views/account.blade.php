@@ -30,7 +30,7 @@
                     <td></td>
                 </tr>
             </table>
-            <a style="color: black" href="/gameResults" class="btn btn-lg">SEE RESULTS</a>
+            <a style="color: black" href="{{action('ResultsController@showGameWinner')}}" class="btn btn-lg">SEE RESULTS</a>
         </div>
     </section>
 
