@@ -1,47 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>We're sorry that your request did not go through.</title>
+@extends('layouts.master')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">This page was not found. We will look into what went wrong.</div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+<section style="background-color: black">	
+<div class="container text-center">
+	<div class="content text-center">
+		<h1 class="text-primary">404 Page Not Found</h1>
+		<img class="img-responsive center-block" src="https://media.giphy.com/media/d1YuSOwMecLrW/giphy.gif" border="0" alt="fumble.gif"/>
+		<br>
+		<a class="btn btn-primary" style="color: black" href="/"><h4>Go back home</h4></a>
+	</div>
+</div>
+</section>
+@stop
