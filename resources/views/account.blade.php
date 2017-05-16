@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <!-- Header -->
+    <!-- Account Page Header -->
     <header class="welcome">
         <div class="container">
             <div class="intro-text">
@@ -16,13 +16,32 @@
         </div>
     </header>
 
-    <section style="background-color: black;color: white" class="text-center accountInfo">
+    <!-- User's Current Picks -->
+    <section class="text-center">
+        <h1 style="color: white">Current Picks</h1>
+        <div class="container">
+            <table class="table table-bordered">
+                <tr>
+                    <th>Game</th>
+                    <th>Selection</th>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <a style="color: black" href="/gameResults" class="btn btn-lg">SEE RESULTS</a>
+        </div>
+    </section>
+
+    <!-- User's Account Information -->
+    <section  class="featCharities text-center accountInfo">
         <div class="container">
             <h1 class="text-center">Your Account Info</h1>
             <h3>Full Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
             <h3>Username: {{Auth::user()->username}}</h3>
             <h3>Email: {{Auth::user()->email}}</h3>
-            <a style="color: black" href="#" class="btn btn-lg">UPDATE INFO</a>
+            <a style="color: black" href="{{action('AccountController@edit')}}" class="btn btn-lg">EDIT INFO</a>
         </div>
     </section>
     
