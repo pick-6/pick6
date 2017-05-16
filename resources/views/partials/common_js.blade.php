@@ -16,18 +16,33 @@
 
 <!-- Square selection -->
 <script type="text/javascript">
-	$('.availableSquare').mouseover(function(){
-		$(this).css('background-color','#222');
-	});
+(function() {
+    "use strict";
 
-	$('.availableSquare').mouseout(function(){
-		$(this).css('background-color','#333');
-	});
+    // changes background-color when hovering over available square
+    $('.availableSquare').mouseover(function(){
+        $(this).css('background-color','#222');
+    });
 
-	$('#pickSquare').on('show.bs.modal', function(e) {
-    	var hscore = $(e.relatedTarget).data('hscore');
-    	var ascore = $(e.relatedTarget).data('ascore');
-    	$(".hscore").val(hscore);
-    	$(".ascore").val(ascore);
-	});
+    $('.availableSquare').mouseout(function(){
+        $(this).css('background-color','#333');
+    });
+
+
+    // to show separate scores on modal
+    $('#pickSquare').on('show.bs.modal', function(e) {
+        var hscore = $(e.relatedTarget).data('hscore');
+        var ascore = $(e.relatedTarget).data('ascore');
+        $(".hscore").val(hscore);
+        $(".ascore").val(ascore);
+    });
+
+
+    // donation selected
+    $('.btn-default').click(function(){
+        $('.btn-default').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+})();
 </script> 
