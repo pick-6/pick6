@@ -99,11 +99,50 @@
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4 class="text-center">Your Pick</h4>
-                                <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: white;border-color: white"></p>
-                                <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: white;border-color: white"></p>
-                                <input type="checkbox" name="amount" value="6">$6
-                                <input type="checkbox" name="amount" value="10">$10
-                                <input type="checkbox" name="amount" value="20">$20
+                                <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
+                                <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
+                                <div class="donation-container">
+                                    <h4 class="text-center">Choose Donation Amount:</h4>
+                                    <div class="items col-xs-4">
+                                        <div class="info-block block-info clearfix">
+                                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                                <label class="btn btn-default active">
+                                                    <div class="bizcontent">
+                                                        <input type="radio" name="amount" autocomplete="off" value="6" checked>
+                                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                                        <h5>$6</h5>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="items col-xs-4">
+                                        <div class="info-block block-info clearfix">
+                                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                                <label class="btn btn-default">
+                                                    <div class="bizcontent">
+                                                        <input type="radio" name="amount" autocomplete="off" value="10">
+                                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                                        <h5>$10</h5>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="items col-xs-4">
+                                        <div class="info-block block-info clearfix">
+                                            <div data-toggle="buttons" class="btn-group bizmoduleselect">
+                                                <label class="btn btn-default">
+                                                    <div class="bizcontent">
+                                                        <input type="radio" name="amount" autocomplete="off" value="20">
+                                                        <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
+                                                        <h5>$20</h5>
+                                                    </div>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
