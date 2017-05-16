@@ -4,6 +4,16 @@
 <section>
 <h1 style="color: white" class="text-center">Sign Up</h1>
 <div class="container">
+
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form method="POST" action="{{action('Auth\AuthController@postRegister')}}">
     {!! csrf_field() !!}
 
