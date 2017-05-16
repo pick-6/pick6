@@ -16,6 +16,7 @@ class CreateGamesTable extends Migration
 		{
 			$table->increments('id');
 			$table->integer('week');
+			$table->date('date_for_week');
 			$table->string('home');
 			$table->string('away');
 			$table->integer('home_score');
