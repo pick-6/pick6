@@ -30,7 +30,7 @@
         </div>
     
         <!-- SQUARES GAME TABLE -->
-        <div class="table-responsive container col-md-8">
+        <div class="container col-md-8">
             <table class="table table-bordered">
                 <tr>
                     <th style="border-color: black"></th>
@@ -63,8 +63,18 @@
             <p class="text-center">(Left side of the table)</p>
         </div>
 
+        <!-- FINISH GAME OPTION -->
+        <div class="text-center anotherGameBtn finishGameBtn">
+            <a href="/gameResults" class="btn btn-xl dropdown-toggle gameBtn" type="button">Finish Current Game</a>
+        </div>
+
+        <!-- OR -->
+        <div class="text-center">
+            <h2 style="color: white">OR</h2>
+        </div>
+
         <!-- CHOOSE ANOTHER GAME OPTION -->
-        <div class="text-center anotherGameBtn">
+        <div class="text-center finishGameBtn">
             <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
         </div>
 
@@ -84,7 +94,6 @@
                         {!! csrf_field() !!}
                             <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
                             <input type=hidden name="game_id" value="{{$game->id}}">
-                            <input type=hidden name="amount" value= "6">
                             <input type=hidden name="hscore" value="" class="hscore">
                             <input type=hidden name="ascore" value="" class="ascore">
                         <div class="row control-group">
@@ -92,6 +101,9 @@
                                 <h4 class="text-center">Your Pick</h4>
                                 <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: white;border-color: white"></p>
                                 <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: white;border-color: white"></p>
+                                <input type="checkbox" name="amount" value="6">$6
+                                <input type="checkbox" name="amount" value="10">$10
+                                <input type="checkbox" name="amount" value="20">$20
                             </div>
                         </div>
                         <div class="modal-footer">
