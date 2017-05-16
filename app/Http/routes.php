@@ -21,8 +21,15 @@ Route::get('/home', function () {
     return view('welcome');
 });
 
+
+// About Us Page
 Route::get('/about', function () {
     return view('about');
+});
+
+// Payment Page
+Route::get('/payment', function () {
+    return view('payment');
 });
 
 // How To Play
