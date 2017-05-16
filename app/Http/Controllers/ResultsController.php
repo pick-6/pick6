@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Selections;
 use App\Models\Charities;
 use App\Models\Games;
+use App\Models\Charity;
+
 
 class ResultsController extends Controller
 {
@@ -16,7 +18,8 @@ class ResultsController extends Controller
     {
         // $gameWinner = Selections::isWinner();
         $totalProceeds = Games::getUserMoneyToDonate();
-        return view('gameResults')->with('totalProceeds', $totalProceeds)->with('gameWinner', true);
+        $charities = Charity::get();
+        return view('gameResults')->with(compact('totalProceeds', 'charities'))->with('gameWinner', true);
     }
 
 }
