@@ -379,9 +379,10 @@ header .intro-text .intro-heading {
 .awayTeamNameDesktop {
     display: block;
     color: white;
-    float: left;
+    text-align: left;
     transform: rotate(-90deg);
-    transform-origin: right bottom 0; 
+    transform-origin: right bottom 0;
+    margin-top: 40% 
 }
 
 .anotherGameBtn {
