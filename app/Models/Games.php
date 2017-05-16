@@ -10,7 +10,7 @@ class Games extends Model
 
     public $timestamps = false;
 
-    public function getWinningScore() {
+    public static function getWinningScore() {
     	
     	$homeScore = strval($this->home_score);
     	$awayScore = strval($this->away_score);
@@ -24,5 +24,20 @@ class Games extends Model
     	$winningScore = intval($homeScoreDigit . $awayScoreDigit);
 
     	return $winningScore;
+    }
+
+    public static function getUserMoneyToDonate() {
+
+        $theWinningCombination = 12;
+
+        // $theWinningCombination = Selections::iswinner(); 
+
+        if ($theWinningCombination) {
+            
+        $totalProceeds = Selections::where('game_id', '=', 1)->sum('amount');
+        
+        return $totalProceeds;
+        
+        }
     }
 }

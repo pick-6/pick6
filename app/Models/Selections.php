@@ -10,7 +10,7 @@ class Selections extends Model
     public $timestamps = false;
 
     public function isWinner() {
-	    $theGameForThisSelection = Game::find($this->game_id);	
+	    $theGameForThisSelection = Games::find($this->game_id);	
 	    if ($this->score_selection == $theGameForThisSelection->getWinningScore()) {
 	    	return true;
 	    }	else {
