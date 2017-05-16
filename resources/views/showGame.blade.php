@@ -65,7 +65,7 @@
 
         <!-- FINISH GAME OPTION -->
         <div class="text-center anotherGameBtn finishGameBtn">
-            <a href="/gameResults" class="btn btn-xl dropdown-toggle gameBtn" type="button">Finish Current Game</a>
+            <a href="/payment" class="btn btn-xl dropdown-toggle gameBtn" type="button">Finish Current Game</a>
         </div>
 
         <!-- OR -->
