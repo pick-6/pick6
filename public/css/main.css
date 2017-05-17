@@ -336,6 +336,10 @@ header .intro-text .intro-heading {
     width: 60%; 
 }
 
+.htpImg {
+    height: 200px;
+}
+
 }
 
 
@@ -363,9 +367,10 @@ header .intro-text .intro-heading {
     font-size: 4em;
     margin-bottom: 25px;
 }
+
 .scrollable-menu {
-    margin-left: 33%;
-    width: 35%; 
+    margin-left: 30%;
+    width: 40%; 
 }
 
 .homeTeamName {
@@ -387,6 +392,10 @@ header .intro-text .intro-heading {
 
 .anotherGameBtn {
     margin-top: 68%;
+}
+
+.htpImg {
+    height: 350px;
 }
 
 }

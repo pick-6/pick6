@@ -11,25 +11,14 @@
 |
 */
 
-// Welcome page
-
+// Welcome/Home page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('welcome');
-});
-
-
 // About Us Page
 Route::get('/about', function () {
     return view('about');
-});
-
-// Payment Page
-Route::get('/payment', function () {
-    return view('payment');
 });
 
 // How To Play
@@ -42,33 +31,17 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
-Route::get('/feed', function () {
-    return view('partials.feed');
+// Payment Page
+Route::get('/payment', function () {
+    return view('payment');
 });
 
-//Logging in and out
+// Results view
+Route::get('/gameResults', 'ResultsController@showGameWinner');
 
-Route::get('/login', 'Auth\AuthController@getLogin');
-
-Route::post('/login', 'Auth\AuthController@postLogin');
-
-Route::get('/logout', 'Auth\AuthController@getLogout');
-
-//Registration routes
-
-Route::get('/register', 'Auth\AuthController@getRegister');
-
-Route::post('/register', 'Auth\AuthController@postRegister');
-
-//get requests for account and account information
-
-Route::get('/account/edit', 'AccountController@edit');
-
-Route::get('/account/info', 'AccountController@info');
-
-Route::get('/account', 'AccountController@show');
 
 // Resource routing
+Route::resource('account', 'AccountController');
 
 Route::resource('charities', 'CharitiesController');
 
@@ -76,6 +49,16 @@ Route::resource('selections', 'SelectionsController');
 
 Route::resource('play', 'GamesController');
 
-// Results view
 
-Route::get('/gameResults', 'ResultsController@showGameWinner');
+//Logging in and out
+Route::get('/login', 'Auth\AuthController@getLogin');
+
+Route::post('/login', 'Auth\AuthController@postLogin');
+
+Route::get('/logout', 'Auth\AuthController@getLogout');
+
+
+//Registration routes
+Route::get('/register', 'Auth\AuthController@getRegister');
+
+Route::post('/register', 'Auth\AuthController@postRegister');

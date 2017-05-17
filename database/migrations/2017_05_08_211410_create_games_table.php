@@ -15,14 +15,16 @@ class CreateGamesTable extends Migration
 		Schema::create('games', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->date('date_for_week');
+			$table->time('time');
 			$table->integer('week');
 			$table->string('home');
 			$table->string('away');
-			$table->integer('home_score');
-			$table->integer('away_score');
-			$table->integer('winning_selection');
-			$table->string('winning_charity');
-			$table->string('winning_user');
+			$table->integer('home_score')->nullable();
+			$table->integer('away_score')->nullable();
+			$table->integer('winning_selection')->nullable();
+			$table->string('winning_charity')->nullable();
+			$table->string('winning_user')->nullable();
 		});
 	}
 
