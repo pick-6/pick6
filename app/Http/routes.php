@@ -37,7 +37,7 @@ Route::get('/payment', function () {
 });
 
 // Results view
-Route::get('/gameResults', 'ResultsController@showGameWinner');
+Route::get('/gameResults/{game}', 'ResultsController@showGameWinner');
 
 
 // Resource routing
