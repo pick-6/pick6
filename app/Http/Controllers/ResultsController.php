@@ -18,8 +18,9 @@ class ResultsController extends Controller
     {
         // $gameWinner = Selections::isWinner();
         $totalProceeds = Games::getUserMoneyToDonate();
+        $sumOfDonations = Games::totalDonationPerGame($id);
         $charities = Charity::get();
-        return view('gameResults')->with(compact('totalProceeds', 'charities'))->with('gameWinner', true);
+        return view('gameResults')->with(compact('totalProceeds', 'charities', 'sumOfDonations'))->with('gameWinner', true);
     }
 
 }

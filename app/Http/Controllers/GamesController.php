@@ -83,7 +83,7 @@ class GamesController extends Controller
             abort(404);
         }
         
-        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets'));
+        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
     }
 
     /**
