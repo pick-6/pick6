@@ -64,9 +64,9 @@
                 <p class="text-center">(Left side of the table)</p>
             </div>
     
-            <!-- FINISH GAME OPTION -->
+            <!-- GO TO PAYMENT OPTION -->
             <div class="text-center anotherGameBtn finishGameBtn">
-                <a href="/payment" class="btn btn-xl dropdown-toggle gameBtn" type="button">Finish Current Game</a>
+                <a href="{{action('SelectionsController@show')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Go To Payment</a>
             </div>
     
             <!-- OR -->
@@ -126,6 +126,7 @@
                                 <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
                                 <div class="donation-container">
                                     <h4 class="text-center">Choose Donation Amount:</h4>
+                                    <p class="text-center">(Your credit card won't be charged until you 'Go To Payment')</p>
                                     <div class="items col-xs-4">
                                         <div class="info-block block-info clearfix">
                                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
