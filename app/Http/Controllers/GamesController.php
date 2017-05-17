@@ -69,8 +69,7 @@ class GamesController extends Controller
 
         $thisGameSelections = [];
 
-        // SELECT users.username FROM users JOIN games ON users.id = games.winning_user
-        $winningSelection = User::select('username')->join('games', 'users.id', '=', 'games.winning_user');
+        $winningSelection = User::select('*')->join('games', 'users.id', '=', 'games.winning_user')->where('games.id', '=', $id)->get();
 
         $squaresSelected = Selections::where('game_id', '=', $id)->get();
         foreach ($squaresSelected as $squareSelected) {
