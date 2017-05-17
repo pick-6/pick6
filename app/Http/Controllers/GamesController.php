@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Games;
 use App\Models\Selections;
+use App\Models\Charity;
 use App\User;
 
 class GamesController extends Controller
@@ -70,6 +71,8 @@ class GamesController extends Controller
         $thisGameSelections = [];
 
         $winningSelection = User::select('*')->join('games', 'users.id', '=', 'games.winning_user')->where('games.id', '=', $id)->get();
+        $winningCharitySelection = Charity::select('*')->join('games', 'charities.id', '=', 'games.winning_charity')->where('games.id', '=', $id)->get();
+        $gameTotalBets = Games::select('*')->where('games.id', '=', $id)->get();
 
         $squaresSelected = Selections::where('game_id', '=', $id)->get();
         foreach ($squaresSelected as $squareSelected) {
@@ -80,7 +83,7 @@ class GamesController extends Controller
             abort(404);
         }
         
-        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection'));
+        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets'));
     }
 
     /**
