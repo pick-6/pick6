@@ -25,6 +25,7 @@ class CreateGamesTable extends Migration
 			$table->integer('winning_selection')->nullable();
 			$table->string('winning_charity')->nullable();
 			$table->integer('winning_user')->nullable();
+			$table->decimal('winning_total', 5, 2)->nullable();
 		});
 	}
 
