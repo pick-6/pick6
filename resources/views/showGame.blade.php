@@ -3,81 +3,104 @@
 
 <section class="showGamePage">
     <div class="container">
+        @if ($game->date_for_week > date('Y-m-d')) <!-- Show game table for future games -->
 
-        <!-- Message user that their square selection has been saved successfully  -->
-        @if (Session::has('successMessage'))
-            <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
-        @endif
-
-
-        <!-- PICK A SQUARE -->
-        <div class="col-md-12 text-center">
-            <h1 class="gameSteps">Step 2:</h1>
-            <h3 class="gameSteps">Pick A Square From The Table Below</h3>
-            <p>(Remember that the numbers represent the last digit of the final score for each team)</p>
-        </div>
+            <!-- Message user that their square selection has been saved successfully  -->
+            @if (Session::has('successMessage'))
+                <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
+            @endif
     
+    
+            <!-- PICK A SQUARE -->
+            <div class="col-md-12 text-center">
+                <h1 class="gameSteps">Step 2:</h1>
+                <h3 class="gameSteps">Pick A Square From The Table Below</h3>
+                <p>(Remember that the numbers represent the last digit of the final score for each team)</p>
+            </div>
         
-        <!-- HOME TEAM NAME -->
-        <div class="col-md-12 homeTeamName">
-            <h1 class="text-center">{{$game->home}}</h1>
-            <p class="text-center">(Top of the table)</p>
-        </div>
-    
-        <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
-        <div class="col-md-2">  
-            <h1 class="text-center awayTeamNameDesktop">{{$game->away}}</h1>
-        </div>
-    
-        <!-- SQUARES GAME TABLE -->
-        <div class="container col-md-8">
-            <table class="table table-bordered">
-                <tr>
-                    <th style="border-color: black"></th>
-                    <!-- Creates numbers 0-9 going across -->
-                    @for ($column = 0; $column < 10; $column++)
-                        <th style="border-color: black">{{$column}}</th>
-                    @endfor
-                </tr>
-    
-                <!-- Creates numbers 0-9 going down -->
-                @for ($row = 0; $row < 10; $row++)
+            
+            <!-- HOME TEAM NAME -->
+            <div class="col-md-12 homeTeamName">
+                <h1 class="text-center">{{$game->home}}</h1>
+                <p class="text-center">(Top of the table)</p>
+            </div>
+        
+            <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
+            <div class="col-md-2">  
+                <h1 class="text-center awayTeamNameDesktop">{{$game->away}}</h1>
+            </div>
+        
+            <!-- SQUARES GAME TABLE -->
+            <div class="container col-md-8">
+                <table class="table table-bordered">
                     <tr>
-                        <th style="border-color: black">{{$row}}</th>
-                        <!-- Creates all 100 squares on the table -->
+                        <th style="border-color: black"></th>
+                        <!-- Creates numbers 0-9 going across -->
                         @for ($column = 0; $column < 10; $column++)
-                            @if (in_array("$column$row", $thisGameSelections))
-                                <td style="background-color: red"></td>
-                            @else
-                                <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
-                            @endif
+                            <th style="border-color: black">{{$column}}</th>
                         @endfor
                     </tr>
-                @endfor
-            </table>
-        </div>
+        
+                    <!-- Creates numbers 0-9 going down -->
+                    @for ($row = 0; $row < 10; $row++)
+                        <tr>
+                            <th style="border-color: black">{{$row}}</th>
+                            <!-- Creates all 100 squares on the table -->
+                            @for ($column = 0; $column < 10; $column++)
+                                @if (in_array("$column$row", $thisGameSelections))
+                                    <td style="background-color: red"></td>
+                                @else
+                                    <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
+                                @endif
+                            @endfor
+                        </tr>
+                    @endfor
+                </table>
+            </div>
+    
+            <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
+            <div class="col-md-2 awayTeamName">  
+                <h1 class="text-center">{{$game->away}}</h1>
+                <p class="text-center">(Left side of the table)</p>
+            </div>
+    
+            <!-- GO TO PAYMENT OPTION -->
+            <div class="text-center anotherGameBtn finishGameBtn">
+                <a href="{{action('SelectionsController@show')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Go To Payment</a>
+            </div>
+    
+            <!-- OR -->
+            <div class="text-center">
+                <h2 style="color: white">OR</h2>
+            </div>
+    
+            <!-- CHOOSE ANOTHER GAME OPTION -->
+            <div class="text-center finishGameBtn">
+                <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
+            </div>
 
-        <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
-        <div class="col-md-2 awayTeamName">  
-            <h1 class="text-center">{{$game->away}}</h1>
-            <p class="text-center">(Left side of the table)</p>
-        </div>
+        @else <!-- Show past game results -->
+            <h1 class="text-center" style="color: white">Final Score</h1>
 
-        <!-- FINISH GAME OPTION -->
-        <div class="text-center anotherGameBtn finishGameBtn">
-            <a href="/payment" class="btn btn-xl dropdown-toggle gameBtn" type="button">Finish Current Game</a>
-        </div>
+            <div class="col-md-6 text-center">
+                <h2 style="color: white">{{$game->home}}: <span style="color: #FEC503">{{$game->home_score}}</span></h2>  
+            </div>
 
-        <!-- OR -->
-        <div class="text-center">
-            <h2 style="color: white">OR</h2>
-        </div>
+            <div class="col-md-6 text-center">  
+                <h2 style="color: white">{{$game->away}}: <span style="color: #FEC503">{{$game->away_score}}</span></h2>
+            </div>
 
-        <!-- CHOOSE ANOTHER GAME OPTION -->
-        <div class="text-center finishGameBtn">
-            <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
-        </div>
-
+            <div class="text-center">
+                @if (Auth::user()->id == $game->winning_user)
+                    <a href="/gameResults" class="btn btn-xl dropdown-toggle gameBtn" type="button">You Won!</a>
+                @else
+                    @foreach ($winningSelection as $winningUser)
+                        <h1 style="color: white">Winning User: <span style="color: #FEC503">{{$winningUser->first_name}} {{$winningUser->last_name}}</span></h1>
+                    @endforeach
+                    <h1 style="color: white">A total of <span style="color: #FEC503">$600</span> went to <span style="color: #FEC503">Charity Name</span></h1>
+                @endif
+            </div>
+        @endif
     </div>
 </section>
 
@@ -103,6 +126,7 @@
                                 <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
                                 <div class="donation-container">
                                     <h4 class="text-center">Choose Donation Amount:</h4>
+                                    <p class="text-center">(Your credit card won't be charged until you 'Go To Payment')</p>
                                     <div class="items col-xs-4">
                                         <div class="info-block block-info clearfix">
                                             <div data-toggle="buttons" class="btn-group bizmoduleselect">

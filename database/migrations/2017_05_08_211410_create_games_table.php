@@ -24,7 +24,7 @@ class CreateGamesTable extends Migration
 			$table->integer('away_score')->nullable();
 			$table->integer('winning_selection')->nullable();
 			$table->string('winning_charity')->nullable();
-			$table->string('winning_user')->nullable();
+			$table->integer('winning_user')->nullable();
 		});
 	}
 
