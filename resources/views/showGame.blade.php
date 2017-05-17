@@ -48,7 +48,7 @@
                             <!-- Creates all 100 squares on the table -->
                             @for ($column = 0; $column < 10; $column++)
                                 @if (in_array("$column$row", $thisGameSelections))
-                                    <td style="background-color: red"></td>
+                                    <td style="background-color: #9b1b18"></td>
                                 @else
                                     <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
                                 @endif
