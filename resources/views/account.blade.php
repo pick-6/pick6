@@ -26,11 +26,13 @@
                     <th>Selection</th>
                     <th>Donation Amount</th>
                 </tr>
-                @foreach ($gamesUserIsPlaying as $userSelection)
+                @foreach (Auth::User()->selections as $selection)
                 <tr>
-                    <td>{{$userSelection->game_id}}</td>
-                    <td>{{$userSelection->square_selection}}</td>
-                    <td>${{$userSelection->amount}}</td>
+                    <td>
+                    {{$selection->game->home}} vs. {{$selection->game->away}} 
+                    </td>
+                    <td>{{$selection->square_selection}}</td>
+                    <td>${{$selection->amount}}</td>
                 </tr>
                 @endforeach
             </table>
