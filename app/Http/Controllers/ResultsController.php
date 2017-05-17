@@ -14,9 +14,9 @@ use App\Models\Charity;
 
 class ResultsController extends Controller
 {
-    public static function showGameWinner($id)
+    public static function showGameWinner($id, $selection)
     {
-        $gameWinner = Selections::isWinner($id);
+        $gameWinner = Selections::isWinner($id, $selection);
         $totalProceeds = Games::getUserMoneyToDonate($id);
         $sumOfDonations = Games::totalDonationPerGame($id);
         $charities = Charity::get();
