@@ -6,7 +6,7 @@
             @if ($gameWinner)
                 <h1><span style="color: #FEC503">Great pick {{ Auth::User()->username }}! You won!</span></h1>
                 <span>
-                    <iframe src="https://giphy.com/embed/aNr6TVq3IJEXu" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/touchdown-referee-arena-football-aNr6TVq3IJEXu">via GIPHY</a></p>
+                    <img class="img-responsive center-block" src="/img/youWon.gif" border="0" alt="You Won!"/>
                 </span>
                 <h2>The total contributions for this game :  ${{ $totalProceeds }}  </h2>
                 <div class="dropdown text-center">
