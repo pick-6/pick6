@@ -26,18 +26,11 @@ class Games extends Model
     	return $winningScore;
     }
 
-    public static function getUserMoneyToDonate() {
-
-        $theWinningCombination = 12;
-
-        // $theWinningCombination = Selections::iswinner(); 
-
-        if ($theWinningCombination) {
+    public static function totalDonationPerGame($id) {
             
-        $totalProceeds = Selections::where('game_id', '=', 1)->sum('amount');
+        $totalProceeds = Selections::where('game_id', '=', $id)->sum('amount');
         
         return $totalProceeds;
         
-        }
     }
 }
