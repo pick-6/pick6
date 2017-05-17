@@ -17,9 +17,12 @@ class GamesSeeder extends Seeder
 		$games = \App\Models\Games::all();
 
 		foreach ($games as $game) {
-			$game->winning_charity = 'United Way';
-			$game->winning_user = 2;
-			$game->winning_total = 25;
+            if ($game->id == 17) {
+                break;
+            }
+			$game->winning_charity = rand(1, 100);
+			$game->winning_user = rand(1, 10);
+			$game->winning_total = rand(6, 2000);
 			$game->save();
 		}
 

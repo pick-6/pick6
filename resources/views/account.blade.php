@@ -34,7 +34,7 @@
                     </td>
                     <td>{{$selection->square_selection}}</td>
                     <td>${{$selection->amount}}</td>
-                    <td><a style="color: black" href="{{action('ResultsController@showGameWinner', [$selection->game->id])}}" class="btn btn-lg">SEE RESULTS</a></td>
+                    <td><a style="color: black" href="{{action('ResultsController@showGameWinner', [$selection->game->id, $selection->square_selection])}}" class="btn btn-lg">SEE RESULTS</a></td>
                 </tr>
                 @endforeach
             </table>
