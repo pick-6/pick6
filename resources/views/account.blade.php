@@ -24,11 +24,15 @@
                 <tr>
                     <th>Game</th>
                     <th>Selection</th>
+                    <th>Donation Amount</th>
                 </tr>
+                @foreach ($gamesUserIsPlaying as $userSelection)
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td>{{$userSelection->game_id}}</td>
+                    <td>{{$userSelection->square_selection}}</td>
+                    <td>${{$userSelection->amount}}</td>
                 </tr>
+                @endforeach
             </table>
             <a style="color: black" href="{{action('ResultsController@showGameWinner')}}" class="btn btn-lg">SEE RESULTS</a>
         </div>
