@@ -19,7 +19,8 @@
 		</table>
 		{!! $charities->render() !!}
 	</div>
-	<blockquote> <style class="text-center" style="background-color: black; color: white"></style>
-	"From what we get, we can make a living; what we give, however, makes a life." - Arthur Ashe</blockquote>
+	<div class="text-center" style="background-color: black; color: white;font-size: 1.5em">
+		"From what we get, we can make a living; what we give, however, makes a life." - Arthur Ashe
+	</div>
 </section>
 @stop

@@ -14,12 +14,13 @@ use App\Models\Charity;
 
 class ResultsController extends Controller
 {
-    public static function showGameWinner()
+    public static function showGameWinner($id)
     {
-        // $gameWinner = Selections::isWinner();
-        $totalProceeds = Games::getUserMoneyToDonate();
+        $gameWinner = Selections::isWinner($id);
+        $totalProceeds = Games::getUserMoneyToDonate($id);
+        $sumOfDonations = Games::totalDonationPerGame($id);
         $charities = Charity::get();
-        return view('gameResults')->with(compact('totalProceeds', 'charities'))->with('gameWinner', true);
+        return view('gameResults')->with(compact('totalProceeds', 'charities', 'sumOfDonations', 'gameWinner'));
     }
 
 }
