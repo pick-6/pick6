@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Games;
 use App\Models\Selections;
+use App\User;
 
 class GamesController extends Controller
 {
@@ -68,19 +69,19 @@ class GamesController extends Controller
 
         $thisGameSelections = [];
 
-        // $squaresSelected = Selections::where('game_id', '=', $id)->pluck('square_selection');
+        // SELECT users.username FROM users JOIN games ON users.id = games.winning_user
+        $winningSelection = User::select('username')->join('games', 'users.id', '=', 'games.winning_user');
+
         $squaresSelected = Selections::where('game_id', '=', $id)->get();
         foreach ($squaresSelected as $squareSelected) {
             $thisGameSelections[] =  "$squareSelected->square_selection";
         }
-        // dd($thisGameSelections);
-
 
         if(!$game) {
             abort(404);
         }
         
-        return view('showGame')->with(compact('game', 'thisGameSelections'));
+        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection'));
     }
 
     /**
