@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Selections;
+use App\Models\Games;
 
 class SelectionsController extends Controller
 {
@@ -62,7 +63,10 @@ class SelectionsController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = \Auth::user();
+        $games = Games::get();
+        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->get();
+        return view('payment')->with(compact('user', 'gamesUserIsPlaying', 'games'));
     }
 
     /**
