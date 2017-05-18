@@ -10,6 +10,8 @@ section {
     background-color: #333333; color: #FED136;
 }
 
+
+
 /****** NAVBAR ******/
 .nav {
     text-align: center;
@@ -131,6 +133,43 @@ header .intro-text .intro-heading {
 .charitiesPage h1 {
     color: white;
 }
+
+.pagination>.active>span {
+    background-color: #FEC503;
+    color: black;
+    border-color: black;
+}
+
+.pagination>.active>span:hover {
+    background-color: #FEC503;
+    color: black;
+    border-color: black;
+}
+
+.pagination>li>a {
+    background-color: #333;
+    color: #FEC503;
+    border-color: black;
+}
+
+.pagination>li>a:hover {
+    background-color: black;
+    color: #FEC503;
+    border-color: black;
+}
+
+.pagination>.disabled>span {
+    background-color: #333;
+    border-color: black;
+    color: #FEC503;
+}
+
+.pagination>.disabled>span:hover {
+    background-color: #333;
+    border-color: black;
+    color: #FEC503;
+}
+
 
 
 /******** PLAY GAME PAGE **********/
