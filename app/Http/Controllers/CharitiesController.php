@@ -10,93 +10,55 @@ use App\Models\Charity;
 
 class CharitiesController extends Controller
 {
-	public function __construct()
+    public function __construct()
     {
         $this->middleware('auth', ['except'=>['index']]);
     }
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 
-	public function index(Request $request)
-	{
 
-		$charities = Charity::orderBy('name')->paginate(25);
+    public function index(Request $request)
+    {
+        if (isset($request->search) && $request->search != " ") {
+            $charities = Charity::select('charities.*')->where('name', 'like', "%$request->search%")->paginate(25)->appends(['search'=>$request->search]);
+        } else {
+            $charities = Charity::orderBy('name')->paginate(25);
+        }
+        return view('charities')->with('charities', $charities);
+    }
 
-		return view('charities')->with('charities', $charities);
-	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create(Request $request)
-	{
-		return view('charities');
-	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request)
-	{
-		//
-	}
+    public function create(Request $request)
+    {
+        abort(404);
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id)
-	{
-		$charities = Charity::find($id);
-		if(!$charities) {
-			Log::error("Charity with id of $id not found.");
-			abort(404);
-		}
-		$data = [];
-		$data['charities'] = $charities;
-		return view('charities.show')->with($data);
-	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit($id)
-	{
-		// 
-	}
+    public function store(Request $request)
+    {
+        abort(404);
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, $id)
-	{
-		//
-	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    public function show($id)
+    {
+        abort(404);
+    }
+
+
+    public function edit($id)
+    {
+        abort(404); 
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        abort(404);
+    }
+
+
+    public function destroy($id)
+    {
+        abort(404);
+    }
 }
