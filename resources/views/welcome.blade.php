@@ -67,13 +67,13 @@
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
-                    <img class="img-responsive" src="/img/maw.png">
+                    <img class="img-responsive" style="height: auto" src="/img/maw.png">
                 </div>
                 <div class="col-md-4">
-                    <img class="img-responsive" src="/img/arc.png">
+                    <img class="img-responsive" style="height: auto" src="/img/arc.png">
                 </div>
                 <div class="col-md-4">
-                    <img class="img-responsive" src="http://curebowl.com/media/uploads/2014/09/BCRF_LogoGray-pink.png">
+                    <img class="img-responsive" style="height: auto" src="/img/acs.png">
                 </div>
                 <a href="/charities" class="btn btn-xl allCharitiesBtn">See All Charities</a>
             </div>
