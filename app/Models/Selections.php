@@ -13,12 +13,13 @@ class Selections extends Model
 	    return $this->belongsTo('App\Models\Games');
 		}
 
-    public function isWinner() {
-	    $theGameForThisSelection = Games::find($this->game_id);	
-	    if ($this->score_selection == $theGameForThisSelection->getWinningScore()) {
-	    	return true;
-	    }	else {
-	    	return false;
-	    }
+    public static function isWinner($id) {
+	    $theGameForThisSelection = Games::find($id);	
+	    // if ($this->score_selection == $theGameForThisSelection->getWinningScore()) {
+	    // 	return true;
+	    // }	else {
+	    // 	return false;
+	    // }
+	    return false;
 	}
 }

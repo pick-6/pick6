@@ -25,6 +25,7 @@
                     <th>Game</th>
                     <th>Selection</th>
                     <th>Donation Amount</th>
+                    <th>Result</th>
                 </tr>
                 @foreach (Auth::User()->selections as $selection)
                 <tr>
@@ -33,10 +34,10 @@
                     </td>
                     <td>{{$selection->square_selection}}</td>
                     <td>${{$selection->amount}}</td>
+                    <td><a style="color: black" href="{{action('ResultsController@showGameWinner', [$selection->game->id])}}" class="btn btn-lg">SEE RESULTS</a></td>
                 </tr>
                 @endforeach
             </table>
-            <a style="color: black" href="{{action('ResultsController@showGameWinner')}}" class="btn btn-lg">SEE RESULTS</a>
             
 
             <!-- OR -->
