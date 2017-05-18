@@ -18,7 +18,7 @@ class SelectionsSeeder extends Seeder
     {
         for ($i=0; $i < 500; $i++) { 
             $selections1 = new App\Models\Selections();
-            $selections1->user_id = rand(1, 11);
+            $selections1->user_id = rand(1, 10);
             $selections1->game_id = rand(17, 32);
             $selections1->amount = 6;
             $selections1->square_selection = rand(0, 99);
