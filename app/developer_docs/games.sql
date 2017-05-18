@@ -14,14 +14,14 @@ INSERT INTO games VALUES (NULL,'2016-09-10 00:00:00','4:25 PM',1,'San Fransisco 
 INSERT INTO games VALUES (NULL,'2016-09-10 00:00:00','8:30 PM',1,'Dallas Cowboys','New York Giants',13,17,37,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2016-09-10 00:00:00','7:10 PM',1,'Minnesota Vikings','New Orleans Saints',25,7,57,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2016-09-10 00:00:00','10:20 PM',1,'Denver Broncos','Los Angeles Chargers',13,7,37,NULL,NULL,NULL);
-INSERT INTO games VALUES (NULL,'2017-09-14 00:00:00','8:25 PM',2,'Cincinnati Bengals','Houston Texans',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO games VALUES (NULL,'2017-09-14 00:00:00','8:25 PM',2,'Cincinnati Bengals','Houston Texans',12,27,27,NULL,11,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Carolina Panthers','Buffalo Bills',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Indianapolis Colts','Arizona Cardinals',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Jacksonville Jaguars','Tennessee Titans',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Kansas City Chiefs','Philadelphia Eagles',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'New Orleans Saints','New England Patriots',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Pittsburgh Steelers','Minnesota Vikings',NULL,NULL,NULL,NULL,NULL,NULL);
-INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Baltimore Ravens','Cleveland Browns',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Baltimore Ravens','Clevand Browns',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','1:00 PM',2,'Tampa Bay Buccaneers','Chicago Bears',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','4:05 PM',2,'Oakland Raiders','New York Jets',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO games VALUES (NULL,'2017-09-17 00:00:00','4:05 PM',2,'Los Angeles Chargers','Miami Dolphins',NULL,NULL,NULL,NULL,NULL,NULL);
