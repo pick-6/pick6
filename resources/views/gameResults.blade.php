@@ -14,7 +14,7 @@
                     <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Pick a Charity <span class="caret"></span></button>
                     <ul class="dropdown-menu scrollable-menu">
                         @foreach ($charities as $charity)
-                            <li><a class="page-scroll gameSelection" data-id="" href="">{{$charity->name}}</a></li>
+                            <li><a class="page-scroll gameSelection" data-id="" href="{{action('AccountController@index')}}">{{$charity->name}}</a></li>
                         @endforeach
                     </ul>
                 </div>
