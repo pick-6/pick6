@@ -95,11 +95,11 @@
                     <a href="/gameResults" class="btn btn-xl dropdown-toggle gameBtn" type="button">You Won!</a>
                 @else
                     @foreach ($winningSelection as $winningUser)
-                        <h1 style="color: white">Winning User: <span style="color: #FEC503">{{$winningUser->first_name}} {{$winningUser->last_name}}</span></h1>
+                        <h3 style="color: white">Winning User: <span style="color: #FEC503">{{$winningUser->first_name}} {{$winningUser->last_name}}</span></h3>
                     @endforeach
                     @foreach ($winningCharitySelection as $winningCharity)
                         @foreach ($gameTotalBets as $amount)
-                            <h1 style="color: white">A total of <span style="color: #FEC503">${{$amount->winning_total}}</span> went to <span style="color: #FEC503">{{$winningCharity->name}}</span></h1>
+                            <h3 style="color: white">A total of <span style="color: #FEC503">${{$amount->winning_total}}</span> went to <span style="color: #FEC503">{{$winningCharity->name}}</span></h3>
                         @endforeach
                     @endforeach
                 @endif
