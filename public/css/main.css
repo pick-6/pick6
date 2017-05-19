@@ -215,6 +215,10 @@ header .intro-text .intro-heading {
     margin-bottom: 0px;
 }
 
+.homeTeamTop {
+    display: block;
+}
+
 .awayTeamName {
     display: block;
     color: white;
@@ -414,6 +418,10 @@ header .intro-text .intro-heading {
 
 .homeTeamName {
     margin-top: 5%;
+}
+
+.homeTeamTop {
+    display: none;
 }
 
 .awayTeamName {

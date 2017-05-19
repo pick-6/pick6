@@ -22,7 +22,7 @@
             <!-- HOME TEAM NAME -->
             <div class="col-md-12 homeTeamName">
                 <h1 class="text-center">{{$game->home}}</h1>
-                <p class="text-center">(Top of the table)</p>
+                <p class="text-center homeTeamTop">(Top of the table)</p>
             </div>
         
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
