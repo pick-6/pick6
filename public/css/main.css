@@ -388,6 +388,10 @@ header .intro-text .intro-heading {
     height: 200px;
 }
 
+.accountInfo h4 {
+    font-size: 2em;
+}
+
 }
 
 
