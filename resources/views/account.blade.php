@@ -17,9 +17,9 @@
     </header>
 
     <!-- User's Current Picks -->
-    <section class="text-center" style="padding-top: 4%">
+    <section class="text-center" style="padding-top: 4%; padding-bottom: 4%">
         <h1 style="color: white">Current Picks</h1>
-        <div class="container">
+        <div class="container table-responsive">
             <table class="table table-bordered">
                 <tr>
                     <th>Game</th>
@@ -38,34 +38,29 @@
                 </tr>
                 @endforeach
             </table>
-            
+        </div>
+        
 
-            <!-- OR -->
-            <div class="text-center">
-                <h2 style="color: white;margin-top: 5%">OR</h2>
-            </div>
-
-            <!-- SEE PAST GAME RESULTS -->
-            <div class="dropdown text-center" style="margin-top: 5%">
-                <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">See Past Game Results <span class="caret"></span></button>
-                <ul class="dropdown-menu scrollable-menu">
-                    @foreach ($games as $game)
-                        @if ($game->date_for_week < date('Y-m-d'))
-                            <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="{{action('GamesController@show', [$game->id])}}">Week {{$game->week}} - Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
-                        @endif
-                    @endforeach
-                </ul>
-            </div>
+        <!-- SEE PAST GAME RESULTS -->
+        <div class="dropdown text-center" style="padding-top: 2%">
+            <button class="btn btn-xl dropdown-toggle gameBtn" type="button" data-toggle="dropdown">See Past Game Results <span class="caret"></span></button>
+            <ul class="dropdown-menu scrollable-menu">
+                @foreach ($games as $game)
+                    @if ($game->date_for_week < date('Y-m-d'))
+                        <li><a class="page-scroll gameSelection" data-id="{{$game->id}}" href="{{action('GamesController@show', [$game->id])}}">Week {{$game->week}} - Game {{$game->id}}: {{$game->home}} vs. {{$game->away}}</a></li>
+                    @endif
+                @endforeach
+            </ul>
         </div>
     </section>
 
     <!-- User's Account Information -->
-    <section  class="featCharities text-center accountInfo">
+    <section class="featCharities text-center accountInfo" style="padding-top: 3%">
         <div class="container">
-            <h1 class="text-center">Your Account Info</h1>
-            <h3>Full Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
-            <h3>Username: {{Auth::user()->username}}</h3>
-            <h3>Email: {{Auth::user()->email}}</h3>
+            <h1 class="text-center" style="padding-bottom: 3%">Your Account Info</h1>
+            <h4>Full Name: {{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
+            <h4>Username: {{Auth::user()->username}}</h4>
+            <h4>Email: {{Auth::user()->email}}</h4>
             <a style="color: black" href="{{action('AccountController@edit')}}" class="btn btn-lg">EDIT INFO</a>
         </div>
     </section>
