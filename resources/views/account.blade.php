@@ -17,7 +17,7 @@
     </header>
 
     <!-- User's Current Picks -->
-    <section class="text-center">
+    <section class="text-center" style="padding-top: 4%">
         <h1 style="color: white">Current Picks</h1>
         <div class="container">
             <table class="table table-bordered">
