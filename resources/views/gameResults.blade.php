@@ -20,7 +20,8 @@
                 </div>
             @else
                 <h2>Aw, man! You didn't win this one, but you should try again!</h2>
-                <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Play Again</a>
+                <a href="{{action('GamesController@index')}}" class="btn btn-lg dropdown-toggle gameBtn" type="button">PLAY AGAIN</a>
+                <a href="{{action('AccountController@index')}}" class="btn btn-lg dropdown-toggle gameBtn" type="button">BACK TO ACCOUNT</a>
             @endif 
         </div>
     </div>  
