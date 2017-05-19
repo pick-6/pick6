@@ -5,7 +5,7 @@
 	<div class="container">
 		<form class="navbar-form navbar-left" id="search" method="get" action="{{action('CharitiesController@index')}}">
 			<div class="form-group">
-				<input style="background-color: #333;color: #FEC503;font-family: 'Montserrat', sans-serif;" type="text" name="search" class="form-control" placeholder="Search Charity" required>
+				<input style="background-color: #333;color: #FEC503;font-family: 'Montserrat', sans-serif;width: 80%;float: left;" type="text" name="search" class="form-control" placeholder="Search Charity" required>
 				<button style="background-color: #333;color: #FEC503;" type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
 			</div>
 		</form>
