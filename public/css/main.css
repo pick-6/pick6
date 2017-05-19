@@ -96,6 +96,10 @@ header .intro-text .intro-heading {
     color: black;
 }
 
+.howItWorks p {
+    color: white;
+}
+
 .howItWorks .getStartedBtn {
     margin-top: 5%; 
     color: black;
@@ -238,6 +242,7 @@ header .intro-text .intro-heading {
 
 .pickSquareModal {
     margin-top: 15%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 table {
@@ -297,7 +302,7 @@ th {
 }
 
 .htpSteps h1 {
-    color: grey;
+    color: white;
 }
 
 .htpSteps .panel-primary {
