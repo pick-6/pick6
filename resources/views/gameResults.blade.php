@@ -19,9 +19,19 @@
                     </ul>
                 </div>
             @else
-                <h2>Aw, man! You didn't win this one, but you should try again!</h2>
-                <a href="{{action('GamesController@index')}}" class="btn btn-lg dropdown-toggle gameBtn" type="button">PLAY AGAIN</a>
-                <a href="{{action('AccountController@index')}}" class="btn btn-lg dropdown-toggle gameBtn" type="button">BACK TO ACCOUNT</a>
+            <div class="container">
+                <div>
+                    <h1>Aw, man! This pick wasn't a winner</h1>
+                    <img class="img-responsive center-block" src="/img/crying.gif">
+                </div>
+                <div>
+                    <h1>but thank you for your donation!</h1>
+                </div>
+                <div class="text-center">
+                    <a href="{{action('AccountController@index')}}" class="btn btn-lg dropdown-toggle gameBtn" type="button">CHECK MY OTHER SQUARES</a> 
+                </div>
+                <a href="{{action('GamesController@index')}}" style="margin-top: 5%" class="btn btn-lg dropdown-toggle gameBtn" type="button">PLAY AGAIN</a>
+            </div>
             @endif 
         </div>
     </div>  
