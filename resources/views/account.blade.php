@@ -17,24 +17,26 @@
     </header>
 
     <!-- User's Current Picks -->
-    <section class="text-center" style="padding-top: 4%; padding-bottom: 4%">
+    <section class="text-center" style="padding-top: 4%; padding-bottom: 4%;font-family: 'Montserrat', sans-serif;">
         <h1 style="color: white">Current Picks</h1>
-        <div class="container table-responsive">
+        <div id="no-more-tables" class="container table-responsive">
             <table class="table table-bordered">
+                <thead>
                 <tr>
                     <th>Game</th>
                     <th>Selection</th>
                     <th>Donation Amount</th>
                     <th>Result</th>
                 </tr>
+                </thead>
                 @foreach (Auth::User()->selections as $selection)
                 <tr>
-                    <td>
+                    <td data-title="Game">
                     {{$selection->game->home}} vs. {{$selection->game->away}} 
                     </td>
-                    <td>{{$selection->square_selection}}</td>
-                    <td>${{$selection->amount}}</td>
-                    <td><a style="color: black" href="{{action('ResultsController@showGameWinner', [$selection->game->id, $selection->square_selection])}}" class="btn btn-lg">SEE RESULTS</a></td>
+                    <td data-title="Selection">{{$selection->square_selection}}</td>
+                    <td data-title="Donation Amount">${{$selection->amount}}</td>
+                    <td data-title="Result"><a style="color: #FEC503" href="{{action('ResultsController@showGameWinner', [$selection->game->id, $selection->square_selection])}}" class="btn">SEE RESULT</a></td>
                 </tr>
                 @endforeach
             </table>
