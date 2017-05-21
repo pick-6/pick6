@@ -9,8 +9,14 @@
                 <button style="background-color: #333;color: #FEC503;" type="submit" class="btn btn-default"><i class="fa fa-search" aria-hidden="true"></i></button>
             </div>
         </form>
+    @if (isset($search) && $search != " ")
+        @if ($count == 0)
+            <h3 class="" style="color: white">Sorry, No Results For ("{{$search}}")</h3>
+        @else
+            <h3 class="" style="color: white">Search Results For ("{{$search}}")</h3>
+        @endif
+    @endif
     </div>  
-
     <div id="no-more-tables" class="container table-responsive"> 
         <table class="col-md-12 table-bordered table-condensed cf">
             <thead class="cf">
@@ -30,7 +36,12 @@
             @endforeach 
             </tbody>
         </table>
-        {!! $charities->render() !!}    
+        {!! $charities->render() !!}
+        @if (isset($search) && $search != " ")
+        <div>
+            <a href="{{ action('CharitiesController@index') }}" class="btn btn-primary backCharitiesBtn" style="color: black;"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to All Charities</a>
+        </div>
+    @endif   
     </div>
 </section>
 @stop
