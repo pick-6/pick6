@@ -1,0 +1,96 @@
+    .charitiesPage {
+        height: 100vh;
+        padding-top: 75px;
+        /*padding-top: 100px;*/
+        padding-bottom: 0px;
+    }
+    .charitiesPage #search input.form-control {
+        padding: 8px;
+        border-right: none;
+        height: auto;
+        width: calc(100% - 40px);
+        float: left;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .charitiesPage #search button {
+        color: #333;
+        background-color: #FEC503;
+        border-color: #FEC503;
+        padding: 4.25px 10px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        font-size: 19px;
+    }
+    @media(min-width: 991px){
+        .charitiesPage .pagination > li > span, .charitiesPage .pagination > li > a {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+    }
+    @media(min-width: 700px){
+        .charitiesPage .searchContainer {
+            width: 600px;
+        }
+    }
+    .charitiesPage .searchContainer {
+        margin: 0 auto;
+    }
+    .charitiesPage .paginationArrows {
+        position: absolute;
+        font-size: 4em;
+        top:500px;
+    }
+    .charitiesPage .paginationArrows.prev {
+        left: 200px;
+    }
+    .charitiesPage .paginationArrows.next {
+        right: 200px;
+    }
+    #backCharities {
+        margin-top: 15px;
+    }
+    .backCharitiesBtn {
+        margin-top: 0px;
+        padding: 8px 12px;
+    }
+    .charitiesPage .searchResults {
+        color: white;
+        margin-top: 0px;
+    }
+    .charitiesPage #no-more-tables.table-responsive {
+        overflow: auto;
+        margin-bottom: 0px;
+    }
+    @media(min-width: 700px) {
+        .charityName, .charityName:hover, .charityName:active, .charityName:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+    .charitiesPage .pagination>.active>span, 
+    .charitiesPage .pagination>.active>span:hover {
+        background-color: #FEC503;
+        color: #000;
+        border-color: #000;
+    }
+    
+    .charitiesPage .pagination>li>a {
+        background-color: #333;
+        color: #FEC503;
+        border-color: #000;
+    }
+    
+    .charitiesPage .pagination>li>a:hover {
+        background-color: #000;
+        color: #FEC503;
+        border-color: #333;
+    }
+    
+    .charitiesPage .pagination>.disabled>span, 
+    .charitiesPage .pagination>.disabled>span:hover {
+        background-color: #333;
+        border-color: #000;
+        color: #FEC503;
+    }

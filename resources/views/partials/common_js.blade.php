@@ -14,18 +14,18 @@
 <!-- Theme JavaScript -->
 <script src="/js/agency.min.js"></script>
 
-<!-- Square selection -->
+<!-- Site JavaScript -->
 <script type="text/javascript">
 (function() {
     "use strict";
 
     // changes background-color when hovering over available square
     $('.availableSquare').mouseover(function(){
-        $(this).css('background-color','#222');
+        $(this).css('background','linear-gradient(#111, #222)');
     });
 
     $('.availableSquare').mouseout(function(){
-        $(this).css('background-color','#333');
+        $(this).css('background','linear-gradient(#333, #222)');
     });
 
 
@@ -33,15 +33,67 @@
     $('#pickSquare').on('show.bs.modal', function(e) {
         var hscore = $(e.relatedTarget).data('hscore');
         var ascore = $(e.relatedTarget).data('ascore');
-        $(".hscore").val(hscore);
-        $(".ascore").val(ascore);
+        $(".hscore").val(hscore).text(hscore);
+        $(".ascore").val(ascore).text(ascore);
     });
 
 
     // donation selected
-    $('.btn-default').click(function(){
-        $('.btn-default').removeClass('active');
+    $('label.btn-default').click(function(){
+        $('label.btn-default').removeClass('active');
         $(this).addClass('active');
+    });
+    $("#pickSquare").on('show.bs.modal', function () {
+        $('label.btn-default').removeClass('active');
+        $('label.btn-default').first().addClass('active');
+    });
+
+
+    // section scrolling
+    $(".scroll a").bind("click",function(t){
+        var l = $(this);
+        $("html, body").stop().animate({
+            scrollTop:$(l.attr("href")).offset().top-65
+        },1500)
+        t.preventDefault();
+    });
+    // animate arrow on welcome page for section scrolling
+    setTimeout(function(){
+        $("#charityArrow").toggleClass("animated bounce");
+        setInterval(function(){
+            $("#charityArrow").toggleClass("animated bounce");
+        }, 5000);
+    }, 10000);
+
+    // focus on first input of login/signup modals
+    $("#signup, #login").on('shown.bs.modal', function () {
+        $(this).find(".firstInput").focus();
+    });
+    // focus on first input of contact form
+    $("#contactForm").find("input").first().focus();
+
+
+    // Account Dropdown Menu
+    $('ul.dropdown-menu *').click(function(e){
+        e.stopPropagation(); 
+    });
+
+    $('.closeDrop').click(function(){
+        $('.userAccount').removeClass('open'); 
+    });
+
+
+    // Upload Profile Pic
+    $('#changePhoto').click(function(){
+        $('#chooseProfilePic').trigger('click');
+    });
+    
+    $('#chooseProfilePic').on('click touchstart', function(){
+        $(this).val('');
+    });
+    
+    $("#chooseProfilePic").change(function(e) {
+        $("#sumbitProfilePic").trigger('click');
     });
     
 })();

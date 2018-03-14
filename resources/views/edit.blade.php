@@ -38,16 +38,6 @@
     </div>
 
     <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Password" class="form-control loginSignupPage">
-    </div>
-
-    <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control loginSignupPage">
-    </div>
-
-    <div class="form-group">
     {{ method_field('PUT') }}
         <button type="submit" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-success">UPDATE</button>
         <a href="{{action('AccountController@index', [Auth::user()->username])}}" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-danger pull-right">CANCEL</a>

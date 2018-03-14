@@ -1,13 +1,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
+    <meta name="description" content="Play Football Squares Online with Pick 6 and Donate to Your Favorite Charities.">
     <meta name="author" content="">
 
-    <title>Pick 6</title>
-    
+    <title>Pick6 | Online Football Squares</title>
+
+    <!-- Animate  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
+
     <!-- Logo -->
-    <link rel="shortcut icon" href="/img/pick6.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/pick6_logo.png" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,3 +35,5 @@
 
     <!-- Main Custom CSS -->
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/signupLoginModals.css">
+    <link rel="stylesheet" type="text/css" href="/css/charitiesPage.css">

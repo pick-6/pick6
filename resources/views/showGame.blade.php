@@ -1,9 +1,26 @@
 @extends('layouts.master')
 @section('content')
-
-<section class="showGamePage">
+<style>
+    td:not(.notAvailable):hover{
+        cursor: pointer;
+    }
+    .awayTeamNameDesktop {
+        margin: 0px!important;
+        width: 375px!important;
+        left: -40px!important;
+        position: absolute!important;
+        top: 180px!important;
+        display: block;
+        color: white;
+        /*text-align: left;*/
+        transform: rotate(-90deg);
+        transform-origin: center;
+        /*margin-top: 40%*/
+    }
+</style>
+<section class="showGamePage" style="padding: 0px;padding-top: 70px;height: 100vh">
     <div class="container">
-        @if ($game->date_for_week > date('Y-m-d')) <!-- Show game table for future games -->
+        @if ($game->date_for_week < date('now')) <!-- Show game table for future games -->
 
             <!-- Message user that their square selection has been saved successfully  -->
             @if (Session::has('successMessage'))
@@ -13,14 +30,15 @@
     
             <!-- PICK A SQUARE -->
             <div class="col-md-12 text-center">
-                <h1 class="gameSteps">Step 2:</h1>
-                <h3 class="gameSteps">Pick A Square From The Table Below</h3>
-                <p>(Remember that the numbers represent the last digit of the final score for each team)</p>
+                <!-- <h1 class="gameSteps">Step 2:</h1>
+                <h3 class="gameSteps">Pick A Square From The Table Below</h3> -->
+                <h3 class="fc-white">Pick Your Square(s) From The Table Below</h3>
+                <!-- <p>(Remember that the numbers represent the last digit of the final score for each team)</p> -->
             </div>
         
             
             <!-- HOME TEAM NAME -->
-            <div class="col-md-12 homeTeamName">
+            <div class="col-md-12 homeTeamName" style="margin-top: 0px">
                 <h1 class="text-center">{{$game->home}}</h1>
                 <p class="text-center homeTeamTop">(Top of the table)</p>
             </div>
@@ -32,23 +50,23 @@
         
             <!-- SQUARES GAME TABLE -->
             <div class="container col-md-8">
-                <table class="table table-bordered">
+                <table class="table table-bordered" style="margin-bottom: 0px">
                     <tr>
-                        <th style="border-color: black"></th>
+                        <th style="border-color: black;background: linear-gradient(#ffce7a,#FEC503)"></th>
                         <!-- Creates numbers 0-9 going across -->
                         @for ($column = 0; $column < 10; $column++)
-                            <th style="border-color: black">{{$column}}</th>
+                            <th style="border-color: black;text-align: center;background: linear-gradient(#ffce7a,#FEC503)">?<!-- {{$column}} --></th>
                         @endfor
                     </tr>
         
                     <!-- Creates numbers 0-9 going down -->
                     @for ($row = 0; $row < 10; $row++)
                         <tr>
-                            <th style="border-color: black">{{$row}}</th>
+                            <th style="border-color: black;text-align: center;background: linear-gradient(#ffce7a,#FEC503)">?<!-- {{$row}} --></th>
                             <!-- Creates all 100 squares on the table -->
                             @for ($column = 0; $column < 10; $column++)
                                 @if (in_array("$column$row", $thisGameSelections))
-                                    <td style="background-color: #9b1b18"></td>
+                                    <td class="notAvailable" style="background-color: #9b1b18;/*background-image: url('/img/profilePics/{{Auth::user()->avatar}}');background-size: cover;*/"></td>
                                 @else
                                     <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
                                 @endif
@@ -63,20 +81,17 @@
                 <h1 class="text-center">{{$game->away}}</h1>
                 <p class="text-center">(Left side of the table)</p>
             </div>
-    
-            <!-- GO TO PAYMENT OPTION -->
-            <div class="text-center anotherGameBtn finishGameBtn">
-                <a href="{{action('SelectionsController@show')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Go To Payment</a>
-            </div>
-    
-            <!-- OR -->
-            <div class="text-center">
-                <h2 style="color: white">OR</h2>
-            </div>
-    
-            <!-- CHOOSE ANOTHER GAME OPTION -->
-            <div class="text-center finishGameBtn">
-                <a href="{{action('GamesController@index')}}" class="btn btn-xl dropdown-toggle gameBtn" type="button">Choose Another Game</a>
+
+            <!-- CHOOSE ANOTHER GAME -->
+            <div class="dropdown text-center" style="padding-top: 45px;clear: both;/*width: 40%;margin: 0 auto*/">
+                <button style="color: #000; text-transform: uppercase;" class="btn btn-lg dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Choose Another Game <span class="fa fa-caret-up"></span></button>
+                <ul class="dropdown-menu scrollable-menu" style="top:-95%;/*width: auto; margin: 0*/">
+                    @foreach ($allGames as $newgame)
+                        @if ($newgame->date_for_week < date('now') && $newgame->date_for_week > date("Y-d-m", strtotime("2016-09-10")))
+                            <li><a class="page-scroll gameSelection text-center" data-id="{{$newgame->id}}" href="{{action('GamesController@show', [$newgame->id])}}" style="font-size: 18px;">{{$newgame->home}} vs. {{$newgame->away}}</a></li>
+                        @endif
+                    @endforeach
+                </ul>
             </div>
 
         @else <!-- Show past game results -->
@@ -111,10 +126,10 @@
     <!-- Picking A Square Modal -->
     <div id="pickSquare" class="modal fade pickSquareModal" role="dialog">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="background: linear-gradient(#222,#333);">
+                <div class="closeModal" style="padding: 5px"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title text-center">Picking A Square</h4>
+                    <h4 class="modal-title text-center" style="color: #FEC503">Confirming Your Square Selection</h4>
                 </div>
                 <div class="modal-body">
                     <form  method="POST" action="{{ action('SelectionsController@store') }}"> 
@@ -125,16 +140,16 @@
                             <input type=hidden name="ascore" value="" class="ascore">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
-                                <h4 class="text-center">Your Pick</h4>
-                                <p class="text-center">{{$game->home}} final score at the end of the game will end with a <input type="button" name="hscore" class="hscore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
-                                <p class="text-center">{{$game->away}} final score at the end of the game will end with a <input type="button" name="ascore" class="ascore btn" value="" style="background-color: black;border-color: black;color: #FEC503"></p>
+                                <h4 class="text-center" style="color: #FEC503">Here Is Your Pick:</h4>
+                                <p class="text-center" style="color: #eee">{{$game->home}} final score at the end of the game will end with a <span class="hscore" style="margin-left: 5px"></span></p>
+                                <p class="text-center" style="color: #eee">{{$game->away}} final score at the end of the game will end with a <span class="ascore" style="margin-left: 5px"></span></p>
                                 <div class="donation-container">
-                                    <h4 class="text-center">Choose Donation Amount:</h4>
-                                    <p class="text-center">(Your credit card won't be charged until you 'Go To Payment')</p>
-                                    <div class="items col-xs-4">
+                                    <h4 class="text-center" style="color: #FEC503">Choose Your Donation Amount:</h4>
+                                    <p class="text-center" style="color: #eee">(Your credit card won't be charged until you 'Go To Payment')</p>
+                                    <div class="items col-xs-4 text-center" style="padding-right: 0px">
                                         <div class="info-block block-info clearfix">
                                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
-                                                <label class="btn btn-default active">
+                                                <label class="btn btn-default active" style="border-color: initial;box-shadow:4px 4px 15px 0 #000">
                                                     <div class="bizcontent">
                                                         <input type="radio" name="amount" autocomplete="off" value="6" checked>
                                                         <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
@@ -144,10 +159,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="items col-xs-4">
+                                    <div class="items col-xs-4 text-center" style="padding-right: 0px">
                                         <div class="info-block block-info clearfix">
                                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
-                                                <label class="btn btn-default">
+                                                <label class="btn btn-default" style="border-color: initial;box-shadow:4px 4px 15px 0 #000">
                                                     <div class="bizcontent">
                                                         <input type="radio" name="amount" autocomplete="off" value="10">
                                                         <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
@@ -157,10 +172,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="items col-xs-4">
+                                    <div class="items col-xs-4 text-center" style="padding-right: 0px">
                                         <div class="info-block block-info clearfix">
                                             <div data-toggle="buttons" class="btn-group bizmoduleselect">
-                                                <label class="btn btn-default">
+                                                <label class="btn btn-default" style="border-color: initial;box-shadow:4px 4px 15px 0 #000">
                                                     <div class="bizcontent">
                                                         <input type="radio" name="amount" autocomplete="off" value="20">
                                                         <span class="glyphicon glyphicon-ok glyphicon-lg"></span>
@@ -174,8 +189,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-success pull-left" type="submit">Confirm Square</button>
-                            <button type="submit" data-dismiss="modal" class="btn btn-default btn-danger">Cancel</button>
+                            <button class="btn btn-success pull-left" type="submit" style="background-color: #5cb85c;border-color: #4cae4c">Confirm Square</button>
+                            <button type="submit" data-dismiss="modal" class="btn btn-default btn-danger" style="color: #000;background-color: #d9534f;border-color: #d43f3a;">Cancel</button>
                         </div>
                     </form>
                 </div><!-- modal-body -->
