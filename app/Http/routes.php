@@ -41,7 +41,11 @@ Route::get('/gameResults/{game}/{selection?}', 'ResultsController@showGameWinner
 
 
 // Resource routing
-Route::resource('account', 'AccountController');
+Route::get('/account', 'AccountController@index');
+Route::get('/account/edit', 'AccountController@edit');
+Route::get('/account/update', 'AccountController@update');
+Route::get('/account/changePassword', 'AccountController@editPassword');
+Route::post('/upload', 'AccountController@uploadProfilePic');
 
 Route::resource('charities', 'CharitiesController');
 

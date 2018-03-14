@@ -11,10 +11,10 @@
                 <a href="/charities">Charities</a>
             </p>
             <div class="col-md-12">
-                <span class="copyright">Have Questions or Feedback? Please <a href="/contact">Contact Us</a> </span>
+                <span class="copyright">Have Questions or Feedback? Please <a class="underline" href="/contact">Contact Us</a> </span>
             </div>
             <div class="col-md-12">
-                <span class="copyright">Copyright &copy; Pick 6 2017</span>
+                <span class="copyright">Copyright &copy; Pick6 2017</span>
             </div>
         </div>
     </div>

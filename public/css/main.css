@@ -2,55 +2,118 @@ html {
     background-color: black;
 }
 
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 section {
     background-color: black;
 }
 
-.loginSignupPage {
-    background-color: #333333; color: #FED136;
+p {
+    font-size: 16px;
 }
 
-
-
-/****** NAVBAR ******/
-.nav {
-    text-align: center;
+table {
+    background-color: #333;
+    color: white;
 }
 
-.menuTextColor {
+th {
+    background-color: #FEC503;
     color: black;
 }
 
-#logoName {
-    padding-right: 5px;
-    font-size: 3em;
-    font-family: 'Graduate', cursive;
+input.form-control, 
+textarea.form-control {
+    color: #FED136;
+    background-color: #333;
+    border-color: #ccc;
 }
 
-.logoImage {
-    width: 3em;
-    height: 3em;
-    float: left;
-    margin-top: 3px;
+input.form-control::placeholder, 
+textarea.form-control::placeholder  {
+    color: #ccc;
 }
+
+input.form-control:focus, 
+textarea.form-control:focus  {
+    border-color: #FED136;
+    box-shadow: none;
+}
+
+input.form-control:focus::placeholder, 
+textarea.form-control:focus::placeholder {
+    color: #FED136!important;
+}
+
+.btn-lg, .btn-xl, .btn {
+    background-color: #fed136;
+    border-color: #fed136;
+    color: #000;
+    font-weight: bold;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.btn-lg:hover, .btn-xl:hover, .btn:hover,
+.btn-lg:active, .btn-xl:active, .btn:active,
+.btn-lg:focus, .btn-xl:focus, .btn:focus,
+.btn-lg:active:focus, .btn-xl:active:focus, .btn:active:focus {
+    color: #000;
+    background-color: #FEC503;
+}
+
+.loginSignupPage {
+    background-color: #333; 
+    color: #FED136;
+}
+
+.availableSquare {
+    background: linear-gradient(#333, #222);
+}
+
+    .italic {
+        font-style: italic;
+    }
+    .fc-white {
+        color: #fff;
+    }
+    .fc-yellow {
+        color: #fed136;
+    }
+    .fs-20 {
+        font-size: 20px;
+    }
+    .margin-top-20 {
+        margin-top: 20px;
+    }
+    .margin-top-75 {
+        margin-top: 75px;
+    }
+    .margin-0-auto {
+        margin: 0 auto;
+    }
+    .underline {
+        text-decoration: underline;
+    }
+    .hideOverflow {
+        overflow: hidden;
+    }
+
+
 
 /****** FOOTER ******/
 footer {
     background-color: #222;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-links a{
     padding: 10px;
 }
 
-.copyright {
+.copyright, .copyright a {
     color: #FEC503;
-}
-
-.copyright a {
-    color: #FEC503;
-    text-decoration: underline;
 }
 
 
@@ -62,7 +125,7 @@ footer {
 }
 
 header .intro-text .intro-lead-in {
-    font-size: 2em;
+    font-size: 3em;
 }
 
 header .intro-text .intro-heading {
@@ -70,18 +133,14 @@ header .intro-text .intro-heading {
 }
 
 .box_textshadow {
-     text-shadow: 2px 2px 2px #000000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
-}
-
-.welcome span {
-    color: #FEC503;
+     text-shadow: 2px 2px 2px #000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
 }
 
 /*HOW IT WORKS*/
-.howItWorks {
-    background-color: black;
-    color: white;
-    padding-top: 5%;
+@media (max-width: 992px) {
+    .howItWorks {
+        padding: 50px 0px 0px 0px ;
+    }
 }
 
 .howItWorks .section-heading {
@@ -111,6 +170,11 @@ header .intro-text .intro-heading {
     color: white;
     padding-top: 5%;
 }
+@media (max-width: 992px) {
+    .featCharities {
+        padding: 50px 0px 0px 0px ;
+    }
+}
 
 .featCharities .section-heading {
     font-size: 2.5em
@@ -125,74 +189,13 @@ header .intro-text .intro-heading {
     width: 100%;
 }
 
-.featCharities .allCharitiesBtn {
-    margin-top: 5%; 
-    color: black;
-}
-/*ALL CHARITIES PAGE*/
-.charitiesPage {
-    background-color: black;
-}
 
-.charitiesPage h1 {
-    color: white;
-}
+/******** ALL CHARITIES PAGE **********/
 
-.pagination>.active>span {
-    background-color: #FEC503;
-    color: black;
-    border-color: black;
-}
-
-.pagination>.active>span:hover {
-    background-color: #FEC503;
-    color: black;
-    border-color: black;
-}
-
-.pagination>li>a {
-    background-color: #333;
-    color: #FEC503;
-    border-color: black;
-}
-
-.pagination>li>a:hover {
-    background-color: black;
-    color: #FEC503;
-    border-color: black;
-}
-
-.pagination>.disabled>span {
-    background-color: #333;
-    border-color: black;
-    color: #FEC503;
-}
-
-.pagination>.disabled>span:hover {
-    background-color: #333;
-    border-color: black;
-    color: #FEC503;
-}
-
-.backCharitiesBtn {
-    margin-top: 2%;
-}
 
 
 
 /******** PLAY GAME PAGE **********/
-.playGamePage, .showGamePage {
-    background-color: black;
-}
-
-.gameSteps {
-    color: white;
-}
-
-.btn-xl:hover, .open .dropdown-toggle.btn-xl, .gameBtn {
-    color: black;
-}
-
 .scrollable-menu {
     height: auto;
     max-height: 125px;
@@ -246,17 +249,6 @@ header .intro-text .intro-heading {
 
 .pickSquareModal {
     margin-top: 10%;
-    font-family: 'Montserrat', sans-serif;
-}
-
-table {
-    background-color: #333;
-    color: white;
-}
-
-th {
-    background-color: #FEC503;
-    color: black;
 }
 
 .userPick p {
@@ -297,83 +289,39 @@ th {
 
 
 /********** HOW TO PLAY PAGE *********/
-.howtoplay {
-    background-color: black;
-}
-
-.howtoplay h1 {
-    color: white;
-}
-
-.htpSteps h1 {
-    color: white;
-}
-
 .htpSteps .panel-primary {
     background-color: grey;
     border-color: grey;
 }
 
-.htpSteps .panel-heading {
+.htpSteps .panel-heading, 
+.htpSteps .panel-footer {
     background-color: #222;
     border-color: #222;
 }
 
 .htpSteps .panel-footer {
-    color: white;
-    background-color: #222;
-    border-color: #222;
+    min-height: 80px;
 }
 
-.htpSteps span {
-    color: #FEC503;
-}
 
-.howtoplay .playBtn {
-    clear: both;
-}
-
-.howtoplay .playBtn a {
-    color: black;
-    margin-top: 5%;
-}
 
 /************* ACCOUNT PAGE *************/
-.btn-lg{
-    background-color: #FEC503;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    border-radius: 3px;
-}
+
+
+
+
 
 
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
-
-nav .container {
-    width: 80%;
-}
-
-.nav>li>a {
-    padding: 15px 10px;
-}
-
-#logoName {
-    font-size: 2em;
-}
-
-.logoImage {
-    width: 2em;
-    height: 2em;
-    margin-top: 10px;
-}
 
 header .intro-text {
     padding-top: 11%;
 }
 
 header .intro-text .intro-lead-in {
-    font-size: 3em;
+    /*font-size: 3em;*/
     margin-bottom: 0px;
     margin-top: 1em;
 }
@@ -396,14 +344,6 @@ header .intro-text .intro-heading {
     font-size: 2em;
 }
 
-.charityName {
-    color: white;
-}
-.charityName:hover {
-    color: white;
-    text-decoration: none;
-}
-
 }
 
 
@@ -412,20 +352,6 @@ header .intro-text .intro-heading {
 /****** DESKTOP STYLES ******/
 
 @media (min-width: 992px){
-
-nav .container {
-    width: 60%;
-}
-
-.howItWorks .section-subheading {
-    display: block;
-}
-
-header .intro-text .intro-lead-in {
-    font-size: 3em;
-    margin-bottom: 25px;
-    margin-top: 0px;
-}
 
 header .intro-text .intro-heading {
     font-size: 4em;
@@ -449,15 +375,6 @@ header .intro-text .intro-heading {
     display: none;
 }
 
-.awayTeamNameDesktop {
-    display: block;
-    color: white;
-    text-align: left;
-    transform: rotate(-90deg);
-    transform-origin: right bottom 0;
-    margin-top: 40% 
-}
-
 .anotherGameBtn {
     margin-top: 68%;
 }
@@ -466,34 +383,7 @@ header .intro-text .intro-heading {
     height: 350px;
 }
 
-.backCharitiesBtn {
-    margin-top: 1%;
 }
-
-}
-
-
-@media (min-width: 1200px){
-
-#logoName {
-    font-size: 3em;
-}
-
-.logoImage {
-    width: 3em;
-    height: 3em;
-    margin-top: 3px;
-}
-
-header .intro-text {
-    padding-top: 17%;
-}
-
-}
-
-
-
-
 
 
 
@@ -558,3 +448,35 @@ header .intro-text {
 }
 #no-more-tables tr:nth-child(even){background-color: #262424}
 
+@media(max-width: 767px){    
+    #no-more-tables.table-responsive {
+        border:none;
+    }
+    #no-more-tables table {
+        padding: 0px;
+    }
+}
+@media(max-width: 767px)and (min-width: 700px){    
+    .table-responsive > .table-bordered {
+        border:unset!important;
+        border:1px solid #fff!important;
+    }
+}
+
+
+
+
+/****** CONTACT PAGE *******/
+section#contact {
+    background-color: #000; 
+    padding: 100px 0px 20px;
+}
+@media(min-width: 992px){
+    section#contact {
+        min-height: calc(100vh - 168px);
+    }
+}
+section#contact h3.section-subheading {
+    margin-bottom: 50px;
+    font-size: 18px;
+}

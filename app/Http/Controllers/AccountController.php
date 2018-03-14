@@ -10,6 +10,8 @@ use App\Models\Account;
 use App\Models\Games;
 use App\Models\Selections;
 use App\User;
+use Auth;
+use Image;
 
 class AccountController extends Controller
 {
@@ -23,8 +25,25 @@ class AccountController extends Controller
     {
         $user = \Auth::user();
         $games = Games::get();
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->get();
-        return view('account')->with(compact('user', 'gamesUserIsPlaying', 'games'));
+
+        // Games for the Week
+        $dates = Games::groupBy('date_for_week')->get();
+
+        // My Current Games
+        $playingIn = [];
+        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
+        foreach ($gamesUserIsPlaying as $game) {
+            $playingIn[] =  "$game->game_id";
+        }
+        $count = count($gamesUserIsPlaying);
+
+        // Last Week's Results
+
+
+        // Leaderboard
+
+
+        return view('account')->with(compact('user', 'gamesUserIsPlaying', 'games', 'count', 'dates', 'playingIn'));
     }
 
 
@@ -64,6 +83,32 @@ class AccountController extends Controller
         return redirect()->action('AccountController@index');
     }
 
+    public function editPassword()
+    {
+        return view('editPassword');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $existingUser = User::find(\Auth::id());
+        $existingUser->password = bcrypt($request->password);
+        $existingUser->save();
+        return redirect()->action('AccountController@index');
+    }
+
+    public function uploadProfilePic(Request $request)
+    {
+        if($request->hasFile('avatar')){
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(300, 300)->save( public_path('/img/profilePics/' . $filename ) );
+
+            $user = Auth::user();
+            $user->avatar = $filename;
+            $user->save();
+        }
+        return redirect('/account');
+    }
 
     public function destroy($id)
     {

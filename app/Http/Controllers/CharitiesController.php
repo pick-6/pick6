@@ -18,13 +18,15 @@ class CharitiesController extends Controller
 
     public function index(Request $request)
     {
-        if (isset($request->search) && $request->search != " ") {
-            $charities = Charity::select('charities.*')->where('name', 'like', "%$request->search%")->paginate(15)->appends(['search'=>$request->search]);
+        $searchTerm = trim($request->search);
+        $searchTerm = preg_replace('/\s+/', ' ', $searchTerm);
+        if (isset($searchTerm)) {
+            $charities = Charity::select('charities.*')->where('name', 'like', "%". $searchTerm ."%")->orWhere('website', 'like', "%". $searchTerm ."%")->orWhere('description', 'like', "%". $searchTerm ."%")->orderBy('name')->paginate(40)->appends(['search'=>$searchTerm]);
         } else {
-            $charities = Charity::orderBy('name')->paginate(15);
+            $charities = Charity::orderBy('name')->paginate(40);
         }
         $data = [];
-        $data['search'] = $request->search;
+        $data['search'] = $searchTerm;
         $data['count'] = count($charities);
         $data['charities'] = $charities;
         return view('charities')->with($data);

@@ -1,0 +1,106 @@
+.signupLoginModals .modal-dialog {
+    top:25%;
+    margin:0 auto;
+    width: 650px;
+}
+
+
+.signupLoginModals .modal-content {
+    background-color: #333;
+    opacity: .98;
+    font-family: 'Montserrat';
+    color: #fed136;
+}
+.signupLoginModals .modal-content .closeModal {
+    padding: 5px;
+    margin-right: 5px;
+}
+.signupLoginModals .modal-content .closeModal .close {
+    color: unset !important;
+    color: #fed136 !important;
+    opacity: 1 !important;
+    text-shadow: none;
+}
+.signupLoginModals .modal-content .closeModal .close:hover {
+    color: unset !important;
+    color: #FEC503!important;
+}
+
+
+.signupLoginModals .modal-header {
+    border-bottom: none;
+    clear: both;
+    padding: 0px;
+}
+
+
+.signupLoginModals .modal-body {
+    padding: 15px 30px;
+}
+.signupLoginModals .modal-body .row {
+    margin: 0px;
+}
+.signupLoginModals .modal-body .row .modalForm {
+    margin-bottom: 0px;
+    padding: 0px;
+}
+.signupLoginModals .modal-body .row .modalForm .modalInput {
+    margin-bottom: 15px;
+    padding: 0px;
+}
+.signupLoginModals .modal-body .row .modalForm .modalInput .form-control {
+    color: #fed136;
+    background-color: #222;
+    margin-bottom: 0px;
+    height: 40px;
+}
+.signupLoginModals .modal-body .row .modalForm .modalInput .form-control:focus {
+    border-color: #fed136;
+    box-shadow: none;
+}
+.signupLoginModals .modal-body .row .modalForm .modalInput .form-control:focus::placeholder {
+    color: #fed136;
+}
+.signupLoginModals .modal-body .row .modalForm .modalInput .form-control::placeholder {
+    text-transform: uppercase;
+    font-weight: bold;
+    color:#fff;
+}
+
+
+.signupLoginModals .modal-footer {
+    border-top: none;
+    padding: 0px;
+}
+
+.signupLoginModals .modal-footer .modalBtns {
+    display: flex;
+    height: 40px;
+}
+
+.signupLoginModals .modal-footer .modalBtns>button {
+    width: 100%;
+    background-color: #fed136;
+    color: #000;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.signupLoginModals .modal-footer .modalBtns>button:focus, .signupLoginModals .modal-footer .modalBtns>button:hover {
+    background-color: #FEC503;
+}
+
+.signupLoginModals .modal-footer a {
+    color: #fed136;
+}
+
+.signupLoginModals .modal-footer a:hover {
+    color: #FEC503;
+    text-decoration: underline;
+}
+
+.signupLoginModals .modal-footer .footerText {
+    margin-top: 20px;
+    color: #ccc;
+    clear: both;
+}

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Games;
+use App\Models\Teams;
 use App\Models\Selections;
 use App\Models\Charity;
 use App\User;
@@ -24,8 +25,17 @@ class GamesController extends Controller
      */
     public function index()
     {
+        $user = \Auth::user();
         $games = Games::get();
-        return view('playGame')->with('games', $games);
+        $dates = Games::groupBy('date_for_week')->get();
+
+        $playingIn = [];
+        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
+        foreach ($gamesUserIsPlaying as $game) {
+            $playingIn[] =  "$game->game_id";
+        }
+
+        return view('playGame')->with(compact('games', 'dates', 'playingIn'));
     }
 
     /**
@@ -66,6 +76,7 @@ class GamesController extends Controller
      */
     public function show(Request $request, $id)
     {
+        $allGames = Games::get();
         $game = Games::find($id);
 
         $thisGameSelections = [];
@@ -83,7 +94,7 @@ class GamesController extends Controller
             abort(404);
         }
         
-        return view('showGame')->with(compact('game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
+        return view('showGame')->with(compact('allGames', 'game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
     }
 
     /**
