@@ -12,6 +12,7 @@ use App\Models\Selections;
 use App\User;
 use Auth;
 use Image;
+use DB;
 
 class AccountController extends Controller
 {
@@ -21,29 +22,43 @@ class AccountController extends Controller
     }
 
 
+    // TO DO: get current/last 'week' number dynamically 
     public function index()
     {
         $user = \Auth::user();
-        $games = Games::get();
 
         // Games for the Week
-        $dates = Games::groupBy('date_for_week')->get();
-
-        // My Current Games
-        $playingIn = [];
+        $gamesForWeek = Games::where('week', '=', '2')->get();
+        $dateOfGame = Games::where('week', '=', '2')->groupBy('date_for_week')->get();
         $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
+        $playingIn = [];
         foreach ($gamesUserIsPlaying as $game) {
             $playingIn[] =  "$game->game_id";
         }
-        $count = count($gamesUserIsPlaying);
+
+        // My Current Games
+        $myCurrentGames = Selections::select('home', 'away', 'game_id')->join('games', 'selections.game_id', '=', 'games.id')->where('user_id', "=", $user->id)->where('games.week', '=', '2')->get();
+        $hasCurrentGames = count($myCurrentGames) > 0;
 
         // Last Week's Results
-
+        $lastWeekResults = Games::select('*')->join('users', 'games.winning_user', '=', 'users.id')->where('games.week', '=', '1')->get();
 
         // Leaderboard
+        $leaderboard = Games::select(DB::raw('winning_user, first_name, last_name, avatar, count(winning_user) AS wins'))->join('users', 'games.winning_user', '=', 'users.id')->groupBy('winning_user')->orderBy(DB::raw('count(winning_user)'), 'DESC')->get();
 
 
-        return view('account')->with(compact('user', 'gamesUserIsPlaying', 'games', 'count', 'dates', 'playingIn'));
+        $data = [];
+        $data['user'] = $user;
+        $data['gamesForWeek'] = $gamesForWeek;
+        $data['dateOfGame'] = $dateOfGame;
+        $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
+        $data['playingIn'] = $playingIn;
+        $data['hasCurrentGames'] = $hasCurrentGames;
+        $data['myCurrentGames'] = $myCurrentGames;
+        $data['lastWeekResults'] = $lastWeekResults;
+        $data['leaderboard'] = $leaderboard;
+
+        return view('account')->with($data);
     }
 
 
