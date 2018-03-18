@@ -11,7 +11,7 @@ INSERT INTO teams VALUES (NULL,'Denver Broncos','broncos.png');
 INSERT INTO teams VALUES (NULL,'Detroit Lions','lions.png');
 INSERT INTO teams VALUES (NULL,'Green Bay Packers','pack.png');
 INSERT INTO teams VALUES (NULL,'Houston Texans','texans.png');
-INSERT INTO teams VALUES (NULL,'Indianpolis Colts','colts.png');
+INSERT INTO teams VALUES (NULL,'Indianapolis Colts','colts.png');
 INSERT INTO teams VALUES (NULL,'Jacksonville Jaguars','jags.png');
 INSERT INTO teams VALUES (NULL,'Kansas City Chiefs','chiefs.png');
 INSERT INTO teams VALUES (NULL,'Los Angeles Chargers','chargers.png');
