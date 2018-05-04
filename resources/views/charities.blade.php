@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('content') 
+@section('content')
 <?php
     $searching = isset($search) && !empty($search) && !ctype_space($search);
     $hasResults = $count > 0;
     $multiplePageResults = $count >= 40;
 ?>
 
-<section class="charitiesPage"> 
+<section class="charitiesPage">
     <h1 class="text-center fc-white">Charities</h1>
     <div class="container searchContainer">
         <form class="" id="search" method="get" action="{{action('CharitiesController@index')}}">
@@ -43,11 +43,11 @@
             <tbody>
             @foreach ($charities as $charity)
                 <tr>
-                    <td data-title="Name"><a class="charityName" href="http://{{ $charity->website }}" target="_blank">{{ $charity->name }}</a></td>
-                    <td class="charitySite" data-title="Website"><a href="http://{{ $charity->website }}" target="_blank">{{ $charity->website }}</a></td>
+                    <td data-title="Name"><a class="charityName" href="https://{{ $charity->website }}" target="_blank">{{ $charity->name }}</a></td>
+                    <td class="charitySite" data-title="Website"><a href="https://{{ $charity->website }}" target="_blank">{{ $charity->website }}</a></td>
                     <td data-title="Description">{{ $charity->description }}</td>
                 </tr>
-            @endforeach 
+            @endforeach
             </tbody>
         </table>
         @endif
@@ -57,15 +57,15 @@
             <div id="backCharities">
                 <a href="{{ action('CharitiesController@index') }}" class="btn btn-primary backCharitiesBtn"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to All Charities</a>
             </div>
-        @endif 
-    </div>  
+        @endif
+    </div>
     <div class="text-center">{!! $charities->render() !!}</div>
     <div class="paginationArrows prev">
         <a href="#" id="previousPage"><i class="fa fa-angle-left"></i></a>
-    </div>  
+    </div>
     <div class="paginationArrows next">
         <a href="#" id="nextPage"><i class="fa fa-angle-right"></i></a>
-    </div> 
+    </div>
 </section>
 
 
@@ -78,7 +78,7 @@
     $paginationArrows.click(function(){
         $Btn = $("ul.pagination").find("li a");
         if ($(this).parent().hasClass('prev')) {
-           $movePage = $Btn.first(); 
+           $movePage = $Btn.first();
         } else {
             $movePage = $Btn.last();
         }
@@ -108,7 +108,7 @@
         });
     }
 
-$(document).keyup(function(e) { 
+$(document).keyup(function(e) {
     switch (e.keyCode) {
         //Left Arrow
         case 37:
