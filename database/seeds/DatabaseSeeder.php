@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call('UsersSeeder');
         $this->call('TeamsSeeder');
         $this->call('GamesSeeder');
-        $this->call('SelectionsSeeder');
+        // $this->call('SelectionsSeeder');
 
         Model::reguard();
     }

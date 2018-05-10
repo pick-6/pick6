@@ -170,9 +170,9 @@ font-size: 22px;
                 <span class="sr-only">Toggle navigation</span> <span class="menuTextColor"><i class="fa fa-bars"></i></span>
             </button>
             <a class="navbar-brand logoName" href="/">PICK</a>
-            <a href="/"><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></a> 
+            <a href="/"><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></a>
         </div>
-        
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -192,6 +192,7 @@ font-size: 22px;
                 <!-- End of User Account Dropdown -->
                 @else
                 <li style="width: 190px"><a href="/howtoplay">How To Play</a></li>
+                <!-- <li style="width: 190px"><a href="#howtoplay" data-toggle="modal">How To Play</a></li> -->
                 <li style="width: 105px"><a href="/charities">Charities</a></li>
                 <li style="width: 140px"><a href="#login" data-toggle="modal">Log In</a></li>
                 <li class="signupLi" style=""><a href="#signup" data-toggle="modal">Sign Up</a></li>
@@ -206,3 +207,4 @@ font-size: 22px;
 <!-- LOGIN/SIGNUP MODALS -->
 @include('modals.loginModal')
 @include('modals.signupModal')
+@include('modals.howtoPlayModal')

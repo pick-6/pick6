@@ -8,13 +8,17 @@
     <!-- NAVBAR -->
     @include('partials.navbar')
 
+    @if (Session::has('successMessage'))
+            <div class="alert alert-success text-center" id="successMessage">{{ session('successMessage') }}</div>
+    @endif
+
     <!-- PAGE CONTENT -->
     @yield('content')
-    
-    <!-- FOOTER -->    
+
+    <!-- FOOTER -->
     @include('partials.footer')
-    
-    <!-- JS SCRIPTS -->  
+
+    <!-- JS SCRIPTS -->
     @include('partials.common_js')
 
 </body>

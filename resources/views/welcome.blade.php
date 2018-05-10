@@ -53,7 +53,7 @@
         <div class="container">
             <div class="intro-text">
                 <div class="intro-lead-in">
-                    Welcome To 
+                    Welcome To
                     <div style="display:inline-flex;">
                         <span class="navbar-brand logoName fc-yellow" href="/">PICK</span>
                         <span><img class="logoImage" src="/img/pick6_logo.png" onContextMenu="return false;"></span>
@@ -143,5 +143,5 @@
             </div>
         </div>
     </section>
-  
+
 @stop

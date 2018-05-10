@@ -11,6 +11,7 @@ use App\Models\Teams;
 use App\Models\Selections;
 use App\Models\Charity;
 use App\User;
+use DB;
 
 class GamesController extends Controller
 {
@@ -26,7 +27,11 @@ class GamesController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $games = Games::get();
+        $games = Games::select(DB::raw('games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        ->orderBy('games.time', 'ASC')
+        ->get();
         $dates = Games::groupBy('date_for_week')->get();
 
         $playingIn = [];
@@ -61,10 +66,10 @@ class GamesController extends Controller
         // $games->away = $request->away;
         // $games->home_score = $request->home_score;
         // $games->away_score = $request->away_score;
-        
+
         // $games->save();
         // $request->session()->flash('successMessage', 'Post saved successfully');
-        
+
         // return redirect()->action('gamessController@show', $games->id);
     }
 
@@ -76,25 +81,37 @@ class GamesController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $allGames = Games::get();
-        $game = Games::find($id);
+        $user = \Auth::user();
+
+        $thisGame = Games::find($id);
+
+        if(!$thisGame) {
+            abort(404);
+        }
+
+        $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        ->orderBy('games.time', 'ASC')
+        ->get();
 
         $thisGameSelections = [];
+        $thisGameUserSelections = [];
 
         $winningSelection = User::select('*')->join('games', 'users.id', '=', 'games.winning_user')->where('games.id', '=', $id)->get();
         $winningCharitySelection = Charity::select('*')->join('games', 'charities.id', '=', 'games.winning_charity')->where('games.id', '=', $id)->get();
-        $gameTotalBets = Games::select('*')->where('games.id', '=', $id)->get();
+        // $gameTotalBets = Games::select('*')->where('games.id', '=', $id)->get();
 
-        $squaresSelected = Selections::where('game_id', '=', $id)->get();
+        // $squaresSelected = Selections::where('game_id', '=', $id)->get();
+        $squaresSelected = Selections::select('*')
+        ->join('users', 'selections.user_id', '=', 'users.id')
+        ->where('game_id', '=', $id)
+        ->get();
         foreach ($squaresSelected as $squareSelected) {
             $thisGameSelections[] =  "$squareSelected->square_selection";
         }
 
-        if(!$game) {
-            abort(404);
-        }
-        
-        return view('showGame')->with(compact('allGames', 'game', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
+        return view('showGame')->with(compact('allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
     }
 
     /**
@@ -106,11 +123,11 @@ class GamesController extends Controller
     public function edit($id)
     {
         // $games = Game::find($id);
-        
+
         // if(!$games) {
         //     Session::flash("errorMessage", "Game not found");
         // }
-        // return view('games.edit')->with('games', $games);   
+        // return view('games.edit')->with('games', $games);
     }
 
     /**
@@ -123,17 +140,17 @@ class GamesController extends Controller
     public function update(Request $request, $id)
     {
         // $games = Game::find($id);
-        
+
         // if(!$games) {
         //     Session::flash("errorMessage", "games not found");
         //     return redirect()->action("GamesController@index");
         // }
-        
+
         // $games->home = $request->home;
         // $games->away = $request->away;
         // $games->home_score = $request->home_score;
         // $games->away_score = $request->away_score;
-        
+
         // $games->save();
         // return view('games.show')->with('games', $games);
     }

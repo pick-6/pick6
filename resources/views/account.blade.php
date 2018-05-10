@@ -109,7 +109,7 @@
         text-align:left;
         vertical-align: middle;
         display: inline-flex;
-        min-width: 30px; 
+        min-width: 30px;
     }
     .dashboardSection #availablePicks {
         width: 85%;
@@ -137,10 +137,11 @@
             <div class="col-md-7">
                 <div class="dashboardSection">
                     <h3 class="fc-white text-center">Games for the Week</h3>
+                    @if ($hasGamesForWeek)
                     <div id="no-more-tables" class="container table-responsive">
                     @foreach ($dateOfGame as $date)
                         <h4 class="dateOfGame text-left clear fc-grey">
-                            {{date("l, F dS", strtotime("$date->date_for_week"))}}
+                            {{date("l, F jS", strtotime("$date->date_for_week"))}}
                         </h4>
                         <table class="col-md-12 table-bordered table-condensed fc gamesForWeekTables">
                             <colgroup>
@@ -210,6 +211,11 @@
                         </table>
                     @endforeach
                     </div>
+                    @else
+                        <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                            There are no games this week.
+                        </p>
+                    @endif
                 </div>
             </div>
             <div class="col-md-5">
@@ -239,10 +245,10 @@
                                                 <div class="text-left middle width70 inline-flex">
                                                     {{$game->away}}
                                                 </div>
-                                            </div> 
+                                            </div>
                                        </a>
                                    </td>
-                                   
+
                                     <td data-title="" id="playGameBtn" class="middle padding-0">
                                        <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn">
                                             GO TO GAME
@@ -268,11 +274,12 @@
             <div class="col-md-4 padding-l-0">
                 <div class="dashboardSection lastWeekResults">
                     <h3>Last Week's Results</h3>
+                    @if ($hasLastWkGames)
                     <div id="no-more-tables" class="container table-responsive table-header">
                         <table class="table table-bordered margin-bottom-0">
                             <colgroup>
+                                <col style="width:200px">
                                 <col>
-                                <col style="width:100px">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -285,26 +292,28 @@
                     <div id="no-more-tables" class="container table-responsive margin-bottom-0">
                         <table class="table table-bordered margin-bottom-0">
                             <colgroup>
+                                <col style="width:200px">
                                 <col>
-                                <col style="width:100px">
                             </colgroup>
                             <tbody>
                             @foreach ($lastWeekResults as $game)
                                 <tr>
                                     <td data-title="Final Score" class="fc-yellow middle fs-25">
-                                        <div class="pull-left width50">
-                                            <img src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
-                                            <div class="scores">
-                                                {{$game->home_score}}
+                                        <a href="{{action('GamesController@show', [$game->id])}}">
+                                            <div class="pull-left width50">
+                                                <img src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
+                                                <div class="scores">
+                                                    {{$game->home_score}}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- <span style="/*padding: 0px 40px">vs.</span> -->
-                                        <div class="pull-right width50">
-                                            <img src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
-                                            <div class="scores">
-                                                {{$game->away_score}}
+                                            <!-- <span style="/*padding: 0px 40px">vs.</span> -->
+                                            <div class="pull-right width50">
+                                                <img src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
+                                                <div class="scores">
+                                                    {{$game->away_score}}
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </td>
                                     <td data-title="Winner" class="middle">
                                         <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->username}}"><br>
@@ -315,14 +324,14 @@
                             </tbody>
                         </table>
                     </div>
+                    @else
+                        <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                            There were no games last week.
+                        </p>
+                    @endif
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="dashboardSection">
-                    
-                </div>
-            </div>
-            <div class="col-md-4 padding-3-0">
                 <div class="dashboardSection">
                     <h3>Leaderboard</h3>
                     <div id="no-more-tables" class="container table-responsive table-header">
@@ -353,12 +362,12 @@
                                 <tr class="<?= ($player->winning_user == Auth::user()->id) ? 'fc-yellow' : ''?>">
                                     <td data-title="Rank" class="middle">
                                         @if ($index == 0)
-                                            <img src="/img/gold.png" height="20" width="20" alt="First Place"> 
+                                            <img src="/img/gold.png" height="20" width="20" alt="First Place">
                                         @elseif ($index == 1)
                                             <img src="/img/silver.png" height="20" width="20" alt="Second Place">
                                         @elseif ($index == 2)
                                             <img src="/img/bronze.png" height="20" width="20" alt="Third Place">
-                                        @else 
+                                        @else
                                             {{$index+1}}.
                                         @endif
                                     </td>
@@ -374,6 +383,54 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-4 padding-r-0">
+                <div class="dashboardSection">
+                    <h3 class="fc-white text-center">Next Week's Games</h3>
+                    @if ($hasNextWeekGames)
+                    <div id="no-more-tables" class="container table-responsive" style="height:calc(100% - 53px);">
+                        <table class="table table-bordered margin-bottom-0">
+                             <colgroup>
+                                 <col>
+                                 <col style="width: 35%">
+                             </colgroup>
+                            <tbody>
+                            @foreach ($nextWeekGames as $game)
+                                <tr>
+                                    <td class="gameTeams text-left" data-title="Game">
+                                        <a class="fs-12" href="{{action('GamesController@show', [$game->id])}}">
+                                            <div class="pull-left width50">
+                                                <img src="img/team_logos/{{$game->home_logo}}" height="50" width="55" alt="{{$game->home}}">
+                                                <div class="text-left middle width60 inline-flex">
+                                                    {{$game->home}}
+                                                </div>
+                                            </div>
+                                            <!-- <span style="/*padding: 0px 40px">vs.</span> -->
+                                            <div class="pull-right width50">
+                                                <img src="img/team_logos/{{$game->away_logo}}" height="50" width="55" alt="{{$game->away}}">
+                                                <div class="text-left middle width60 inline-flex">
+                                                    {{$game->away}}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+
+                                     <!-- <td data-title="" id="playGameBtn" class="middle padding-0">
+                                        <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn">
+                                             GO TO GAME
+                                         </a>
+                                     </td> -->
+                                 </tr>
+                             @endforeach
+                             </tbody>
+                         </table>
+                     </div>
+                    @else
+                        <p class="margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                            No upcoming games.
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>

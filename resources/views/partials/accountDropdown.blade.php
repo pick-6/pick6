@@ -20,7 +20,7 @@
                                         <span style="color: lightgrey">{{Auth::user()->username}}</span>
                                         <p class="text-muted small">{{Auth::user()->email}}</p>
                                         <div class="divider"></div>
-                                        <a href="{{action('AccountController@index', [Auth::user()->username])}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
+                                        <a href="{{action('AccountController@dashboard')}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
                                     </div>
                                 </div>
                             </div>

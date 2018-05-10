@@ -14,7 +14,7 @@
         </ul>
     </div>
 @endif
-<form method="POST" action="">
+<form method="POST" action="{{action('AccountController@updatePassword')}}">
     {!! csrf_field() !!}
 
     <div class="form-group">
@@ -30,7 +30,7 @@
     <div class="form-group">
     {{ method_field('PUT') }}
         <button type="submit" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-success">Update</button>
-        <a href="{{action('AccountController@index', [Auth::user()->username])}}" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-danger pull-right">Cancel</a>
+        <a href="{{action('AccountController@dashboard')}}" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-danger pull-right">Cancel</a>
     </div>
 </form>
 </div>

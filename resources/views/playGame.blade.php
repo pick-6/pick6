@@ -1,3 +1,7 @@
+<?php
+$currentWeek = 2;
+?>
+
 @extends('layouts.master')
 @section('content')
 <style type="text/css">
@@ -106,9 +110,9 @@
         <div id="no-more-tables" class="container table-responsive">
             @foreach ($dates as $date)
                 <!-- TO DO: -->
-                @if ($date->date_for_week < date('now') && $date->date_for_week > date("Y-d-m", strtotime("2016-09-10")))
-                <h4 class="dateOfGame">{{date("l, F dS", strtotime("$date->date_for_week"))}}</h4>
-    
+                @if ($date->week == $currentWeek)
+                <h4 class="dateOfGame">{{date("l, F jS", strtotime("$date->date_for_week"))}}</h4>
+
                 <table class="col-md-12 table-bordered table-condensed fc" style="">
                     <colgroup>
                         <col style="width: 10%">
@@ -118,17 +122,19 @@
                     <tbody>
                         @foreach ($games as $game)
                             <!-- TO DO: -->
-                            @if ($game->date_for_week < date('now') && $game->date_for_week > date("Y-d-m", strtotime("2016-09-10")))
+                            @if ($date->week == $currentWeek)
                                 @if ($date->date_for_week == $game->date_for_week)
                                     <tr>
                                         <td class="gameDayTime" data-title="Kick-Off">
                                             {{date("g:i", strtotime("$game->time"))}} pm
                                         </td>
-                
+
                                         <td class="gameTeams" data-title="Game">
+                                            <img class="pull-left" src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
                                             <a href="{{action('GamesController@show', [$game->id])}}">{{$game->home}} vs. {{$game->away}} </a>
+                                            <img class="pull-right" src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
                                         </td>
-                
+
                                         <td id="playGameBtn">
                                             <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn">
                                                 <?= (in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'; ?>

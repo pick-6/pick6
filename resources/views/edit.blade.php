@@ -40,7 +40,7 @@
     <div class="form-group">
     {{ method_field('PUT') }}
         <button type="submit" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-success">UPDATE</button>
-        <a href="{{action('AccountController@index', [Auth::user()->username])}}" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-danger pull-right">CANCEL</a>
+        <a href="{{action('AccountController@dashboard')}}" style="color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="btn btn-danger pull-right">CANCEL</a>
     </div>
 </form>
 </div>

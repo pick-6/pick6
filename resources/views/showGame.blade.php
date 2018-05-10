@@ -1,3 +1,6 @@
+<?php
+    $currentWeek = 2;
+?>
 @extends('layouts.master')
 @section('content')
 <style>
@@ -20,14 +23,8 @@
 </style>
 <section class="showGamePage" style="padding: 0px;padding-top: 70px;height: 100vh">
     <div class="container">
-        @if ($game->date_for_week < date('now')) <!-- Show game table for future games -->
+        @if ($thisGame->week >= $currentWeek) <!-- Show game table for future games -->
 
-            <!-- Message user that their square selection has been saved successfully  -->
-            @if (Session::has('successMessage'))
-                <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
-            @endif
-    
-    
             <!-- PICK A SQUARE -->
             <div class="col-md-12 text-center">
                 <!-- <h1 class="gameSteps">Step 2:</h1>
@@ -35,19 +32,19 @@
                 <h3 class="fc-white">Pick Your Square(s) From The Table Below</h3>
                 <!-- <p>(Remember that the numbers represent the last digit of the final score for each team)</p> -->
             </div>
-        
-            
+
+
             <!-- HOME TEAM NAME -->
             <div class="col-md-12 homeTeamName" style="margin-top: 0px">
-                <h1 class="text-center">{{$game->home}}</h1>
+                <h1 class="text-center">{{$thisGame->home}}</h1>
                 <p class="text-center homeTeamTop">(Top of the table)</p>
             </div>
-        
+
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
-            <div class="col-md-2">  
-                <h1 class="text-center awayTeamNameDesktop">{{$game->away}}</h1>
+            <div class="col-md-2">
+                <h1 class="text-center awayTeamNameDesktop">{{$thisGame->away}}</h1>
             </div>
-        
+
             <!-- SQUARES GAME TABLE -->
             <div class="container col-md-8">
                 <table class="table table-bordered" style="margin-bottom: 0px">
@@ -58,7 +55,7 @@
                             <th style="border-color: black;text-align: center;background: linear-gradient(#ffce7a,#FEC503)">?<!-- {{$column}} --></th>
                         @endfor
                     </tr>
-        
+
                     <!-- Creates numbers 0-9 going down -->
                     @for ($row = 0; $row < 10; $row++)
                         <tr>
@@ -66,19 +63,23 @@
                             <!-- Creates all 100 squares on the table -->
                             @for ($column = 0; $column < 10; $column++)
                                 @if (in_array("$column$row", $thisGameSelections))
-                                    <td class="notAvailable" style="background-color: #9b1b18;/*background-image: url('/img/profilePics/{{Auth::user()->avatar}}');background-size: cover;*/"></td>
+                                    @foreach($squaresSelected as $test)
+                                        @if($test->square_selection == $column.$row)
+                                            <td class="notAvailable" data-id="{{$column}}{{$row}}" style="background-image: url('/img/profilePics/{{$test->avatar}}');background-size: cover;"></td>
+                                        @endif
+                                    @endforeach
                                 @else
-                                    <td class="availableSquare" href="#pickSquare" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
+                                    <td class="availableSquare" href="#pickSquare" data-id="{{$column}}{{$row}}" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
                                 @endif
                             @endfor
                         </tr>
                     @endfor
                 </table>
             </div>
-    
+
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
-            <div class="col-md-2 awayTeamName">  
-                <h1 class="text-center">{{$game->away}}</h1>
+            <div class="col-md-2 awayTeamName">
+                <h1 class="text-center">{{$thisGame->away}}</h1>
                 <p class="text-center">(Left side of the table)</p>
             </div>
 
@@ -86,9 +87,9 @@
             <div class="dropdown text-center" style="padding-top: 45px;clear: both;/*width: 40%;margin: 0 auto*/">
                 <button style="color: #000; text-transform: uppercase;" class="btn btn-lg dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Choose Another Game <span class="fa fa-caret-up"></span></button>
                 <ul class="dropdown-menu scrollable-menu" style="top:-95%;/*width: auto; margin: 0*/">
-                    @foreach ($allGames as $newgame)
-                        @if ($newgame->date_for_week < date('now') && $newgame->date_for_week > date("Y-d-m", strtotime("2016-09-10")))
-                            <li><a class="page-scroll gameSelection text-center" data-id="{{$newgame->id}}" href="{{action('GamesController@show', [$newgame->id])}}" style="font-size: 18px;">{{$newgame->home}} vs. {{$newgame->away}}</a></li>
+                    @foreach ($allGames as $otherGame)
+                        @if ($otherGame->week == $currentWeek)
+                            <li><a class="page-scroll gameSelection text-center" data-id="{{$otherGame->id}}" href="{{action('GamesController@show', [$otherGame->id])}}" style="font-size: 18px;"><img class="pull-left" src="http://localhost:8000/img/team_logos/{{$otherGame->home_logo}}" height="40" width="45" alt="{{$otherGame->home}}"> vs. <img class="pull-right" src="http://localhost:8000/img/team_logos/{{$otherGame->away_logo}}" height="40" width="45" alt="{{$otherGame->away}}"></a></li>
                         @endif
                     @endforeach
                 </ul>
@@ -98,24 +99,22 @@
             <h1 class="text-center" style="color: white">Final Score</h1>
 
             <div class="col-md-6 text-center">
-                <h2 style="color: white">{{$game->home}}: <br><span style="color: #FEC503">{{$game->home_score}}</span></h2>  
+                <h2 style="color: white">{{$thisGame->home}}: <br><span style="color: #FEC503">{{$thisGame->home_score}}</span></h2>
             </div>
 
-            <div class="col-md-6 text-center">  
-                <h2 style="color: white">{{$game->away}}: <br><span style="color: #FEC503">{{$game->away_score}}</span></h2>
+            <div class="col-md-6 text-center">
+                <h2 style="color: white">{{$thisGame->away}}: <br><span style="color: #FEC503">{{$thisGame->away_score}}</span></h2>
             </div>
 
             <div class="text-center">
-                @if (Auth::user()->id == $game->winning_user)
+                @if (Auth::user()->id == $thisGame->winning_user)
                     <a href="/gameResults" class="btn btn-xl dropdown-toggle gameBtn" type="button">You Won!</a>
                 @else
                     @foreach ($winningSelection as $winningUser)
                         <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">{{$winningUser->first_name}} {{$winningUser->last_name}}</span></h2>
                     @endforeach
                     @foreach ($winningCharitySelection as $winningCharity)
-                        @foreach ($gameTotalBets as $amount)
-                            <h2 style="color: white">A total of <span style="color: #FEC503">${{$amount->winning_total}}</span> went to <span style="color: #FEC503">{{$winningCharity->name}}</span></h2>
-                        @endforeach
+                            <h2 style="color: white">A total of <span style="color: #FEC503">${{$thisGame->winning_total}}</span> went to <span style="color: #FEC503">{{$winningCharity->name}}</span></h2>
                     @endforeach
                 @endif
             </div>
@@ -132,17 +131,17 @@
                     <h4 class="modal-title text-center" style="color: #FEC503">Confirming Your Square Selection</h4>
                 </div>
                 <div class="modal-body">
-                    <form  method="POST" action="{{ action('SelectionsController@store') }}"> 
+                    <form  method="POST" action="{{ action('SelectionsController@store') }}">
                         {!! csrf_field() !!}
                             <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
-                            <input type=hidden name="game_id" value="{{$game->id}}">
+                            <input type=hidden name="game_id" value="{{$thisGame->id}}">
                             <input type=hidden name="hscore" value="" class="hscore">
                             <input type=hidden name="ascore" value="" class="ascore">
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                                 <h4 class="text-center" style="color: #FEC503">Here Is Your Pick:</h4>
-                                <p class="text-center" style="color: #eee">{{$game->home}} final score at the end of the game will end with a <span class="hscore" style="margin-left: 5px"></span></p>
-                                <p class="text-center" style="color: #eee">{{$game->away}} final score at the end of the game will end with a <span class="ascore" style="margin-left: 5px"></span></p>
+                                <p class="text-center" style="color: #eee">{{$thisGame->home}} final score at the end of the game will end with a <span class="hscore" style="margin-left: 5px"></span></p>
+                                <p class="text-center" style="color: #eee">{{$thisGame->away}} final score at the end of the game will end with a <span class="ascore" style="margin-left: 5px"></span></p>
                                 <div class="donation-container">
                                     <h4 class="text-center" style="color: #FEC503">Choose Your Donation Amount:</h4>
                                     <p class="text-center" style="color: #eee">(Your credit card won't be charged until you 'Go To Payment')</p>

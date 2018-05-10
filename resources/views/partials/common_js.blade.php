@@ -19,6 +19,10 @@
 (function() {
     "use strict";
 
+    setTimeout(function(){
+        $('#successMessage').fadeOut(1500);
+    }, 2000);
+
     // changes background-color when hovering over available square
     $('.availableSquare').mouseover(function(){
         $(this).css('background','linear-gradient(#111, #222)');
@@ -75,11 +79,11 @@
 
     // Account Dropdown Menu
     $('ul.dropdown-menu *').click(function(e){
-        e.stopPropagation(); 
+        e.stopPropagation();
     });
 
     $('.closeDrop').click(function(){
-        $('.userAccount').removeClass('open'); 
+        $('.userAccount').removeClass('open');
     });
 
 
@@ -87,14 +91,14 @@
     $('#changePhoto').click(function(){
         $('#chooseProfilePic').trigger('click');
     });
-    
+
     $('#chooseProfilePic').on('click touchstart', function(){
         $(this).val('');
     });
-    
+
     $("#chooseProfilePic").change(function(e) {
         $("#sumbitProfilePic").trigger('click');
     });
-    
+
 })();
-</script> 
+</script>
