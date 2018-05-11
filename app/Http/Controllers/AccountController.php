@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Games;
+use App\Models\Winnings;
 use App\Models\Selections;
 use App\User;
 use Auth;
@@ -23,25 +24,48 @@ class AccountController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // TO DO: get last/current/next 'week' number dynamically
         $this->lastWeek = 1;
         $this->currentWeek = 2;
         $this->nextWeek = 3;
     }
 
+    public static function numberOfPicksForGame($game)
+    {
+        $picks = Selections::select(DB::raw('count(distinct square_selection) AS picks'))
+        ->where('game_id', '=', $game)
+        ->groupBy('game_id')
+        ->get();
+
+        $hasPicks = count($picks) > 0;
+
+        if ($hasPicks) {
+            foreach ($picks as $pick)
+            {
+                $numberOfPicks = $pick->picks;
+                return $numberOfPicks;
+            }
+        } else {
+            $numberOfPicks = 0;
+            return $numberOfPicks;
+        }
+    }
+
     public function getLeaderBoard()
     {
-        $leaderboard = Games::select(DB::raw('winning_user, first_name, last_name, avatar, count(winning_user) AS wins'))
-        ->join('users', 'games.winning_user', '=', 'users.id')
-        ->groupBy('winning_user')
-        ->orderBy(DB::raw('count(winning_user)'), 'DESC')
+        $leaderboard = Winnings::select(DB::raw('users.*, count(winnings.winning_user) AS wins'))
+        ->join('users', 'winnings.winning_user', '=', 'users.id')
+        ->groupBy('winnings.winning_user')
+        ->orderBy(DB::raw('count(winnings.winning_user)'), 'DESC')
         ->get();
         return $leaderboard;
     }
 
     public function getGamesForWeek($weekNo)
     {
+        $gamesForWeek = Games::select(DB::raw('games.*, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         // $gamesForWeek = Games::select(DB::raw('count(distinct square_selection) AS picks, games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        $gamesForWeek = Games::select(DB::raw('games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        // $gamesForWeek = Games::select(DB::raw('*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         // ->join('selections', 'selections.game_id', '=', 'games.id')->groupBy('game_id')
@@ -54,20 +78,20 @@ class AccountController extends Controller
 
     public function getMyCurrentGames($currentWeekNo, $user)
     {
-        $myCurrentGames = Selections::select(DB::raw('game_id, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join('games', 'selections.game_id', '=', 'games.id')
+        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
-        ->where('user_id', "=", $user->id)
+        ->join('selections', 'games.id', '=', 'selections.game_id')
+        ->where('selections.user_id', "=", $user->id)
         ->where('games.week', '=', $currentWeekNo)
-        ->groupBy('game_id')
+        ->groupBy('selections.game_id')
         ->get();
         return $myCurrentGames;
     }
 
     public function getNextWeekGames($nextWeekNo)
     {
-        $nextWeekGames = Games::select(DB::raw('games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $nextWeekGames = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->where('games.week', '=', $nextWeekNo)
@@ -79,29 +103,24 @@ class AccountController extends Controller
 
     public function getLastWeekResults($lastWeekNo)
     {
-        $lastWeekResults = Games::select(DB::raw('games.id, avatar, username, home_score, away_score, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $lastWeekResults = Games::select(DB::raw('games.*, winnings.*, username, avatar, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
-        ->join('users', 'games.winning_user', '=', 'users.id')
+        ->join('winnings', 'games.id', '=', 'winnings.game_id')
+        ->join('users', 'winnings.winning_user', '=', 'users.id')
         ->where('games.week', '=', $lastWeekNo)
-        ->orderBy('games.id', 'ASC')
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
         ->get();
         return $lastWeekResults;
     }
 
-    // TO DO: get current/last 'week' number dynamically
     public function dashboard()
     {
         $data = [];
 
         $user = \Auth::user();
         $data['user'] = $user;
-
-        // Games for the Week
-        $gamesForWeek = $this->getGamesForWeek($this->currentWeek);
-        $data['gamesForWeek'] = $gamesForWeek;
-        $hasGamesForWeek = count($gamesForWeek) > 0;
-        $data['hasGamesForWeek'] = $hasGamesForWeek;
 
         $dateOfGame = Games::select('date_for_week')->where('week', '=', $this->currentWeek)->groupBy('date_for_week')->get();
         $data['dateOfGame'] = $dateOfGame;
@@ -112,6 +131,12 @@ class AccountController extends Controller
             $playingIn[] =  "$game->game_id";
         }
         $data['playingIn'] = $playingIn;
+
+        // Games for the Week
+        $gamesForWeek = $this->getGamesForWeek($this->currentWeek);
+        $data['gamesForWeek'] = $gamesForWeek;
+        $hasGamesForWeek = count($gamesForWeek) > 0;
+        $data['hasGamesForWeek'] = $hasGamesForWeek;
 
         // My Current Games
         $myCurrentGames = $this->getMyCurrentGames($this->currentWeek, $user);

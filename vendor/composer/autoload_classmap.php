@@ -13,6 +13,7 @@ return array(
     'CreateSelectionsTable' => $baseDir . '/database/migrations/2017_05_08_211427_create_selections_table.php',
     'CreateTeamsTable' => $baseDir . '/database/migrations/2018_03_11_201118_create_teams_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateWinningsTable' => $baseDir . '/database/migrations/2018_05_10_060804_create_winnings_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
@@ -532,4 +533,5 @@ return array(
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UserBetsSeeder' => $baseDir . '/database/seeds/UserBetsSeeder.php',
     'UsersSeeder' => $baseDir . '/database/seeds/UsersSeeder.php',
+    'WinningsSeeder' => $baseDir . '/database/seeds/WinningsSeeder.php',
 );

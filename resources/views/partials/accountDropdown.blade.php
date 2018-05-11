@@ -16,9 +16,9 @@
                                         </p>
                                     </div>
                                     <div class="col-md-7">
-                                        <span style="color: #fed136">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <a class="editAccount" href="{{action('AccountController@edit')}}"><i class="fa fa-edit" style="margin-left: 5px"></i></a></span>
-                                        <span style="color: lightgrey">{{Auth::user()->username}}</span>
-                                        <p class="text-muted small">{{Auth::user()->email}}</p>
+                                        <div style="color: #fed136">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <a class="editAccount" href="{{action('AccountController@edit')}}"><i class="fa fa-edit" style="margin-left: 5px"></i></a></div>
+                                        <div style="color: lightgrey">{{Auth::user()->username}}</div>
+                                        <div class="text-muted small">{{Auth::user()->email}}</div>
                                         <div class="divider"></div>
                                         <a href="{{action('AccountController@dashboard')}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
                                     </div>

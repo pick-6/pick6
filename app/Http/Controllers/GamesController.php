@@ -98,8 +98,8 @@ class GamesController extends Controller
         $thisGameSelections = [];
         $thisGameUserSelections = [];
 
-        $winningSelection = User::select('*')->join('games', 'users.id', '=', 'games.winning_user')->where('games.id', '=', $id)->get();
-        $winningCharitySelection = Charity::select('*')->join('games', 'charities.id', '=', 'games.winning_charity')->where('games.id', '=', $id)->get();
+        $winningSelection = User::select('*')->join('winnings', 'users.id', '=', 'winnings.winning_user')->where('winnings.game_id', '=', $id)->get();
+        $winningCharitySelection = Charity::select('*')->join('winnings', 'charities.id', '=', 'winnings.winning_charity')->where('winnings.game_id', '=', $id)->get();
         // $gameTotalBets = Games::select('*')->where('games.id', '=', $id)->get();
 
         // $squaresSelected = Selections::where('game_id', '=', $id)->get();

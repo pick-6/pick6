@@ -8,7 +8,7 @@ class CreateCharitiesTable extends Migration
    public function up()
     {
         Schema::create('charities', function (Blueprint $charities) {
-            $charities->increments('id'); 
+            $charities->increments('id');
             $charities->string('name');
             $charities->string('website', 100)->nullable();
             $charities->string('description')->nullable();

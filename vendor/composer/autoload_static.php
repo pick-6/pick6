@@ -302,6 +302,7 @@ class ComposerStaticInit7e26b6391c5185ab48561fcc3a9b4fbc
         'CreateSelectionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_05_08_211427_create_selections_table.php',
         'CreateTeamsTable' => __DIR__ . '/../..' . '/database/migrations/2018_03_11_201118_create_teams_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateWinningsTable' => __DIR__ . '/../..' . '/database/migrations/2018_05_10_060804_create_winnings_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
@@ -821,6 +822,7 @@ class ComposerStaticInit7e26b6391c5185ab48561fcc3a9b4fbc
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UserBetsSeeder' => __DIR__ . '/../..' . '/database/seeds/UserBetsSeeder.php',
         'UsersSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersSeeder.php',
+        'WinningsSeeder' => __DIR__ . '/../..' . '/database/seeds/WinningsSeeder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

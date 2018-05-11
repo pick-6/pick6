@@ -180,7 +180,7 @@ font-size: 22px;
                 @if (Auth::check())
                 <li class="showOnMobile" style="width: 135px"><a href="/play">Play Game</a></li>
                 <!-- <li style="width: 140px"><a href="/play">Join a Game</a></li> -->
-                <li class="showOnMobile"><a href="/account">Dashboard</a></li>
+                <li class="showOnMobile"><a href="{{action('AccountController@dashboard')}}">Dashboard</a></li>
                 <li class="showOnMobile"><a href="{{action('Auth\AuthController@getLogout')}}">Log Out</a></li>
                 <li class="dropdown userAccount">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">

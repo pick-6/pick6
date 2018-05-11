@@ -1,3 +1,7 @@
+<?php
+use \App\Http\Controllers\AccountController;
+?>
+
 @extends('layouts.master')
 @section('content')
 <style type="text/css">
@@ -176,26 +180,29 @@
                                     </td>
 
                                     <td id="playGameBtn" style="padding: 0px">
+                                        <?php
+                                             $numberOfPicks = AccountController::numberOfPicksForGame($game->id);
+                                        ?>
                                         <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn">
-                                            @if ($game->picks < 100)
-                                                <?= (in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'; ?>
+                                            @if ($numberOfPicks < 100)
+                                                {{(in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
                                             @else
                                                 SEE GAME
                                             @endif
                                         </a>
                                         <div class="width25 absolute">
                                             <div id="availablePicks">
-                                                <div id="availablePicksBar" style="width: {{$game->picks}}%; background-color: <?= ($game->picks <= 40) ? 'green' : (($game->picks <= 65 && $game->picks > 40) ? '#475613' : (($game->picks <= 80 && $game->picks > 65) ? '#923127' : 'crimson'))?>;"></div>
+                                                <div id="availablePicksBar" style="width: {{$numberOfPicks}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
                                             </div>
                                             <div id="availablePicksLabel">
                                                 <small>
                                                     <i>
-                                                        @if ($game->picks == 100)
+                                                        @if ($numberOfPicks == 100)
                                                             Sorry, Game is Full
-                                                        @elseif ($game->picks >= 90 && $game->picks < 100)
-                                                            Hurry, only {{100 - $game->picks}} pick<?= ($game->picks == 99) ? '' : 's'?> left!
-                                                        @elseif ($game->picks > 0 && $game->picks < 100)
-                                                            {{100 - $game->picks}} Picks Available
+                                                        @elseif ($numberOfPicks >= 90 && $numberOfPicks < 100)
+                                                            Hurry, only {{100 - $numberOfPicks}} pick<?= ($numberOfPicks == 99) ? '' : 's'?> left!
+                                                        @elseif ($numberOfPicks > 0 && $numberOfPicks < 100)
+                                                            {{100 - $numberOfPicks}} Picks Available
                                                         @else
                                                             Be the first to pick!
                                                         @endif
@@ -359,7 +366,7 @@
                             </colgroup>
                            <tbody>
                             @foreach ($leaderboard as $index => $player)
-                                <tr class="<?= ($player->winning_user == Auth::user()->id) ? 'fc-yellow' : ''?>">
+                                <tr class="<?= ($player->id == Auth::user()->id) ? 'fc-yellow' : ''?>">
                                     <td data-title="Rank" class="middle">
                                         @if ($index == 0)
                                             <img src="/img/gold.png" height="20" width="20" alt="First Place">
