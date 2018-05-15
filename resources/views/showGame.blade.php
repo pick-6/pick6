@@ -63,9 +63,9 @@
                             <!-- Creates all 100 squares on the table -->
                             @for ($column = 0; $column < 10; $column++)
                                 @if (in_array("$column$row", $thisGameSelections))
-                                    @foreach($squaresSelected as $test)
-                                        @if($test->square_selection == $column.$row)
-                                            <td class="notAvailable" data-id="{{$column}}{{$row}}" style="background-image: url('/img/profilePics/{{$test->avatar}}');background-size: cover;"></td>
+                                    @foreach($squaresSelected as $user)
+                                        @if($user->square_selection == $column.$row)
+                                            <td class="notAvailable" data-id="{{$column}}{{$row}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
                                         @endif
                                     @endforeach
                                 @else

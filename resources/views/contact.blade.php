@@ -23,8 +23,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                    <p class="help-block text-danger"></p>
+                                    <input type="tel" class="form-control" placeholder="Your Phone" id="phone">
                                 </div>
                             </div>
                             <div class="col-md-6">

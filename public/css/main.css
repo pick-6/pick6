@@ -50,7 +50,7 @@ textarea.form-control:focus::placeholder {
 #successMessage {
     position: absolute;
     width: 100%;
-    top: 40px;
+    /* top: 40px; */
     z-index: 10000;
     font-size: 1.25em;
 }

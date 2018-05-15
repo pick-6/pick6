@@ -32,19 +32,15 @@ class AccountController extends Controller
 
     public static function numberOfPicksForGame($game)
     {
-        $picks = Selections::select(DB::raw('count(distinct square_selection) AS picks'))
+        $picks = Selections::select(DB::raw('count(square_selection) AS picks'))
         ->where('game_id', '=', $game)
-        ->groupBy('game_id')
         ->get();
 
         $hasPicks = count($picks) > 0;
 
         if ($hasPicks) {
-            foreach ($picks as $pick)
-            {
-                $numberOfPicks = $pick->picks;
-                return $numberOfPicks;
-            }
+            $numberOfPicks = $picks[0]['picks'];
+            return $numberOfPicks;
         } else {
             $numberOfPicks = 0;
             return $numberOfPicks;
@@ -53,10 +49,10 @@ class AccountController extends Controller
 
     public function getLeaderBoard()
     {
-        $leaderboard = Winnings::select(DB::raw('users.*, count(winnings.winning_user) AS wins'))
-        ->join('users', 'winnings.winning_user', '=', 'users.id')
-        ->groupBy('winnings.winning_user')
-        ->orderBy(DB::raw('count(winnings.winning_user)'), 'DESC')
+        $leaderboard = Winnings::select(DB::raw('users.*, count(winning_user) AS wins'))
+        ->join('users', 'winning_user', '=', 'users.id')
+        ->groupBy('winning_user')
+        ->orderBy('wins', 'DESC')
         ->get();
         return $leaderboard;
     }
@@ -64,11 +60,8 @@ class AccountController extends Controller
     public function getGamesForWeek($weekNo)
     {
         $gamesForWeek = Games::select(DB::raw('games.*, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        // $gamesForWeek = Games::select(DB::raw('count(distinct square_selection) AS picks, games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        // $gamesForWeek = Games::select(DB::raw('*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
-        // ->join('selections', 'selections.game_id', '=', 'games.id')->groupBy('game_id')
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -85,6 +78,8 @@ class AccountController extends Controller
         ->where('selections.user_id', "=", $user->id)
         ->where('games.week', '=', $currentWeekNo)
         ->groupBy('selections.game_id')
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
         ->get();
         return $myCurrentGames;
     }
@@ -159,6 +154,8 @@ class AccountController extends Controller
         // Leaderboard
         $leaderboard = $this->getLeaderBoard();
         $data['leaderboard'] = $leaderboard;
+        $hasLeaders = count($leaderboard) > 0 ;
+        $data['hasLeaders'] = $hasLeaders;
 
         return view('account')->with($data);
     }

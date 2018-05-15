@@ -6,8 +6,8 @@
 
                 <a href="/about">About</a>
 
-                <a href="/howtoplay">How To Play</a>
-                <!-- <a href="#howtoplay" data-toggle="modal">How To Play</a> -->
+                <!-- <a href="/howtoplay">How To Play</a> -->
+                <a href="#howtoplayModal" data-toggle="modal">How To Play</a>
 
                 <a href="/charities">Charities</a>
             </p>

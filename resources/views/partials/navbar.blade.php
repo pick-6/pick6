@@ -191,8 +191,8 @@ font-size: 22px;
                 </li>
                 <!-- End of User Account Dropdown -->
                 @else
-                <li style="width: 190px"><a href="/howtoplay">How To Play</a></li>
-                <!-- <li style="width: 190px"><a href="#howtoplay" data-toggle="modal">How To Play</a></li> -->
+                <!-- <li style="width: 190px"><a href="/howtoplay">How To Play</a></li> -->
+                <li style="width: 190px"><a href="#howtoplayModal" data-toggle="modal">How To Play</a></li>
                 <li style="width: 105px"><a href="/charities">Charities</a></li>
                 <li style="width: 140px"><a href="#login" data-toggle="modal">Log In</a></li>
                 <li class="signupLi" style=""><a href="#signup" data-toggle="modal">Sign Up</a></li>

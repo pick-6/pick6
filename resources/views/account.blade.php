@@ -134,6 +134,9 @@ use \App\Http\Controllers\AccountController;
         width: 100%;
         top: 0px;
     }
+    h4.dateOfGame small {
+        color: inherit!important;
+    }
 </style>
 <header class="welcome dashboard overflow-auto">
     <div class="container">
@@ -145,7 +148,7 @@ use \App\Http\Controllers\AccountController;
                     <div id="no-more-tables" class="container table-responsive">
                     @foreach ($dateOfGame as $date)
                         <h4 class="dateOfGame text-left clear fc-grey">
-                            {{date("l, F jS", strtotime("$date->date_for_week"))}}
+                            <?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?>
                         </h4>
                         <table class="col-md-12 table-bordered table-condensed fc gamesForWeekTables">
                             <colgroup>
@@ -179,7 +182,7 @@ use \App\Http\Controllers\AccountController;
                                         </a>
                                     </td>
 
-                                    <td id="playGameBtn" style="padding: 0px">
+                                    <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
                                         <?php
                                              $numberOfPicks = AccountController::numberOfPicksForGame($game->id);
                                         ?>
@@ -192,7 +195,7 @@ use \App\Http\Controllers\AccountController;
                                         </a>
                                         <div class="width25 absolute">
                                             <div id="availablePicks">
-                                                <div id="availablePicksBar" style="width: {{$numberOfPicks}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
+                                                <div id="availablePicksBar" style="width: {{($numberOfPicks<92)?(100-$numberOfPicks):(($numberOfPicks >= 92 && $numberOfPicks < 100)?8:100)}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
                                             </div>
                                             <div id="availablePicksLabel">
                                                 <small>
@@ -200,7 +203,7 @@ use \App\Http\Controllers\AccountController;
                                                         @if ($numberOfPicks == 100)
                                                             Sorry, Game is Full
                                                         @elseif ($numberOfPicks >= 90 && $numberOfPicks < 100)
-                                                            Hurry, only {{100 - $numberOfPicks}} pick<?= ($numberOfPicks == 99) ? '' : 's'?> left!
+                                                            Hurry, only {{100 - $numberOfPicks}} pick{{($numberOfPicks == 99) ? '' : 's'}} left!
                                                         @elseif ($numberOfPicks > 0 && $numberOfPicks < 100)
                                                             {{100 - $numberOfPicks}} Picks Available
                                                         @else
@@ -267,7 +270,7 @@ use \App\Http\Controllers\AccountController;
                         </table>
                     </div>
                     @else
-                        <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                        <p class="width50 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
                             You're not involved in any games yet.
                         </p>
                         <div id="startPlayingBtn">
@@ -341,6 +344,7 @@ use \App\Http\Controllers\AccountController;
             <div class="col-md-4">
                 <div class="dashboardSection">
                     <h3>Leaderboard</h3>
+                    @if($hasLeaders)
                     <div id="no-more-tables" class="container table-responsive table-header">
                        <table class="table table-bordered margin-bottom-0">
                             <colgroup>
@@ -390,6 +394,11 @@ use \App\Http\Controllers\AccountController;
                             </tbody>
                         </table>
                     </div>
+                    @else
+                        <p class="width70 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                            There are no leaders at this time.
+                        </p>
+                    @endif
                 </div>
             </div>
             <div class="col-md-4 padding-r-0">
@@ -434,8 +443,8 @@ use \App\Http\Controllers\AccountController;
                          </table>
                      </div>
                     @else
-                        <p class="margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
-                            No upcoming games.
+                        <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                            No upcoming games next week.
                         </p>
                     @endif
                 </div>

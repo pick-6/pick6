@@ -100,5 +100,12 @@
         $("#sumbitProfilePic").trigger('click');
     });
 
+
+    // Show Step 1 everytime the 'How To Play' modal is opened
+    $("#howtoplayModal").on('show.bs.modal', function () {
+        $(this).find("#howtoplay").find('.item.active').removeClass('active');
+        $(this).find("#howtoplay").find('.item').first().addClass('active');
+    });
+
 })();
 </script>

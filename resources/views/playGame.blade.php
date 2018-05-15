@@ -99,6 +99,9 @@ $currentWeek = 2;
         padding-top: 5px;
     }
 }
+h4.dateOfGame small {
+    color: inherit!important;
+}
 </style>
 <section class="playGamePage">
     <!-- <div class="container"> -->
@@ -111,7 +114,7 @@ $currentWeek = 2;
             @foreach ($dates as $date)
                 <!-- TO DO: -->
                 @if ($date->week == $currentWeek)
-                <h4 class="dateOfGame">{{date("l, F jS", strtotime("$date->date_for_week"))}}</h4>
+                <h4 class="dateOfGame text-left clear fc-grey"><?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?></h4>
 
                 <table class="col-md-12 table-bordered table-condensed fc" style="">
                     <colgroup>

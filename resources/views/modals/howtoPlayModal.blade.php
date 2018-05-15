@@ -1,38 +1,38 @@
 <style>
-#howtoplay{
-    transform: translateY(15%);
-}
-.carousel-control {
-    background-image: linear-gradient(rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%)!important;
-    height: 50px;
-    margin: auto 0;
-}
-.carousel-control, .carousel-control:hover, .carousel-control:visited, .carousel-control:focus, .carousel-control:active {
-    color: #fed136;
-}
-.carousel-control.right{
-    right: -30px;
-}
-.carousel-control.left{
-    left: -30px;
-}
-.panel-heading{
-    color: #fff;
-    padding-top: 10px!important;
-}
-.panel-body{
-    padding-top: 5px!important;
-}
-.panel-footer{
-    background-color: #222;
-    color: #fff;
-}
+    #howtoplayModal{
+        transform: translateY(15%);
+    }
+    .carousel-control {
+        background-image: linear-gradient(rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%)!important;
+        height: 50px;
+        margin: auto 0;
+    }
+    .carousel-control, .carousel-control:hover, .carousel-control:visited, .carousel-control:focus, .carousel-control:active {
+        color: #fed136;
+    }
+    .carousel-control.right{
+        right: -30px;
+    }
+    .carousel-control.left{
+        left: -30px;
+    }
+    .panel-heading{
+        color: #fff;
+        padding-top: 10px!important;
+    }
+    .panel-body{
+        padding-top: 5px!important;
+    }
+    .panel-footer{
+        background-color: #222;
+        color: #fff;
+    }
 </style>
     <!-- Login Modal -->
-    <div id="howtoplay" class="modal fade" role="dialog">
+    <div id="howtoplayModal" class="modal fade" role="dialog">
         <div class="modal-dialog" style="max-width: 650px;margin:0 auto;padding: 10px;">
             <div class="closeModal"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-                <div id="geekspaceNews" class="carousel slide" data-ride="carousel">
+                <div id="howtoplay" class="carousel slide" data-ride="carousel">
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         <div class="item active">
@@ -69,11 +69,11 @@
                     </div>
 
                     <!-- Left and right controls -->
-                    <a class="left carousel-control" href="#geekspaceNews" data-slide="prev">
+                    <a class="left carousel-control" href="#howtoplay" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="right carousel-control" href="#geekspaceNews" data-slide="next">
+                    <a class="right carousel-control" href="#howtoplay" data-slide="next">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                         <span class="sr-only">Next</span>
                     </a>
