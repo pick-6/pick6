@@ -1,4 +1,4 @@
-html {
+html, body {
     background-color: black;
 }
 
@@ -45,6 +45,11 @@ textarea.form-control:focus  {
 input.form-control:focus::placeholder,
 textarea.form-control:focus::placeholder {
     color: #FED136!important;
+}
+
+.pageTitle {
+    text-align: center;
+    color: #fff;
 }
 
 #successMessage {
@@ -193,6 +198,10 @@ footer {
 /*HEADER*/
 .welcome {
     background-image: url(../img/field_lights.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-position: center;
 }
 
 header .intro-text .intro-lead-in {
@@ -548,6 +557,6 @@ section#contact {
     }
 }
 section#contact h3.section-subheading {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-size: 18px;
 }

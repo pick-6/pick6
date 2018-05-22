@@ -11,6 +11,7 @@ use App\Models\Teams;
 use App\Models\Selections;
 use App\Models\Charity;
 use App\User;
+use Carbon\Carbon;
 use DB;
 
 class GamesController extends Controller
@@ -18,12 +19,9 @@ class GamesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        parent::__construct();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $user = \Auth::user();
@@ -33,32 +31,21 @@ class GamesController extends Controller
         ->orderBy('games.time', 'ASC')
         ->get();
         $dates = Games::groupBy('date_for_week')->get();
-
+        $currentWeek = $this->currentWeek;
         $playingIn = [];
         $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
         foreach ($gamesUserIsPlaying as $game) {
             $playingIn[] =  "$game->game_id";
         }
 
-        return view('playGame')->with(compact('games', 'dates', 'playingIn'));
+        return view('playGame')->with(compact('currentWeek', 'games', 'dates', 'playingIn'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         // $games = new Game();
@@ -73,21 +60,27 @@ class GamesController extends Controller
         // return redirect()->action('gamessController@show', $games->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request, $id)
     {
         $user = \Auth::user();
 
-        $thisGame = Games::find($id);
+        $thisGame = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        ->where('games.id', '=', $id)
+        ->orderBy('games.time', 'ASC')
+        ->get();
 
         if(!$thisGame) {
             abort(404);
         }
+
+        $gameOver = $this->gameOverCheck($id);
+        if($gameOver) {
+            $randomNumbers = $this->getRandomNumbers();
+        }
+
+        $currentWeek = $this->currentWeek;
 
         $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
@@ -111,15 +104,32 @@ class GamesController extends Controller
             $thisGameSelections[] =  "$squareSelected->square_selection";
         }
 
-        return view('showGame')->with(compact('allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
+        return view('showGame')->with(compact('gameOver', 'randomNumbers', 'currentWeek', 'allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate  \Http\Response
-     */
+    public function getRandomNumbers() {
+        $data = [];
+
+        $home_numbers = range(0,9);
+        shuffle($home_numbers);
+        $home = array_slice($home_numbers, 0,10);
+        $data['home'] = $home;
+
+        $away_numbers = range(0,9);
+        shuffle($away_numbers);
+        $away = array_slice($away_numbers, 0,10);
+        $data['away'] = $away;
+
+        return $data;
+    }
+
+    public function gameOverCheck($gameId) {
+        $gameTime = Games::select('date_for_week')->where('id', '=', $gameId)->first();
+        $isGameOver = $gameTime->date_for_week < Carbon::now();
+
+        return $isGameOver;
+    }
+
     public function edit($id)
     {
         // $games = Game::find($id);
@@ -130,13 +140,6 @@ class GamesController extends Controller
         // return view('games.edit')->with('games', $games);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // $games = Game::find($id);
@@ -155,12 +158,6 @@ class GamesController extends Controller
         // return view('games.show')->with('games', $games);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
        // $games = Game::find($id);

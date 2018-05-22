@@ -1,23 +1,22 @@
-<?php
-$currentWeek = 2;
-?>
-
 @extends('layouts.master')
 @section('content')
 <style type="text/css">
 .playGamePage {
-    height: 100vh;
+    height: 700px;
+    /*height: 100vh;*/
     padding: 0px;
-    padding-top: 70px;
+    /*padding-top: 70px;*/
     /*padding-top: 100px;*/
 }
 .playGamePage #no-more-tables {
     overflow: auto;
-    max-height: calc(100% - 100px);
+    height: 100%;
+    /*max-height: calc(100% - 200px);*/
     /*max-height: calc(100% - 145px);*/
-    width: 75%;
+    width: 60%;
     margin:0 auto;
-    padding-top: 0px;
+    /*padding-top: 0px;*/
+    /*background-color: #000;*/
 }
 
 .playGamePage #no-more-tables tr:nth-child(odd) {
@@ -28,7 +27,7 @@ $currentWeek = 2;
     background-color:transparent;!important;
     width: 100%;
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 .playGamePage #no-more-tables .dateOfGame:not(:first-child) {
@@ -43,12 +42,6 @@ $currentWeek = 2;
 }
 .playGamePage .gameDayTime {
     font-size: 0.75em;
-}
-@media(max-width: 991px){
-    .playGamePage #no-more-tables {
-        width: 100%!important;
-        padding: 20px;
-    }
 }
 @media(max-width: 767px) and (min-width: 701px){
     .playGamePage #no-more-tables table {
@@ -89,21 +82,71 @@ $currentWeek = 2;
         position: relative;
     }
     .playGamePage #no-more-tables .dateOfGame  {
-        position: sticky;
-        top: -20px;
-        /*top: 0px;*/
-        z-index: 1;
         background-color: #000;
         text-align: center;
-        padding-bottom: 5px;
-        padding-top: 5px;
+    }
+    .gameTeams .pull-left, .gameTeams .pull-right {
+        float: none !important;
+    }
+    .gameTeams .homeTeam {
+        margin-bottom: 10px;
+    }
+    .gameTeams .width50 {
+        width: unset !important;
     }
 }
+    .playGamePage #no-more-tables {
+        position: relative;
+    }
+    .playGamePage #no-more-tables .dateOfGame  {
+        position: sticky;
+        /*top: -20px;*/
+        top: 0px;
+        z-index: 1;
+        background-color: #fed136;
+        color: #000!important;
+        border: 1px solid lightgrey;
+        /*background-color: #000;*/
+        /*text-align: center;*/
+        /*padding-bottom: 5px;*/
+        /*padding-top: 5px;*/
+        width: auto;
+        padding: 5px;
+        margin-bottom: 0px;
+    }
 h4.dateOfGame small {
     color: inherit!important;
 }
+@media (min-width: 700px) and (max-width: 1200px) {
+    td#playGameBtn {
+        padding: 0!important;
+    }
+}
+@media(max-width: 767px){
+    .playGamePage #no-more-tables {
+        width: 100%!important;
+    }
+}
+@media(max-width: 890px){
+    .playGamePage #no-more-tables {
+        width: 90%;
+    }
+}
+@media (min-width: 890px) and (max-width: 1060px) {
+    .playGamePage #no-more-tables {
+        width: 80%;
+    }
+}
+@media (min-width: 1060px) and (max-width: 1200px) {
+    .playGamePage #no-more-tables {
+        width: 70%;
+    }
+}
+sup {
+    font-weight: bold;
+}
 </style>
-<section class="playGamePage">
+<div class="playGamePage">
     <!-- <div class="container"> -->
         <!-- CHOOSE A GAME -->
         <h3 class="fc-white text-center">Games for the Week</h3>
@@ -129,13 +172,25 @@ h4.dateOfGame small {
                                 @if ($date->date_for_week == $game->date_for_week)
                                     <tr>
                                         <td class="gameDayTime" data-title="Kick-Off">
-                                            {{date("g:i", strtotime("$game->time"))}} pm
+                                            {{date("g:i", strtotime("$game->time"))}}pm
                                         </td>
 
-                                        <td class="gameTeams" data-title="Game">
-                                            <img class="pull-left" src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
-                                            <a href="{{action('GamesController@show', [$game->id])}}">{{$game->home}} vs. {{$game->away}} </a>
-                                            <img class="pull-right" src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
+                                        <td class="gameTeams text-left" data-title="Game">
+                                            <a class="fs-16" href="{{action('GamesController@show', [$game->id])}}">
+                                                <div class="pull-left width50 homeTeam">
+                                                    <img src="img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
+                                                    <div class="text-left middle width60 inline-flex">
+                                                        {{$game->home}}
+                                                    </div>
+                                                </div>
+                                                <!-- <span style="/*padding: 0px 40px">vs.</span> -->
+                                                <div class="pull-right width50">
+                                                    <img src="img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
+                                                    <div class="text-left middle width60 inline-flex">
+                                                        {{$game->away}}
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </td>
 
                                         <td id="playGameBtn">
@@ -153,7 +208,7 @@ h4.dateOfGame small {
             @endforeach
         </div>
     <!-- </div> -->
-</section>
+</div>
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     if ($(document).width() > 991) {

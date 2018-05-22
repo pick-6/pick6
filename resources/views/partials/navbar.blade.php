@@ -160,17 +160,24 @@ font-size: 22px;
     width: 1em;
     height: 1em;
 }
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background-color: unset!important;
+}
 </style>
 <!-- Navigation -->
-<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-bottom: 0px">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" style="background-color:none!important;" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> <span class="menuTextColor"><i class="fa fa-bars"></i></span>
             </button>
-            <a class="navbar-brand logoName" href="/">PICK</a>
-            <a href="/"><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></a>
+            <a href="{{(Auth::check())? '/dashboard': '/'}}">
+                <span class="navbar-brand logoName">PICK</span>
+                <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span>
+            </a>
+            <!-- <a class="navbar-brand logoName" href="/">PICK</a> -->
+            <!-- <a href="/"><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"> -->
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -192,8 +199,8 @@ font-size: 22px;
                 <!-- End of User Account Dropdown -->
                 @else
                 <!-- <li style="width: 190px"><a href="/howtoplay">How To Play</a></li> -->
-                <li style="width: 190px"><a href="#howtoplayModal" data-toggle="modal">How To Play</a></li>
-                <li style="width: 105px"><a href="/charities">Charities</a></li>
+                <!-- <li style="width: 190px"><a href="#howtoplayModal" data-toggle="modal">How To Play</a></li> -->
+                <!-- <li style="width: 105px"><a href="/charities">Charities</a></li> -->
                 <li style="width: 140px"><a href="#login" data-toggle="modal">Log In</a></li>
                 <li class="signupLi" style=""><a href="#signup" data-toggle="modal">Sign Up</a></li>
                 @endif

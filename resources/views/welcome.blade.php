@@ -112,14 +112,14 @@
                     @endif
                 </div>
             </div>
-            <div id="charityArrow" class="scroll">
+            <!-- <div id="charityArrow" class="scroll">
                 <a href="#featCharities"><i class="fa fa-chevron-down" aria-hidden="true"></i></a>
-            </div>
+            </div> -->
         </div>
     </section>
 
     <!-- Featured Charities Section -->
-    <section class="featCharities" id="featCharities">
+<!--     <section class="featCharities" id="featCharities">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -142,6 +142,6 @@
                 <a href="/charities" class="btn btn-xl allCharitiesBtn">See All Charities</a>
             </div>
         </div>
-    </section>
+    </section> -->
 
 @stop

@@ -10,14 +10,14 @@
                 <form  method="POST" action="{{ action('SelectionsController@store') }}">
                     {!! csrf_field() !!}
                         <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
-                        <input type=hidden name="game_id" value="{{$thisGame->id}}">
+                        <input type=hidden name="game_id" value="{{$thisGame[0]['id']}}">
                         <input type=hidden name="hscore" value="" class="hscore">
                         <input type=hidden name="ascore" value="" class="ascore">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls userPick">
                             <h4 class="text-center" style="color: #FEC503">Here Is Your Pick:</h4>
-                            <p class="text-center" style="color: #eee">{{$thisGame->home}} final score at the end of the game will end with a <span class="hscore" style="margin-left: 5px"></span></p>
-                            <p class="text-center" style="color: #eee">{{$thisGame->away}} final score at the end of the game will end with a <span class="ascore" style="margin-left: 5px"></span></p>
+                            <p class="text-center" style="color: #eee">{{$thisGame[0]['home']}} final score at the end of the game will end with a <span class="hscore" style="margin-left: 5px"></span></p>
+                            <p class="text-center" style="color: #eee">{{$thisGame[0]['away']}} final score at the end of the game will end with a <span class="ascore" style="margin-left: 5px"></span></p>
                             <div class="donation-container">
                                 <h4 class="text-center" style="color: #FEC503">Choose Your Donation Amount:</h4>
                                 <p class="text-center" style="color: #eee">(Your credit card won't be charged until you 'Go To Payment')</p>

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" style="background: none;padding: 0;padding-top: 40px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">

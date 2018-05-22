@@ -6,10 +6,11 @@ use \App\Http\Controllers\AccountController;
 @section('content')
 <style type="text/css">
     .dashboard {
-        height: 100vh;
+        /*height: 100vh;*/
     }
     .dashboard>.container {
-        padding-top: 125px;
+        padding-top: 40px;
+        /*padding-top: 125px;*/
         /*padding-top: 90px;*/
     }
     .dashboard .col-md-7, .dashboard .col-md-5 {
@@ -105,6 +106,36 @@ use \App\Http\Controllers\AccountController;
         .dashboardSection h4 {
             text-align: center;
         }
+        .gameTeams .pull-left, .gameTeams .pull-right {
+            float: none !important;
+        }
+        .gameTeams .homeTeam {
+            margin-bottom: 10px;
+        }
+        .gameTeams .width50 {
+            width: unset !important;
+        }
+        .absolute {
+             position: unset !important; 
+        }
+        .width25 {
+             width: unset !important; 
+        }
+        .dashboardSection #availablePicks {
+            width: 100%!important;
+        }
+        .dashboardSection #availablePicksBar {
+            height: 20px!important;
+        }
+        .dashboardSection #availablePicksLabel {
+            font-size: 16px !important;
+            margin: 2px auto !important;
+            top: 38px!important;
+            text-align: center;
+        }
+        .dashboardSection #no-more-tables td {
+            padding-left: 40%;
+        }
     }
     .dashboardSection a:hover {
         text-decoration: none;
@@ -138,7 +169,7 @@ use \App\Http\Controllers\AccountController;
         color: inherit!important;
     }
 </style>
-<header class="welcome dashboard overflow-auto">
+<header class=" dashboard overflow-auto">
     <div class="container">
         <div class="row">
             <div class="col-md-7">
@@ -166,7 +197,7 @@ use \App\Http\Controllers\AccountController;
 
                                     <td class="gameTeams text-left" data-title="Game">
                                         <a class="fs-16" href="{{action('GamesController@show', [$game->id])}}">
-                                            <div class="pull-left width50">
+                                            <div class="pull-left width50 homeTeam">
                                                 <img src="img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
                                                 <div class="text-left middle width60 inline-flex">
                                                     {{$game->home}}
@@ -408,7 +439,7 @@ use \App\Http\Controllers\AccountController;
                     <div id="no-more-tables" class="container table-responsive" style="height:calc(100% - 53px);">
                         <table class="table table-bordered margin-bottom-0">
                              <colgroup>
-                                 <col>
+                                 <!-- <col> -->
                                  <col style="width: 35%">
                              </colgroup>
                             <tbody>

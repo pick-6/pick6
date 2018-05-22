@@ -17,17 +17,10 @@ use DB;
 
 class AccountController extends Controller
 {
-    private $lastWeek;
-    private $currentWeek;
-    private $nextWeek;
-
     public function __construct()
     {
         $this->middleware('auth');
-        // TO DO: get last/current/next 'week' number dynamically
-        $this->lastWeek = 1;
-        $this->currentWeek = 2;
-        $this->nextWeek = 3;
+        parent::__construct();
     }
 
     public static function numberOfPicksForGame($game)

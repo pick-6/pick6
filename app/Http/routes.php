@@ -13,7 +13,8 @@
 
 // Welcome/Home page
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('welcome-new');
 });
 
 // About Us Page
@@ -29,6 +30,11 @@ Route::get('/howtoplay', function () {
 // Contact
 Route::get('/contact', function () {
     return view('contact');
+});
+
+// Terms & Conditions
+Route::get('/terms', function () {
+    return view('terms');
 });
 
 // Payment Page

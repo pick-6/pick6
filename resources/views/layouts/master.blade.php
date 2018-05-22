@@ -4,6 +4,17 @@
     <!-- HEAD TAGS -->
     @include('partials.head')
 </head>
+<style type="text/css">
+    #pageContent {
+        padding: 72px 20px 20px 20px;
+        min-height: 100vh;
+    }
+    @media (max-width: 700px) {
+        #pageContent {
+            padding: 72px 10px 20px 10px;
+        }
+    }
+</style>
 <body>
     <!-- NAVBAR -->
     @include('partials.navbar')
@@ -13,8 +24,11 @@
     @endif
 
     <!-- PAGE CONTENT -->
-    @yield('content')
-
+    <div class="welcome" style="min-height: 100vh">
+        <div id="pageContent">
+            @yield('content')
+        </div>
+    </div>
     <!-- FOOTER -->
     @include('partials.footer')
 
