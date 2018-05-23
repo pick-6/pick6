@@ -116,10 +116,10 @@ use \App\Http\Controllers\AccountController;
             width: unset !important;
         }
         .absolute {
-             position: unset !important; 
+             position: unset !important;
         }
         .width25 {
-             width: unset !important; 
+             width: unset !important;
         }
         .dashboardSection #availablePicks {
             width: 100%!important;

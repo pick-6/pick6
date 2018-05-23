@@ -107,7 +107,12 @@
     }
 }
 #mainNav>.container {
-    width: 95%;
+    width: 65%;
+}
+@media (max-width: 1300px) {
+    #mainNav>.container {
+        width: 95%;
+    }
 }
 .userAccount {
     width: 90px;
@@ -163,6 +168,13 @@ font-size: 22px;
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
     background-color: unset!important;
 }
+/* .navbar-custom .nav li a {
+    color: #fed136 !important;
+}
+.navbar-custom .nav li a:hover {
+    color: #fec503 !important;
+} */
+
 </style>
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-bottom: 0px">
@@ -198,11 +210,15 @@ font-size: 22px;
                 </li>
                 <!-- End of User Account Dropdown -->
                 @else
+                <li><a href="/about">About</a></li>
+                <li><a href="/howtoplay">How To Play</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <!-- <li><a href="/terms">Terms & Conditions</a></li> -->
                 <!-- <li style="width: 190px"><a href="/howtoplay">How To Play</a></li> -->
                 <!-- <li style="width: 190px"><a href="#howtoplayModal" data-toggle="modal">How To Play</a></li> -->
                 <!-- <li style="width: 105px"><a href="/charities">Charities</a></li> -->
-                <li style="width: 140px"><a href="#login" data-toggle="modal">Log In</a></li>
-                <li class="signupLi" style=""><a href="#signup" data-toggle="modal">Sign Up</a></li>
+                <!-- <li style="width: 140px"><a href="#login" data-toggle="modal">Log In</a></li> -->
+                <!-- <li class="signupLi" style=""><a href="#signup" data-toggle="modal">Sign Up</a></li> -->
                 @endif
             </ul>
         </div>
