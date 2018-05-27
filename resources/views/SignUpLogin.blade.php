@@ -1,6 +1,3 @@
-@extends('layouts.master')
-@section('content')
-
 <style type="text/css">
 
     #container {
@@ -170,13 +167,41 @@
     }
 </style>
 
-@if (Auth::check())
-	<?php
-        header('Location: dashboard');
-        exit;
-    ?>
-@else
-    @include('SignUpLogin')
-@endif
+<!-- Sign Up / Login Section -->
+<div id="container" class="newSignLogin activeSection" style="display:none">
+    <div id="buttons">
+        <input type="button" class="button signup" value="Sign Up">
+        <input type="button" class="button login active" value="Log In">
+    </div>
 
-@stop
+    <form class="login-form" method="POST" action="{{action('Auth\AuthController@postLogin')}}">
+        {!! csrf_field() !!}
+        <h2 class="message fc-grey">Welcome back!</h2>
+        <input type="email" class="form-input" name="email" placeholder="Email Address *">
+        <input type="password" class="form-input" name="password" placeholder="Password *">
+        <div class="forgot-pass"><span class="forgot-link">Forgot Password?</span></div>
+        <input type="submit" class="button" name="submit" value="Log in">
+    </form>
+
+    <form class="signup-form hide" method="POST" action="{{action('Auth\AuthController@postRegister')}}">
+        {!! csrf_field() !!}
+        <h2 class="message fc-grey" style="line-height:40px;">Ready to Play? <br />Sign Up for Free!</h2>
+        <input type="text" class="form-input first-name" name="first_name" placeholder="First Name *">
+        <input type="text" class="form-input last-name" name="last_name" placeholder="Last Name *">
+        <input type="text" class="form-input first-name" name="username" placeholder="Username *">
+        <input type="email" class="form-input last-name" name="email" placeholder="Email Adress *">
+        <input type="password" class="form-input" name="password" placeholder="Create a Password *">
+        <input type="password" class="form-input" name="password_confirmation" placeholder="Confirm Password *">
+        <input type="submit" class="button" name="submit" value="Get Started">
+    </form>
+
+    @if (count($errors) > 0)
+        <div class="alert alert-danger" style="margin: 0;margin-top: 15px;">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>

@@ -1,8 +1,6 @@
-@extends('layouts.master')
-@section('content')
 <style type="text/css">
 	#termsPage .terms-wrapper {
-		height: 700px;
+		height: 550px;
 		background: #222;
 		max-width: 750px;
 		margin: 0 auto;
@@ -18,12 +16,13 @@
 		padding: 5px;
 	}
 </style>
-<div id="termsPage">
-	<h2 class="pageTitle">Terms & Conditions</h2>
+
+<!-- Terms & Condition Section -->
+<div id="termsPage" class="showTerms" style="display:none">
+	<h2 class="pageTitle" style="margin-bottom:40px;">Terms & Conditions</h2>
 	<div class="terms-wrapper">
 		<div class="terms-content">
-			
+
 		</div>
 	</div>
 </div>
-@stop

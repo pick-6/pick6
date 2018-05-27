@@ -19,12 +19,18 @@
     }
     @media(min-width: 1500px){
         .picksTable {
-            width: 75%
+            /* width: 75% */
         }
     }
+    /* @media(max-width: 1200px){
+        .container {
+            margin: 0px;
+        }
+    } */
 </style>
 <!-- <section class="showGamePage" style="padding: 0px;padding-top: 70px;height: 100vh"> -->
-    <div class="picksTable" style="margin:0 auto;padding:0px;padding-top: 40px">
+<!-- <div class="picksTable" style="margin:0 auto;padding:0px;padding-top: 40px"> -->
+    <div class="picksTable showGamePage activeSection" style="display:none">
     <!-- <div class="container"> -->
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
 
@@ -46,14 +52,14 @@
             </div>
 
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
-            <div class="col-md-2">
+            <div class="col-lg-2">
                 <h1 class="text-center awayTeamNameDesktop">{{$thisGame[0]['away']}}
                     <img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35">
                 </h1>
             </div>
 
             <!-- SQUARES GAME TABLE -->
-            <div class="col-md-8">
+            <div class="col-lg-8">
                 <table class="table table-bordered" style="margin-bottom: 0px">
                     <colgroup>
                         <col style="width:75px"/>

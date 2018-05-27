@@ -47,9 +47,22 @@ textarea.form-control:focus::placeholder {
     color: #FED136!important;
 }
 
+.container {
+    padding: 5px!important;
+}
+
+.activeSection {
+    display: block!important;
+}
+
+.navbar li a, .navbar-header a, footer a {
+    cursor: pointer;
+}
+
 .pageTitle {
     text-align: center;
     color: #fff;
+    margin: 0;
 }
 
 #successMessage {

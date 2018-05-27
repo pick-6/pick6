@@ -6,6 +6,10 @@
 </head>
 <style type="text/css">
     #pageContent {
+        padding-top: 72px;
+        min-height: 100vh;
+    }
+    /* #pageContent {
         padding: 72px 20px 20px 20px;
         min-height: 100vh;
     }
@@ -13,22 +17,31 @@
         #pageContent {
             padding: 72px 10px 20px 10px;
         }
-    }
+    } */
 </style>
 <body>
     <!-- NAVBAR -->
     @include('partials.navbar')
 
     @if (Session::has('successMessage'))
-            <div class="alert alert-success text-center" id="successMessage">{{ session('successMessage') }}</div>
+    <div class="alert alert-success text-center" id="successMessage">{{ session('successMessage') }}</div>
     @endif
 
     <!-- PAGE CONTENT -->
     <div class="welcome" style="min-height: 100vh">
         <div id="pageContent">
-            @yield('content')
+            <section style="background: none;padding: 0;padding-top: 40px;">
+                <div class="container">
+                    @yield('content')
+                    @include('about')
+                    @include('howtoplay')
+                    @include('contact')
+                    @include('terms')
+                </div>
+            </section>
         </div>
     </div>
+
     <!-- FOOTER -->
     @include('partials.footer')
 

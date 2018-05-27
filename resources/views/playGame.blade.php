@@ -1,150 +1,130 @@
 @extends('layouts.master')
 @section('content')
 <style type="text/css">
-.playGamePage {
-    height: 700px;
-    /*height: 100vh;*/
-    padding: 0px;
-    /*padding-top: 70px;*/
-    /*padding-top: 100px;*/
-}
-.playGamePage #no-more-tables {
-    overflow: auto;
-    height: 100%;
-    /*max-height: calc(100% - 200px);*/
-    /*max-height: calc(100% - 145px);*/
-    width: 60%;
-    margin:0 auto;
-    /*padding-top: 0px;*/
-    /*background-color: #000;*/
-}
-
-.playGamePage #no-more-tables tr:nth-child(odd) {
-    background-color: #333;
-}
-
-.playGamePage #no-more-tables .table-bordered {
-    background-color:transparent;!important;
-    width: 100%;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-align: center;
-}
-.playGamePage #no-more-tables .dateOfGame:not(:first-child) {
-    margin-top: 25px;
-}
-.playGamePage #no-more-tables .dateOfGame {
-    color: #bbb;
-}
-.playGamePage .playGameBtn {
-    width: 85%;
-    padding: 5px;
-}
-.playGamePage .gameDayTime {
-    font-size: 0.75em;
-}
-@media(max-width: 767px) and (min-width: 701px){
-    .playGamePage #no-more-tables table {
-        font-size: 16px!important;
-    }
-}
-@media(max-width: 700px){
     .playGamePage {
-        /*height: 100%!important;*/
+        height: 700px;
+        /*height: 100vh;*/
+        padding: 0px;
+        /*padding-top: 70px;*/
+        /*padding-top: 100px;*/
     }
-    .playGamePage #no-more-tables .table-bordered {
-        border:none!important;
+    .playGamePage #no-more-tables {
+        overflow: auto;
+        height: calc(100% - 25px);
+        /*max-height: calc(100% - 200px);*/
+        /*max-height: calc(100% - 145px);*/
+        width: 100%;
+        margin:0 auto;
+        /*padding-top: 0px;*/
+        /*background-color: #000;*/
     }
-    .playGamePage #no-more-tables .table-bordered tbody tr{
-        border-bottom:none!important;
-        margin-bottom: 15px;
-    }
-    .playGamePage #no-more-tables td {
-        padding-left: 40%;
-    }
-    .playGamePage .gameDayTime {
-        width: 100%!important;
-    }
-    .playGamePage .gameTeams {
 
+    .playGamePage #no-more-tables tr:nth-child(odd) {
+        background-color: #333;
+    }
+
+    .playGamePage #no-more-tables .table-bordered {
+        background-color:transparent;!important;
+        width: 100%;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .playGamePage #no-more-tables .dateOfGame:not(:first-child) {
+        margin-top: 25px;
+    }
+    .playGamePage #no-more-tables .dateOfGame {
+        color: #bbb;
     }
     .playGamePage .playGameBtn {
-        width: 100%!important;
-        text-align: center;
+        width: 85%;
+        padding: 5px;
     }
-    .playGamePage #playGameBtn {
-        padding-left: 8px!important;
-    }
-    .playGamePage [data-title="Game"] {
+    .playGamePage .gameDayTime {
         font-size: 0.75em;
     }
-    .playGamePage #no-more-tables {
-        position: relative;
+    @media(max-width: 767px) and (min-width: 701px){
+        .playGamePage #no-more-tables table {
+            font-size: 16px!important;
+        }
     }
-    .playGamePage #no-more-tables .dateOfGame  {
-        background-color: #000;
-        text-align: center;
+    @media(max-width: 700px){
+        .playGamePage {
+            /*height: 100%!important;*/
+        }
+        .playGamePage #no-more-tables .table-bordered {
+            border:none!important;
+        }
+        .playGamePage #no-more-tables .table-bordered tbody tr{
+            border-bottom:none!important;
+            margin-bottom: 15px;
+        }
+        .playGamePage #no-more-tables td {
+            padding-left: 40%;
+        }
+        .playGamePage .gameDayTime {
+            width: 100%!important;
+        }
+        .playGamePage .gameTeams {
+
+        }
+        .playGamePage .playGameBtn {
+            width: 100%!important;
+            text-align: center;
+        }
+        .playGamePage #playGameBtn {
+            padding-left: 8px!important;
+        }
+        .playGamePage [data-title="Game"] {
+            font-size: 0.75em;
+        }
+        .playGamePage #no-more-tables {
+            position: relative;
+        }
+        .playGamePage #no-more-tables .dateOfGame  {
+            background-color: #000;
+            text-align: center;
+        }
+        .gameTeams .pull-left, .gameTeams .pull-right {
+            float: none !important;
+        }
+        .gameTeams .homeTeam {
+            margin-bottom: 10px;
+        }
+        .gameTeams .width50 {
+            width: unset !important;
+        }
     }
-    .gameTeams .pull-left, .gameTeams .pull-right {
-        float: none !important;
+        .playGamePage #no-more-tables {
+            position: relative;
+        }
+        .playGamePage #no-more-tables .dateOfGame  {
+            position: sticky;
+            /*top: -20px;*/
+            top: 0px;
+            z-index: 1;
+            background-color: #fed136;
+            color: #000!important;
+            border: 1px solid lightgrey;
+            /*background-color: #000;*/
+            /*text-align: center;*/
+            /*padding-bottom: 5px;*/
+            /*padding-top: 5px;*/
+            width: auto;
+            padding: 5px;
+            margin-bottom: 0px;
+        }
+    h4.dateOfGame small {
+        color: inherit!important;
     }
-    .gameTeams .homeTeam {
-        margin-bottom: 10px;
+    @media (min-width: 700px) and (max-width: 1200px) {
+        td#playGameBtn {
+            padding: 0!important;
+        }
     }
-    .gameTeams .width50 {
-        width: unset !important;
+    sup {
+        font-weight: bold;
     }
-}
-    .playGamePage #no-more-tables {
-        position: relative;
-    }
-    .playGamePage #no-more-tables .dateOfGame  {
-        position: sticky;
-        /*top: -20px;*/
-        top: 0px;
-        z-index: 1;
-        background-color: #fed136;
-        color: #000!important;
-        border: 1px solid lightgrey;
-        /*background-color: #000;*/
-        /*text-align: center;*/
-        /*padding-bottom: 5px;*/
-        /*padding-top: 5px;*/
-        width: auto;
-        padding: 5px;
-        margin-bottom: 0px;
-    }
-h4.dateOfGame small {
-    color: inherit!important;
-}
-@media (min-width: 700px) and (max-width: 1200px) {
-    td#playGameBtn {
-        padding: 0!important;
-    }
-}
-@media(max-width: 767px){
-    .playGamePage #no-more-tables {
-        width: 100%!important;
-    }
-}
-@media(max-width: 890px){
-    .playGamePage #no-more-tables {
-        width: 90%;
-    }
-}
-@media (min-width: 890px) and (max-width: 1060px) {
-    .playGamePage #no-more-tables {
-        width: 80%;
-    }
-}
-@media (min-width: 1060px) and (max-width: 1200px) {
-    .playGamePage #no-more-tables {
-        width: 70%;
-    }
-}
-sup {
-    font-weight: bold;
-}
 </style>
 <div class="playGamePage">
     <!-- <div class="container"> -->
