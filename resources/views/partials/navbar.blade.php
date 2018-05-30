@@ -153,10 +153,15 @@
         font-size: 3em;
     }
     .logoImage {
-        width: 3em;
+        /* width: 3em;
         height: 3em;
         float: left;
-        margin-top: 3px;
+        margin-top: 3px; */
+        position: relative;
+        top: -11px;
+        width: 70px;
+        height: 70px;
+        left: -14px;
     }
     .welcome .logoName {
         font-size: 1em;
@@ -178,13 +183,14 @@
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top" style="margin-bottom: 0px">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+        <div class="navbar-header" style="height:45px;">
             <button type="button" class="navbar-toggle" style="background-color:none!important;" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> <span class="menuTextColor"><i class="fa fa-bars"></i></span>
             </button>
             <a class="showSection">
                 <span class="navbar-brand logoName">PICK</span>
-                <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span>
+                <span><img class="logoImage"  src="/img/pick6_logo_low.png" onContextMenu="return false;"></span>
+                <!-- <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span> -->
             </a>
         </div>
 

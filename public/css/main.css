@@ -47,6 +47,10 @@ textarea.form-control:focus::placeholder {
     color: #FED136!important;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+}
+
 .container {
     padding: 5px!important;
 }
@@ -210,7 +214,8 @@ footer {
 /************** HOMEPAGE **************/
 /*HEADER*/
 .welcome {
-    background-image: url(../img/field_lights.jpg);
+    background-image: url(../img/field_lights_low.jpg);
+    /* background-image: url(../img/field_lights.jpg); */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -324,7 +329,7 @@ header .intro-text .intro-heading {
 }
 
 .awayTeamName {
-    display: block;
+    /* display: block; */
     color: white;
 }
 
@@ -332,9 +337,9 @@ header .intro-text .intro-heading {
     margin: 0px;
 }
 
-.awayTeamNameDesktop {
+/* .awayTeamNameDesktop {
     display: none;
-}
+} */
 
 .anotherGameBtn {
     margin-top: 10%;
@@ -464,9 +469,9 @@ header .intro-text .intro-heading {
     display: none;
 }
 
-.awayTeamName {
+/* .awayTeamName {
     display: none;
-}
+} */
 
 .anotherGameBtn {
     margin-top: 68%;

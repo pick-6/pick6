@@ -27,6 +27,27 @@
             margin: 0px;
         }
     } */
+    @media(max-width: 1200px){
+        .container {
+            width: 100%;
+        }
+    }
+    @media(max-width: 992px){
+        .awayTeamNameDesktop {
+            display: none;
+        }
+        .awayTeamName {
+            display: block;
+        }
+    }
+    @media(min-width: 992px){
+        .awayTeamNameDesktop {
+            display: block;
+        }
+        .awayTeamName {
+            display: none;
+        }
+    }
 </style>
 <!-- <section class="showGamePage" style="padding: 0px;padding-top: 70px;height: 100vh"> -->
 <!-- <div class="picksTable" style="margin:0 auto;padding:0px;padding-top: 40px"> -->
@@ -35,16 +56,16 @@
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
 
             <!-- PICK A SQUARE -->
-            <div class="col-md-12 text-center">
+            <!-- <div class="col-md-12 text-center"> -->
                 <!-- <h1 class="gameSteps">Step 2:</h1>
                 <h3 class="gameSteps">Pick A Square From The Table Below</h3> -->
                 <!-- <h3 class="fc-white">Pick Your Square(s) From The Table Below</h3> -->
                 <!-- <p>(Remember that the numbers represent the last digit of the final score for each team)</p> -->
-            </div>
+            <!-- </div> -->
 
 
             <!-- HOME TEAM NAME -->
-            <div class="col-md-12 homeTeamName" style="margin-top: 0px">
+            <div class="col-sm-12 homeTeamName" style="margin-top: 0px">
                 <h1 class="text-center">{{$thisGame[0]['home']}}
                     <img src="/img/team_logos/{{$thisGame[0]['home_logo']}}" width="40" height="35">
                 </h1>
@@ -52,14 +73,14 @@
             </div>
 
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
-            <div class="col-lg-2">
+            <div class="col-md-2">
                 <h1 class="text-center awayTeamNameDesktop">{{$thisGame[0]['away']}}
                     <img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35">
                 </h1>
             </div>
 
             <!-- SQUARES GAME TABLE -->
-            <div class="col-lg-8">
+            <div class="col-sm-12 col-md-8" style="padding:0px">
                 <table class="table table-bordered" style="margin-bottom: 0px">
                     <colgroup>
                         <col style="width:75px"/>
@@ -91,11 +112,11 @@
                                 @if (in_array("$column$row", $thisGameSelections))
                                     @foreach($squaresSelected as $user)
                                         @if($user->square_selection == $column.$row)
-                                            <td class="notAvailable" data-id="{{$column}}{{$row}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
+                                            <td class="notAvailable text-center middle" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"><i class="fas"></i></td>
                                         @endif
                                     @endforeach
                                 @else
-                                    <td class="availableSquare" href="#pickSquare" data-id="{{$column}}{{$row}}" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"></td>
+                                    <td style="padding:0px;" class="middle availableSquare text-center" href="#pickSquare" data-id="{{$column}}{{$row}}" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"><i class="fas"></i></td>
                                 @endif
                             @endfor
                         </tr>
@@ -104,7 +125,7 @@
             </div>
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
-            <div class="col-md-2 awayTeamName">
+            <div class="col-sm-12 awayTeamName">
                 <h1 class="text-center">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
                 <p class="text-center">(Left side of the table)</p>
             </div>
@@ -127,6 +148,6 @@
     </div>
 <!-- </section> -->
 
-@include('modals.pickSquareModal')
+
 
 @stop

@@ -88,7 +88,7 @@
 	</div>
 
 	<div class="text-center playBtn" style="padding: 20px 0px;">
-		<a {{ Auth::check() ? "href=/play" : "" }} class="btn btn-xl getStartedBtn showSection">
+		<a class="btn btn-xl getStartedBtn showSection">
 			Start Playing
 		</a>
 	</div>

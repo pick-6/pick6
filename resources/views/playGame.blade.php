@@ -125,8 +125,13 @@
     sup {
         font-weight: bold;
     }
+    @media(max-width: 1200px){
+        .container {
+            width: 95%;
+        }
+    }
 </style>
-<div class="playGamePage">
+<div class="playGamePage activeSection" style="display:none">
     <!-- <div class="container"> -->
         <!-- CHOOSE A GAME -->
         <h3 class="fc-white text-center">Games for the Week</h3>
