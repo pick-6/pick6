@@ -544,7 +544,7 @@ header .intro-text .intro-heading {
     */
     #no-more-tables td:before { content: attr(data-title); }
 }
-#no-more-tables tr:nth-child(even){background-color: #262424}
+table tr:nth-child(even){background-color: #262424}
 
 @media(max-width: 767px){
     #no-more-tables.table-responsive {

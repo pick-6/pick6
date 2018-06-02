@@ -15,52 +15,30 @@ class SelectionsController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('playGame');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $selections = new Selections();
-        $selections->user_id = $request->user_id;
-        $selections->game_id = $request->game_id;
-        $selections->amount = $request->amount;
-        $selections->square_selection = intval(strval($request->hscore).strval($request->ascore));
-        
-        $selections->save();
-        $request->session()->flash('successMessage', 'Thank you for your donation. Your square selection has been saved successfully. You may pick another square if you\'d like.');
+        foreach ($request->selection as $selection) {
+            $selections = new Selections();
+            $selections->user_id = $request->user_id;
+            $selections->game_id = $request->game_id;
+            $selections->square_selection = $selection;
+            $selections->save();
+        }
+        $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
         return redirect()->action('GamesController@show', $selections->game_id);
-
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = \Auth::user();
@@ -69,35 +47,16 @@ class SelectionsController extends Controller
         return view('payment')->with(compact('user', 'gamesUserIsPlaying', 'games'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $selections = Selection::find($id);

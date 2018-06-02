@@ -112,11 +112,11 @@
                                 @if (in_array("$column$row", $thisGameSelections))
                                     @foreach($squaresSelected as $user)
                                         @if($user->square_selection == $column.$row)
-                                            <td class="notAvailable text-center middle" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"><i class="fas"></i></td>
+                                            <td class="notAvailable text-center middle" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
                                         @endif
                                     @endforeach
                                 @else
-                                    <td style="padding:0px;" class="middle availableSquare text-center" href="#pickSquare" data-id="{{$column}}{{$row}}" data-hscore="{{$column}}" data-ascore="{{$row}}" data-toggle="modal"><i class="fas"></i></td>
+                                    <td style="padding:0px;" class="middle availableSquare text-center" data-id="{{$column}}{{$row}}"><i class="fas" style="color:green;"></i></td>
                                 @endif
                             @endfor
                         </tr>
@@ -140,6 +140,15 @@
                         @endif
                     @endforeach
                 </ul>
+            </div>
+
+            <div class="confirmPicksBtn text-center" style="display:none;padding-top: 45px;clear: both">
+                <form  method="POST" action="{{ action('SelectionsController@store') }}">
+                    {!! csrf_field() !!}
+                    <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
+                    <input type=hidden name="game_id" value="{{$thisGame[0]['id']}}">
+                    <button style="color: #000; text-transform: uppercase;" class="btn btn-lg dropdown-toggle gameBtn" type="submit">Confirm Picks</button>
+                </form>
             </div>
 
         @else <!-- Show past game results -->

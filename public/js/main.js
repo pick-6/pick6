@@ -7,64 +7,42 @@
     }, 2000);
 
 
-    // changes background-color when clicking/hovering over available square
-    $(".availableSquare").on('mouseout mouseover click', function(e){
-        //changes background-color of square the user has picked
-        if (e.type == "click")
-        {
-            if ($(this).hasClass('pendingPick')) {
-                $(this).removeClass('pendingPick');
-                // $(this).css('background','linear-gradient(#333, #222)');
-                $(this).find('i').removeClass('fa-check');
-                // $(this).find('i').addClass('fa-times').css('color','red');
-            } else {
-                $(this).addClass('pendingPick');
-                $(this).find('i').removeClass('fa-times');
-                $(this).find('i').addClass('fa-check').css('color','green');
-                // $(this).css('background','linear-gradient(#f00, #222)');
-            }
-        }
-        // changes background-color when hovering over available square
-        else
-        {
-            var gradientStart = '';
-            if (!$(this).hasClass('pendingPick')) {
-                gradientStart = (e.type == 'mouseout') ? '#333' : '#111';
-                $(this).css('background','linear-gradient(' + gradientStart + ', #222)');
-            }
+    // changes background-color when hovering over available square
+    $(".availableSquare").on('mouseout mouseover', function(e){
+        var gradientStart = '';
+        if (!$(this).hasClass('pendingPick')) {
+            gradientStart = (e.type == 'mouseout') ? '#333' : '#111';
+            $(this).css('background','linear-gradient(' + gradientStart + ', #222)');
         }
     });
 
-    // changes background-color of square user has picked
-    // $(".availableSquare").on('click', function(){
-    //     if ($(this).hasClass('pendingPick')) {
-    //         $(this).removeClass('pendingPick');
-    //         $(this).css('background','linear-gradient(#333, #222)');
-    //     } else {
-    //         $(this).addClass('pendingPick');
-    //         $(this).css('background','linear-gradient(#f00, #222)');
-    //     }
-    // });
 
+    // Square Selection
+    $(".availableSquare").on('click', function(e){
+        $(this).toggleClass('pendingPick');
+        $(this).find('i').toggleClass('fa-check');
 
-    // to show separate scores on modal
-    // $('#pickSquare').on('show.bs.modal', function(e) {
-    //     var hscore = $(e.relatedTarget).data('hscore');
-    //     var ascore = $(e.relatedTarget).data('ascore');
-    //     $(".hscore").val(hscore).text(hscore);
-    //     $(".ascore").val(ascore).text(ascore);
-    // });
+        var selection = $(this).data('id');
+        if (!$(this).hasClass('pendingPick'))
+        {
+            $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
+        }
+        else
+        {
+            var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
+            $(".picksTable").find(".confirmPicksBtn form").append(input);
+        }
 
+        toggleConfirmPicksBtn();
+    });
 
-    // donation selected
-    // $('label.btn-default').click(function(){
-    //     $('label.btn-default').removeClass('active');
-    //     $(this).addClass('active');
-    // });
-    // $("#pickSquare").on('show.bs.modal', function () {
-    //     $('label.btn-default').removeClass('active');
-    //     $('label.btn-default').first().addClass('active');
-    // });
+    function toggleConfirmPicksBtn(){
+        if ($(".picksTable table tr td").hasClass("pendingPick")) {
+            $(".confirmPicksBtn").fadeIn(250);
+        } else {
+            $(".confirmPicksBtn").fadeOut(250);
+        }
+    }
 
 
     // section scrolling
