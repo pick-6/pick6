@@ -14,19 +14,16 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        DB::table('charities')->delete();
         DB::table('users')->delete();
         DB::table('teams')->delete();
         DB::table('games')->delete();
         DB::table('winnings')->delete();
         DB::table('selections')->delete();
 
-        $this->call('CharitiesSeeder');
         $this->call('UsersSeeder');
         $this->call('TeamsSeeder');
         $this->call('GamesSeeder');
         $this->call('WinningsSeeder');
-        // $this->call('SelectionsSeeder');
 
         Model::reguard();
     }

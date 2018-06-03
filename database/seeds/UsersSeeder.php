@@ -23,10 +23,10 @@ class UsersSeeder extends Seeder
             $users->last_name = $faker->lastName;
             $users->username = $faker->userName;
             $users->email = $faker->safeEmail;
+            $users->credit = 6;
             $users->avatar = "default.png";
             $users->password = bcrypt($faker->password);
             $users->save();
     	}
 	}
 }
-

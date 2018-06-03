@@ -16,7 +16,6 @@ class WinningsSeeder extends Seeder
 
             if ($winnings->id == 16) {
                 $winnings->game_id = $i;
-                $winnings->winning_charity = rand(1, 100);
     			$winnings->winning_user = 11;
     			$winnings->winning_total = rand(6, 2000);
     			$winnings->save();
@@ -24,7 +23,6 @@ class WinningsSeeder extends Seeder
             }
 
             $winnings->game_id = $i;
-            $winnings->winning_charity = rand(1, 300);
             $winnings->winning_user = rand(1, 11);
 			$winnings->winning_total = rand(6, 2000);
 			$winnings->save();

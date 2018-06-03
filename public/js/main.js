@@ -36,9 +36,24 @@
         toggleConfirmPicksBtn();
     });
 
+    $('.clearPicks').on('click', function(){
+        $(".picksTable").find(".confirmPicksBtn form input.selection").remove();
+        $(".picksTable").find(".availableSquare").removeClass('pendingPick');
+        $(".picksTable").find(".availableSquare").find('i').removeClass('fa-check');
+        $(".picksTable").find(".availableSquare").css('background','linear-gradient(#333, #222)');
+        toggleConfirmPicksBtn();
+    });
+
     function toggleConfirmPicksBtn(){
         if ($(".picksTable table tr td").hasClass("pendingPick")) {
             $(".confirmPicksBtn").fadeIn(250);
+            if ($(".picksTable table tr td.pendingPick").length == 1) {
+                $(".confirmPicksBtn button").text("Confirm Pick");
+                $(".confirmPicksBtn a").text("Clear Pick");
+            } else {
+                $(".confirmPicksBtn button").text("Confirm Picks");
+                $(".confirmPicksBtn a").text("Clear Picks");
+            }
         } else {
             $(".confirmPicksBtn").fadeOut(250);
         }

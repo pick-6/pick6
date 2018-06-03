@@ -103,8 +103,14 @@ class GamesController extends Controller
         foreach ($squaresSelected as $squareSelected) {
             $thisGameSelections[] =  "$squareSelected->square_selection";
         }
+        $dates = Games::groupBy('date_for_week')->get();
+        $playingIn = [];
+        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
+        foreach ($gamesUserIsPlaying as $game) {
+            $playingIn[] =  "$game->game_id";
+        }
 
-        return view('showGame')->with(compact('gameOver', 'randomNumbers', 'currentWeek', 'allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
+        return view('showGame')->with(compact('playingIn', 'dates', 'gameOver', 'randomNumbers', 'currentWeek', 'allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
     }
 
     public function getRandomNumbers() {

@@ -20,7 +20,6 @@ class SelectionsSeeder extends Seeder
             $selections1 = new App\Models\Selections();
             $selections1->user_id = rand(1, 10);
             $selections1->game_id = rand(17, 48);
-            $selections1->amount = 6;
             $selections1->square_selection = rand(0, 99);
             $selections1->save();
         }

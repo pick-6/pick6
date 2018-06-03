@@ -18,7 +18,6 @@ class CreateWinningsTable extends Migration
             $table->integer('game_id')->unsigned()->nullable();
             $table->integer('winning_selection')->nullable();
             $table->integer('winning_user')->unsigned()->nullable();
-            $table->integer('winning_charity')->unsigned()->nullable();
             $table->decimal('winning_total', 7, 2)->nullable();
         });
     }

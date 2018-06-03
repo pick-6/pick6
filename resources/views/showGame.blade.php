@@ -48,22 +48,30 @@
             display: none;
         }
     }
+    .confirmPicksBtn button:hover{
+        background-color: #52a03d!important;
+    }
+    .confirmPicksBtn a:hover{
+        background-color: #cc2b22!important;
+    }
+    @media(max-width: 477px){
+        .clearPicks {
+            margin-top: 20px;
+        }
+    }
+    @media(max-width: 498px){
+        .clearPicks {
+            margin-left: 0px;
+        }
+    }
+    @media(min-width: 498px){
+        .clearPicks {
+            margin-left: 20px;
+        }
+    }
 </style>
-<!-- <section class="showGamePage" style="padding: 0px;padding-top: 70px;height: 100vh"> -->
-<!-- <div class="picksTable" style="margin:0 auto;padding:0px;padding-top: 40px"> -->
     <div class="picksTable showGamePage activeSection" style="display:none">
-    <!-- <div class="container"> -->
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
-
-            <!-- PICK A SQUARE -->
-            <!-- <div class="col-md-12 text-center"> -->
-                <!-- <h1 class="gameSteps">Step 2:</h1>
-                <h3 class="gameSteps">Pick A Square From The Table Below</h3> -->
-                <!-- <h3 class="fc-white">Pick Your Square(s) From The Table Below</h3> -->
-                <!-- <p>(Remember that the numbers represent the last digit of the final score for each team)</p> -->
-            <!-- </div> -->
-
-
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName" style="margin-top: 0px">
                 <h1 class="text-center">{{$thisGame[0]['home']}}
@@ -131,23 +139,19 @@
             </div>
 
             <!-- CHOOSE ANOTHER GAME -->
-            <div class="dropdown text-center" style="padding-top: 45px;clear: both;/*width: 40%;margin: 0 auto*/">
-                <button style="color: #000; text-transform: uppercase;" class="btn btn-lg dropdown-toggle gameBtn" type="button" data-toggle="dropdown">Choose Another Game <span class="fa fa-caret-up"></span></button>
-                <ul class="dropdown-menu scrollable-menu" style="top:-95%;/*width: auto; margin: 0*/">
-                    @foreach ($allGames as $otherGame)
-                        @if ($otherGame->week == $currentWeek)
-                            <li><a class="page-scroll gameSelection text-center" data-id="{{$otherGame->id}}" href="{{action('GamesController@show', [$otherGame->id])}}" style="font-size: 18px;"><img class="pull-left" src="/img/team_logos/{{$otherGame->home_logo}}" height="40" width="45" alt="{{$otherGame->home}}"> vs. <img class="pull-right" src="/img/team_logos/{{$otherGame->away_logo}}" height="40" width="45" alt="{{$otherGame->away}}"></a></li>
-                        @endif
-                    @endforeach
-                </ul>
+            <div class="text-center" style="padding-top: 45px;clear: both;">
+                <button href="#chooseAnotherGame" data-toggle="modal" style="color: #000; text-transform: uppercase;" class="btn btn-lg gameBtn">Choose Another Game</button>
+                @include('partials.chooseAnotherGameModal')
             </div>
 
+            <!-- CONFIRM PICKS SELECTED -->
             <div class="confirmPicksBtn text-center" style="display:none;padding-top: 45px;clear: both">
                 <form  method="POST" action="{{ action('SelectionsController@store') }}">
                     {!! csrf_field() !!}
                     <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
                     <input type=hidden name="game_id" value="{{$thisGame[0]['id']}}">
-                    <button style="color: #000; text-transform: uppercase;" class="btn btn-lg dropdown-toggle gameBtn" type="submit">Confirm Picks</button>
+                    <button style="min-width: 220px;background-color:#58af42;border-color:darkgreen;" class="btn btn-lg gameBtn" type="submit">Confirm Picks</button>
+                    <a style="min-width: 220px;background-color:#db3125;border-color:darkred;" class="btn btn-lg gameBtn clearPicks">Clear Picks</a>
                 </form>
             </div>
 
@@ -155,8 +159,4 @@
             @include('partials.pastGameResults')
         @endif
     </div>
-<!-- </section> -->
-
-
-
 @stop
