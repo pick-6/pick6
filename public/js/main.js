@@ -17,47 +17,72 @@
     });
 
 
-    // Square Selection
-    $(".availableSquare").on('click', function(e){
-        $(this).toggleClass('pendingPick');
-        $(this).find('i').toggleClass('fa-check');
+    // // Square Selection
+    // $(".availableSquare").on('click', function(e){
+    //     $(this).toggleClass('pendingPick');
+    //     $(this).find('i').toggleClass('fa-check');
+    //
+    //     var selection = $(this).data('id');
+    //     var notPending = !$(this).hasClass('pendingPick');
+    //     if (notPending)
+    //     {
+    //         $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
+    //     }
+    //     else
+    //     {
+    //         var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
+    //         $(".picksTable").find(".confirmPicksBtn form").append(input);
+    //     }
+    //     changeCreditBalance();
+    //     toggleConfirmPicksBtn();
+    // });
+    //
+    // $('.clearPicks').on('click', function(){
+    //     $(".picksTable").find(".confirmPicksBtn form input.selection").remove();
+    //     $(".picksTable").find(".availableSquare").removeClass('pendingPick');
+    //     $(".picksTable").find(".availableSquare").find('i').removeClass('fa-check');
+    //     $(".picksTable").find(".availableSquare").css('background','linear-gradient(#333, #222)');
+    //     toggleConfirmPicksBtn();
+    //     changeCreditBalance();
+    // });
+    //
+    // function toggleConfirmPicksBtn(){
+    //     if ($(".picksTable table tr td").hasClass("pendingPick")) {
+    //         $(".confirmPicksBtn").fadeIn(250);
+    //         if ($(".picksTable table tr td.pendingPick").length == 1) {
+    //             $(".confirmPicksBtn button").text("Confirm Pick");
+    //             $(".confirmPicksBtn a").text("Clear Pick");
+    //         } else {
+    //             $(".confirmPicksBtn button").text("Confirm Picks");
+    //             $(".confirmPicksBtn a").text("Clear Picks");
+    //         }
+    //     } else {
+    //         $(".confirmPicksBtn").fadeOut(250);
+    //     }
+    // }
 
-        var selection = $(this).data('id');
-        if (!$(this).hasClass('pendingPick'))
-        {
-            $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
-        }
-        else
-        {
-            var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
-            $(".picksTable").find(".confirmPicksBtn form").append(input);
-        }
+    // function changeCreditBalance(){
+    //     var numberOfPicksSelected = $(".picksTable table tr td.pendingPick").length;
+    //     var pickCost = 2;
+    //     var toBePaid = numberOfPicksSelected * pickCost;
+    //     // var beginningBalance = $('#creditBalance').data('balance');
+    //     var beginningBalance = creditCheck(Auth::user()->id);
+    //     var endBalance = beginningBalance - toBePaid;
+    //     $('#creditBalance').text(endBalance + ".00");
+    // }
 
-        toggleConfirmPicksBtn();
-    });
-
-    $('.clearPicks').on('click', function(){
-        $(".picksTable").find(".confirmPicksBtn form input.selection").remove();
-        $(".picksTable").find(".availableSquare").removeClass('pendingPick');
-        $(".picksTable").find(".availableSquare").find('i').removeClass('fa-check');
-        $(".picksTable").find(".availableSquare").css('background','linear-gradient(#333, #222)');
-        toggleConfirmPicksBtn();
-    });
-
-    function toggleConfirmPicksBtn(){
-        if ($(".picksTable table tr td").hasClass("pendingPick")) {
-            $(".confirmPicksBtn").fadeIn(250);
-            if ($(".picksTable table tr td.pendingPick").length == 1) {
-                $(".confirmPicksBtn button").text("Confirm Pick");
-                $(".confirmPicksBtn a").text("Clear Pick");
-            } else {
-                $(".confirmPicksBtn button").text("Confirm Picks");
-                $(".confirmPicksBtn a").text("Clear Picks");
-            }
-        } else {
-            $(".confirmPicksBtn").fadeOut(250);
-        }
-    }
+    // function getCreditBalance() {
+    //     $.ajax({
+    //         type: 'get',
+    //         url: '/PaymentController/creditCheck/11',
+    //         // data: datastring,
+    //         success: function(data) {
+    //             alert(data);
+    //         }
+    //     });
+    //     // var balance = 10;
+    //     return balance;
+    // }
 
 
     // section scrolling

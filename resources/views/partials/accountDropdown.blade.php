@@ -2,9 +2,9 @@
     <li>
         <div class="navbar-content">
             <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-5" style="padding-right:5px;">
                     <div class="smallGreyBorder">
-                        <img src="/img/profilePics/{{Auth::user()->avatar}}" alt="Profile Picture" class="img-responsive"/>
+                        <img style="height:105px!important;width:100%;" src="/img/profilePics/{{Auth::user()->avatar}}" alt="Profile Picture" class="img-responsive"/>
                     </div>
                     <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}"  method="POST">
                         <input type="file" name="avatar" id="chooseProfilePic" class="hidden">

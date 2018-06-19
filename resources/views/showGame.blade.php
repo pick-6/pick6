@@ -1,3 +1,13 @@
+<?php
+use App\User;
+function getCredit($userId){
+    $creditForUser = User::select('credit')->where('id', '=', $userId)->get();
+    return $creditForUser[0]['credit'];
+}
+function creditCheck(){
+
+}
+?>
 @extends('layouts.master')
 @section('content')
 <style>
@@ -159,4 +169,90 @@
             @include('partials.pastGameResults')
         @endif
     </div>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+    // Square Selection
+    $(".availableSquare").on('click', function(e){
+        if ($(this).hasClass('pendingPick')) {
+            $(this).toggleClass('pendingPick');
+            $(this).find('i').toggleClass('fa-check');
+            var selection = $(this).data('id');
+            var notPending = !$(this).hasClass('pendingPick');
+            if (notPending)
+            {
+                $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
+            }
+            else
+            {
+                var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
+                $(".picksTable").find(".confirmPicksBtn form").append(input);
+            }
+        }
+        else if (creditCheck()) {
+            $(this).toggleClass('pendingPick');
+            $(this).find('i').toggleClass('fa-check');
+
+            var selection = $(this).data('id');
+            var notPending = !$(this).hasClass('pendingPick');
+            if (notPending)
+            {
+                $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
+            }
+            else
+            {
+                var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
+                $(".picksTable").find(".confirmPicksBtn form").append(input);
+            }
+        }
+        changeCreditBalance();
+        toggleConfirmPicksBtn();
+    });
+
+    $('.clearPicks').on('click', function(){
+        $(".picksTable").find(".confirmPicksBtn form input.selection").remove();
+        $(".picksTable").find(".availableSquare").removeClass('pendingPick');
+        $(".picksTable").find(".availableSquare").find('i').removeClass('fa-check');
+        $(".picksTable").find(".availableSquare").css('background','linear-gradient(#333, #222)');
+        toggleConfirmPicksBtn();
+        changeCreditBalance();
+    });
+
+    function toggleConfirmPicksBtn(){
+        if ($(".picksTable table tr td").hasClass("pendingPick")) {
+            $(".confirmPicksBtn").fadeIn(250);
+            if ($(".picksTable table tr td.pendingPick").length == 1) {
+                $(".confirmPicksBtn button").text("Confirm Pick");
+                $(".confirmPicksBtn a").text("Clear Pick");
+            } else {
+                $(".confirmPicksBtn button").text("Confirm Picks");
+                $(".confirmPicksBtn a").text("Clear Picks");
+            }
+        } else {
+            $(".confirmPicksBtn").fadeOut(250);
+        }
+    };
+
+    function changeCreditBalance(){
+        var endBalance = getEndBalance();
+        $('#creditBalance').text(endBalance + ".00");
+    };
+
+    function creditCheck(){
+        var endBalance = getEndBalance();
+        if (endBalance <= 0) {
+            alert("no funds");
+            return false;
+        }
+        return true;
+    };
+
+    function getEndBalance(){
+        var numberOfPicksSelected = $(".picksTable table tr td.pendingPick").length;
+        var pickCost = 2;
+        var toBePaid = numberOfPicksSelected * pickCost;
+        var beginningBalance = {{getCredit(Auth::user()->id)}};
+        var endBalance = beginningBalance - toBePaid;
+        return endBalance;
+    };
+    </script>
 @stop

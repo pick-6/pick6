@@ -1,3 +1,7 @@
+<?php
+use App\User;
+?>
+
 <style type="text/css">
     .navbar-custom {
         background: rgba(0, 0, 0, .5);
@@ -193,6 +197,24 @@
                 <!-- <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span> -->
             </a>
         </div>
+
+        @if (Auth::check())
+        <?php
+            $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
+            $credit = $creditForUser[0]['credit'];
+            $creditAmount = money_format('%i', $creditForUser[0]['credit']);
+        ?>
+            <div class="fc-grey" style="position: absolute;left:40%;top:25px;">
+                <div class="col-sm-9" style="margin-top:5px;padding:0px;">
+                    Credit Balance: $<span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
+                </div>
+                <div class="col-sm-3" style="padding:0px;">
+                    <a href="/payment" class="btn btn-default btn-sm" style="border-color:green;background:green;">
+                        <i class="fas fa-dollar-sign"></i> Add Credit
+                    </a>
+                </div>
+            </div>
+        @endif
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
