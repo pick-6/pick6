@@ -33,10 +33,6 @@
             <section style="background: none;padding: 0;padding-top: 40px;height: calc(100vh - 72px);overflow:auto">
                 <div class="container">
                     @yield('content')
-                    @include('about')
-                    @include('howtoplay')
-                    @include('contact')
-                    @include('terms')
                 </div>
             </section>
         </div>

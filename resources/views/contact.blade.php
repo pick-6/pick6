@@ -1,5 +1,7 @@
+@extends('layouts.master')
+@section('content')
 <!-- Contact Section -->
-<div id="contact" class="showContact" style="display:none">
+<div id="contact">
     <div class="row">
         <div class="col-lg-12 text-center">
             <h2 class="pageTitle">Contact Us</h2>
@@ -39,3 +41,4 @@
         </div>
     </div>
 </div>
+@stop

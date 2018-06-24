@@ -1,13 +1,3 @@
-<?php
-use App\User;
-function getCredit($userId){
-    $creditForUser = User::select('credit')->where('id', '=', $userId)->get();
-    return $creditForUser[0]['credit'];
-}
-function creditCheck(){
-
-}
-?>
 @extends('layouts.master')
 @section('content')
 <style>
@@ -58,10 +48,10 @@ function creditCheck(){
             display: none;
         }
     }
-    .confirmPicksBtn button:hover{
+    #confirmPicksBtn:hover{
         background-color: #52a03d!important;
     }
-    .confirmPicksBtn a:hover{
+    #clearPicksBtn:hover{
         background-color: #cc2b22!important;
     }
     @media(max-width: 477px){
@@ -80,7 +70,8 @@ function creditCheck(){
         }
     }
 </style>
-    <div class="picksTable showGamePage activeSection" style="display:none">
+
+    <div class="picksTable">
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName" style="margin-top: 0px">
@@ -155,104 +146,135 @@ function creditCheck(){
             </div>
 
             <!-- CONFIRM PICKS SELECTED -->
-            <div class="confirmPicksBtn text-center" style="display:none;padding-top: 45px;clear: both">
-                <form  method="POST" action="{{ action('SelectionsController@store') }}">
+            <div class="picksBtns text-center" style="display:none;padding-top: 45px;clear: both">
+                <form id="selectionsForm" method="POST" action="{{ action('SelectionsController@store') }}">
                     {!! csrf_field() !!}
-                    <input type=hidden name="user_id" value= "{{ Auth::user()->id }}">
-                    <input type=hidden name="game_id" value="{{$thisGame[0]['id']}}">
-                    <button style="min-width: 220px;background-color:#58af42;border-color:darkgreen;" class="btn btn-lg gameBtn" type="submit">Confirm Picks</button>
-                    <a style="min-width: 220px;background-color:#db3125;border-color:darkred;" class="btn btn-lg gameBtn clearPicks">Clear Picks</a>
+                    <button id="confirmPicksBtn" style="min-width: 220px;background-color:#58af42;border-color:darkgreen;" class="btn btn-lg gameBtn" type="submit">Confirm Picks</button>
+                    <a id="clearPicksBtn" style="min-width: 220px;background-color:#db3125;border-color:darkred;" class="btn btn-lg gameBtn clearPicks">Clear Picks</a>
                 </form>
+            </div>
+
+            <div>
+                <button style="display:none" id="showNoFunds" href="#showNoFundsModal" data-toggle="modal"></button>
+                @include('partials.showNoFunds')
             </div>
 
         @else <!-- Show past game results -->
             @include('partials.pastGameResults')
         @endif
     </div>
+
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
-    // Square Selection
-    $(".availableSquare").on('click', function(e){
-        if ($(this).hasClass('pendingPick')) {
-            $(this).toggleClass('pendingPick');
-            $(this).find('i').toggleClass('fa-check');
-            var selection = $(this).data('id');
-            var notPending = !$(this).hasClass('pendingPick');
-            if (notPending)
-            {
-                $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
-            }
-            else
-            {
-                var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
-                $(".picksTable").find(".confirmPicksBtn form").append(input);
-            }
+        // Square Selection
+        function hasFunds(){
+            return getEndBalance() >= {{$pickCost}};
         }
-        else if (creditCheck()) {
-            $(this).toggleClass('pendingPick');
-            $(this).find('i').toggleClass('fa-check');
 
-            var selection = $(this).data('id');
-            var notPending = !$(this).hasClass('pendingPick');
-            if (notPending)
-            {
-                $(".picksTable").find(".confirmPicksBtn form input#"+selection+"").remove();
+        function getEndBalance(){
+            var numberOfPicksSelected = $(".picksTable table tr td.pendingPick").length;
+            var pickCost = {{$pickCost}};
+            var toBePaid = numberOfPicksSelected * pickCost;
+            var beginningBalance = {{$userCredit}};
+            var endBalance = beginningBalance - toBePaid;
+            return endBalance;
+        };
+
+        function creditCheck(){
+            if (hasFunds()) {
+                return true;
             }
-            else
-            {
-                var input = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
-                $(".picksTable").find(".confirmPicksBtn form").append(input);
-            }
-        }
-        changeCreditBalance();
-        toggleConfirmPicksBtn();
-    });
-
-    $('.clearPicks').on('click', function(){
-        $(".picksTable").find(".confirmPicksBtn form input.selection").remove();
-        $(".picksTable").find(".availableSquare").removeClass('pendingPick');
-        $(".picksTable").find(".availableSquare").find('i').removeClass('fa-check');
-        $(".picksTable").find(".availableSquare").css('background','linear-gradient(#333, #222)');
-        toggleConfirmPicksBtn();
-        changeCreditBalance();
-    });
-
-    function toggleConfirmPicksBtn(){
-        if ($(".picksTable table tr td").hasClass("pendingPick")) {
-            $(".confirmPicksBtn").fadeIn(250);
-            if ($(".picksTable table tr td.pendingPick").length == 1) {
-                $(".confirmPicksBtn button").text("Confirm Pick");
-                $(".confirmPicksBtn a").text("Clear Pick");
-            } else {
-                $(".confirmPicksBtn button").text("Confirm Picks");
-                $(".confirmPicksBtn a").text("Clear Picks");
-            }
-        } else {
-            $(".confirmPicksBtn").fadeOut(250);
-        }
-    };
-
-    function changeCreditBalance(){
-        var endBalance = getEndBalance();
-        $('#creditBalance').text(endBalance + ".00");
-    };
-
-    function creditCheck(){
-        var endBalance = getEndBalance();
-        if (endBalance <= 0) {
-            alert("no funds");
+            $('#showNoFunds').trigger('click');
             return false;
-        }
-        return true;
-    };
+        };
 
-    function getEndBalance(){
-        var numberOfPicksSelected = $(".picksTable table tr td.pendingPick").length;
-        var pickCost = 2;
-        var toBePaid = numberOfPicksSelected * pickCost;
-        var beginningBalance = {{getCredit(Auth::user()->id)}};
-        var endBalance = beginningBalance - toBePaid;
-        return endBalance;
-    };
+        function changeCreditBalance(){
+            var endBalance = getEndBalance();
+            $('#creditBalance').text('$' + endBalance.toFixed(2));
+            setBalanceColor();
+        };
+
+        function setBalanceColor() {
+            if (hasFunds()) {
+                $('#creditBalance').css('color', 'lightgrey');
+            } else {
+                $('#creditBalance').css('color', 'red');
+            }
+        }
+        setBalanceColor();
+
+        function togglePicksBtns(){
+            var hasPendingPicks = $(".picksTable table tr td").hasClass("pendingPick");
+            if (hasPendingPicks) {
+                $(".picksBtns").fadeIn(250);
+                if ($(".picksTable table tr td.pendingPick").length == 1) {
+                    $("#confirmPicksBtn").text("Confirm Pick");
+                    $("#clearPicksBtn").text("Clear Pick");
+                } else {
+                    $("#confirmPicksBtn").text("Confirm Picks");
+                    $("#clearPicksBtn").text("Clear Picks");
+                }
+            } else {
+                $(".picksBtns").fadeOut(250);
+            }
+        };
+
+        $(".availableSquare").on('click', function(e){
+            if ($(this).hasClass('pendingPick') || creditCheck()) {
+                $(this).toggleClass('pendingPick');
+                $(this).find('i').toggleClass('fa-check');
+            }
+            changeCreditBalance();
+            togglePicksBtns();
+        });
+
+        $('#confirmPicksBtn').on('click', function(){
+            var pendingPicks = $(".picksTable table tr td.pendingPick");
+            if (pendingPicks.length < 1) {
+                return false;
+            } else {
+                var gameId = {{$thisGame[0]['id']}};
+                var gameIdInput = "<input type=hidden name=game_id value="+gameId+">";
+                $("#selectionsForm").append(gameIdInput);
+
+                pendingPicks.each(function(){
+                    var selection = $(this).data("id");
+                    var selectionInput = "<input id="+selection+" type=hidden name=selection["+selection+"] value="+selection+" class=selection>";
+                    $("#selectionsForm").append(selectionInput);
+                });
+
+                $(".picksTable").addClass('submittingPicks');
+                $('#selectionsForm').submit();
+            }
+        });
+
+        $('#selectionsForm').submit(function() {
+            var selections = $('#selectionsForm').find('input.selection');
+            selections.each(function(){
+                var selection = $(this).attr('id');
+                var pickSquare = $(".picksTable table tr td[data-id="+selection+"]");
+                if (pickSquare.hasClass('pendingPick')) {
+                    return true;
+                } else {
+                    $("#selectionsForm").find("input#"+selection+"").remove();
+                }
+            });
+            return true;
+        });
+
+        $('#clearPicksBtn').on('click', function(){
+            $availSquares = $(".picksTable").find(".availableSquare");
+            $availSquares.removeClass('pendingPick');
+            $availSquares.find('i').removeClass('fa-check');
+            $availSquares.css('background','linear-gradient(#333, #222)');
+            changeCreditBalance();
+            togglePicksBtns();
+        });
+
+        $(window).on('beforeunload', function () {
+            if ($('.pendingPick').length && !$('.submittingPicks').length) {
+                return 'Would you like to stay and confirm your pending picks?';
+            }
+        });
     </script>
 @stop

@@ -109,6 +109,20 @@ use App\User;
         .showOnMobile {
             display: block!important;
         }
+        .hideOnMobile {
+            display: none!important;
+        }
+        #bs-example-navbar-collapse-1 {
+            clear: both;
+        }
+        .nav>li {
+            width: auto!important;
+        }
+        #mainNav {
+            background-color: #222;
+            padding: 10px 0px 0px;
+            margin:0px;
+        }
     }
     #mainNav>.container {
         width: 65%;
@@ -124,16 +138,6 @@ use App\User;
     }
     .nav {
         text-align: center;
-    }
-    @media (max-width: 767px) {
-        .nav>li {
-            width: auto!important;
-        }
-        #mainNav {
-            background-color: #222;
-            padding: 10px 0px 0px;
-            margin:0px;
-        }
     }
     .navbar-custom .navbar-toggle, .navbar-custom .navbar-toggle:hover {
     float: right;
@@ -191,7 +195,7 @@ use App\User;
             <button type="button" class="navbar-toggle" style="background-color:none!important;" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> <span class="menuTextColor"><i class="fa fa-bars"></i></span>
             </button>
-            <a class="showSection">
+            <a href="/">
                 <span class="navbar-brand logoName">PICK</span>
                 <span><img class="logoImage"  src="/img/pick6_logo_low.png" onContextMenu="return false;"></span>
                 <!-- <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span> -->
@@ -202,13 +206,13 @@ use App\User;
         <?php
             $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
             $credit = $creditForUser[0]['credit'];
-            $creditAmount = money_format('%i', $creditForUser[0]['credit']);
+            $creditAmount = money_format('$%i', $credit);
         ?>
             <div class="fc-grey" style="position: absolute;left:40%;top:25px;">
-                <div class="col-sm-9" style="margin-top:5px;padding:0px;">
-                    Credit Balance: $<span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
+                <div class="col-sm-8" style="margin-top:5px;padding:0px;">
+                    Credit Balance: <span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
                 </div>
-                <div class="col-sm-3" style="padding:0px;">
+                <div class="col-sm-4 hideOnMobile" style="padding:0px;">
                     <a href="/payment" class="btn btn-default btn-sm" style="border-color:green;background:green;">
                         <i class="fas fa-dollar-sign"></i> Add Credit
                     </a>
@@ -221,8 +225,13 @@ use App\User;
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
                     <li class="showOnMobile"><a href="/play">Play Game</a></li>
-                    <li class="showOnMobile"><a class="showSection">Dashboard</a></li>
+                    <li class="showOnMobile"><a href="/dashboard">Dashboard</a></li>
                     <li class="showOnMobile"><a href="{{action('Auth\AuthController@getLogout')}}">Log Out</a></li>
+                    <li class="showOnMobile">
+                        <a href="/payment" class="btn btn-default btn-sm" style="border-color:green;background:green;color:#000;font-weight:bold;font-size: 14px;">
+                            <i class="fas fa-dollar-sign"></i> Add Credit
+                        </a>
+                    </li>
 
                     <!-- User Account Dropdown -->
                     <li class="dropdown userAccount">
@@ -234,9 +243,9 @@ use App\User;
                     </li>
                     <!-- End of User Account Dropdown -->
                 @else
-                    <li><a class="showSection">About</a></li>
-                    <li><a class="showSection">How To Play</a></li>
-                    <li><a class="showSection">Contact Us</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/howtoplay">How To Play</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 @endif
             </ul>
         </div>

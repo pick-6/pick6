@@ -159,7 +159,7 @@
 </style>
 
 <!-- Dashboard -->
-<div class="dashboard activeSection text-center" style="display:none">
+<div class="dashboard text-center">
     <div class="row">
         <!-- Games For The Week -->
         <div class="col-md-7">

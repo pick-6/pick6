@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Selections;
 use App\Models\Games;
+use App\User;
 
 class SelectionsController extends Controller
 {
@@ -26,17 +27,48 @@ class SelectionsController extends Controller
         return view('playGame');
     }
 
+    public function checkPickExists($pick, $gameId)
+    {
+        $findPick = Selections::select('id')->where('game_id', '=', $gameId)->where('square_selection', '=', $pick)->get();
+        $pickExists = count($findPick) > 0;
+        if ($pickExists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function store(Request $request)
     {
+        $userId = \Auth::id();
+        $gameId = $request->game_id;
+
+        $selectionCount = 0;
         foreach ($request->selection as $selection) {
+            if ($this->checkPickExists($selection, $gameId)) {
+                continue;
+            }
             $selections = new Selections();
-            $selections->user_id = $request->user_id;
-            $selections->game_id = $request->game_id;
+            $selections->user_id = $userId;
+            $selections->game_id = $gameId;
             $selections->square_selection = $selection;
             $selections->save();
+            $selectionCount++;
         }
+
+        // update credit balance
+        $cost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
+        $pickCost =$cost[0]['pick_cost'];
+        $creditForUser = User::select('credit')->where('id', '=', $userId)->get();
+        $userCredit = $creditForUser[0]['credit'];
+        $updateCreditAmount = $userCredit - ($selectionCount * $pickCost);
+
+        $user = User::find($userId);
+        $user->credit = $updateCreditAmount;
+        $user->save();
+
         $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
-        return redirect()->action('GamesController@show', $selections->game_id);
+        return redirect()->action('GamesController@show', $gameId);
     }
 
     public function show($id)

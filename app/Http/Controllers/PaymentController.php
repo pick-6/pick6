@@ -28,21 +28,31 @@ class PaymentController extends Controller
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         \Stripe\Stripe::setApiKey("sk_test_chvic2zLcRCTzOKL9ULbQhfN");
 
-        // Token is created using Checkout or Elements!
-        // Get the payment token ID submitted by the form:
+        $amount = $request->amount;
+        $description = $request->description;
+        $email = $request->email;
         $token = $request->stripeToken;
 
         $charge = \Stripe\Charge::create([
-            'amount' => $request->amount,
+            'amount' => $amount,
             'currency' => 'usd',
-            'description' => $request->description,
-            'receipt_email' => $request->email,
+            'description' => $description,
+            'receipt_email' => $email,
             'source' => $token,
         ]);
 
-        $creditAmount = ($request->amount)/100;
+        $creditAmountAdded = $amount/100;
 
-        $request->session()->flash('successMessage', '$'.$creditAmount.'.00 was added to your credit balance.');
+        // update user's credit
+        $user = User::find(\Auth::id());
+        $userId = $user->id;
+        $getUserCurrentCredit = User::select('credit')->where('id', '=', $userId)->get();
+        $userCurrentCreditAmount = $getUserCurrentCredit[0]['credit'];
+        $updatedCreditAmount = $userCurrentCreditAmount + $creditAmountAdded;
+        $user->credit = $updatedCreditAmount;
+        $user->save();
+
+        $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
         return redirect()->action('AccountController@dashboard');
     }
 }

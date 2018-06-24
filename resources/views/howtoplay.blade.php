@@ -1,3 +1,5 @@
+@extends('layouts.master')
+@section('content')
 <style type="text/css">
 	.howtoplay .carousel-control {
 		background-image: linear-gradient(rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%)!important;
@@ -35,7 +37,7 @@
 </style>
 
 <!-- How To Play Section -->
-<div class="howtoplay showHTP" style="display:none">
+<div class="howtoplay">
 
 	<h2 class="pageTitle" style="margin-bottom:20px;">How To Play</h2>
 
@@ -88,9 +90,10 @@
 	</div>
 
 	<div class="text-center playBtn" style="padding: 20px 0px;">
-		<a class="btn btn-xl getStartedBtn showSection">
+		<a href="{{Auth::check() ? '/play' : '/'}}" class="btn btn-xl getStartedBtn">
 			Start Playing
 		</a>
 	</div>
 
 </div>
+@stop

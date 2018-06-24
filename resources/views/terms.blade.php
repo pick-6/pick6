@@ -1,3 +1,5 @@
+@extends('layouts.master')
+@section('content')
 <style type="text/css">
 	#termsPage .terms-wrapper {
 		height: 550px;
@@ -18,7 +20,7 @@
 </style>
 
 <!-- Terms & Condition Section -->
-<div id="termsPage" class="showTerms" style="display:none">
+<div id="termsPage">
 	<h2 class="pageTitle" style="margin-bottom:40px;">Terms & Conditions</h2>
 	<div class="terms-wrapper">
 		<div class="terms-content">
@@ -26,3 +28,4 @@
 		</div>
 	</div>
 </div>
+@stop

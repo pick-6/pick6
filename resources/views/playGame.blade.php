@@ -131,7 +131,8 @@
         }
     }
 </style>
-<div class="playGamePage activeSection" style="display:none">
+
+<div class="playGamePage">
     <!-- <div class="container"> -->
         <!-- CHOOSE A GAME -->
         <h3 class="fc-white text-center">Games for the Week</h3>
@@ -194,6 +195,7 @@
         </div>
     <!-- </div> -->
 </div>
+
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript">
     if ($(document).width() > 991) {

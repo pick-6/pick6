@@ -127,6 +127,9 @@ textarea.form-control:focus::placeholder {
     .fs-25 {
         font-size: 25px!important;
     }
+    .margin-top-10 {
+        margin-top: 10px!important;
+    }
     .margin-top-20 {
         margin-top: 20px!important;
     }
@@ -189,6 +192,9 @@ textarea.form-control:focus::placeholder {
     }
     .width70 {
         width: 70%!important;
+    }
+    .width100 {
+        width: 100%!important;
     }
     .absolute {
         position: absolute!important;

@@ -41,79 +41,74 @@ class GamesController extends Controller
         return view('playGame')->with(compact('currentWeek', 'games', 'dates', 'playingIn'));
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        // $games = new Game();
-        // $games->home = $request->home;
-        // $games->away = $request->away;
-        // $games->home_score = $request->home_score;
-        // $games->away_score = $request->away_score;
-
-        // $games->save();
-        // $request->session()->flash('successMessage', 'Post saved successfully');
-
-        // return redirect()->action('gamessController@show', $games->id);
-    }
-
     public function show(Request $request, $id)
     {
+        $data = [];
+
         $user = \Auth::user();
 
         $thisGame = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->where('games.id', '=', $id)
-        ->orderBy('games.time', 'ASC')
         ->get();
-
-        if(!$thisGame) {
-            abort(404);
-        }
+        $data['thisGame'] = $thisGame;
 
         $gameOver = $this->gameOverCheck($id);
+        $data['gameOver'] = $gameOver;
         if($gameOver) {
             $randomNumbers = $this->getRandomNumbers();
+            $data['randomNumbers'] = $randomNumbers;
         }
 
         $currentWeek = $this->currentWeek;
+        $data['currentWeek'] = $currentWeek;
 
         $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->orderBy('games.time', 'ASC')
         ->get();
-
-        $thisGameSelections = [];
-        $thisGameUserSelections = [];
+        $data['allGames'] = $allGames;
 
         $winningSelection = User::select('*')->join('winnings', 'users.id', '=', 'winnings.winning_user')->where('winnings.game_id', '=', $id)->get();
-        //$winningCharitySelection = Charity::select('*')->join('winnings', 'charities.id', '=', 'winnings.winning_charity')->where('winnings.game_id', '=', $id)->get();
-        // $gameTotalBets = Games::select('*')->where('games.id', '=', $id)->get();
+        $data['winningSelection'] = $winningSelection;
 
-        // $squaresSelected = Selections::where('game_id', '=', $id)->get();
         $squaresSelected = Selections::select('*')
         ->join('users', 'selections.user_id', '=', 'users.id')
         ->where('game_id', '=', $id)
         ->get();
+        $data['squaresSelected'] = $squaresSelected;
+
+        $thisGameSelections = [];
         foreach ($squaresSelected as $squareSelected) {
             $thisGameSelections[] =  "$squareSelected->square_selection";
         }
+        $data['thisGameSelections'] = $thisGameSelections;
+
         $dates = Games::groupBy('date_for_week')->get();
+        $data['dates'] = $dates;
+
         $playingIn = [];
         $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
         foreach ($gamesUserIsPlaying as $game) {
             $playingIn[] =  "$game->game_id";
         }
+        $data['playingIn'] = $playingIn;
 
-        return view('showGame')->with(compact('playingIn', 'dates', 'gameOver', 'randomNumbers', 'currentWeek', 'allGames', 'thisGame', 'squaresSelected', 'thisGameSelections', 'winningSelection', 'winningCharitySelection', 'gameTotalBets', 'sumOfDonations'));
+        $cost = Games::select('pick_cost')->where('id', '=', $id)->get();
+        $pickCost = $cost[0]['pick_cost'];
+        $data['pickCost'] = $pickCost;
+
+        $creditForUser = User::select('credit')->where('id', '=', $user->id)->get();
+        $userCredit = $creditForUser[0]['credit'];
+        $data['userCredit'] = $userCredit;
+
+        return view('showGame')->with($data);
     }
 
-    public function getRandomNumbers() {
+    public function getRandomNumbers()
+    {
         $data = [];
 
         $home_numbers = range(0,9);
@@ -129,49 +124,10 @@ class GamesController extends Controller
         return $data;
     }
 
-    public function gameOverCheck($gameId) {
+    public function gameOverCheck($gameId)
+    {
         $gameTime = Games::select('date_for_week')->where('id', '=', $gameId)->first();
         $isGameOver = $gameTime->date_for_week < Carbon::now();
-
         return $isGameOver;
-    }
-
-    public function edit($id)
-    {
-        // $games = Game::find($id);
-
-        // if(!$games) {
-        //     Session::flash("errorMessage", "Game not found");
-        // }
-        // return view('games.edit')->with('games', $games);
-    }
-
-    public function update(Request $request, $id)
-    {
-        // $games = Game::find($id);
-
-        // if(!$games) {
-        //     Session::flash("errorMessage", "games not found");
-        //     return redirect()->action("GamesController@index");
-        // }
-
-        // $games->home = $request->home;
-        // $games->away = $request->away;
-        // $games->home_score = $request->home_score;
-        // $games->away_score = $request->away_score;
-
-        // $games->save();
-        // return view('games.show')->with('games', $games);
-    }
-
-    public function destroy($id)
-    {
-       // $games = Game::find($id);
-       //  if(!$games) {
-       //      Session::flash('errorMessage', "Post not found");
-       //      return redirect()->action('GamesController@index');
-       //  }
-       //  $games->delete();
-       //  return redirect()->action('GamesController@index');
     }
 }

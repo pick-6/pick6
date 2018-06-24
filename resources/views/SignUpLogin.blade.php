@@ -1,3 +1,5 @@
+@extends('layouts.master')
+@section('content')
 <style type="text/css">
 
     #container {
@@ -168,7 +170,7 @@
 </style>
 
 <!-- Sign Up / Login Section -->
-<div id="container" class="newSignLogin activeSection" style="display:none">
+<div id="container" class="newSignLogin">
     <div id="buttons">
         <input type="button" class="button signup" value="Sign Up">
         <input type="button" class="button login active" value="Log In">
@@ -205,3 +207,4 @@
         </div>
     @endif
 </div>
+@stop
