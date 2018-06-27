@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 <style>
-    td:not(.notAvailable):hover{
+    td:not(.notAvailable):hover, .deletePick:hover {
         cursor: pointer;
     }
     .awayTeamNameDesktop {
@@ -71,7 +71,7 @@
     }
 </style>
 
-    <div class="picksTable">
+    <div id="picksTable" class="picksTable">
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName" style="margin-top: 0px">
@@ -121,7 +121,7 @@
                                 @if (in_array("$column$row", $thisGameSelections))
                                     @foreach($squaresSelected as $user)
                                         @if($user->square_selection == $column.$row)
-                                            <td class="notAvailable text-center middle" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
+                                            <td class="notAvailable text-center middle" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
                                         @endif
                                     @endforeach
                                 @else
@@ -159,20 +159,25 @@
                 @include('partials.showNoFunds')
             </div>
 
+            @include('partials.deletePickModal')
+
         @else <!-- Show past game results -->
             @include('partials.pastGameResults')
         @endif
     </div>
 
+
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
-        // Square Selection
+        // Square Selection JS
+        $this = $('#picksTable');
+
         function hasFunds(){
             return getEndBalance() >= {{$pickCost}};
         }
 
         function getEndBalance(){
-            var numberOfPicksSelected = $(".picksTable table tr td.pendingPick").length;
+            var numberOfPicksSelected = $this.find("table tr td.pendingPick").length;
             var pickCost = {{$pickCost}};
             var toBePaid = numberOfPicksSelected * pickCost;
             var beginningBalance = {{$userCredit}};
@@ -184,7 +189,7 @@
             if (hasFunds()) {
                 return true;
             }
-            $('#showNoFunds').trigger('click');
+            $this.find('#showNoFunds').trigger('click');
             return false;
         };
 
@@ -204,22 +209,24 @@
         setBalanceColor();
 
         function togglePicksBtns(){
-            var hasPendingPicks = $(".picksTable table tr td").hasClass("pendingPick");
+            var hasPendingPicks = $this.find("table tr td").hasClass("pendingPick");
             if (hasPendingPicks) {
                 $(".picksBtns").fadeIn(250);
-                if ($(".picksTable table tr td.pendingPick").length == 1) {
-                    $("#confirmPicksBtn").text("Confirm Pick");
-                    $("#clearPicksBtn").text("Clear Pick");
+                if ($$this.find("table tr td.pendingPick").length == 1) {
+                    $this.find("#confirmPicksBtn").text("Confirm Pick");
+                    $this.find("#clearPicksBtn").text("Clear Pick");
                 } else {
-                    $("#confirmPicksBtn").text("Confirm Picks");
-                    $("#clearPicksBtn").text("Clear Picks");
+                    $this.find("#confirmPicksBtn").text("Confirm Picks");
+                    $this.find("#clearPicksBtn").text("Clear Picks");
                 }
             } else {
-                $(".picksBtns").fadeOut(250);
+                $this.find(".picksBtns").fadeOut(250);
             }
         };
 
-        $(".availableSquare").on('click', function(e){
+
+        // For pick selection
+        $this.find(".availableSquare").on('click', function(e){
             if ($(this).hasClass('pendingPick') || creditCheck()) {
                 $(this).toggleClass('pendingPick');
                 $(this).find('i').toggleClass('fa-check');
@@ -228,8 +235,8 @@
             togglePicksBtns();
         });
 
-        $('#confirmPicksBtn').on('click', function(){
-            var pendingPicks = $(".picksTable table tr td.pendingPick");
+        $this.find('#confirmPicksBtn').on('click', function(){
+            var pendingPicks = $this.find("table tr td.pendingPick");
             if (pendingPicks.length < 1) {
                 return false;
             } else {
@@ -243,27 +250,27 @@
                     $("#selectionsForm").append(selectionInput);
                 });
 
-                $(".picksTable").addClass('submittingPicks');
-                $('#selectionsForm').submit();
+                $this.addClass('submittingPicks');
+                $this.find('#selectionsForm').submit();
             }
         });
 
-        $('#selectionsForm').submit(function() {
-            var selections = $('#selectionsForm').find('input.selection');
+        $this.find('#selectionsForm').submit(function() {
+            var selections = $this.find('#selectionsForm').find('input.selection');
             selections.each(function(){
                 var selection = $(this).attr('id');
-                var pickSquare = $(".picksTable table tr td[data-id="+selection+"]");
+                var pickSquare = $$this.find("table tr td[data-id="+selection+"]");
                 if (pickSquare.hasClass('pendingPick')) {
                     return true;
                 } else {
-                    $("#selectionsForm").find("input#"+selection+"").remove();
+                    $this.find("#selectionsForm").find("input#"+selection+"").remove();
                 }
             });
             return true;
         });
 
-        $('#clearPicksBtn').on('click', function(){
-            $availSquares = $(".picksTable").find(".availableSquare");
+        $this.find('#clearPicksBtn').on('click', function(){
+            $availSquares = $this.find(".availableSquare");
             $availSquares.removeClass('pendingPick');
             $availSquares.find('i').removeClass('fa-check');
             $availSquares.css('background','linear-gradient(#333, #222)');
@@ -271,10 +278,94 @@
             togglePicksBtns();
         });
 
+
+        // Ask user to confirm pending picks when navigating away from page
         $(window).on('beforeunload', function () {
             if ($('.pendingPick').length && !$('.submittingPicks').length) {
                 return 'Would you like to stay and confirm your pending picks?';
             }
+        });
+
+
+        // For pick deletion
+        $this.find('.notAvailable[data-user='+{{Auth::user()->id}}+']').each(function() {
+            var id = $(this).data('id');
+            var deletePick = "";
+            deletePick += "<a data-id='"+id+"' class='deletePick' href='#deletePickModal' data-toggle='modal'>";
+            deletePick += "<div class='deletePickContainer'>";
+            deletePick += "<div class='deletePickBG'></div>";
+            deletePick += "<i class='fs-16 margin-top-10 fc-red fas'></i>";
+            deletePick += "</div></a>";
+            $(this).append(deletePick);
+        });
+
+        $this.find('.notAvailable').on('mouseover mouseout', function(e){
+            if ($(this).data('user') == {{Auth::user()->id}})
+            {
+                $(this).find('i').toggleClass('fa-times');
+                if (e.type == 'mouseover')
+                {
+                    $(this).find('.deletePickContainer')
+                    .css({
+                        'position': 'relative',
+                        'z-index': '1',
+                        'min-height': '36px'
+                    });
+                    $(this).find('.deletePickBG')
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '-1',
+                        'background': '#000',
+                        'opacity': '.65',
+                        'width': '100%',
+                        'height': '100%'
+                    });
+                }
+                else
+                {
+                    $(this).find('.deletePickBG')
+                    .css({
+                        'background': 'initial',
+                    });
+                }
+            }
+        });
+
+        $this.find('.deletePick').click(function(e){
+            $(this).addClass('deleting');
+        });
+
+        $this.find('#deletePickBtn').on('click', function(){
+            var pickToDelete = $this.find(".deleting");
+            if (pickToDelete.length != 1) {
+                return false;
+            } else {
+                var gameId = {{$thisGame[0]['id']}};
+                var gameIdInput = "<input type=hidden name=game_id value="+gameId+">";
+                $("#deletePickForm").append(gameIdInput);
+
+                pickToDelete.each(function(){
+                    var selection = $(this).data("id");
+                    var selectionInput = "<input id="+selection+" type=hidden name=selection value="+selection+" class=pickToDelete>";
+                    $("#deletePickForm").append(selectionInput);
+                });
+
+                $(this).find('#deletePickForm').submit();
+            }
+        });
+
+        $this.find('#deletePickForm').submit(function() {
+            var picksToDelete = $this.find('#deletePickForm').find('input.pickToDelete');
+            picksToDelete.each(function(){
+                var pickToDelete = $(this).attr('id');
+                var pickSquare = $this.find(".deletePick[data-id="+pickToDelete+"]");
+                if (pickSquare.hasClass('deleting')) {
+                    return true;
+                } else {
+                    $this.find("#deletePickForm").find("input#"+pickToDelete+"").remove();
+                }
+            });
+            return true;
         });
     </script>
 @stop

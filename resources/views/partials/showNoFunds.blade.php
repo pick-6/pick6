@@ -1,8 +1,8 @@
 <style>
-    .modal-content {
+    #showNoFundsModal .modal-content {
         background-color:#222;
     }
-    .modal-body h3 {
+    #showNoFundsModal .modal-body h3 {
         margin-top: 0px;
     }
 </style>
@@ -13,7 +13,7 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h3 class="fc-grey" style="display:inline">Timeout... you are out of credit.</h3>
-                <button class="close btn btn-danger" data-dismiss="modal">×</button>
+                <button class="close btn" data-dismiss="modal">×</button>
             </div>
             <div class="modal-body text-center">
                 <div>

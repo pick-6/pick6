@@ -43,7 +43,7 @@ class SelectionsController extends Controller
         $userId = \Auth::id();
         $gameId = $request->game_id;
 
-        $selectionCount = 0;
+        $validPicks = 0;
         foreach ($request->selection as $selection) {
             if ($this->checkPickExists($selection, $gameId)) {
                 continue;
@@ -53,18 +53,19 @@ class SelectionsController extends Controller
             $selections->game_id = $gameId;
             $selections->square_selection = $selection;
             $selections->save();
-            $selectionCount++;
+            $validPicks++;
         }
 
         // update credit balance
-        $cost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
-        $pickCost =$cost[0]['pick_cost'];
-        $creditForUser = User::select('credit')->where('id', '=', $userId)->get();
-        $userCredit = $creditForUser[0]['credit'];
-        $updateCreditAmount = $userCredit - ($selectionCount * $pickCost);
+        $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
+        $pickCost = $getCost[0]['pick_cost'];
+        $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+        $userCredit = $getUserCredit[0]['credit'];
+        $costOfPicks = $validPicks * $pickCost;
+        $updatedCreditAmount = $userCredit - $costOfPicks;
 
         $user = User::find($userId);
-        $user->credit = $updateCreditAmount;
+        $user->credit = $updatedCreditAmount;
         $user->save();
 
         $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
@@ -89,20 +90,44 @@ class SelectionsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $selections = Selection::find($id);
+        $user = \Auth::user();
+        $userId = $user->id;
+        $gameId = $request->game_id;
+        $selection = $request->selection;
 
-        if (!$selections) {
-            Selection::error();
-            abort(404);
+        $selections = Selections::select('id')
+        ->where('square_selection', '=', $selection)
+        ->where('game_id', '=', $gameId)
+        ->where('user_id', '=', $userId)
+        ->get();
+
+        if (count($selections) != 1) {
+            $request->session()->flash('errorMessage', 'Oops, failed to delete pick.');
+            return redirect()->action('GamesController@show', $gameId);
+        } else {
+            $pick = Selections::select('id')
+            ->where('square_selection', '=', $selection)
+            ->where('game_id', '=', $gameId)
+            ->where('user_id', '=', $userId);
+            $pick->delete();
         }
 
-        $selections->delete();
+        // update credit balance
+        $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
+        $pickCost = $getCost[0]['pick_cost'];
+        $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+        $userCredit = $getUserCredit[0]['credit'];
+        $updatedCreditAmount = $userCredit + $pickCost;
 
-        $request->session()->flash('successMessage', 'Selection deleted successfully');
+        $user = User::find($userId);
+        $user->credit = $updatedCreditAmount;
+        $user->save();
 
-        return view('playGame');
+        $request->session()->flash('successMessage', 'Your pick was deleted successfully!');
+
+        return redirect()->action('GamesController@show', $gameId);
 
     }
 }

@@ -80,7 +80,7 @@ textarea.form-control:focus::placeholder {
 .btn-lg, .btn-xl, .btn {
     background-color: #fed136;
     border-color: #fed136;
-    color: #000;
+    color: #000!important;
     font-weight: bold;
     border-radius: 3px;
     text-transform: uppercase;
@@ -90,8 +90,31 @@ textarea.form-control:focus::placeholder {
 .btn-lg:active, .btn-xl:active, .btn:active,
 .btn-lg:focus, .btn-xl:focus, .btn:focus,
 .btn-lg:active:focus, .btn-xl:active:focus, .btn:active:focus {
-    color: #000;
+    color: #000!important;
     background-color: #FEC503;
+}
+
+.btn-lg.btn-success, .btn-xl.btn-success, .btn.btn-success {
+    background-color: #5cb85c!important;
+    border-color: #4cae4c!important;
+}
+.btn-lg.btn-danger, .btn-xl.btn-danger, .btn.btn-danger {
+    background-color: #d9534f!important;
+    border-color: #d43f3a!important;
+}
+.btn-lg.btn-success:hover, .btn-xl.btn-success:hover, .btn.btn-success:hover,
+.btn-lg.btn-success:active, .btn-xl.btn-success:active, .btn.btn-success:active,
+.btn-lg.btn-success:focus, .btn-xl.btn-success:focus, .btn.btn-success:focus,
+.btn-lg.btn-success:active:focus, .btn-xl.btn-success:active:focus, .btn.btn-success:active:focus {
+    background-color: #449d44!important;
+    border-color: #398439!important;
+}
+.btn-lg.btn-danger:hover, .btn-xl.btn-danger:hover, .btn.btn-danger:hover,
+.btn-lg.btn-danger:active, .btn-xl.btn-danger:active, .btn.btn-danger:active,
+.btn-lg.btn-danger:focus, .btn-xl.btn-danger:focus, .btn.btn-danger:focus,
+.btn-lg.btn-danger:active:focus, .btn-xl.btn-danger:active:focus, .btn.btn-danger:active:focus {
+    background-color: #c9302c!important;
+    border-color: #ac2925!important;
 }
 
 .loginSignupPage {
@@ -108,6 +131,9 @@ textarea.form-control:focus::placeholder {
     }
     .fc-white {
         color: #fff!important;
+    }
+    .fc-red {
+        color: red!important;
     }
     .fc-yellow {
         color: #fed136!important;
@@ -138,6 +164,9 @@ textarea.form-control:focus::placeholder {
     }
     .margin-top-75 {
         margin-top: 75px!important;
+    }
+    .margin-right-10 {
+        margin-right: 10px!important;
     }
     .margin-bottom-0 {
         margin-bottom: 0px!important;
@@ -178,6 +207,9 @@ textarea.form-control:focus::placeholder {
     .inline-flex {
         display: inline-flex!important;
     }
+    .inline {
+        display: inline!important;
+    }
     .clear {
         clear: both;
     }
@@ -192,6 +224,9 @@ textarea.form-control:focus::placeholder {
     }
     .width70 {
         width: 70%!important;
+    }
+    .width75 {
+        width: 75%!important;
     }
     .width100 {
         width: 100%!important;

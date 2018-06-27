@@ -61,30 +61,33 @@
     .width20 {
         width: 20%;
     }
+    #chooseAnotherGame .closeModal {
+        height: 20px;
+        padding: 0px 5px;
+    }
+    #chooseAnotherGame .modal-body {
+        padding-top: 0px;
+    }
+    #chooseAnotherGame .playGamePage h3 {
+        margin-top: 0px;
+    }
 </style>
 <!-- Choose Another Game Modal -->
 <div id="chooseAnotherGame" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" style="background-color:#222;">
-            <div class="closeModal"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+            <div class="closeModal"><button type="button" class="close btn" data-dismiss="modal">&times;</button></div>
             <div class="modal-body">
                 <style type="text/css">
                     .playGamePage {
                         height: 700px;
-                        /*height: 100vh;*/
                         padding: 0px;
-                        /*padding-top: 70px;*/
-                        /*padding-top: 100px;*/
                     }
                     .playGamePage #no-more-tables {
                         overflow: auto;
                         height: calc(100% - 25px);
-                        /*max-height: calc(100% - 200px);*/
-                        /*max-height: calc(100% - 145px);*/
                         width: 100%;
                         margin:0 auto;
-                        /*padding-top: 0px;*/
-                        /*background-color: #000;*/
                     }
 
                     .playGamePage #no-more-tables tr:nth-child(odd) {
@@ -117,9 +120,6 @@
                         }
                     }
                     @media(max-width: 700px){
-                        .playGamePage {
-                            /*height: 100%!important;*/
-                        }
                         .playGamePage #no-more-tables .table-bordered {
                             border:none!important;
                         }
@@ -168,16 +168,11 @@
                     }
                     .playGamePage #no-more-tables .dateOfGame  {
                         position: sticky;
-                        /*top: -20px;*/
                         top: 0px;
                         z-index: 1;
                         background-color: #fed136;
                         color: #000!important;
                         border: 1px solid lightgrey;
-                        /*background-color: #000;*/
-                        /*text-align: center;*/
-                        /*padding-bottom: 5px;*/
-                        /*padding-top: 5px;*/
                         width: auto;
                         padding: 5px;
                         margin-bottom: 0px;

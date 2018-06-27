@@ -213,7 +213,7 @@ use App\User;
                     Credit Balance: <span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
                 </div>
                 <div class="col-sm-4 hideOnMobile" style="padding:0px;">
-                    <a href="/payment" class="btn btn-default btn-sm" style="border-color:green;background:green;">
+                    <a href="/payment" class="btn btn-success btn-sm">
                         <i class="fas fa-dollar-sign"></i> Add Credit
                     </a>
                 </div>
@@ -228,7 +228,7 @@ use App\User;
                     <li class="showOnMobile"><a href="/dashboard">Dashboard</a></li>
                     <li class="showOnMobile"><a href="{{action('Auth\AuthController@getLogout')}}">Log Out</a></li>
                     <li class="showOnMobile">
-                        <a href="/payment" class="btn btn-default btn-sm" style="border-color:green;background:green;color:#000;font-weight:bold;font-size: 14px;">
+                        <a href="/payment" class="btn btn-success btn-sm" style="font-weight:bold;font-size: 14px;">
                             <i class="fas fa-dollar-sign"></i> Add Credit
                         </a>
                     </li>

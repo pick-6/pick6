@@ -26,6 +26,9 @@
     @if (Session::has('successMessage'))
     <div class="alert alert-success text-center" id="successMessage">{{ session('successMessage') }}</div>
     @endif
+    @if (Session::has('errorMessage'))
+    <div class="alert alert-danger text-center" id="successMessage">{{ session('errorMessage') }}</div>
+    @endif
 
     <!-- PAGE CONTENT -->
     <div class="welcome" style="min-height: 100vh">
