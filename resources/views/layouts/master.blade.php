@@ -32,7 +32,9 @@
         </div>
     </div>
 
-    @include('partials.addCreditModal')
+    @if(Auth::check())
+        @include('partials.addCreditModal')
+    @endif
 
     <!-- FOOTER -->
     @include('partials.footer')
