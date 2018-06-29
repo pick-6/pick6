@@ -22,13 +22,14 @@ class PaymentController extends Controller
         parent::__construct();
     }
 
-    public function charge(Request $request)
+    public function charge(Request $request, $amountToCharge)
     {
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here: https://dashboard.stripe.com/account/apikeys
         \Stripe\Stripe::setApiKey("sk_test_chvic2zLcRCTzOKL9ULbQhfN");
 
-        $amount = $request->amount;
+        $amount = $amountToCharge*100;
+
         $description = $request->description;
         $email = $request->email;
         $token = $request->stripeToken;

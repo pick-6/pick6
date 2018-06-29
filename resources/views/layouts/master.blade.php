@@ -9,15 +9,6 @@
         padding-top: 72px;
         min-height: 100vh;
     }
-    /* #pageContent {
-        padding: 72px 20px 20px 20px;
-        min-height: 100vh;
-    }
-    @media (max-width: 700px) {
-        #pageContent {
-            padding: 72px 10px 20px 10px;
-        }
-    } */
 </style>
 <body>
     <!-- NAVBAR -->
@@ -40,6 +31,8 @@
             </section>
         </div>
     </div>
+
+    @include('partials.addCreditModal')
 
     <!-- FOOTER -->
     @include('partials.footer')

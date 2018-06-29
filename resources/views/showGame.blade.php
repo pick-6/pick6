@@ -141,7 +141,7 @@
 
             <!-- CHOOSE ANOTHER GAME -->
             <div class="text-center" style="padding-top: 45px;clear: both;">
-                <button href="#chooseAnotherGame" data-toggle="modal" style="color: #000; text-transform: uppercase;" class="btn btn-lg gameBtn">Choose Another Game</button>
+                <button href="#chooseAnotherGame" data-toggle="modal" style="color: #000; text-transform: uppercase;" class="btn btn-lg gameBtn">Join Another Game</button>
                 @include('partials.chooseAnotherGameModal')
             </div>
 
@@ -212,7 +212,7 @@
             var hasPendingPicks = $this.find("table tr td").hasClass("pendingPick");
             if (hasPendingPicks) {
                 $(".picksBtns").fadeIn(250);
-                if ($$this.find("table tr td.pendingPick").length == 1) {
+                if ($this.find("table tr td.pendingPick").length == 1) {
                     $this.find("#confirmPicksBtn").text("Confirm Pick");
                     $this.find("#clearPicksBtn").text("Clear Pick");
                 } else {
@@ -259,7 +259,7 @@
             var selections = $this.find('#selectionsForm').find('input.selection');
             selections.each(function(){
                 var selection = $(this).attr('id');
-                var pickSquare = $$this.find("table tr td[data-id="+selection+"]");
+                var pickSquare = $this.find("table tr td[data-id="+selection+"]");
                 if (pickSquare.hasClass('pendingPick')) {
                     return true;
                 } else {

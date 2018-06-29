@@ -71,4 +71,11 @@
     } else {
         $(".dashboardSection").css({"opacity":"0.95", "background-color":"rgba(0, 0, 0, 1)"});
     }
+
+
+    // clicking Add Credit button
+    $('#addCreditModal').find('.addCredit').on('click', function(e){
+        $(this).siblings().find('button.stripe-button-el').trigger('click');
+    });
+
 })();

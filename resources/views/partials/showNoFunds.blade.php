@@ -5,6 +5,22 @@
     #showNoFundsModal .modal-body h3 {
         margin-top: 0px;
     }
+    #showNoFundsModal .modal-dialog {
+        transform: translateY(25vh);
+    }
+    #showNoFundsModal button.stripe-button-el {
+        display: none;
+    }
+    #showNoFundsModal .addCredit {
+        font-size: 4em;
+        color: mediumseagreen;
+    }
+    #showNoFundsModal .addCredit:hover {
+        color: seagreen;
+    }
+    #showNoFundsModal .addCredit:hover {
+        cursor: pointer;
+    }
 </style>
 
 <!-- Show No Funds Modal -->
@@ -17,11 +33,32 @@
             </div>
             <div class="modal-body text-center">
                 <div>
+                <style>
+                    span.dollar {
+                        font-size: 25px;
+                        color: #fff;
+                        position: absolute;
+                        top: 21px;
+                        font-weight: bold;
+                    }
+                    span.dollar5 {
+                        left: 78px;
+                    }
+                    span.dollar10 {
+                        left: 72px;
+                    }
+                    span.dollar20 {
+                        left: 70px;
+                    }
+                </style>
                     <h3 class="fc-grey">Would you like to add more?</h3>
-                    <div class="inline-block width100">
+                    <div class="inline-block width100 margin-top-10">
                         <div class="col-sm-4 fc-grey">
-                            $5
-                            <form action="{{action('PaymentController@charge')}}" method="POST">
+                            <a class="addCredit" data-amount="5">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span class="dollar dollar5">$5</span>
+                            </a>
+                            <form id="payForm" action="{{action('PaymentController@charge', 5)}}" method="POST">
                                 {{ csrf_field() }}
                                 <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -29,18 +66,18 @@
                                 data-amount="500"
                                 data-description="Add $5 of Credit"
                                 data-locale="auto"
-                                data-label="Add $5"
                                 data-email="{{Auth::user()->email}}"
                                 data-zip-code="true">
                                 </script>
-                                <input type="hidden" name="amount" value="500"/>
-                                <input type="hidden" name="description" value="$5 Credit Added"/>
-                                <input type="hidden" name="email" value="{{Auth::user()->email}}"/>
+                                <input type="hidden" name=description value="{{Auth::user()->first_name}} {{Auth::user()->last_name}} added $5"/>
                             </form>
                         </div>
                         <div class="col-sm-4 fc-grey">
-                            $10
-                            <form action="{{action('PaymentController@charge')}}" method="POST">
+                            <a class="addCredit" data-amount="10">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span class="dollar dollar10">$10</span>
+                            </a>
+                            <form id="payForm" action="{{action('PaymentController@charge', 10)}}" method="POST">
                                 {{ csrf_field() }}
                                 <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -48,18 +85,17 @@
                                 data-amount="1000"
                                 data-description="Add $10 of Credit"
                                 data-locale="auto"
-                                data-label="Add $10"
                                 data-email="{{Auth::user()->email}}"
                                 data-zip-code="true">
                                 </script>
-                                <input type="hidden" name="amount" value="1000"/>
-                                <input type="hidden" name="description" value="$10 Credit Added"/>
-                                <input type="hidden" name="email" value="{{Auth::user()->email}}"/>
                             </form>
                         </div>
                         <div class="col-sm-4 fc-grey">
-                            $20
-                            <form action="{{action('PaymentController@charge')}}" method="POST">
+                            <a class="addCredit" data-amount="20">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span class="dollar dollar20">$20</span>
+                            </a>
+                            <form id="payForm" action="{{action('PaymentController@charge', 20)}}" method="POST">
                                 {{ csrf_field() }}
                                 <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -67,13 +103,9 @@
                                 data-amount="2000"
                                 data-description="Add $20 of Credit"
                                 data-locale="auto"
-                                data-label="Add $20"
                                 data-email="{{Auth::user()->email}}"
                                 data-zip-code="true">
                                 </script>
-                                <input type="hidden" name="amount" value="2000"/>
-                                <input type="hidden" name="description" value="$20 Credit Added"/>
-                                <input type="hidden" name="email" value="{{Auth::user()->email}}"/>
                             </form>
                         </div>
                     </div>
@@ -85,3 +117,13 @@
         </div>
     </div>
 </div>
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $this = $('#showNoFundsModal');
+
+    $this.find('.addCredit').on('click', function(e){
+        $(this).siblings().find('button.stripe-button-el').trigger('click');
+    });
+</script>

@@ -15,7 +15,19 @@
         padding: 0 5px;
     }
     #deletePickModal .modal-dialog {
-        transform: translateY(25vh);
+        transform: translateY(30vh);
+        margin: 10px;
+    }
+    @media (min-width: 645px){
+        #deletePickModal .modal-dialog {
+            width: 75%;
+            margin: 0 auto;
+        }
+    }
+    @media (min-width: 768px){
+        #deletePickModal .modal-dialog {
+            width: 500px;
+        }
     }
 </style>
 
@@ -27,7 +39,7 @@
                 <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>
             </div>
             <div class="modal-body text-center">
-                <div class="margin-0-auto width75">
+                <div>
                     <h3 class="fc-grey inline">Are you sure you want to delete your pick?</h3>
                 </div>
                 <div>

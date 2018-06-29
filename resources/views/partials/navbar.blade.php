@@ -198,7 +198,6 @@ use App\User;
             <a href="/">
                 <span class="navbar-brand logoName">PICK</span>
                 <span><img class="logoImage"  src="/img/pick6_logo_low.png" onContextMenu="return false;"></span>
-                <!-- <span><img class="logoImage"  src="/img/pick6_logo.png" onContextMenu="return false;"></span> -->
             </a>
         </div>
 
@@ -213,7 +212,7 @@ use App\User;
                     Credit Balance: <span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
                 </div>
                 <div class="col-sm-4 hideOnMobile" style="padding:0px;">
-                    <a href="/payment" class="btn btn-success btn-sm">
+                    <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm">
                         <i class="fas fa-dollar-sign"></i> Add Credit
                     </a>
                 </div>
@@ -228,7 +227,7 @@ use App\User;
                     <li class="showOnMobile"><a href="/dashboard">Dashboard</a></li>
                     <li class="showOnMobile"><a href="{{action('Auth\AuthController@getLogout')}}">Log Out</a></li>
                     <li class="showOnMobile">
-                        <a href="/payment" class="btn btn-success btn-sm" style="font-weight:bold;font-size: 14px;">
+                        <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm" style="font-weight:bold;font-size: 14px;">
                             <i class="fas fa-dollar-sign"></i> Add Credit
                         </a>
                     </li>
