@@ -73,8 +73,8 @@
     }
 
 
-    // clicking Add Credit button
-    $('#addCreditModal').find('.addCredit').on('click', function(e){
+    // adding Credit
+    $('.paymentBtns').find('.addCredit').on('click', function(e){
         $(this).siblings().find('button.stripe-button-el').trigger('click');
     });
 

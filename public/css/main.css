@@ -153,6 +153,9 @@ textarea.form-control:focus::placeholder {
     .fs-25 {
         font-size: 25px!important;
     }
+    .margin-top-0 {
+        margin-top: 0px!important;
+    }
     .margin-top-10 {
         margin-top: 10px!important;
     }
@@ -173,6 +176,9 @@ textarea.form-control:focus::placeholder {
     }
     .margin-bottom-10 {
         margin-bottom: 10px!important;
+    }
+    .margin-bottom-20 {
+        margin-bottom: 20px!important;
     }
     .margin-0-auto {
         margin: 0 auto;
