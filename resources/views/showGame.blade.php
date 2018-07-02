@@ -1,84 +1,14 @@
 @extends('layouts.master')
 @section('content')
-<style>
-    td:not(.notAvailable):hover, .deletePick:hover {
-        cursor: pointer;
-    }
-    .awayTeamNameDesktop {
-        margin: 0px!important;
-        width: 375px!important;
-        left: -40px!important;
-        position: absolute!important;
-        top: 180px!important;
-        display: block;
-        color: white;
-        /*text-align: left;*/
-        transform: rotate(-90deg);
-        transform-origin: center;
-        /*margin-top: 40%*/
-    }
-    @media(min-width: 1500px){
-        .picksTable {
-            /* width: 75% */
-        }
-    }
-    /* @media(max-width: 1200px){
-        .container {
-            margin: 0px;
-        }
-    } */
-    @media(max-width: 1200px){
-        .container {
-            width: 100%;
-        }
-    }
-    @media(max-width: 992px){
-        .awayTeamNameDesktop {
-            display: none;
-        }
-        .awayTeamName {
-            display: block;
-        }
-    }
-    @media(min-width: 992px){
-        .awayTeamNameDesktop {
-            display: block;
-        }
-        .awayTeamName {
-            display: none;
-        }
-    }
-    #confirmPicksBtn:hover{
-        background-color: #52a03d!important;
-    }
-    #clearPicksBtn:hover{
-        background-color: #cc2b22!important;
-    }
-    @media(max-width: 477px){
-        .clearPicks {
-            margin-top: 20px;
-        }
-    }
-    @media(max-width: 498px){
-        .clearPicks {
-            margin-left: 0px;
-        }
-    }
-    @media(min-width: 498px){
-        .clearPicks {
-            margin-left: 20px;
-        }
-    }
-</style>
-
     <div id="picksTable" class="picksTable">
-        @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for future games -->
+        @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for current/future games -->
+
             <!-- HOME TEAM NAME -->
-            <div class="col-sm-12 homeTeamName" style="margin-top: 0px">
-                <h1 class="text-center">{{$thisGame[0]['home']}}
+            <div class="col-sm-12 homeTeamName">
+                <h1 class="text-center margin-top-0">{{$thisGame[0]['home']}}
                     <img src="/img/team_logos/{{$thisGame[0]['home_logo']}}" width="40" height="35">
                 </h1>
-                <p class="text-center homeTeamTop">(Top of the table)</p>
+                <div class="text-center homeTeamTop fc-white margin-bottom-5">(Top of the table)</div>
             </div>
 
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
@@ -89,72 +19,37 @@
             </div>
 
             <!-- SQUARES GAME TABLE -->
-            <div class="col-sm-12 col-md-8" style="padding:0px">
-                <table class="table table-bordered" style="margin-bottom: 0px">
-                    <colgroup>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                        <col style="width:75px"/>
-                    </colgroup>
-                    <tr>
-                        <th style="border-color: black;background: linear-gradient(#ffce7a,#FEC503)"></th>
-                        <!-- Creates numbers 0-9 going across -->
-                        @for ($column = 0; $column < 10; $column++)
-                            <th style="border-color: black;text-align: center;background: linear-gradient(#ffce7a,#FEC503)">{{ $gameOver? $randomNumbers['home'][$column]: '?'}}<!-- {{$column}} --></th>
-                        @endfor
-                    </tr>
-
-                    <!-- Creates numbers 0-9 going down -->
-                    @for ($row = 0; $row < 10; $row++)
-                        <tr>
-                            <th style="border-color: black;text-align: center;background: linear-gradient(#ffce7a,#FEC503)">{{ $gameOver? $randomNumbers['away'][$row]: '?'}}<!-- {{$row}} --></th>
-                            <!-- Creates all 100 squares on the table -->
-                            @for ($column = 0; $column < 10; $column++)
-                                @if (in_array("$column$row", $thisGameSelections))
-                                    @foreach($squaresSelected as $user)
-                                        @if($user->square_selection == $column.$row)
-                                            <td class="notAvailable text-center middle" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" style="padding: 0px;background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
-                                        @endif
-                                    @endforeach
-                                @else
-                                    <td style="padding:0px;" class="middle availableSquare text-center" data-id="{{$column}}{{$row}}"><i class="fas" style="color:green;"></i></td>
-                                @endif
-                            @endfor
-                        </tr>
-                    @endfor
-                </table>
+            <div class="col-sm-12 col-md-10 col-lg-8 padding-0" style="min-width:650px;">
+                @include('partials.gameTable')
             </div>
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
             <div class="col-sm-12 awayTeamName">
-                <h1 class="text-center">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
-                <p class="text-center">(Left side of the table)</p>
-            </div>
-
-            <!-- CHOOSE ANOTHER GAME -->
-            <div class="text-center" style="padding-top: 45px;clear: both;">
-                <button href="#chooseAnotherGame" data-toggle="modal" style="color: #000; text-transform: uppercase;" class="btn btn-lg gameBtn">Join Another Game</button>
-                @include('partials.chooseAnotherGameModal')
+                <h1 class="text-center margin-top-5">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
+                <div class="text-center fc-white">(Left side of the table)</div>
             </div>
 
             <!-- CONFIRM PICKS SELECTED -->
-            <div class="picksBtns text-center" style="display:none;padding-top: 45px;clear: both">
+            <div class="picksBtns text-center clear" style="display:none;">
                 <form id="selectionsForm" method="POST" action="{{ action('SelectionsController@store') }}">
                     {!! csrf_field() !!}
-                    <button id="confirmPicksBtn" style="min-width: 220px;background-color:#58af42;border-color:darkgreen;" class="btn btn-lg gameBtn" type="submit">Confirm Picks</button>
-                    <a id="clearPicksBtn" style="min-width: 220px;background-color:#db3125;border-color:darkred;" class="btn btn-lg gameBtn clearPicks">Clear Picks</a>
+                    <div class="col-xs-6 text-right">
+                        <button id="confirmPicksBtn" class="btn btn-lg gameBtn" type="submit">Confirm Picks</button>
+                    </div>
+                    <div class="col-xs-6 text-left">
+                        <a id="clearPicksBtn" class="btn btn-lg gameBtn clearPicks">Clear Picks</a>
+                    </div>
                 </form>
             </div>
 
-            <div>
+            <!-- CHOOSE ANOTHER GAME -->
+            <div class="text-center clear" style="padding-top: 30px;">
+                <button href="#chooseAnotherGame" data-toggle="modal" class="btn btn-lg gameBtn">Join Another Game</button>
+                @include('partials.chooseAnotherGameModal')
+            </div>
+
+            <!-- NO FUNDS MODAL BUTTON (HIDDEN) -->
+            <div class="noFunds">
                 <button style="display:none" id="showNoFunds" href="#showNoFundsModal" data-toggle="modal"></button>
                 @include('partials.showNoFunds')
             </div>
@@ -165,7 +60,6 @@
             @include('partials.pastGameResults')
         @endif
     </div>
-
 
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript">
@@ -224,6 +118,20 @@
             }
         };
 
+        function updatePotAmounts() {
+            var numberOfPicksSelected = $this.find("table tr td.pendingPick").length;
+            var pickCost = {{$pickCost}};
+            var moneySpent = numberOfPicksSelected * pickCost;
+            var moneyInGameAmount = "{{$moneyInGame}}";
+            var potAmount = "{{$potAmount}}";
+            var moneyInGame = parseInt(moneyInGameAmount.substr(1));
+            var pot = parseInt(potAmount.substr(1));
+            var updatedMoneyInGame = moneyInGame + moneySpent;
+            var updatedPot = pot + moneySpent;
+            $('#moneyInGame').text('$' + updatedMoneyInGame.toFixed(2));
+            $('#pot').text('$' + updatedPot.toFixed(2));
+        }
+
 
         // For pick selection
         $this.find(".availableSquare").on('click', function(e){
@@ -233,6 +141,7 @@
             }
             changeCreditBalance();
             togglePicksBtns();
+            updatePotAmounts();
         });
 
         $this.find('#confirmPicksBtn').on('click', function(){
@@ -276,6 +185,7 @@
             $availSquares.css('background','linear-gradient(#333, #222)');
             changeCreditBalance();
             togglePicksBtns();
+            updatePotAmounts();
         });
 
 

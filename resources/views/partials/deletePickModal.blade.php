@@ -1,36 +1,3 @@
-<style>
-    #deletePickModal .modal-content {
-        background-color:#222;
-    }
-    #deletePickModal .modal-body h3 {
-        margin-top: 0px;
-    }
-    #deletePickModal .modal-body {
-        padding-top: 0px;
-    }
-    #deletePickModal .closeModalBtnContainer {
-        height: 20px;
-    }
-    #deletePickModal .closeModalBtn {
-        padding: 0 5px;
-    }
-    #deletePickModal .modal-dialog {
-        transform: translateY(30vh);
-        margin: 10px;
-    }
-    @media (min-width: 645px){
-        #deletePickModal .modal-dialog {
-            width: 75%;
-            margin: 0 auto;
-        }
-    }
-    @media (min-width: 768px){
-        #deletePickModal .modal-dialog {
-            width: 500px;
-        }
-    }
-</style>
-
 <!-- Delete Pick Modal -->
 <div id="deletePickModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

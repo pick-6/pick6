@@ -91,7 +91,7 @@ class AccountController extends Controller
 
     public function getLastWeekResults($lastWeekNo)
     {
-        $lastWeekResults = Games::select(DB::raw('games.*, winnings.*, username, avatar, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $lastWeekResults = Games::select(DB::raw('games.*, winnings.*, users.*, avatar, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
@@ -103,6 +103,12 @@ class AccountController extends Controller
         return $lastWeekResults;
     }
 
+    public function getDatesOfGames($weekNo)
+    {
+        $dateOfGames = Games::select('date_for_week')->where('week', '=', $weekNo)->groupBy('date_for_week')->get();
+        return $dateOfGames;
+    }
+
     public function dashboard()
     {
         $data = [];
@@ -110,8 +116,6 @@ class AccountController extends Controller
         $user = \Auth::user();
         $data['user'] = $user;
 
-        $dateOfGame = Games::select('date_for_week')->where('week', '=', $this->currentWeek)->groupBy('date_for_week')->get();
-        $data['dateOfGame'] = $dateOfGame;
         $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
         $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
         $playingIn = [];
@@ -125,6 +129,8 @@ class AccountController extends Controller
         $data['gamesForWeek'] = $gamesForWeek;
         $hasGamesForWeek = count($gamesForWeek) > 0;
         $data['hasGamesForWeek'] = $hasGamesForWeek;
+        $datesOfCurrentWeekGames = $this->getDatesOfGames($this->currentWeek);
+        $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
 
         // My Current Games
         $myCurrentGames = $this->getMyCurrentGames($this->currentWeek, $user);
@@ -137,6 +143,8 @@ class AccountController extends Controller
         $data['nextWeekGames'] = $nextWeekGames;
         $hasNextWeekGames = count($nextWeekGames) > 0;
         $data['hasNextWeekGames'] = $hasNextWeekGames;
+        $datesOfNextWeekGames = $this->getDatesOfGames($this->nextWeek);
+        $data['datesOfNextWeekGames'] = $datesOfNextWeekGames;
 
         // Last Week's Results
         $lastWeekResults = $this->getLastWeekResults($this->lastWeek);

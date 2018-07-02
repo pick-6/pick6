@@ -2,40 +2,15 @@
     use \App\Http\Controllers\AccountController;
 ?>
 
-<style>
-    @media(max-width:700px){
-        .gamesForWeek img {
-            width: 65px;
-            height: 60px;
-        }
-        .gamesForWeek .fs-12 {
-            font-size: 16px!important;
-        }
-        .gamesForWeek .width50 {
-            width: 49%!important;
-            display: inline-block;
-        }
-        .gamesForWeek .pull-left, .gamesForWeek .pull-right {
-            float: unset !important;
-        }
-        .gamesForWeek table tr td a>div{
-            vertical-align: top;
-        }
-        .gamesForWeek .width60 {
-            width: 0!important;
-        }
-    }
-</style>
-
 <h3 class="fc-white">Games for the Week</h3>
 
 @if ($hasGamesForWeek)
     <div id="no-more-tables" class=" table-responsive">
-        @foreach ($dateOfGame as $date)
+        @foreach ($datesOfCurrentWeekGames as $date)
             <h4 class="dateOfGame text-left clear fc-grey">
                 <?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?>
             </h4>
-            <table class="col-sm-12 table-bordered table-condensed fc gamesForWeekTables">
+            <table class="col-sm-12 table-bordered table-condensed gamesForWeekTables">
                 <colgroup>
                     <col style="width: 10%">
                     <col>
@@ -46,6 +21,7 @@
                         @if ($date->date_for_week == $game->date_for_week)
                             <tr>
                                 <td class="gameDayTime" data-title="Kick-Off">
+                                    <div class="gamePrice">$2</div>
                                     {{date("g:i", strtotime("$game->time"))}}pm
                                 </td>
 

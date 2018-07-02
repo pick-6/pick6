@@ -1,28 +1,3 @@
-<style>
-    @media(max-width:700px){
-        .myCurrentGames img {
-            width: 65px;
-            height: 60px;
-        }
-        .myCurrentGames .fs-12 {
-            font-size: 16px!important;
-        }
-        .myCurrentGames .width50 {
-            width: 49%!important;
-            display: inline-block;
-        }
-        .myCurrentGames .pull-left, .myCurrentGames .pull-right {
-            float: unset !important;
-        }
-        .myCurrentGames table tr td a>div{
-            vertical-align: top;
-        }
-        .myCurrentGames .width70 {
-            width: 0!important;
-        }
-    }
-</style>
-
 <h3 class="fc-white">My Current Games</h3>
 
 @if ($hasCurrentGames)

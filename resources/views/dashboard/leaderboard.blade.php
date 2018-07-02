@@ -39,8 +39,8 @@
                             @endif
                         </td>
                         <td data-title="Player Name" class="text-left">
-                            <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->first_name}} {{$player->last_name}}">
-                            <div class="text-left middle inline-block">
+                            <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->first_name}} {{$player->last_name}}" title="{{$player->username}}">
+                            <div class="text-left middle inline-block leaderboardName">
                                 {{$player->first_name}} {{$player->last_name}}
                             </div>
                         </td>

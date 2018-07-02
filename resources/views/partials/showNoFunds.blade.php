@@ -1,18 +1,3 @@
-<style>
-    #showNoFundsModal .modal-dialog {
-        transform: translateY(25vh);
-    }
-    #showNoFundsModal .modal-content {
-        background-color:#222;
-    }
-    #showNoFundsModal .modal-header {
-        padding: 0px;
-    }
-    #showNoFundsModal .closeModalBtn {
-        padding: 0 5px;
-    }
-</style>
-
 <!-- Show No Funds Modal -->
 <div id="showNoFundsModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

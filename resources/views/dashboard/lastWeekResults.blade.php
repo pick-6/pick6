@@ -4,13 +4,13 @@
     <div class="table-responsive table-header">
         <table class="table table-bordered margin-bottom-0">
             <colgroup>
-                <col style="width:200px">
                 <col>
+                <col style="width:35%">
             </colgroup>
             <thead>
                 <tr>
                     <th style="padding: 3px" class="text-center">Final Score</th>
-                    <th style="padding: 3px" class="text-center">Winner</th>
+                    <th style="padding: 3px;min-width:128px" class="text-center">Winner</th>
                 </tr>
             </thead>
         </table>
@@ -18,8 +18,8 @@
     <div class="table-responsive margin-bottom-0" style="height:calc(100% - 85px);overflow:auto">
         <table class="table table-bordered margin-bottom-0">
             <colgroup>
-                <col style="width:200px">
                 <col>
+                <col style="width:35%">
             </colgroup>
             <tbody>
                 @foreach ($lastWeekResults as $game)
@@ -40,9 +40,11 @@
                                 </div>
                             </a>
                         </td>
-                        <td data-title="Winner" class="middle">
-                            <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->username}}"><br>
-                            <small>{{$game->username}}</small>
+                        <td data-title="Winner" class="middle" style="padding:5px;">
+                            <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->username}}" title="{{$game->username}}">
+                            <div class="winningUsername">
+                                <small>{{$game->first_name}} {{$game->last_name}}</small>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

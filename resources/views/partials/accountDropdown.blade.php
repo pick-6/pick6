@@ -2,9 +2,9 @@
     <li>
         <div class="navbar-content">
             <div class="row">
-                <div class="col-sm-5" style="padding-right:5px;">
+                <div class="col-sm-5 padding-r-5">
                     <div class="smallGreyBorder">
-                        <img style="height:105px!important;width:100%;" src="/img/profilePics/{{Auth::user()->avatar}}" alt="Profile Picture" class="img-responsive"/>
+                        <img style="height:105px!important;" src="/img/profilePics/{{Auth::user()->avatar}}" alt="Profile Picture" class="img-responsive width100"/>
                     </div>
                     <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}"  method="POST">
                         <input type="file" name="avatar" id="chooseProfilePic" class="hidden">
@@ -16,8 +16,8 @@
                     </p>
                 </div>
                 <div class="col-sm-7">
-                    <div style="color: #fed136">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <a class="editAccount" href="{{action('AccountController@edit')}}"><i class="fa fa-edit" style="margin-left: 5px"></i></a></div>
-                    <div style="color: lightgrey">{{Auth::user()->username}}</div>
+                    <div class="fc-yellow">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <a class="editAccount" href="{{action('AccountController@edit')}}"><i class="fa fa-edit margin-left-5"></i></a></div>
+                    <div class="fc-grey">{{Auth::user()->username}}</div>
                     <div class="text-muted small">{{Auth::user()->email}}</div>
                     <div class="divider"></div>
                     <a href="{{action('AccountController@dashboard')}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>

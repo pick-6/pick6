@@ -72,7 +72,6 @@ textarea.form-control:focus::placeholder {
 #successMessage {
     position: absolute;
     width: 100%;
-    /* top: 40px; */
     z-index: 10000;
     font-size: 1.25em;
 }
@@ -126,8 +125,33 @@ textarea.form-control:focus::placeholder {
     background: linear-gradient(#333, #222);
 }
 
+.gameTableHeader {
+    background: linear-gradient(#ffce7a,#FEC503)!important;
+    text-align: center!important;
+    border-color: #000!important;
+}
+
+.table-bordered>thead>tr>th {
+    border-bottom-width: 1px;
+}
+
+.showOnMobile {
+    display: none!important;
+}
+@media (max-width: 767px){
+    .showOnMobile {
+        display: block!important;
+    }
+    .hideOnMobile {
+        display: none!important;
+    }
+}
+
     .italic {
         font-style: italic!important;
+    }
+    .fc-black {
+        color: #000!important;
     }
     .fc-white {
         color: #fff!important;
@@ -140,6 +164,9 @@ textarea.form-control:focus::placeholder {
     }
     .fc-grey {
         color: lightgrey!important;
+    }
+    .fc-green {
+        color: green!important;
     }
     .fs-12 {
         font-size: 12px!important;
@@ -155,6 +182,9 @@ textarea.form-control:focus::placeholder {
     }
     .margin-top-0 {
         margin-top: 0px!important;
+    }
+    .margin-top-5 {
+        margin-top: 5px!important;
     }
     .margin-top-10 {
         margin-top: 10px!important;
@@ -174,23 +204,38 @@ textarea.form-control:focus::placeholder {
     .margin-bottom-0 {
         margin-bottom: 0px!important;
     }
+    .margin-bottom-5 {
+        margin-bottom: 5px!important;
+    }
     .margin-bottom-10 {
         margin-bottom: 10px!important;
     }
     .margin-bottom-20 {
         margin-bottom: 20px!important;
     }
+    .margin-left-5 {
+        margin-left: 5px!important;
+    }
     .margin-0-auto {
         margin: 0 auto;
     }
+    .margin-0 {
+        margin: 0px!important;
+    }
     .padding-0 {
         padding: 0px !important;
+    }
+    .padding-5 {
+        padding: 5px !important;
     }
     .padding-l-0 {
         padding-left: 0px !important;
     }
     .padding-r-0 {
         padding-right: 0px !important;
+    }
+    .padding-r-5 {
+        padding-right: 5px !important;
     }
     .padding-t-30 {
         padding-top: 30px !important;
@@ -240,6 +285,12 @@ textarea.form-control:focus::placeholder {
     .absolute {
         position: absolute!important;
     }
+    .blackBorder {
+        border-color: black!important;
+    }
+    .smallGreyBorder {
+        border: 1px solid lightgrey;
+    }
 
 
 
@@ -257,86 +308,120 @@ footer {
 }
 
 
-
-/************** HOMEPAGE **************/
-/*HEADER*/
+/************** SITE BACKGROUND **************/
 .welcome {
     background-image: url(../img/field_lights_low.jpg);
-    /* background-image: url(../img/field_lights.jpg); */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     background-position: center;
 }
 
-header .intro-text .intro-lead-in {
-    font-size: 3em;
-}
 
-header .intro-text .intro-heading {
-    font-size: 1.75em;
+/********  PICKS TABLE  **********/
+#picksTable td:not(.notAvailable):hover, #picksTable .deletePick:hover {
+    cursor: pointer;
 }
-
-.box_textshadow {
-     text-shadow: 2px 2px 2px #000; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+#picksTable .awayTeamNameDesktop {
+    margin: 0px!important;
+    width: 375px!important;
+    left: -40px!important;
+    position: absolute!important;
+    top: 180px!important;
+    display: block;
+    color: white;
+    transform: rotate(-90deg);
+    transform-origin: center;
 }
-
-/*HOW IT WORKS*/
-@media (max-width: 992px) {
-    .howItWorks {
-        padding: 50px 0px 0px 0px ;
+@media (max-width:1200px) {
+    #picksTable .awayTeamNameDesktop {
+        width: 405px!important;
+        left: -135px!important;
+        top: 165px!important;
+    }
+    #picksTable .col-md-2 {
+        width: 11.66667%
     }
 }
-
-.howItWorks .section-heading {
-    font-size: 2.5em
+#picksTable .gameTableHeader a:hover {
+    color: #333!important;
 }
-
-.howItWorks .section-subheading {
-    display: none;
-}
-
-.howItWorks .icons {
-    color: black;
-}
-
-.howItWorks p {
-    color: white;
-}
-
-.howItWorks .getStartedBtn {
-    margin-top: 5%;
-    color: black;
-}
-
-/*FEATURED CHARITIES*/
-.featCharities {
-    background-color: #000b14;
-    color: white;
-    padding-top: 5%;
-}
-@media (max-width: 992px) {
-    .featCharities {
-        padding: 50px 0px 0px 0px ;
+@media(max-width: 1200px){
+    #picksTable .container {
+        width: 100%;
     }
 }
-
-.featCharities .section-heading {
-    font-size: 2.5em
+@media(max-width: 992px){
+    #picksTable .awayTeamNameDesktop {
+        display: none;
+    }
+    #picksTable .awayTeamName {
+        display: block;
+    }
 }
-
-.featCharities .section-subheading {
-    display: none;
+#picksTable .picksBtns {
+    padding-top: 0px;
 }
-
-.featCharities img {
-    height: 200px;
-    width: 100%;
+#picksTable .picksBtns .col-xs-6 {
+    padding: 0px;
 }
-
-
-/******** ALL CHARITIES PAGE **********/
-
+#picksTable .picksBtns .col-xs-6 {
+    width: calc(50% - 10px);
+}
+#picksTable .picksBtns .col-xs-6:first-of-type {
+    margin-right: 20px;
+}
+@media(max-width:410px){
+#picksTable .picksBtns .col-xs-6 {
+    width: calc(50% - 5px);
+}
+#picksTable .picksBtns .col-xs-6:first-of-type {
+    margin-right: 10px;
+}
+}
+@media(min-width: 992px){
+    #picksTable .awayTeamNameDesktop {
+        display: block;
+    }
+    #picksTable .awayTeamName {
+        display: none;
+    }
+    #picksTable .picksBtns {
+        padding-top: 30px;
+    }
+}
+#picksTable .picksBtns #confirmPicksBtn {
+    min-width: 190px;
+    background-color: #58af42;
+    border-color: darkgreen;
+}
+#picksTable .picksBtns #confirmPicksBtn:hover {
+    background-color: #52a03d!important;
+}
+#picksTable .picksBtns #clearPicksBtn {
+    min-width: 190px;
+    background-color: #db3125;
+    border-color: darkred;
+}
+#picksTable .picksBtns #clearPicksBtn:hover {
+    background-color: #cc2b22!important;
+}
+@media(max-width: 477px){
+    #picksTable .picksBtns .clearPicks {
+        /* margin-top: 20px; */
+    }
+}
+@media(max-width: 498px){
+    #picksTable .picksBtns .clearPicks {
+        /* margin-left: 0px; */
+    }
+}
+@media(min-width: 498px){
+    #picksTable .picksBtns .clearPicks {
+        /* margin-left: 20px; */
+    }
+}
+/******** END PICKS TABLE  **********/
 
 
 
@@ -361,11 +446,6 @@ header .intro-text .intro-heading {
     color: white;
 }
 
-.homeTeamName {
-    clear: both;
-    margin-top: 10%;
-}
-
 .homeTeamName h1 {
     color: white;
     margin-bottom: 0px;
@@ -376,17 +456,12 @@ header .intro-text .intro-heading {
 }
 
 .awayTeamName {
-    /* display: block; */
     color: white;
 }
 
 .awayTeamName h1 {
     margin: 0px;
 }
-
-/* .awayTeamNameDesktop {
-    display: none;
-} */
 
 .anotherGameBtn {
     margin-top: 10%;
@@ -398,38 +473,6 @@ header .intro-text .intro-heading {
 
 .userPick p {
     color: black;
-}
-
-.donation-container {
-    margin: 20px 0 0 0
-}
-
-.donation-container label.btn-default.active {
-    background-color: #000;
-    color: #FEC503
-}
-
-.donation-container label.btn-default {
-    width: 90%;
-    border: 1px solid #efefef;
-    margin: 5px;
-    box-shadow: 5px 8px 8px 0 #ccc;
-}
-
-.donation-container label .bizcontent {
-    width: 100%;
-}
-
-.donation-container .btn-group {
-    width: 90%
-}
-
-.donation-container .btn span.glyphicon {
-    opacity: 0;
-}
-
-.donation-container .btn.active span.glyphicon {
-    opacity: 1;
 }
 
 
@@ -460,21 +503,6 @@ header .intro-text .intro-heading {
 
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
-
-header .intro-text {
-    padding-top: 11%;
-}
-
-header .intro-text .intro-lead-in {
-    /*font-size: 3em;*/
-    margin-bottom: 0px;
-    margin-top: 1em;
-}
-
-header .intro-text .intro-heading {
-    font-size: 3em;
-    margin-bottom: 0px;
-}
 
 .scrollable-menu {
     margin-left: 20%;
@@ -508,17 +536,9 @@ header .intro-text .intro-heading {
     width: 40%;
 }
 
-.homeTeamName {
-    margin-top: 5%;
-}
-
 .homeTeamTop {
     display: none;
 }
-
-/* .awayTeamName {
-    display: none;
-} */
 
 .anotherGameBtn {
     margin-top: 68%;
@@ -625,3 +645,713 @@ section#contact h3.section-subheading {
     margin-bottom: 30px;
     font-size: 18px;
 }
+
+
+
+/********** GAMES FOR WEEK ***********/
+@media(max-width:700px){
+    .gamesForWeek img {
+        width: 65px;
+        height: 60px;
+    }
+    .gamesForWeek .fs-12 {
+        font-size: 16px!important;
+    }
+    .gamesForWeek .width50 {
+        width: 49%!important;
+        display: inline-block;
+    }
+    .gamesForWeek .pull-left, .gamesForWeek .pull-right {
+        float: unset !important;
+    }
+    .gamesForWeek table tr td a>div{
+        vertical-align: top;
+    }
+    .gamesForWeek .width60 {
+        width: 0!important;
+    }
+}
+.gamesForWeek .gamePrice {
+    background: #000;
+    color: lightgreen;
+    margin-bottom: 15px;
+}
+@media(min-width:701px){
+    .gamesForWeek td.gameDayTime {
+        vertical-align: top;
+        padding: 0px!important;
+    }
+}
+/********** GAMES FOR WEEK TABLE ***********/
+.playGamePage {
+    height: 700px;
+    padding: 0px;
+}
+.playGamePage #no-more-tables {
+    overflow: auto;
+    height: calc(100% - 25px);
+    width: 100%;
+    margin:0 auto;
+}
+
+.playGamePage #no-more-tables tr:nth-child(odd) {
+    background-color: #333;
+}
+
+.playGamePage #no-more-tables .table-bordered {
+    background-color:transparent!important;
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;
+}
+.playGamePage #no-more-tables .dateOfGame:not(:first-child) {
+    margin-top: 25px;
+}
+.playGamePage #no-more-tables .dateOfGame {
+    color: #bbb;
+}
+.playGamePage .playGameBtn {
+    width: 85%;
+    padding: 5px;
+}
+.playGamePage .gameDayTime {
+    font-size: 0.75em;
+}
+@media(max-width: 767px) and (min-width: 701px){
+    .playGamePage #no-more-tables table {
+        font-size: 16px!important;
+    }
+}
+@media(max-width: 700px){
+    .playGamePage #no-more-tables .table-bordered {
+        border:none!important;
+    }
+    .playGamePage #no-more-tables .table-bordered tbody tr{
+        border-bottom:none!important;
+        margin-bottom: 15px;
+    }
+    .playGamePage #no-more-tables td {
+        padding-left: 40%;
+    }
+    .playGamePage .gameDayTime {
+        width: 100%!important;
+    }
+    .playGamePage .playGameBtn {
+        width: 100%!important;
+        text-align: center;
+    }
+    .playGamePage #playGameBtn {
+        padding-left: 8px!important;
+    }
+    .playGamePage [data-title="Game"] {
+        font-size: 0.75em;
+    }
+    .playGamePage #no-more-tables {
+        position: relative;
+    }
+    .playGamePage #no-more-tables .dateOfGame  {
+        background-color: #000;
+        text-align: center;
+    }
+    .playGamePage .gameTeams .pull-left, .playGamePage .gameTeams .pull-right {
+        float: none !important;
+    }
+    .playGamePage .gameTeams .homeTeam {
+        margin-bottom: 10px;
+    }
+    .playGamePage .gameTeams .width50 {
+        width: unset !important;
+    }
+}
+    .playGamePage #no-more-tables {
+        position: relative;
+    }
+    .playGamePage #no-more-tables .dateOfGame  {
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        background-color: #fed136;
+        color: #000!important;
+        border: 1px solid lightgrey;
+        width: auto;
+        padding: 5px;
+        margin-bottom: 0px;
+    }
+.playGamePage h4.dateOfGame small {
+    color: inherit!important;
+}
+@media (min-width: 700px) and (max-width: 1200px) {
+    .playGamePage td#playGameBtn {
+        padding: 0!important;
+    }
+}
+.playGamePage sup {
+    font-weight: bold;
+}
+@media(max-width: 1200px){
+    .playGamePage .container {
+        width: 95%;
+    }
+}
+
+#availablePicks {
+    width: 85%;
+    margin: 0 auto;
+    background-color: grey;
+    border-radius: 10px;
+}
+#availablePicksLabel {
+    font-size: 12px;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    top: 0px;
+}
+#availablePicksBar {
+    height: 12px;
+    margin-top: 3px;
+    background-color: green;
+    border-radius: 10px;
+}
+@media(max-width:700px){
+    #availablePicks {
+        width: 100%!important;
+    }
+    #availablePicksBar {
+        height: 20px!important;
+    }
+    #availablePicksLabel {
+        font-size: 16px !important;
+        margin: 2px auto !important;
+        top: 38px!important;
+        text-align: center;
+    }
+    #playGameBtn .absolute {
+        position: unset !important;
+    }
+    #playGameBtn .width20 {
+        width: unset !important;
+    }
+    #playGameBtn {
+        padding: 5px!important;
+    }
+}
+#playGameBtn .width20 {
+    width: 20%;
+}
+.playGamePage #no-more-tables .gamesForWeekTables:not(:last-child) {
+    margin-bottom: 10px!important;
+}
+/********** END OF GAMES FOR WEEK TABLE ***********/
+
+
+/********** CHOOSE ANOTHER GAME MODAL ***********/
+@media(min-width:768px){
+    #chooseAnotherGame .modal-dialog {
+        width: 65%;
+    }
+}
+@media(max-width:1250px){
+    #chooseAnotherGame .modal-dialog {
+        width: 95%;
+    }
+}
+@media(max-width:768px){
+    #chooseAnotherGame .modal-dialog {
+        width: auto;
+        margin: 10px;
+    }
+}
+#chooseAnotherGame .modal-content {
+    background-color:#222;
+}
+#chooseAnotherGame .closeModalBtnContainer {
+    height: 20px;
+}
+#chooseAnotherGame .closeModalBtn {
+    padding: 0px 5px;
+}
+#chooseAnotherGame .modal-body {
+    padding-top: 0px;
+}
+#chooseAnotherGame .gamesForWeekTables:not(:last-child) {
+    margin-bottom: 10px;
+}
+/********** END OF CHOOSE ANOTHER GAME MODAL ***********/
+
+
+/*********** LAST WEEK'S RESULTS ************/
+.winningUsername {
+    text-overflow: ellipsis;
+    width: 85%;
+    white-space: nowrap;
+    margin: 0 auto;
+    overflow: hidden;
+}
+/******* END OF LAST WEEK'S RESULTS ********/
+
+
+/********** LEADERBOARD ***********/
+.leaderboardName {
+    text-overflow: ellipsis;
+    width: calc(95% - 25px);
+    white-space: nowrap;
+    margin: 0 auto;
+    overflow: hidden;
+}
+/******* END OF LEADERBOARD ********/
+
+
+
+/********** DASHBOARD ***********/
+@media (max-width:1200px) {
+    .dashboard h3 {
+        font-size: 20px;
+    }
+}
+.dashboard .col-md-7, .dashboard .col-md-5 {
+    height: calc(50vh - 70px);
+}
+.dashboard .col-md-4 {
+    height: calc(50vh - 102px);
+}
+.dashboard .dashboardSection {
+    border:1px solid #555;
+    height: 100%;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, .75);
+    opacity: 0.80
+}
+.dashboard .dashboardSection>h3 {
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+.dashboard .dashboardSection h4 {
+    margin: 0px;
+}
+.dashboard .dashboardSection .dateOfGame {
+    position: sticky;
+    top: 0px;
+    background-color: #000;
+    z-index: 1;
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+}
+.dashboard .dashboardSection .gamesForWeekTables:not(:last-child) {
+    margin-bottom: 10px;
+}
+.dashboard .dashboardSection .playGameBtn {
+    width: 85%;
+}
+.dashboard .dashboardSection .table-header {
+    position: sticky;
+    top:0px;
+    height: auto!important;
+    margin-bottom: 0px;
+}
+.dashboard .dashboardSection>#no-more-tables {
+    overflow: auto;
+    width: 100%;
+    height: calc(100% - 55px);
+}
+
+.dashboard .startPlayingBtn {
+    border:1px solid #000;
+    font-size: 20px;
+    padding: 15px 30px;
+}
+.dashboard #startPlayingBtn {
+    margin-top: 40px;
+}
+@media (max-width: 991px) {
+    .dashboard [class^="col-md-"] {
+        margin-bottom: 20px;
+    }
+    .dashboard .row {
+        padding-top: 0px!important;
+    }
+}
+@media(max-width: 700px){
+    .dashboard .col-md-7, .dashboard .col-md-5, .dashboard .col-md-4 {
+        overflow: auto;
+        height: 60vh;
+    }
+    .dashboard .dashboardSection #playGameBtn {
+        padding: 5px!important;
+    }
+    .dashboard .dashboardSection .playGameBtn {
+        width: 100%;
+    }
+
+    .dashboard .dashboardSection h4 {
+        text-align: center;
+    }
+    .dashboard .gameTeams .pull-left, .dashboard .gameTeams .pull-right {
+        float: none !important;
+        display: inline-block;
+    }
+    .dashboard .gameTeams .homeTeam {
+        margin-bottom: 10px;
+    }
+    .dashboard .gameTeams .width50 {
+        /* width: unset !important; */
+        width: 49% !important;
+    }
+    .dashboard .absolute {
+        position: unset !important;
+    }
+    .dashboard .width25 {
+        width: unset !important;
+    }
+    .dashboard .dashboardSection #availablePicks {
+        width: 100%!important;
+    }
+    .dashboard .dashboardSection #availablePicksBar {
+        height: 20px!important;
+    }
+    .dashboard .dashboardSection #availablePicksLabel {
+        font-size: 16px !important;
+        margin: 2px auto !important;
+        top: 38px!important;
+        text-align: center;
+    }
+    .dashboard .dashboardSection #no-more-tables td {
+        padding-left: 40%;
+    }
+}
+.dashboard .dashboardSection a:hover {
+    text-decoration: none;
+}
+.dashboard .dashboardSection.lastWeekResults .scores {
+    text-align:left;
+    vertical-align: middle;
+    display: inline-flex;
+    min-width: 30px;
+}
+.dashboard .dashboardSection #availablePicks {
+    width: 85%;
+    margin: 0 auto;
+    background-color: grey;
+    border-radius: 10px;
+}
+.dashboard .dashboardSection #availablePicksBar {
+    height: 12px;
+    margin-top: 3px;
+    background-color: green;
+    border-radius: 10px;
+}
+.dashboard .dashboardSection #availablePicksLabel {
+    font-size: 12px;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    top: 0px;
+}
+.dashboard h4.dateOfGame small {
+    color: inherit!important;
+}
+.dashboard .col-sm-12 {
+    width: 100%;
+}
+@media (min-width: 992px){
+
+    .dashboard .dashboardSection .playGameBtn {
+        width: 90%;
+        padding: 5px 3px;
+    }
+}
+/********** END OF DASHBOARD ***********/
+
+
+/************* NEXT WEEK GAMES **************/
+.nextWeekGames .nextWeekGamesTable:not(:last-child) {
+    margin-bottom: 10px;
+}
+@media(max-width:700px){
+    .nextWeekGames img {
+        width: 65px;
+        height: 60px;
+    }
+    .nextWeekGames .fs-12 {
+        font-size: 16px!important;
+    }
+    .nextWeekGames .width50 {
+        width: 49%!important;
+        display: inline-block;
+    }
+    .nextWeekGames .pull-left, .nextWeekGames .pull-right {
+        float: unset !important;
+    }
+    .nextWeekGames table tr td a>div{
+        vertical-align: top;
+    }
+    .nextWeekGames .width60 {
+        width: 0!important;
+    }
+}
+/********** END OF NEXT WEEK GAMES ***********/
+
+
+/************* MY CURRENT GAMES **************/
+@media(max-width:700px){
+    .myCurrentGames img {
+        width: 65px;
+        height: 60px;
+    }
+    .myCurrentGames .fs-12 {
+        font-size: 16px!important;
+    }
+    .myCurrentGames .width50 {
+        width: 49%!important;
+        display: inline-block;
+    }
+    .myCurrentGames .pull-left, .myCurrentGames .pull-right {
+        float: unset !important;
+    }
+    .myCurrentGames table tr td a>div{
+        vertical-align: top;
+    }
+    .myCurrentGames .width70 {
+        width: 0!important;
+    }
+}
+/********** END OF MY CURRENT GAMES ***********/
+
+
+/****************** NAVBAR ******************/
+@media(min-width:768px){
+    #mainNav.navbar-custom {
+        background: rgba(0, 0, 0, .5);
+        padding: 10px 0
+    }
+}
+
+#mainNav .accountDropdown .navbar-content {
+    width:320px;
+    padding: 15px;
+    padding-bottom:0px;
+    background-color: #222;
+}
+
+#mainNav .accountDropdown .navbar-content:before, #mainNav .accountDropdown .navbar-content:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+#mainNav .navbar-nav {
+    margin: 0px;
+}
+#mainNav .navbar-header {
+    height: 45px;
+}
+#mainNav .navbar-header .fa-bars {
+    font-size: 1.5em;
+}
+#mainNav .accountDropdown .navbar-footer {
+    background-color:#333;
+}
+
+#mainNav .accountDropdown .navbar-footer-content {
+    padding:15px 15px 15px 15px;
+}
+#mainNav .accountDropdown .navbar-footer-content>.row a {
+    background-color: #222;
+    color: #fed136!important;
+}
+#mainNav .accountDropdown .navbar-footer-content>.row a:hover {
+    color: #000!important;
+    background-color: #fed136;
+    border-color: #000;
+}
+#mainNav.navbar-default .navbar-nav > .open > a,
+#mainNav.navbar-default .navbar-nav > .open > a:hover,
+#mainNav.navbar-default .navbar-nav > .open > a:focus,
+#mainNav.navbar-default .navbar-nav > .open > a:active,
+#mainNav.navbar-default .navbar-nav > .open > a:visited {
+    background-color: rgb(0 ,0 ,0 ,0.5);
+}
+#mainNav .accountDropdown {
+    padding: 0px;
+}
+#mainNav .viewDashBtn,
+#mainNav .viewDashBtn:focus,
+#mainNav .viewDashBtn:active,
+#mainNav .viewDashBtn:visited {
+    background-color: #fed136!important;
+    color: #000!important;
+}
+#mainNav .viewDashBtn:hover{
+    background-color:#fec503!important;
+}
+#mainNav .editAccount {
+    color: lightgrey!important;
+}
+#mainNav .editAccount:hover {
+    color: #fff!important;
+}
+@media (max-width: 767px){
+    #mainNav .userAccount {
+        display: none!important;
+    }
+    #mainNav #bs-example-navbar-collapse-1 {
+        clear: both;
+    }
+    #mainNav .nav>li {
+        width: auto!important;
+        text-align: center;
+    }
+    #mainNav {
+        background-color: #222;
+        padding: 10px 0px 0px;
+        margin:0px;
+    }
+}
+#mainNav>.container {
+    width: 65%;
+}
+@media (max-width: 1300px) {
+    #mainNav>.container {
+        width: 95%;
+    }
+}
+#mainNav .userAccount {
+    width: 90px;
+    height: 50px;
+}
+#mainNav .nav {
+    text-align: right;
+}
+#mainNav.navbar-custom .navbar-toggle,
+#mainNav.navbar-custom .navbar-toggle:hover {
+float: right;
+padding: 9px 25px;
+margin: 0px;
+background-color: unset;
+border: none;
+font-size: 22px;
+}
+#mainNav .menuTextColor {
+    color: #fed136;
+}
+
+#mainNav .logoName {
+    font-style: italic;
+    font-family: 'Graduate', cursive!important;
+    font-size: 3em;
+}
+#mainNav .logoImage {
+    position: relative;
+    top: -12px;
+    width: 70px;
+    height: 70px;
+    left: -10px;
+}
+#mainNav.navbar-default .navbar-toggle:focus,
+#mainNav.navbar-default .navbar-toggle:hover {
+    background-color: unset!important;
+}
+
+@media (min-width: 768px) {
+    #mainNav.navbar-custom.affix {
+        background-color: #222;
+        padding: 10px 0;
+    }
+    #mainNav.navbar>.container .navbar-brand{
+        margin-left: 0px;
+    }
+}
+#mainNav .navbar-brand {
+    padding: 15px 0;
+}
+/*************** END OF NAVBAR ****************/
+
+
+/*************** DELETE PICK MODAL ****************/
+#deletePickModal .modal-content {
+    background-color:#222;
+}
+#deletePickModal .modal-body h3 {
+    margin-top: 0px;
+}
+#deletePickModal .modal-body {
+    padding-top: 0px;
+}
+#deletePickModal .closeModalBtnContainer {
+    height: 20px;
+}
+#deletePickModal .closeModalBtn {
+    padding: 0 5px;
+}
+#deletePickModal .modal-dialog {
+    transform: translateY(30vh);
+    margin: 10px;
+}
+@media (min-width: 645px){
+    #deletePickModal .modal-dialog {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px){
+    #deletePickModal .modal-dialog {
+        width: 500px;
+    }
+}
+/************ END OF DELETE PICK MODAL *************/
+
+
+/**************** NO FUNDS MODAL *****************/
+#showNoFundsModal .modal-dialog {
+    transform: translateY(25vh);
+}
+#showNoFundsModal .modal-content {
+    background-color:#222;
+}
+#showNoFundsModal .modal-header {
+    padding: 0px;
+}
+#showNoFundsModal .closeModalBtn {
+    padding: 0 5px;
+}
+/************ END OF NO FUNDS MODAL *************/
+
+
+/************ GAME/POT DETAILS MODAL *************/
+#gameDetails .modal-content {
+    background-color:#222;
+}
+#gameDetails .modal-body h3 {
+    margin-top: 0px;
+}
+#gameDetails .modal-body {
+    padding-top: 0px;
+}
+#gameDetails .closeModalBtnContainer {
+    height: 20px;
+}
+#gameDetails .closeModalBtn {
+    padding: 0 5px;
+}
+#gameDetails .modal-dialog {
+    transform: translateY(30vh);
+    margin: 10px;
+}
+@media (min-width: 645px){
+    #gameDetails .modal-dialog {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px){
+    #gameDetails .modal-dialog {
+        width: 500px;
+    }
+}
+/********* END OF GAME/POT DETAILS MODAL **********/

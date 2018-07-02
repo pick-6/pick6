@@ -24,21 +24,27 @@ class GamesController extends Controller
 
     public function index()
     {
+        $data = [];
+
         $user = \Auth::user();
         $games = Games::select(DB::raw('games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->orderBy('games.time', 'ASC')
         ->get();
+        $data['games'] = $games;
         $dates = Games::groupBy('date_for_week')->get();
+        $data['dates'] = $dates;
         $currentWeek = $this->currentWeek;
+        $data['currentWeek'] = $currentWeek;
         $playingIn = [];
         $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
         foreach ($gamesUserIsPlaying as $game) {
             $playingIn[] =  "$game->game_id";
         }
+        $data['playingIn'] = $playingIn;
 
-        return view('playGame')->with(compact('currentWeek', 'games', 'dates', 'playingIn'));
+        return view('playGame')->with($data);
     }
 
     public function show(Request $request, $id)
@@ -103,6 +109,21 @@ class GamesController extends Controller
         $creditForUser = User::select('credit')->where('id', '=', $user->id)->get();
         $userCredit = $creditForUser[0]['credit'];
         $data['userCredit'] = $userCredit;
+
+        $moneySpent = Selections::select(DB::raw('count(square_selection)*games.pick_cost as moneySpent'))
+        ->join('games', 'selections.game_id', '=', 'games.id')
+        ->where('user_id', '=', $user->id)
+        ->where('game_id', '=', $id)
+        ->get();
+        $moneyInGame = $moneySpent[0]['moneySpent'];
+        $data['moneyInGame'] = money_format('$%i', $moneyInGame);
+
+        $gamePot = Selections::select(DB::raw('count(square_selection)*games.pick_cost as pot'))
+        ->join('games', 'selections.game_id', '=', 'games.id')
+        ->where('game_id', '=', $id)
+        ->get();
+        $potAmount = $gamePot[0]['pot'];
+        $data['potAmount'] = money_format('$%i', $potAmount);
 
         return view('showGame')->with($data);
     }
