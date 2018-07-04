@@ -54,24 +54,24 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <!-- <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name."> -->
-                                    <label>First Name</label>
+                                    <label class="fc-grey">First Name</label>
                                     <input type="text" name="first_name" value="{{ Auth::user()->first_name }}" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                <label>Username</label>
+                                <label class="fc-grey">Username</label>
                                     <input type="text" name="username" value="{{ Auth::user()->username }}" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <label>Last Name</label>
+                                <label class="fc-grey">Last Name</label>
                                     <input type="text" name="last_name" value="{{ Auth::user()->last_name }}" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                <label>Email</label>
+                                <label class="fc-grey">Email</label>
                                     <input type="email" name="email" value="{{ Auth::user()->email }}" class="form-control">
                                     <p class="help-block text-danger"></p>
                                 </div>

@@ -38,8 +38,10 @@ trait ResetsPasswords
 
         switch ($response) {
             case Password::RESET_LINK_SENT:
+                $request->session()->flash('successMessage', 'Reset password link sent successfully!');
                 return redirect()->back()->with('status', trans($response));
             case Password::INVALID_USER:
+                $request->session()->flash('errorMessage', 'Oops, link failed to send. Please try again.');
                 return redirect()->back()->withErrors(['email' => trans($response)]);
         }
     }
@@ -93,8 +95,10 @@ trait ResetsPasswords
 
         switch ($response) {
             case Password::PASSWORD_RESET:
+                $request->session()->flash('successMessage', 'Your password was reset successfully!');
                 return redirect($this->redirectPath())->with('status', trans($response));
             default:
+                $request->session()->flash('errorMessage', 'There was a problem resetting your password. Please try again.');
                 return redirect()->back()
                             ->withInput($request->only('email'))
                             ->withErrors(['email' => trans($response)]);

@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'pick6@noreply.com', 'name' => 'Pick6 | Online Football Squares'],
 
     /*
     |--------------------------------------------------------------------------

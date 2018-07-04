@@ -181,7 +181,7 @@
         <h2 class="message fc-grey">Welcome back!</h2>
         <input type="email" class="form-input" name="email" placeholder="Email Address *">
         <input type="password" class="form-input" name="password" placeholder="Password *">
-        <div class="forgot-pass"><span class="forgot-link">Forgot Password?</span></div>
+        <div class="forgot-pass"><a href="{{action('Auth\PasswordController@postEmail')}}"><span class="forgot-link">Forgot Password?</span></a></div>
         <input type="submit" class="button" name="submit" value="Log in">
     </form>
 

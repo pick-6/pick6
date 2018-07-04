@@ -44,12 +44,12 @@
                     {!! csrf_field() !!}
                     <div class="row">
                         <div class="form-group">
-                            <label>New Password</label>
+                            <label class="fc-grey">New Password</label>
                             <input type="password" name="password" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <label>Confirm New Password</label>
+                            <label class="fc-grey">Confirm New Password</label>
                             <input type="password" name="password_confirmation" class="form-control">
                         </div>
                         <div class="col-lg-12" style="margin-top: 20px">

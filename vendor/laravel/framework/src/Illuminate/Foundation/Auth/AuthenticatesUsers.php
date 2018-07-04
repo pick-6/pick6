@@ -113,10 +113,10 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogout(Request $request)
+    public function getLogout()
     {
         Auth::logout();
-        $request->session()->flash('successMessage', 'Logged out successfully!');
+
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
     }
 
