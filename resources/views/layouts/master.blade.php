@@ -24,7 +24,7 @@
     <!-- PAGE CONTENT -->
     <div class="welcome" style="min-height: 100vh">
         <div id="pageContent">
-            <section style="background: none;padding: 0;padding-top: 40px;height: calc(100vh - 72px);">
+            <section style="background: none;padding: 0;padding-top: 40px;height: calc(100vh - 72px);overflow:auto;">
                 <div class="container">
                     @yield('content')
                 </div>
