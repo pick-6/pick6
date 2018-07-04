@@ -6,12 +6,15 @@
                 <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>
             </div>
             <div class="modal-body text-center fc-grey">
-                <div class="text-center fc-grey">
+                <div class="text-center fc-grey fs-18">
                     <div>
-                        Money in the Game: <span id="moneyInGame">{{$moneyInGame}}</span>
+                        Current Pot: <span id="pot" class="fc-yellow">{{$potAmount}}</span>
                     </div>
                     <div>
-                        Current Pot: <span id="pot">{{$potAmount}}</span>
+                        Money in the Game: <span id="moneyInGame" class="fc-red">{{$moneyInGame}}</span>
+                    </div>
+                    <div>
+                        Potential Earnings: <span id="potEarnings" class="fc-green">{{$potentialEarnings}}</span>
                     </div>
                 </div>
             </div>

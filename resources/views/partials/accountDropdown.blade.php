@@ -16,9 +16,12 @@
                     </p>
                 </div>
                 <div class="col-sm-7">
-                    <div class="fc-yellow">{{Auth::user()->first_name}} {{Auth::user()->last_name}} <a class="editAccount" href="{{action('AccountController@edit')}}"><i class="fa fa-edit margin-left-5"></i></a></div>
-                    <div class="fc-grey">{{Auth::user()->username}}</div>
-                    <div class="text-muted small">{{Auth::user()->email}}</div>
+                    <div class="fc-yellow" title="{{Auth::user()->full_name}}">
+                        <span class="ellipsis inline-block pull-left" style="width:unset;max-width: calc(100% - 22px)!important;">{{Auth::user()->full_name}}</span>
+                        <a class="editAccount inline-block top pull-left" href="{{action('AccountController@edit')}}"><i class="fa fa-edit margin-left-5"></i></a>
+                    </div>
+                    <div class="fc-grey ellipsis clear" title="{{Auth::user()->username}}">{{Auth::user()->username}}</div>
+                    <div class="text-muted small ellipsis" title="{{Auth::user()->email}}">{{Auth::user()->email}}</div>
                     <div class="divider"></div>
                     <a href="{{action('AccountController@dashboard')}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
                 </div>

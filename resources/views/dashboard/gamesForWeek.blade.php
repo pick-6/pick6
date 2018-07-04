@@ -21,8 +21,8 @@
                         @if ($date->date_for_week == $game->date_for_week)
                             <tr>
                                 <td class="gameDayTime" data-title="Kick-Off">
-                                    <div class="gamePrice">$2</div>
-                                    {{date("g:i", strtotime("$game->time"))}}pm
+                                    <div class="gamePrice">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                    {{date("g:ia", strtotime("$game->time"))}}
                                 </td>
 
                                 <td class="gameTeams text-left" style="padding:10px;">

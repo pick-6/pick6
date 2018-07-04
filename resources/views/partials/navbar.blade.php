@@ -23,7 +23,7 @@ use App\User;
         ?>
             <div class="fc-grey" style="position: absolute;left:40%;top:25px;">
                 <div class="col-sm-8" style="padding:20px;margin-top:-15px">
-                    Credit Balance: <span id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
+                    Credit Balance: <span class="fc-green" id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
                 </div>
                 <div class="col-sm-4 hideOnMobile" style="padding:0px;">
                     <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm">

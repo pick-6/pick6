@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 text-center">
             <h2 class="pageTitle">Contact Us</h2>
-            <h3 class="section-subheading fc-grey" style="margin-bottom:50px;">Please leave any questions or feedback you may have.</h3>
+            <h3 class="section-subheading fc-grey">Please leave any questions or feedback you may have.</h3>
         </div>
     </div>
     <div class="row">

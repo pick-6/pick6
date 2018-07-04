@@ -22,7 +22,7 @@ class CreateGamesTable extends Migration
 			$table->string('away');
 			$table->integer('home_score')->nullable();
 			$table->integer('away_score')->nullable();
-			$table->integer('pick_cost')->default(2);
+			$table->decimal('pick_cost', 8, 2);->default(2);
 		});
 	}
 

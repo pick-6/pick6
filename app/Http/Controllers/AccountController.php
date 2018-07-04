@@ -33,31 +33,33 @@ class AccountController extends Controller
 
         if ($hasPicks) {
             $numberOfPicks = $picks[0]['picks'];
-            return $numberOfPicks;
         } else {
             $numberOfPicks = 0;
-            return $numberOfPicks;
         }
+
+        return $numberOfPicks;
     }
 
     public function getLeaderBoard()
     {
-        $leaderboard = Winnings::select(DB::raw('users.*, count(winning_user) AS wins'))
+        $leaderboard = Winnings::select(DB::raw('users.id, concat(first_name, " " ,last_name) AS full_name, username, email, avatar, count(winning_user) AS wins'))
         ->join('users', 'winning_user', '=', 'users.id')
         ->groupBy('winning_user')
         ->orderBy('wins', 'DESC')
+        ->orderBy('users.last_name', 'ASC')
         ->get();
         return $leaderboard;
     }
 
     public function getGamesForWeek($weekNo)
     {
-        $gamesForWeek = Games::select(DB::raw('games.*, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $gamesForWeek = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
         ->get();
         return $gamesForWeek;
     }
@@ -73,6 +75,7 @@ class AccountController extends Controller
         ->groupBy('selections.game_id')
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
         ->get();
         return $myCurrentGames;
     }
@@ -85,13 +88,14 @@ class AccountController extends Controller
         ->where('games.week', '=', $nextWeekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
         ->get();
         return $nextWeekGames;
     }
 
     public function getLastWeekResults($lastWeekNo)
     {
-        $lastWeekResults = Games::select(DB::raw('games.*, winnings.*, users.*, avatar, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $lastWeekResults = Games::select(DB::raw('games.*, winnings.winning_user, winnings.game_id, users.first_name, users.id, users.last_name, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
@@ -99,6 +103,7 @@ class AccountController extends Controller
         ->where('games.week', '=', $lastWeekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
         ->get();
         return $lastWeekResults;
     }

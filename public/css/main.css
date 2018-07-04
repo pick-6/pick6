@@ -55,10 +55,6 @@ textarea.form-control:focus::placeholder {
     padding: 5px!important;
 }
 
-.activeSection {
-    display: block!important;
-}
-
 .navbar li a, .navbar-header a, footer a {
     cursor: pointer;
 }
@@ -166,13 +162,19 @@ textarea.form-control:focus::placeholder {
         color: lightgrey!important;
     }
     .fc-green {
-        color: green!important;
+        color: #5cb85c!important
     }
     .fs-12 {
         font-size: 12px!important;
     }
+    .fs-14 {
+        font-size: 14px!important;
+    }
     .fs-16 {
         font-size: 16px!important;
+    }
+    .fs-18 {
+        font-size: 18px!important;
     }
     .fs-20 {
         font-size: 20px!important;
@@ -252,6 +254,9 @@ textarea.form-control:focus::placeholder {
     .middle {
         vertical-align: middle!important;
     }
+    .top {
+        vertical-align: top!important;
+    }
     .inline-block {
         display: inline-block!important;
     }
@@ -290,6 +295,13 @@ textarea.form-control:focus::placeholder {
     }
     .smallGreyBorder {
         border: 1px solid lightgrey;
+    }
+    .ellipsis {
+        text-overflow: ellipsis;
+        width: 100%;
+        white-space: nowrap;
+        margin: 0 auto;
+        overflow: hidden;
     }
 
 
@@ -406,74 +418,12 @@ footer {
 #picksTable .picksBtns #clearPicksBtn:hover {
     background-color: #cc2b22!important;
 }
-@media(max-width: 477px){
-    #picksTable .picksBtns .clearPicks {
-        /* margin-top: 20px; */
-    }
-}
-@media(max-width: 498px){
-    #picksTable .picksBtns .clearPicks {
-        /* margin-left: 0px; */
-    }
-}
-@media(min-width: 498px){
-    #picksTable .picksBtns .clearPicks {
-        /* margin-left: 20px; */
+@media(max-width:565px){
+    #picksTable .awayTeamName h1, #picksTable .homeTeamName h1{
+        font-size: 20px;
     }
 }
 /******** END PICKS TABLE  **********/
-
-
-
-/******** PLAY GAME PAGE **********/
-.scrollable-menu {
-    height: auto;
-    max-height: 125px;
-    overflow-x: scroll;
-    width: 100%;
-}
-
-.dropdown-menu>li>a:hover{
-    color: #FEC503;
-    background-color: black;
-}
-
-.pickSquare {
-    margin-top: 5%;
-}
-
-.pickSquare h3, p {
-    color: white;
-}
-
-.homeTeamName h1 {
-    color: white;
-    margin-bottom: 0px;
-}
-
-.homeTeamTop {
-    display: block;
-}
-
-.awayTeamName {
-    color: white;
-}
-
-.awayTeamName h1 {
-    margin: 0px;
-}
-
-.anotherGameBtn {
-    margin-top: 10%;
-}
-
-.pickSquareModal {
-    margin-top: 10%;
-}
-
-.userPick p {
-    color: black;
-}
 
 
 /********** HOW TO PLAY PAGE *********/
@@ -494,29 +444,11 @@ footer {
 
 
 
-/************* ACCOUNT PAGE *************/
-
-
-
-
-
-
 /****** TABLET STYLES ******/
 @media (min-width: 768px){
-
-.scrollable-menu {
-    margin-left: 20%;
-    width: 60%;
-}
-
-.htpImg {
-    height: 200px;
-}
-
-.accountInfo h4 {
-    font-size: 2em;
-}
-
+    .htpImg {
+        height: 200px;
+    }
 }
 
 
@@ -525,29 +457,13 @@ footer {
 /****** DESKTOP STYLES ******/
 
 @media (min-width: 992px){
+    .homeTeamTop {
+        display: none!important;
+    }
 
-header .intro-text .intro-heading {
-    font-size: 4em;
-    margin-bottom: 25px;
-}
-
-.scrollable-menu {
-    margin-left: 30%;
-    width: 40%;
-}
-
-.homeTeamTop {
-    display: none;
-}
-
-.anotherGameBtn {
-    margin-top: 68%;
-}
-
-.htpImg {
-    height: 350px;
-}
-
+    .htpImg {
+        height: 350px;
+    }
 }
 
 
@@ -641,9 +557,19 @@ section#contact {
         min-height: calc(100vh - 168px);
     }
 }
-section#contact h3.section-subheading {
-    margin-bottom: 30px;
-    font-size: 18px;
+section h3.section-subheading {
+    margin-bottom: 30px!important;
+}
+@media(max-width:565px){
+    #pageContent section {
+        padding-top: 25px!important;
+    }
+
+    section h3.section-subheading {
+        width: 75%;
+        margin: 0 auto;
+        margin-top: 15px!important;
+    }
 }
 
 
@@ -683,6 +609,9 @@ section#contact h3.section-subheading {
     }
 }
 /********** GAMES FOR WEEK TABLE ***********/
+.homeTeamTop {
+    display: block;
+}
 .playGamePage {
     height: 700px;
     padding: 0px;

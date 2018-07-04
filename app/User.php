@@ -42,4 +42,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('App\Models\Selections');
     }
 
+    public function getFullNameAttribute() {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
 }

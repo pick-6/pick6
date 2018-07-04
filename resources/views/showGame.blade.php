@@ -5,7 +5,7 @@
 
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName">
-                <h1 class="text-center margin-top-0">{{$thisGame[0]['home']}}
+                <h1 class="text-center margin-top-0 fc-white margin-bottom-0">{{$thisGame[0]['home']}}
                     <img src="/img/team_logos/{{$thisGame[0]['home_logo']}}" width="40" height="35">
                 </h1>
                 <div class="text-center homeTeamTop fc-white margin-bottom-5">(Top of the table)</div>
@@ -19,18 +19,18 @@
             </div>
 
             <!-- SQUARES GAME TABLE -->
-            <div class="col-sm-12 col-md-10 col-lg-8 padding-0" style="min-width:650px;">
+            <div class="col-sm-12 col-md-10 col-lg-8 padding-0">
                 @include('partials.gameTable')
             </div>
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
-            <div class="col-sm-12 awayTeamName">
-                <h1 class="text-center margin-top-5">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
+            <div class="col-sm-12 awayTeamName fc-white">
+                <h1 class="text-center margin-bottom-0 margin-top-5">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
                 <div class="text-center fc-white">(Left side of the table)</div>
             </div>
 
             <!-- CONFIRM PICKS SELECTED -->
-            <div class="picksBtns text-center clear" style="display:none;">
+            <div class="picksBtns text-center clear margin-top-10" style="display:none;">
                 <form id="selectionsForm" method="POST" action="{{ action('SelectionsController@store') }}">
                     {!! csrf_field() !!}
                     <div class="col-xs-6 text-right">
@@ -95,9 +95,13 @@
 
         function setBalanceColor() {
             if (hasFunds()) {
-                $('#creditBalance').css('color', 'lightgrey');
+                $('#creditBalance').removeClass('fc-red');
+                $('#creditBalance').removeClass('fc-green');
+                $('#creditBalance').addClass('fc-green');
             } else {
-                $('#creditBalance').css('color', 'red');
+                $('#creditBalance').removeClass('fc-green');
+                $('#creditBalance').removeClass('fc-red');
+                $('#creditBalance').addClass('fc-red');
             }
         }
         setBalanceColor();
@@ -146,7 +150,7 @@
 
         $this.find('#confirmPicksBtn').on('click', function(){
             var pendingPicks = $this.find("table tr td.pendingPick");
-            if (pendingPicks.length < 1) {
+            if (pendingPicks.length < 1 || pendingPicks.length > {{$userCredit}}/{{$pickCost}} ) {
                 return false;
             } else {
                 var gameId = {{$thisGame[0]['id']}};

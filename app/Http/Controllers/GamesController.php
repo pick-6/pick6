@@ -125,6 +125,9 @@ class GamesController extends Controller
         $potAmount = $gamePot[0]['pot'];
         $data['potAmount'] = money_format('$%i', $potAmount);
 
+        $potentialEarnings = $potAmount - $moneyInGame;
+        $data['potentialEarnings'] = money_format('$%i', $potentialEarnings);
+
         return view('showGame')->with($data);
     }
 
