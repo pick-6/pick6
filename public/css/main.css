@@ -1238,7 +1238,7 @@ font-size: 22px;
 
 /**************** NO FUNDS MODAL *****************/
 #showNoFundsModal .modal-dialog {
-    transform: translateY(25vh);
+    transform: translateY(20vh);
 }
 #showNoFundsModal .modal-content {
     background-color:#222;
