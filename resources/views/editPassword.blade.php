@@ -1,37 +1,26 @@
 @extends('layouts.master')
-
 @section('content')
 
 <style type="text/css">
-    section#contact.editAccount label {
+    section#contact.editPassword label {
         position: relative!important;
         top: 25px!important;
         font-size: 12px;
         left: 5px;
     }
-    section#contact.editAccount .form-group input {
+    section#contact.editPassword .form-group input {
         padding: 25px 20px 10px 20px;
     }
-    .updBtn {
-        padding: 5px;
-        border-radius: 3px;
-        min-height: 35px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .updBtn:hover {
-        text-decoration: none;
-    }
-    #container {
+    section#contact.editPassword #container {
         max-width: 800px;
         margin: 0 auto;
     }
-    .form-group {
+    section#contact.editPassword .form-group {
         margin: 0!important;
     }
 </style>
 
-<section id="contact" class="editAccount" style="background: none;padding: 40px 20px 20px 20px;text-align: left;">
+<section id="contact" class="editPassword" style="background: none;padding: 40px 20px 20px 20px;text-align: left;">
     <div id="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -52,11 +41,11 @@
                             <label class="fc-grey">Confirm New Password</label>
                             <input type="password" name="password_confirmation" class="form-control">
                         </div>
-                        <div class="col-lg-12" style="margin-top: 20px">
-                            <div class="form-group">
+                        <div class="col-lg-12 padding-0" style="margin-top: 20px">
+                            <div class="form-group text-right">
                                 {{ method_field('PUT') }}
-                                <a href="{{action('AccountController@dashboard')}}" style="padding-top:9px;color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="updBtn btn-danger pull-right">CANCEL</a>
-                                <button type="submit" style="margin-right:30px;color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="updBtn btn-success pull-right">UPDATE</button>
+                                <button type="submit" class="btn btn-success margin-right-10">UPDATE</button>
+                                <a href="{{action('AccountController@dashboard')}}" class="btn btn-danger">CANCEL</a>
                             </div>
                         </div>
                     </div>
@@ -65,5 +54,4 @@
         </div>
     </div>
 </section>
-
 @stop

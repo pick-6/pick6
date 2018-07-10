@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('content')
 
 <style type="text/css">
@@ -12,28 +11,18 @@
     section#contact.editAccount .form-group input {
         padding: 25px 20px 10px 20px;
     }
-    .updBtn {
-        padding: 5px;
-        border-radius: 3px;
-        min-height: 35px;
-        text-align: center;
-        vertical-align: middle;
-    }
-    .updBtn:hover {
-        text-decoration: none;
-    }
-    #container {
+    section#contact.editAccount #container {
         max-width: 800px;
         margin: 0 auto;
     }
-    .form-group {
+    section#contact.editAccount .form-group {
         margin: 0!important;
     }
     @media (max-width: 990px) {
-        h2 {
+        section#contact.editAccount h2 {
             margin: 0 !important;
         }
-        section#contact {
+        section#contact.editAccount {
             padding-top: 15px !important;
         }
     }
@@ -76,13 +65,17 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+                            <!-- <div class="clearfix"></div> -->
                             <div class="col-lg-12" style="margin-top: 20px">
                                 <div class="form-group">
                                 {{ method_field('PUT') }}
-                                <a href="{{action('AccountController@editPassword')}}" style="padding-top:9px;color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="updBtn btn-primary pull-left">change password</a>
-                                    <a href="{{action('AccountController@dashboard')}}" style="padding-top:9px;color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="updBtn btn-danger pull-right">CANCEL</a>
-                                    <button type="submit" style="margin-right:30px;color: black;font-family: 'Montserrat', sans-serif;font-weight: bold;" class="updBtn btn-success pull-right">UPDATE</button>
+                                    <div class="text-left col-xs-6 padding-0">
+                                        <a href="{{action('AccountController@editPassword')}}" class="btn btn-primary">change password</a>
+                                    </div>
+                                    <div class="text-right col-xs-6 padding-0">
+                                        <button type="submit" class="btn btn-success margin-right-10">UPDATE</button>
+                                        <a href="{{action('AccountController@dashboard')}}" class="btn btn-danger">CANCEL</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,14 +84,4 @@
             </div>
         </div>
 </section>
-
-
-
-
-
-
-
-
-
-
 @stop
