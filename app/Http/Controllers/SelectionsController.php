@@ -17,16 +17,6 @@ class SelectionsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        return view('playGame');
-    }
-
     public function checkPickExists($pick, $gameId)
     {
         $findPick = Selections::select('id')->where('game_id', '=', $gameId)->where('square_selection', '=', $pick)->get();
@@ -70,24 +60,6 @@ class SelectionsController extends Controller
 
         $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
         return redirect()->action('GamesController@show', $gameId);
-    }
-
-    public function show($id)
-    {
-        $user = \Auth::user();
-        $games = Games::get();
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->get();
-        return view('payment')->with(compact('user', 'gamesUserIsPlaying', 'games'));
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function destroy(Request $request)

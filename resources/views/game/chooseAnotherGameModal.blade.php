@@ -1,5 +1,5 @@
 <?php
-    use \App\Http\Controllers\AccountController;
+    use \App\Http\Controllers\GamesController;
 ?>
 
 <!-- Choose Another Game Modal -->
@@ -50,7 +50,7 @@
 
                                                         <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
                                                             <?php
-                                                                 $numberOfPicks = AccountController::numberOfPicksForGame($game->id);
+                                                                 $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
                                                             ?>
                                                             <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn">
                                                                 @if ($numberOfPicks < 100)

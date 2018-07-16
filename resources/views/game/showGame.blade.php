@@ -20,7 +20,7 @@
 
             <!-- SQUARES GAME TABLE -->
             <div class="col-sm-12 col-md-10 col-lg-8 padding-0">
-                @include('partials.gameTable')
+                @include('game.gameTable')
             </div>
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
@@ -45,19 +45,19 @@
             <!-- CHOOSE ANOTHER GAME -->
             <div class="text-center clear" style="padding-top: 30px;">
                 <button href="#chooseAnotherGame" data-toggle="modal" class="btn btn-lg gameBtn">Join Another Game</button>
-                @include('partials.chooseAnotherGameModal')
+                @include('game.chooseAnotherGameModal')
             </div>
 
             <!-- NO FUNDS MODAL BUTTON (HIDDEN) -->
             <div class="noFunds">
                 <button style="display:none" id="showNoFunds" href="#showNoFundsModal" data-toggle="modal"></button>
-                @include('partials.showNoFunds')
+                @include('payments.showNoFunds')
             </div>
 
-            @include('partials.deletePickModal')
+            @include('game.deletePickModal')
 
         @else <!-- Show past game results -->
-            @include('partials.pastGameResults')
+            @include('game.pastGameResults')
         @endif
     </div>
 

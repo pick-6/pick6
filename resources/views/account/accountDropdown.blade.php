@@ -23,7 +23,7 @@
                     <div class="fc-grey ellipsis clear" title="{{Auth::user()->username}}">{{Auth::user()->username}}</div>
                     <div class="text-muted small ellipsis" title="{{Auth::user()->email}}">{{Auth::user()->email}}</div>
                     <div class="divider"></div>
-                    <a href="{{action('AccountController@dashboard')}}" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
+                    <a href="/dashboard" class="closeDrop btn btn-primary btn-sm active viewDashBtn">View Dashboard</a>
                 </div>
             </div>
         </div>

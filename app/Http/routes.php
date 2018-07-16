@@ -17,6 +17,16 @@ Route::get('/', function () {
     return view('welcome-new');
 });
 
+// Dashboard
+Route::get('/dashboard', 'DashboardController@dashboard');
+
+// Account
+Route::get('/account/edit', 'AccountController@edit');
+Route::put('/account/update', 'AccountController@update');
+Route::put('/account/updatePassword', 'AccountController@updatePassword');
+Route::get('/account/changePassword', 'AccountController@editPassword');
+Route::post('/upload', 'AccountController@uploadProfilePic');
+
 // About Us Page
 Route::get('/about', function () {
     return view('about');
@@ -37,42 +47,21 @@ Route::get('/terms', function () {
     return view('terms');
 });
 
-// Payment Page
-Route::get('/payment', function () {
-    return view('payment');
-});
-
-// Results view
-Route::get('/gameResults/{game}/{selection?}', 'ResultsController@showGameWinner');
-
-
 // Resource routing
-Route::get('/dashboard', 'AccountController@dashboard');
-Route::get('/account/edit', 'AccountController@edit');
-Route::put('/account/update', 'AccountController@update');
-Route::put('/account/updatePassword', 'AccountController@updatePassword');
-Route::get('/account/changePassword', 'AccountController@editPassword');
-Route::post('/upload', 'AccountController@uploadProfilePic');
-
-Route::resource('charities', 'CharitiesController');
-
 Route::resource('selections', 'SelectionsController');
-
 Route::resource('play', 'GamesController');
 
 
 //Logging in and out
 Route::get('/login', 'Auth\AuthController@getLogin');
-
 Route::post('/login', 'Auth\AuthController@postLogin');
-
 Route::get('/logout', 'Auth\AuthController@getLogout');
 
 
 //Registration routes
 Route::get('/register', 'Auth\AuthController@getRegister');
-
 Route::post('/register', 'Auth\AuthController@postRegister');
+
 
 // Payment
 Route::post('/charge/{amount}', 'PaymentController@charge');

@@ -44,4 +44,4 @@
     @endfor
 </table>
 
-@include('partials.gameDetailsModal')
+@include('game.gameDetailsModal')

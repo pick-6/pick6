@@ -176,7 +176,7 @@
         exit;
     ?>
 @else
-    @include('SignUpLogin')
+    @include('partials.SignUpLogin')
 @endif
 
 @stop

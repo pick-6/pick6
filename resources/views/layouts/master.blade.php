@@ -33,7 +33,7 @@
     </div>
 
     @if(Auth::check())
-        @include('partials.addCreditModal')
+        @include('payments.addCreditModal')
     @endif
 
     <!-- FOOTER -->

@@ -45,7 +45,7 @@
                             <div class="form-group text-right">
                                 {{ method_field('PUT') }}
                                 <button type="submit" class="btn btn-success margin-right-10">UPDATE</button>
-                                <a href="{{action('AccountController@dashboard')}}" class="btn btn-danger">CANCEL</a>
+                                <a href="/dashboard" class="btn btn-danger">CANCEL</a>
                             </div>
                         </div>
                     </div>

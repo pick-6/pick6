@@ -52,7 +52,7 @@ use App\User;
                             <img style="width: 40px;height: 40px;border-radius: 50%;display: inline-block;vertical-align: bottom" src="/img/profilePics/{{Auth::user()->avatar}}" alt="Profile Picture" class="img-responsive smallGreyBorder"/>
                             <i class="caret"></i>
                         </a>
-                        @include('partials.accountDropdown')
+                        @include('account.accountDropdown')
                     </li>
                     <!-- End of User Account Dropdown -->
                 @else
