@@ -21,11 +21,14 @@ Route::get('/', function () {
 Route::get('/dashboard', 'DashboardController@dashboard');
 
 // Account
+Route::get('/account', 'AccountController@index');
 Route::get('/account/edit', 'AccountController@edit');
 Route::put('/account/update', 'AccountController@update');
 Route::put('/account/updatePassword', 'AccountController@updatePassword');
 Route::get('/account/changePassword', 'AccountController@editPassword');
 Route::post('/upload', 'AccountController@uploadProfilePic');
+Route::get('/account/{user}', 'AccountController@show');
+Route::delete('/account/delete', 'AccountController@destroy');
 
 // About Us Page
 Route::get('/about', function () {

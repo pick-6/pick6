@@ -21,20 +21,20 @@
                         @if ($date->date_for_week == $game->date_for_week)
                             <tr>
                                 <td class="gameDayTime" data-title="Kick-Off">
-                                    <div class="gamePrice">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                    <div class="gamePrice hideOnMobile">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
                                     {{date("g:ia", strtotime("$game->time"))}}
                                 </td>
 
                                 <td class="gameTeams text-left" style="padding:10px;">
                                     <a class="fs-16" href="{{action('GamesController@show', [$game->id])}}">
                                         <div class="pull-left width50 homeTeam">
-                                            <img src="img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
+                                            <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
                                             <div class="text-left middle width60 inline-flex">
                                                 {{$game->home}}
                                             </div>
                                         </div>
                                         <div class="pull-right width50">
-                                            <img src="img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
+                                            <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
                                             <div class="text-left middle width60 inline-flex">
                                                 {{$game->away}}
                                             </div>

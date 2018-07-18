@@ -1,7 +1,19 @@
+<?php
+use App\User;
+?>
 @extends('layouts.master')
 @section('content')
     <div id="picksTable" class="picksTable">
         @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for current/future games -->
+            <!-- CREDIT BALANCE -->
+            <?php
+                $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
+                $credit = $creditForUser[0]['credit'];
+                $creditAmount = money_format('$%i', $credit);
+            ?>
+            <div class="col-xs-12 text-center fc-grey showOnMobile">
+                <h3 class="margin-top-0 margin-bottom-20">Credit Balance: <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span></h3>
+            </div>
 
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName">
@@ -59,6 +71,8 @@
         @else <!-- Show past game results -->
             @include('game.pastGameResults')
         @endif
+
+        @include('game.gameDetailsModal')
     </div>
 
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -89,19 +103,19 @@
 
         function changeCreditBalance(){
             var endBalance = getEndBalance();
-            $('#creditBalance').text('$' + endBalance.toFixed(2));
+            $('.creditBalance').text('$' + endBalance.toFixed(2));
             setBalanceColor();
         };
 
         function setBalanceColor() {
             if (hasFunds()) {
-                $('#creditBalance').removeClass('fc-red');
-                $('#creditBalance').removeClass('fc-green');
-                $('#creditBalance').addClass('fc-green');
+                $('.creditBalance').removeClass('fc-red');
+                $('.creditBalance').removeClass('fc-green');
+                $('.creditBalance').addClass('fc-green');
             } else {
-                $('#creditBalance').removeClass('fc-green');
-                $('#creditBalance').removeClass('fc-red');
-                $('#creditBalance').addClass('fc-red');
+                $('.creditBalance').removeClass('fc-green');
+                $('.creditBalance').removeClass('fc-red');
+                $('.creditBalance').addClass('fc-red');
             }
         }
         setBalanceColor();
@@ -214,7 +228,9 @@
         });
 
         $this.find('.notAvailable').on('mouseover mouseout', function(e){
-            if ($(this).data('user') == {{Auth::user()->id}})
+            var isLoggedInUser = $(this).data('user') == {{Auth::user()->id}};
+
+            if (isLoggedInUser)
             {
                 $(this).find('i').toggleClass('fa-times');
                 if (e.type == 'mouseover')
@@ -238,6 +254,36 @@
                 else
                 {
                     $(this).find('.deletePickBG')
+                    .css({
+                        'background': 'initial',
+                    });
+                }
+            }
+            else
+            {
+                if (e.type == 'mouseover')
+                {
+                    $(this).find('.showUserName').text($(this).data('title'));
+                    $(this).find('.showUserContainer')
+                    .css({
+                        'position': 'relative',
+                        'z-index': '1',
+                        'min-height': '36px'
+                    });
+                    $(this).find('.showUserBG')
+                    .css({
+                        'position': 'absolute',
+                        'z-index': '-1',
+                        'background': '#000',
+                        'opacity': '.65',
+                        'width': '100%',
+                        'height': '100%'
+                    });
+                }
+                else
+                {
+                    $(this).find('.showUserName').text('');
+                    $(this).find('.showUserBG')
                     .css({
                         'background': 'initial',
                     });

@@ -33,7 +33,16 @@
                 @if (in_array("$column$row", $thisGameSelections))
                     @foreach($squaresSelected as $user)
                         @if($user->square_selection == $column.$row)
-                            <td class="notAvailable text-center middle padding-0" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;"></td>
+                            <td class="notAvailable text-center middle padding-0" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" data-title="{{$user->username}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
+                                @if($user->id != Auth::id())
+                                    <div class='showUserContainer'>
+                                        <div class='showUserBG'></div>
+                                        <a href="{{action('AccountController@show', [$user->id])}}" title="View {{$user->username}}'s Profile" style="cursor:pointer">
+                                            <small><span class='showUserName margin-top-10 inline-block'></span></small>
+                                        </a>
+                                    </div>
+                                @endif
+                            </td>
                         @endif
                     @endforeach
                 @else
@@ -43,5 +52,3 @@
         </tr>
     @endfor
 </table>
-
-@include('game.gameDetailsModal')

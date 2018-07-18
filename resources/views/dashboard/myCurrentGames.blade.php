@@ -13,13 +13,13 @@
                     <td class="middle text-center" style="padding:10px;">
                         <a href="{{action('GamesController@show', [$game->game_id])}}">
                              <div class="pull-left width50 fs-12">
-                                 <img src="img/team_logos/{{$game->home_logo}}" height="30" width="35" alt="{{$game->home}}">
+                                 <img src="/img/team_logos/{{$game->home_logo}}" height="30" width="35" alt="{{$game->home}}">
                                  <div class="text-left middle width70 inline-flex">
                                      {{$game->home}}
                                  </div>
                              </div>
                              <div class="pull-right width50 fs-12">
-                                 <img src="img/team_logos/{{$game->away_logo}}" height="30" width="35" alt="{{$game->away}}">
+                                 <img src="/img/team_logos/{{$game->away_logo}}" height="30" width="35" alt="{{$game->away}}">
                                  <div class="text-left middle width70 inline-flex">
                                      {{$game->away}}
                                  </div>

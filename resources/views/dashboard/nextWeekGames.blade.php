@@ -14,13 +14,13 @@
                                 <td class="gameTeams text-left" style="padding:10px;">
                                     <a class="fs-12" href="{{action('GamesController@show', [$game->id])}}">
                                         <div class="pull-left width50">
-                                            <img src="img/team_logos/{{$game->home_logo}}" height="50" width="55" alt="{{$game->home}}">
+                                            <img src="/img/team_logos/{{$game->home_logo}}" height="50" width="55" alt="{{$game->home}}">
                                             <div class="text-left middle width60 inline-flex">
                                                 {{$game->home}}
                                             </div>
                                         </div>
                                         <div class="pull-right width50">
-                                            <img src="img/team_logos/{{$game->away_logo}}" height="50" width="55" alt="{{$game->away}}">
+                                            <img src="/img/team_logos/{{$game->away_logo}}" height="50" width="55" alt="{{$game->away}}">
                                             <div class="text-left middle width60 inline-flex">
                                                 {{$game->away}}
                                             </div>

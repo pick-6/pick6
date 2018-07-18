@@ -41,10 +41,12 @@
                             </a>
                         </td>
                         <td data-title="Winner" class="middle" style="padding:5px;">
-                            <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->username}}" title="{{$game->username}}">
-                            <div class="winningUsername {{$game->id == Auth::user()->id ? 'fc-yellow' : ''}}">
-                                <small>{{$game->first_name}} {{$game->last_name}}</small>
-                            </div>
+                            <a href="{{action('AccountController@show', [($game->id == Auth::id()) ? '' : $game->id])}}">
+                                <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->full_name}}">
+                                <div class="winningUsername {{$game->id == Auth::user()->id ? 'fc-yellow' : 'fc-white'}}" title="{{$game->full_name}}">
+                                    <small>{{$game->full_name}}</small>
+                                </div>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

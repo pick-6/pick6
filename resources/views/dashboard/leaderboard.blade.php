@@ -26,7 +26,7 @@
             </colgroup>
            <tbody>
                 @foreach ($leaderboard as $index => $player)
-                    <tr class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : '' }}">
+                    <tr class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}">
                         <td data-title="Rank" class="middle">
                             @if ($index == 0)
                                 <img src="/img/gold.png" height="20" width="20" alt="First Place">
@@ -39,9 +39,9 @@
                             @endif
                         </td>
                         <td data-title="Player Name" class="text-left">
-                            <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->full_name}}" title="{{$player->username}}">
+                            <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->full_name}}">
                             <div class="text-left middle inline-block leaderboardName">
-                                {{$player->full_name}}
+                                <a href="{{action('AccountController@show', [($player->id == Auth::id()) ? '' : $player->id])}}" class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}" title="{{$player->full_name}}">{{$player->full_name}}</a>
                             </div>
                         </td>
                         <td data-title="Wins" class="middle">{{$player->wins}}</td>

@@ -8,13 +8,13 @@
             <div class="modal-body text-center fc-grey">
                 <div class="text-center fc-grey fs-18">
                     <div>
-                        Current Pot: <span id="pot" class="fc-yellow">{{$potAmount}}</span>
+                        Total Pot: <span id="pot" class="fc-yellow">{{$potAmount}}</span>
                     </div>
                     <div>
-                        Money in the Game: <span id="moneyInGame" class="fc-red">{{$moneyInGame}}</span>
+                        Total Stake: <span id="moneyInGame" class="fc-red">{{$moneyInGame}}</span>
                     </div>
                     <div>
-                        Potential Earnings: <span id="potEarnings" class="fc-green">{{$potentialEarnings}}</span>
+                        Total Earnings: <span id="potEarnings" class="fc-green">{{$potentialEarnings}}</span>
                     </div>
                 </div>
             </div>

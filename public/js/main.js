@@ -7,6 +7,16 @@
     }, 2000);
 
 
+    // section scrolling
+    $(".scroll a").bind("click",function(t){
+        var l = $(this);
+        $('html, body').find("section").stop().animate({
+            scrollTop:$(l.attr("href")).offset().top-65
+        },1500)
+        t.preventDefault();
+    });
+
+
     // changes background-color when hovering over available square
     $(".availableSquare").on('mouseout mouseover', function(e){
         var gradientStart = '';
@@ -23,7 +33,7 @@
     });
 
 
-    // Upload Profile Pic
+    // Upload Profile Pic from Account Dropdown
     $('#changePhoto').click(function(){
         $('#chooseProfilePic').trigger('click');
     });
@@ -34,6 +44,20 @@
 
     $("#chooseProfilePic").change(function(e) {
         $("#submitProfilePic").trigger('click');
+    });
+
+
+    // Upload Profile Pic from Account Page
+    $('#accountPage').find('.changePhoto').click(function(){
+        $('.chooseProfilePic').trigger('click');
+    });
+
+    $('#accountPage').find('.chooseProfilePic').on('click touchstart', function(){
+        $(this).val('');
+    });
+
+    $('#accountPage').find(".chooseProfilePic").change(function(e) {
+        $(".submitProfilePic").trigger('click');
     });
 
 
@@ -70,6 +94,16 @@
         });
     } else {
         $(".dashboardSection").css({"opacity":"0.95", "background-color":"rgba(0, 0, 0, 1)"});
+    }
+
+    if ($(document).width() > 768) {
+        $(".userCurrentGames").on("mouseover mouseout", function(e){
+            if (e.type == 'mouseover') {
+                $("body").css("overflow", "hidden");
+            } else if (e.type == 'mouseout') {
+                $("body").css("overflow", "auto");
+            }
+        });
     }
 
 

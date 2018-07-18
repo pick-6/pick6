@@ -71,7 +71,7 @@ class DashboardController extends Controller
 
     public function getLastWeekResults($lastWeekNo)
     {
-        $lastWeekResults = Games::select(DB::raw('games.*, winnings.winning_user, winnings.game_id, users.first_name, users.id, users.last_name, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $lastWeekResults = Games::select(DB::raw('games.*, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
