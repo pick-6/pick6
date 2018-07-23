@@ -29,9 +29,9 @@ class DashboardController extends Controller
 
     public function getGamesForWeek($weekNo)
     {
-        $gamesForWeek = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $gamesForWeek = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -42,9 +42,9 @@ class DashboardController extends Controller
 
     public function getMyCurrentGames($currentWeekNo, $user)
     {
-        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('selections', 'games.id', '=', 'selections.game_id')
         ->where('selections.user_id', "=", $user->id)
         ->where('games.week', '=', $currentWeekNo)
@@ -58,9 +58,9 @@ class DashboardController extends Controller
 
     public function getNextWeekGames($nextWeekNo)
     {
-        $nextWeekGames = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $nextWeekGames = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.week', '=', $nextWeekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -71,9 +71,9 @@ class DashboardController extends Controller
 
     public function getLastWeekResults($lastWeekNo)
     {
-        $lastWeekResults = Games::select(DB::raw('games.*, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $lastWeekResults = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
         ->join('users', 'winnings.winning_user', '=', 'users.id')
         ->where('games.week', '=', $lastWeekNo)

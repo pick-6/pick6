@@ -164,6 +164,9 @@ textarea.form-control:focus::placeholder {
     .fc-yellow {
         color: #fed136!important;
     }
+    :root {
+      --yellow-font: #fed136!important;
+    }
     .fc-grey {
         color: lightgrey!important;
     }

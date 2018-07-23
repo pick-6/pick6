@@ -96,9 +96,9 @@ class AccountController extends Controller
 
     public function getMyCurrentGames($currentWeekNo, $user)
     {
-        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('selections', 'games.id', '=', 'selections.game_id')
         ->where('selections.user_id', "=", $user)
         ->where('games.week', '=', $currentWeekNo)

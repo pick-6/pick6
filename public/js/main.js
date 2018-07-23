@@ -112,4 +112,41 @@
         $(this).siblings().find('button.stripe-button-el').trigger('click');
     });
 
+
+    $('#back').on('click', function() {
+        window.history.back();
+    });
+
+    $('.showUserContainer').on('mouseover mouseout', function(e){
+        if (e.type == 'mouseover')
+        {
+            $(this).find('.showUserName').text('Change Photo');
+            $(this).find('.showUserName').parent().find('i').addClass('fa-camera');
+            $(this)
+            .css({
+                'position': 'relative',
+                'z-index': '1',
+                'min-height': '275px'
+            });
+            $(this).find('.showUserBG')
+            .css({
+                'position': 'absolute',
+                'z-index': '-1',
+                'background': '#000',
+                'opacity': '.65',
+                'width': '100%',
+                'height': '100%'
+            });
+        }
+        else
+        {
+            $(this).find('.showUserName').text('');
+            $(this).find('.showUserName').parent().find('i').removeClass('fa-camera');
+            $(this).find('.showUserBG')
+            .css({
+                'background': 'initial',
+            });
+        }
+    });
+
 })();

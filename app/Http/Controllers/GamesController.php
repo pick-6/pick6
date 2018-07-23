@@ -44,9 +44,9 @@ class GamesController extends Controller
         $data = [];
 
         $user = \Auth::user();
-        $games = Games::select(DB::raw('games.id, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $games = Games::select(DB::raw('games.id, date_for_week, time, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->orderBy('games.time', 'ASC')
         ->get();
         $data['games'] = $games;
@@ -70,9 +70,9 @@ class GamesController extends Controller
 
         $user = \Auth::user();
 
-        $thisGame = Games::select(DB::raw('games.*, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $thisGame = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.id', '=', $id)
         ->get();
         $data['thisGame'] = $thisGame;
@@ -87,9 +87,9 @@ class GamesController extends Controller
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
 
-        $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home, away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.name', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.name', '=', 'games.away')
+        $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->orderBy('games.time', 'ASC')
         ->get();
         $data['allGames'] = $allGames;
