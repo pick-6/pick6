@@ -6,10 +6,12 @@ class SeasonTypesSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('season_types')->insertGetId(
-            ['type' => 'pre'],
-            ['type' => 'reg'],
-            ['type' => 'post'],
-        );
+ 		$this->seasonTypes();
+    }
+
+    protected function seasonTypes()
+    {
+        $path = 'app/developer_docs/season_types.sql';
+        DB::unprepared(file_get_contents($path));
     }
 }

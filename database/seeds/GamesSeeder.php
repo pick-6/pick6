@@ -14,5 +14,4 @@ class GamesSeeder extends Seeder
         $path = 'app/developer_docs/games.sql';
         DB::unprepared(file_get_contents($path));
     }
-
 }
