@@ -94,7 +94,7 @@
                 </p>
                 @endif
             </div>
-            <div style="max-width:275px;height:275px;background-image: url('/img/profilePics/{{$avatar}}');background-size: cover;" class="margin-0-auto showUserContainer smallGreyBorder">
+            <div style="max-width:275px;height:275px;background-image: url('/img/profilePics/{{$avatar}}');background-size: cover;" class="margin-0-auto showAvatarContainer smallGreyBorder">
                 @if($isLoggedInUser)
                 <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}" method="POST">
                     <input type="file" name="avatar" id="chooseProfilePic" class="hidden chooseProfilePic">
@@ -102,10 +102,10 @@
                     <input type="submit" id="submitProfilePic" class="hidden submitProfilePic">
                 </form>
                 <a href="#" id="changePhoto" class="changePhoto">
-                    <div class='showUserBG'>
+                    <div class='showAvatarBG'>
                         <p class="text-center fc-white" style="margin-top:35%;font-size:2rem;">
                             <i class="fas" style="font-size:6rem;"></i><br />
-                            <small class="uppercase showUserName"></small>
+                            <small class="uppercase showAvatar"></small>
                         </p>
                     </div>
                 </a>

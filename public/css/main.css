@@ -1306,3 +1306,37 @@ font-size: 22px;
     }
 }
 /********* END OF GAME/POT DETAILS MODAL **********/
+
+
+/************ GAME STARTED MODAL *************/
+#gameStartedModal .modal-content {
+    background-color:#222;
+}
+#gameStartedModal .modal-body h3 {
+    margin-top: 0px;
+}
+#gameStartedModal .modal-body {
+    padding-top: 0px;
+}
+#gameStartedModal .closeModalBtnContainer {
+    height: 20px;
+}
+#gameStartedModal .closeModalBtn {
+    padding: 0 5px;
+}
+#gameStartedModal .modal-dialog {
+    transform: translateY(30vh);
+    margin: 10px;
+}
+@media (min-width: 645px){
+    #gameStartedModal .modal-dialog {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px){
+    #gameStartedModal .modal-dialog {
+        width: 500px;
+    }
+}
+/********* END OF GAME STARTED MODAL **********/

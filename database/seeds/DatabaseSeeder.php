@@ -5,11 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Model::unguard();
@@ -19,11 +14,13 @@ class DatabaseSeeder extends Seeder
         DB::table('games')->delete();
         DB::table('winnings')->delete();
         DB::table('selections')->delete();
+        DB::table('season_types')->delete();
 
         $this->call('UsersSeeder');
         $this->call('TeamsSeeder');
         $this->call('GamesSeeder');
-        $this->call('WinningsSeeder');
+        $this->call('SeasonTypesSeeder');
+        // $this->call('WinningsSeeder');
 
         Model::reguard();
     }

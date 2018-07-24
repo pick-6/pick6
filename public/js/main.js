@@ -113,22 +113,25 @@
     });
 
 
+    // Back to previous page
     $('#back').on('click', function() {
         window.history.back();
     });
 
-    $('.showUserContainer').on('mouseover mouseout', function(e){
+
+    // Change Profile Pic on Account Page
+    $('.showAvatarContainer').on('mouseover mouseout', function(e){
         if (e.type == 'mouseover')
         {
-            $(this).find('.showUserName').text('Change Photo');
-            $(this).find('.showUserName').parent().find('i').addClass('fa-camera');
+            $(this).find('.showAvatar').text('Change Photo');
+            $(this).find('.showAvatar').parent().find('i').addClass('fa-camera');
             $(this)
             .css({
                 'position': 'relative',
                 'z-index': '1',
                 'min-height': '275px'
             });
-            $(this).find('.showUserBG')
+            $(this).find('.showAvatarBG')
             .css({
                 'position': 'absolute',
                 'z-index': '-1',
@@ -140,9 +143,9 @@
         }
         else
         {
-            $(this).find('.showUserName').text('');
-            $(this).find('.showUserName').parent().find('i').removeClass('fa-camera');
-            $(this).find('.showUserBG')
+            $(this).find('.showAvatar').text('');
+            $(this).find('.showAvatar').parent().find('i').removeClass('fa-camera');
+            $(this).find('.showAvatarBG')
             .css({
                 'background': 'initial',
             });

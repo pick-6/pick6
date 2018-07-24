@@ -22,23 +22,6 @@ class GamesController extends Controller
         parent::__construct();
     }
 
-    public static function numberOfPicksForGame($game)
-    {
-        $picks = Selections::select(DB::raw('count(square_selection) AS picks'))
-        ->where('game_id', '=', $game)
-        ->get();
-
-        $hasPicks = count($picks) > 0;
-
-        if ($hasPicks) {
-            $numberOfPicks = $picks[0]['picks'];
-        } else {
-            $numberOfPicks = 0;
-        }
-
-        return $numberOfPicks;
-    }
-
     public function index()
     {
         $data = [];
@@ -145,7 +128,28 @@ class GamesController extends Controller
         $potentialEarnings = $potAmount - $moneyInGame;
         $data['potentialEarnings'] = money_format('$%i', $potentialEarnings);
 
+        $gameTime = $thisGame[0]['date_for_week'] . ' ' . $thisGame[0]['time'];
+        $gameStarted = $gameTime <= Carbon::now();
+        $data['gameStarted'] = boolval($gameStarted) ? 'true' : 'false';
+
         return view('game.showGame')->with($data);
+    }
+
+    public static function numberOfPicksForGame($game)
+    {
+        $picks = Selections::select(DB::raw('count(square_selection) AS picks'))
+        ->where('game_id', '=', $game)
+        ->get();
+
+        $hasPicks = count($picks) > 0;
+
+        if ($hasPicks) {
+            $numberOfPicks = $picks[0]['picks'];
+        } else {
+            $numberOfPicks = 0;
+        }
+
+        return $numberOfPicks;
     }
 
     public function getRandomNumbers()

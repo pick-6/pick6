@@ -73,6 +73,7 @@ use App\User;
         @endif
 
         @include('game.gameDetailsModal')
+        @include('game.gameStartedModal')
     </div>
 
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -153,6 +154,11 @@ use App\User;
 
         // For pick selection
         $this.find(".availableSquare").on('click', function(e){
+            if ({{$gameStarted}}) {
+                $('#gameStartedModal').modal();
+                return false;
+            }
+
             if ($(this).hasClass('pendingPick') || creditCheck()) {
                 $(this).toggleClass('pendingPick');
                 $(this).find('i').toggleClass('fa-check');
@@ -208,15 +214,21 @@ use App\User;
 
 
         // Ask user to confirm pending picks when navigating away from page
-        $(window).on('beforeunload', function () {
-            if ($('.pendingPick').length && !$('.submittingPicks').length) {
-                return 'Would you like to stay and confirm your pending picks?';
-            }
-        });
+        if ({{$gameStarted}} != true) {
+            $(window).on('beforeunload', function () {
+                if ($('.pendingPick').length && !$('.submittingPicks').length) {
+                    return 'Would you like to stay and confirm your pending picks?';
+                }
+            });
+        }
 
 
         // For pick deletion
         $this.find('.notAvailable[data-user='+{{Auth::user()->id}}+']').each(function() {
+            if ({{$gameStarted}}) {
+                return false;
+            }
+
             var id = $(this).data('id');
             var deletePick = "";
             deletePick += "<a data-id='"+id+"' class='deletePick' href='#deletePickModal' data-toggle='modal'>";
@@ -232,6 +244,10 @@ use App\User;
 
             if (isLoggedInUser)
             {
+                if ({{$gameStarted}}) {
+                    return false;
+                }
+
                 $(this).find('i').toggleClass('fa-times');
                 if (e.type == 'mouseover')
                 {
@@ -292,10 +308,17 @@ use App\User;
         });
 
         $this.find('.deletePick').click(function(e){
+            if ({{$gameStarted}}) {
+                return false;
+            }
             $(this).addClass('deleting');
         });
 
         $this.find('#deletePickBtn').on('click', function(){
+            if ({{$gameStarted}}) {
+                return false;
+            }
+
             var pickToDelete = $this.find(".deleting");
             if (pickToDelete.length != 1) {
                 return false;
@@ -327,5 +350,7 @@ use App\User;
             });
             return true;
         });
+
+
     </script>
 @stop

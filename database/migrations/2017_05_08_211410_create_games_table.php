@@ -15,6 +15,7 @@ class CreateGamesTable extends Migration
 		Schema::create('games', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('season_type')->unsigned();
 			$table->date('date_for_week');
 			$table->time('time');
 			$table->integer('week');
@@ -25,6 +26,7 @@ class CreateGamesTable extends Migration
 			$table->decimal('pick_cost', 8, 2);->default(2.00);
 			$table->foreign('home')->references('id')->on('teams');
 			$table->foreign('away')->references('id')->on('teams');
+			$table->foreign('season_type')->references('id')->on('season_types');
 		});
 	}
 

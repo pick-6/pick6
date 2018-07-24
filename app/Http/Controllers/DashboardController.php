@@ -32,6 +32,7 @@ class DashboardController extends Controller
         $gamesForWeek = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->where('games.season_type', '=', $this->season_type)
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -47,6 +48,7 @@ class DashboardController extends Controller
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('selections', 'games.id', '=', 'selections.game_id')
         ->where('selections.user_id', "=", $user->id)
+        ->where('games.season_type', '=', $this->season_type)
         ->where('games.week', '=', $currentWeekNo)
         ->groupBy('selections.game_id')
         ->orderBy('games.date_for_week', 'ASC')
@@ -61,6 +63,7 @@ class DashboardController extends Controller
         $nextWeekGames = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->where('games.season_type', '=', $this->season_type)
         ->where('games.week', '=', $nextWeekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -76,6 +79,7 @@ class DashboardController extends Controller
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
         ->join('users', 'winnings.winning_user', '=', 'users.id')
+        ->where('games.season_type', '=', $this->season_type)
         ->where('games.week', '=', $lastWeekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -86,7 +90,11 @@ class DashboardController extends Controller
 
     public function getDatesOfGames($weekNo)
     {
-        $dateOfGames = Games::select('date_for_week')->where('week', '=', $weekNo)->groupBy('date_for_week')->get();
+        $dateOfGames = Games::select('date_for_week')
+        ->where('season_type', '=', $this->season_type)
+        ->where('week', '=', $weekNo)
+        ->groupBy('date_for_week')
+        ->get();
         return $dateOfGames;
     }
 

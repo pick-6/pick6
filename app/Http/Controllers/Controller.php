@@ -13,9 +13,11 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        // TO DO: get last/current/next 'week' number dynamically
-        $this->lastWeek = 1;
-        $this->currentWeek = 2;
-        $this->nextWeek = 3;
+        // TO DO: get 'week' and 'season_type' numbers dynamically
+        $this->season_type = 1;
+        $this->currentWeek = 1;
+
+        $this->lastWeek = $this->currentWeek - 1;
+        $this->nextWeek = $this->currentWeek + 1;
     }
 }
