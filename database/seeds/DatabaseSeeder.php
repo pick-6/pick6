@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->delete();
         DB::table('teams')->delete();
+        DB::table('season_types')->delete();
         DB::table('games')->delete();
         DB::table('winnings')->delete();
         DB::table('selections')->delete();
-        DB::table('season_types')->delete();
 
         $this->call('UsersSeeder');
         $this->call('TeamsSeeder');
