@@ -129,7 +129,6 @@
             .css({
                 'position': 'relative',
                 'z-index': '1',
-                'min-height': '275px'
             });
             $(this).find('.showAvatarBG')
             .css({

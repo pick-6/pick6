@@ -113,30 +113,44 @@ class DashboardController extends Controller
         }
         $data['playingIn'] = $playingIn;
 
+        $currentWeek = $this->currentWeek;
+        $data['week'] = $currentWeek;
+        $lastWeek = $this->lastWeek;
+        $data['lastWeek'] = $lastWeek;
+        $nextWeek = $this->nextWeek;
+        $data['nextWeek'] = $nextWeek;
+
+        $isPreSeason = $this->isPreSeason;
+        $data['isPreSeason'] = $isPreSeason;
+        $isRegularSeason = $this->isRegularSeason;
+        $data['isRegularSeason'] = $isRegularSeason;
+        $isPostSeason = $this->isPostSeason;
+        $data['isPostSeason'] = $isPostSeason;
+
         // Games for the Week
-        $gamesForWeek = $this->getGamesForWeek($this->currentWeek);
+        $gamesForWeek = $this->getGamesForWeek($currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;
         $hasGamesForWeek = count($gamesForWeek) > 0;
         $data['hasGamesForWeek'] = $hasGamesForWeek;
-        $datesOfCurrentWeekGames = $this->getDatesOfGames($this->currentWeek);
+        $datesOfCurrentWeekGames = $this->getDatesOfGames($currentWeek);
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
 
         // My Current Games
-        $myCurrentGames = $this->getMyCurrentGames($this->currentWeek, $user);
+        $myCurrentGames = $this->getMyCurrentGames($currentWeek, $user);
         $data['myCurrentGames'] = $myCurrentGames;
         $hasCurrentGames = count($myCurrentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
 
         // Upcoming Games
-        $nextWeekGames = $this->getNextWeekGames($this->nextWeek);
+        $nextWeekGames = $this->getNextWeekGames($nextWeek);
         $data['nextWeekGames'] = $nextWeekGames;
         $hasNextWeekGames = count($nextWeekGames) > 0;
         $data['hasNextWeekGames'] = $hasNextWeekGames;
-        $datesOfNextWeekGames = $this->getDatesOfGames($this->nextWeek);
+        $datesOfNextWeekGames = $this->getDatesOfGames($nextWeek);
         $data['datesOfNextWeekGames'] = $datesOfNextWeekGames;
 
         // Last Week's Results
-        $lastWeekResults = $this->getLastWeekResults($this->lastWeek);
+        $lastWeekResults = $this->getLastWeekResults($lastWeek);
         $data['lastWeekResults'] = $lastWeekResults;
         $hasLastWkGames = count($lastWeekResults) > 0 ;
         $data['hasLastWkGames'] = $hasLastWkGames;

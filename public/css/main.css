@@ -93,6 +93,11 @@ textarea.form-control:focus::placeholder {
     background-color: #5cb85c!important;
     border-color: #4cae4c!important;
 }
+.btn-lg.btn-cancel, .btn-xl.btn-cancel, .btn.btn-cancel {
+    background-color: #4e505a!important;
+    border-color: #4e505a!important;
+    color: lightgrey!important;
+}
 .btn-lg.btn-danger, .btn-xl.btn-danger, .btn.btn-danger {
     background-color: #d9534f!important;
     border-color: #d43f3a!important;
@@ -110,6 +115,14 @@ textarea.form-control:focus::placeholder {
 .btn-lg.btn-danger:active:focus, .btn-xl.btn-danger:active:focus, .btn.btn-danger:active:focus {
     background-color: #c9302c!important;
     border-color: #ac2925!important;
+}
+.btn-lg.btn-cancel:hover, .btn-xl.btn-cancel:hover, .btn.btn-cancel:hover,
+.btn-lg.btn-cancel:active, .btn-xl.btn-cancel:active, .btn.btn-cancel:active,
+.btn-lg.btn-cancel:focus, .btn-xl.btn-cancel:focus, .btn.btn-cancel:focus,
+.btn-lg.btn-cancel:active:focus, .btn-xl.btn-cancel:active:focus, .btn.btn-cancel:active:focus {
+    background-color: #36383F!important;
+    border-color: #36383F!important;
+    color: lightgrey!important;
 }
 
 .loginSignupPage {
@@ -131,7 +144,7 @@ textarea.form-control:focus::placeholder {
     border-bottom-width: 1px;
 }
 
-.showOnMobile {
+.showOnMobile, .showOnTablet {
     display: none!important;
 }
 @media (max-width: 767px){
@@ -139,6 +152,14 @@ textarea.form-control:focus::placeholder {
         display: block!important;
     }
     .hideOnMobile {
+        display: none!important;
+    }
+}
+@media (max-width: 991px){
+    .showOnTablet {
+        display: block!important;
+    }
+    .hideOnTablet {
         display: none!important;
     }
 }
@@ -150,7 +171,13 @@ textarea.form-control:focus::placeholder {
         font-weight: bold!important;
     }
     .uppercase {
-        text-transform: uppercase!important
+        text-transform: uppercase!important;
+    }
+    .lowercase {
+        text-transform: lowercase!important;
+    }
+    .capitalize {
+        text-transform: capitalize!important;
     }
     .fc-black {
         color: #000!important;
@@ -211,6 +238,12 @@ textarea.form-control:focus::placeholder {
     }
     .margin-right-10 {
         margin-right: 10px!important;
+    }
+    .margin-right-15 {
+        margin-right: 15px!important;
+    }
+    .margin-right-20 {
+        margin-right: 20px!important;
     }
     .margin-bottom-0 {
         margin-bottom: 0px!important;
@@ -630,6 +663,11 @@ section h3.section-subheading {
         padding: 0px!important;
     }
 }
+.gamesForWeek .time {
+    color: #eee;
+    font-style: italic;
+    font-size: 12px;
+}
 /********** GAMES FOR WEEK TABLE ***********/
 .homeTeamTop {
     display: block;
@@ -911,13 +949,16 @@ section h3.section-subheading {
     width: 100%;
     height: calc(100% - 55px);
 }
+.dashboard .dashboardSection.gamesForWeek #no-more-tables {
+    height: calc(100% - 70px);
+}
 
-.dashboard .startPlayingBtn {
+.dashboard .startPlayingBtn, #currentGames .startPlayingBtn {
     border:1px solid #000;
     font-size: 20px;
     padding: 15px 30px;
 }
-.dashboard #startPlayingBtn {
+.dashboard #startPlayingBtn, #currentGames #startPlayingBtn {
     margin-top: 40px;
 }
 @media (max-width: 991px) {
@@ -1011,10 +1052,23 @@ section h3.section-subheading {
     width: 100%;
 }
 @media (min-width: 992px){
-
     .dashboard .dashboardSection .playGameBtn {
         width: 90%;
         padding: 5px 3px;
+    }
+
+    .dashboardSection .noGames, #currentGames .noGames {
+        width:60%;
+    }
+}
+@media(max-width:991px){
+    .dashboardSection .noGames, #currentGames .noGames {
+        width:45%;
+    }
+}
+@media(max-width:600px){
+    .dashboardSection .noGames, #currentGames .noGames {
+        width:60%;
     }
 }
 /********** END OF DASHBOARD ***********/
@@ -1340,3 +1394,43 @@ font-size: 22px;
     }
 }
 /********* END OF GAME STARTED MODAL **********/
+
+
+/*************** DELETE ACCOUNT MODAL ****************/
+#deleteAccountModal .modal-content {
+    background-color:#000;
+    border: 2px solid red;
+}
+#deleteAccountModal .modal-body h3 {
+    margin-top: 0px;
+}
+#deleteAccountModal .modal-body {
+    padding-top: 0px;
+}
+#deleteAccountModal .closeModalBtnContainer {
+    height: 20px;
+}
+#deleteAccountModal .closeModalBtn {
+    padding: 0 5px;
+}
+#deleteAccountModal .modal-dialog {
+    transform: translateY(25vh);
+    margin: 10px;
+}
+@media (min-width: 645px){
+    #deleteAccountModal .modal-dialog {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+@media (min-width: 768px){
+    #deleteAccountModal .modal-dialog {
+        width: 500px;
+    }
+}
+@media (max-width: 491px){
+    #deleteAccountModal h3 {
+        width: 100%!important;
+    }
+}
+/************ END OF DELETE ACCOUNT MODAL *************/

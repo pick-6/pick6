@@ -35,7 +35,7 @@
         @endforeach
     </div>
 @else
-    <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+    <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
         No upcoming games next week.
     </p>
 @endif

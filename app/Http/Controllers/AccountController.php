@@ -44,6 +44,7 @@ class AccountController extends Controller
             $playingIn[] =  "$game->game_id";
         }
         $data['playingIn'] = $playingIn;
+        $data['isLoggedInUser'] = true;
         return view('account.account')->with($data);
     }
 
@@ -59,7 +60,9 @@ class AccountController extends Controller
 
     public function show($id)
     {
-        if ($id == Auth::id()) {
+        $isLoggedInUser = $id == Auth::id();
+
+        if ($isLoggedInUser) {
             return redirect('/account');
         }
 
@@ -90,6 +93,7 @@ class AccountController extends Controller
             $playingIn[] =  "$game->game_id";
         }
         $data['playingIn'] = $playingIn;
+        $data['isLoggedInUser'] = $isLoggedInUser;
 
         return view('account.account')->with($data);
     }
@@ -159,8 +163,19 @@ class AccountController extends Controller
         return redirect('/dashboard');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        abort(404);
+        // Delete Picks
+        $pick = Selections::select('id')
+        ->where('user_id', '=', \Auth::id());
+        $pick->delete();
+
+        // Delete Account
+        $existingUser = User::find(\Auth::id());
+        $existingUser->delete();
+
+        $request->session()->flash('successMessage', 'Account deleted successfully!');
+
+        return redirect('/');
     }
 }

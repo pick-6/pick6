@@ -1,23 +1,12 @@
-<?php
-    $isLoggedInUser = $id == Auth::id();
-?>
 @extends('layouts.master')
 @section('content')
 <style>
-    .container {
-        width: unset;
-    }
-    @media (min-width: 1200px){
-        .container {
-            width: 1170px;
-        }
-    }
-    @media(max-width: 767px){
-        section#accountInfo {
+    @media(max-width: 991px){
+        #accountPage section#accountInfo {
             background: unset!important;
         }
         #accountPage ul {
-            width: 85%;
+            max-width: 85%;
             margin: 0 auto;
         }
         #pageContent section {
@@ -32,10 +21,10 @@
     }
     #accountPage .userCurrentGames {
         overflow:auto;
-        height:calc(100vh - 265px);
+        height: 594px;
     }
     #accountPage section {
-        height:calc(100vh - 200px);
+        min-height: 650px;
     }
     #accountPage #changePhoto:hover {
         color: var(--yellow-font)!important;
@@ -76,74 +65,87 @@
         background-color:#c9302c;
         border-color:#c9302c;
     }
+    #accountPage .showAvatarContainer {
+        max-width: 220px;
+        height: 220px;
+        background-image: url('/img/profilePics/{{$avatar}}');
+        background-size: cover;
+    }
+    #accountPage #accountInfo {
+        background-color: #202125;
+    }
+    #accountPage #currentGames {
+        background-color: #181818;
+    }
 </style>
 <div class="text-center" id="accountPage">
-    <section id="accountInfo" class="padding-0 col-sm-3" style="background-color: #202125;">
+    <section id="accountInfo" class="padding-0 col-md-3">
         <div class="padding-10">
             <div class="margin-bottom-10 fc-yellow">
-                <h3 class="margin-0">
+                <h3 class="margin-0 ellipsis" style="white-space: normal;">
                     {{$first_name}}
                     {{$last_name}}
                 </h3>
-                <p class="fc-grey margin-0">
+                <p class="fc-grey margin-0 ellipsis">
                     {{$username}}
                 </p>
                 @if($isLoggedInUser)
-                <p class="text-muted">
-                    {{$email}}
-                </p>
+                    <p class="text-muted ellipsis">
+                        {{$email}}
+                    </p>
                 @endif
             </div>
-            <div style="max-width:275px;height:275px;background-image: url('/img/profilePics/{{$avatar}}');background-size: cover;" class="margin-0-auto showAvatarContainer smallGreyBorder">
+            <div class="margin-0-auto showAvatarContainer smallGreyBorder">
                 @if($isLoggedInUser)
-                <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}" method="POST">
-                    <input type="file" name="avatar" id="chooseProfilePic" class="hidden chooseProfilePic">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="submit" id="submitProfilePic" class="hidden submitProfilePic">
-                </form>
-                <a href="#" id="changePhoto" class="changePhoto">
-                    <div class='showAvatarBG'>
-                        <p class="text-center fc-white" style="margin-top:35%;font-size:2rem;">
-                            <i class="fas" style="font-size:6rem;"></i><br />
-                            <small class="uppercase showAvatar"></small>
-                        </p>
-                    </div>
-                </a>
+                    <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}" method="POST">
+                        <input type="file" name="avatar" id="chooseProfilePic" class="hidden chooseProfilePic">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="submit" id="submitProfilePic" class="hidden submitProfilePic">
+                    </form>
+                    <a href="#" id="changePhoto" class="changePhoto">
+                        <div class='showAvatarBG'>
+                            <p class="text-center fc-white" style="margin-top:60px;font-size:2rem;">
+                                <i class="fas" style="font-size:6rem;"></i><br />
+                                <small class="uppercase showAvatar"></small>
+                            </p>
+                        </div>
+                    </a>
                 @endif
-            <!-- </div> -->
             </div>
         </div>
         @if($isLoggedInUser)
             <div>
                 <ul class="padding-0 text-left">
                     <a href="{{action('AccountController@edit')}}">
-                        <li class="padding-10 fc-grey fs-18 editInfo">
+                        <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
                             Edit Info
                         </li>
                     </a>
                     <a href="{{action('AccountController@editPassword')}}">
-                        <li class="padding-10 fc-grey fs-18 changePassword">
+                        <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
                             Change Password
                         </li>
                     </a>
-                    <a href="{{action('AccountController@destroy', [Auth::id()])}}">
-                        <li class="padding-10 fc-grey fs-18 deleteAccount">
+                    <a href="#deleteAccountModal" data-toggle="modal">
+                        <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
                             Delete Account
                         </li>
                     </a>
                 </ul>
             </div>
+            @include('account.deleteAccount')
         @endif
+
         @if ($hasCurrentGames)
-            <div class="scroll margin-top-75 showOnMobile">
+            <div class="scroll margin-top-75 showOnTablet">
                 <a href="#currentGames" class="btn btn-lg">See Current Games</a>
             </div>
         @endif
     </section>
 
-    @if ($hasCurrentGames)
-        <section id="currentGames" class="padding-10 myCurrentGames col-sm-9" style="background:#181818;;">
-            <h3 class="fc-white margin-top-0">{{$isLoggedInUser ? 'My' : $first_name.'\'s'}} Current Games</h3>
+    <section id="currentGames" class="padding-10 myCurrentGames col-md-9 {{ $hasCurrentGames ? '' : 'hideOnTablet'}}">
+        <h3 class="fc-white margin-top-0">{{$isLoggedInUser ? 'My' : $first_name.'\'s'}} Current Games</h3>
+        @if ($hasCurrentGames)
             <div id="no-more-tables" class="table-responsive userCurrentGames">
                 <table class="table table-bordered margin-bottom-0">
                     <colgroup>
@@ -180,7 +182,18 @@
                     </tbody>
                 </table>
             </div>
-        </section>
-    @endif
+        @else
+        <div style="transform:translateY(10vh);">
+            <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                {{$isLoggedInUser ? 'You\'re' : $first_name.'\'s'}} not involved in any games yet.
+            </p>
+            @if($isLoggedInUser)
+                <div id="startPlayingBtn">
+                    <a href="/play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
+                </div>
+            @endif
+        </div>
+        @endif
+    </section>
 </div>
 @stop

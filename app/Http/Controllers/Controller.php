@@ -19,5 +19,9 @@ abstract class Controller extends BaseController
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;
+
+        $this->isPreSeason = $this->season_type == 1;
+        $this->isRegularSeason = $this->season_type == 2;
+        $this->isPostSeason = $this->season_type == 3;
     }
 }

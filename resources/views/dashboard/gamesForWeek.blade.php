@@ -2,10 +2,22 @@
     use \App\Http\Controllers\GamesController;
 ?>
 
-<h3 class="fc-white">Games for the Week</h3>
+<h3 class="fc-white">
+    @if($isPreSeason)
+        <span class="fc-yellow">Preseason</span> Games - Week {{$week}}
+    @elseif ($isPostSeason)
+        <!-- WILD CARD WEEKEND -->
+        <!-- DIVISIONAL PLAYOFFS -->
+        <!-- CONFERENCE CHAMPIONSHIPS -->
+        <!-- PRO BOWL -->
+        <!-- SUPER BOWL -->
+    @else
+        Games for Week {{$week}}
+    @endif
+</h3>
 
 @if ($hasGamesForWeek)
-    <div id="no-more-tables" class=" table-responsive">
+    <div id="no-more-tables" class="table-responsive">
         @foreach ($datesOfCurrentWeekGames as $date)
             <h4 class="dateOfGame text-left clear fc-grey">
                 <?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?>
@@ -22,7 +34,11 @@
                             <tr>
                                 <td class="gameDayTime" data-title="Kick-Off">
                                     <div class="gamePrice hideOnMobile">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
-                                    {{date("g:ia", strtotime("$game->time"))}}
+                                    @if (is_null($game->time))
+                                        TBD
+                                    @else
+                                        {{date("g:i", strtotime("$game->time"))}} <small>{{date("A", strtotime("$game->time"))}}</small>
+                                    @endif
                                 </td>
 
                                 <td class="gameTeams text-left" style="padding:10px;">
@@ -81,8 +97,11 @@
             </table>
         @endforeach
     </div>
+    <div class="time text-left margin-top-5">
+        <small>* All times are in Eastern Time (ET)</small>
+    </div>
 @else
-    <p class="width60 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+    <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
         There are no games this week.
     </p>
 @endif

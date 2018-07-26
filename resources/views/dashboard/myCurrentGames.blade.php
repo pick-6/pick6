@@ -38,7 +38,7 @@
          </table>
      </div>
  @else
-     <p class="width50 margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+     <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
          You're not involved in any games yet.
      </p>
      <div id="startPlayingBtn">

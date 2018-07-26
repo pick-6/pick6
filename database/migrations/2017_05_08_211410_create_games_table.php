@@ -17,7 +17,7 @@ class CreateGamesTable extends Migration
 			$table->increments('id');
 			$table->integer('season_type')->unsigned();
 			$table->date('date_for_week');
-			$table->time('time');
+			$table->time('time')->nullable();
 			$table->integer('week');
 			$table->integer('home')->unsigned();
 			$table->integer('away')->unsigned();

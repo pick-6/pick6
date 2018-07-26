@@ -30,3 +30,5 @@ INSERT INTO teams VALUES (NULL,'Seattle Seahawks','hawks.png');
 INSERT INTO teams VALUES (NULL,'Tampa Bay Buccaneers','bucs.png');
 INSERT INTO teams VALUES (NULL,'Tennessee Titans','titans.png');
 INSERT INTO teams VALUES (NULL,'Washington Redskins','skins.png');
+INSERT INTO teams VALUES (NULL,'National Football Conference', 'nfc.png');
+INSERT INTO teams VALUES (NULL,'American Football Conference', 'afc.png');
