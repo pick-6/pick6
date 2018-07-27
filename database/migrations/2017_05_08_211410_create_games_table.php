@@ -23,7 +23,7 @@ class CreateGamesTable extends Migration
 			$table->integer('away')->unsigned();
 			$table->integer('home_score')->nullable();
 			$table->integer('away_score')->nullable();
-			$table->decimal('pick_cost', 8, 2);->default(2.00);
+			$table->decimal('pick_cost', 8, 2)->default(2.00);
 			$table->foreign('home')->references('id')->on('teams');
 			$table->foreign('away')->references('id')->on('teams');
 			$table->foreign('season_type')->references('id')->on('season_types');
