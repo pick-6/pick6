@@ -48,26 +48,33 @@
     #accountPage ul a:hover {
         text-decoration: none;
     }
-    #accountPage ul li.editInfo {
+    #accountPage ul li.addCredit {
         border-color: #5cb85c;
     }
+    #accountPage ul li.addCredit:hover {
+        background-color: #449d44;
+        border-color: #449d44;
+    }
+    #accountPage ul li.editInfo {
+        border-color: #0ebeff;
+    }
     #accountPage ul li.editInfo:hover {
-        background-color:#449d44;
-        border-color:#449d44;
+        background-color: #0ebeff;
+        border-color: #0ebeff;
     }
     #accountPage ul li.changePassword {
         border-color: #fed136;
     }
     #accountPage ul li.changePassword:hover {
-        background-color:#FEC503;
-        border-color:#FEC503;
+        background-color: #FEC503;
+        border-color: #FEC503;
     }
     #accountPage ul li.deleteAccount {
         border-color: #d9534f;
     }
     #accountPage ul li.deleteAccount:hover {
-        background-color:#c9302c;
-        border-color:#c9302c;
+        background-color: #c9302c;
+        border-color: #c9302c;
     }
     #accountPage .showAvatarContainer {
         max-width: 220px;
@@ -116,22 +123,57 @@
                     </a>
                 @endif
             </div>
+            <!-- <div class="text-left">
+                <div class="margin-top-5">
+                    <div class="fc-yellow inline-block">Winnings:</div>
+                    <div class="fc-grey inline-block">$3,000</div>
+                </div>
+                <div class="margin-top-5">
+                    <div class="fc-yellow inline-block">Favorite Team:</div>
+                    <div class="fc-grey inline-block">Dallas Cowboys</div>
+                </div>
+                <div class="margin-top-5">
+                    <div class="fc-yellow inline-block" style="width:35px;vertical-align:top">Bio:</div>
+                    <div class="fc-grey overflow-auto inline-block" style="height:84px;width:calc(100% - 40px);">
+                        This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
+                        This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
+                        This a bio about me. This a bio about me.
+                    </div>
+                </div>
+            </div> -->
         </div>
         @if($isLoggedInUser)
             <div>
                 <ul class="padding-0 text-left">
+                    <a href="#addCreditModal" data-toggle="modal">
+                        <li class="padding-10 fc-grey fs-18 addCredit ellipsis">
+                            <span class="inline-block" style="min-width:25px;">
+                                <i class="fas fa-dollar-sign" ></i><i class="fas fa-dollar-sign"></i>
+                            </span>
+                            Add Credit
+                        </li>
+                    </a>
                     <a href="{{action('AccountController@edit')}}">
                         <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
+                            <span class="inline-block" style="min-width:25px;">
+                                <i class="fas fa-edit"></i>
+                            </span>
                             Edit Info
                         </li>
                     </a>
                     <a href="{{action('AccountController@editPassword')}}">
                         <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
+                            <span class="inline-block" style="min-width:25px;">
+                                <i class="fas fa-key"></i>
+                            </span>
                             Change Password
                         </li>
                     </a>
                     <a href="#deleteAccountModal" data-toggle="modal">
                         <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
+                            <span class="inline-block" style="min-width:25px;">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
                             Delete Account
                         </li>
                     </a>

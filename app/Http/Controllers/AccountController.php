@@ -160,7 +160,7 @@ class AccountController extends Controller
         }
         $request->session()->flash('successMessage', 'Profile Image updated successfully!');
 
-        return redirect('/dashboard');
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function destroy(Request $request)
