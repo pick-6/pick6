@@ -163,7 +163,12 @@ textarea.form-control:focus::placeholder {
         display: none!important;
     }
 }
-
+    .hide {
+        display: none!important;
+    }
+    .show {
+        display: block!important;
+    }
     .italic {
         font-style: italic!important;
     }
@@ -663,6 +668,11 @@ section h3.section-subheading {
         padding: 0px!important;
     }
 }
+@media(max-width:701px){
+    .gamesForWeek .gamePrice {
+        display: none!important;
+    }
+}
 .gamesForWeek .time {
     color: #eee;
     font-style: italic;
@@ -893,6 +903,27 @@ section h3.section-subheading {
 
 
 /********** DASHBOARD ***********/
+.dashboard ul.dropdown-menu {
+    width: 85%;
+    transform: translateX(10%);
+    background: #000;
+    border: 1px solid #333;
+    text-align: center;
+    padding: 0;
+}
+.dashboard .dropdown-menu>li {
+    border-bottom: 1px solid #333;
+    padding: 10px 0;
+    color:#eee!important;
+}
+.dashboard .dropdown-menu>li:last-child {
+    border-bottom: none;
+}
+.dashboard .dropdown-menu>li:hover {
+    cursor: pointer!important;
+    background: #111;
+    color:var(--yellow-font)!important;
+}
 @media (max-width:1200px) {
     .dashboard h3 {
         font-size: 20px;
@@ -969,11 +1000,17 @@ section h3.section-subheading {
         padding-top: 0px!important;
     }
 }
-@media(max-width: 700px){
+@media(max-width: 991px){
     .dashboard .col-md-7, .dashboard .col-md-5, .dashboard .col-md-4 {
         overflow: auto;
-        height: 60vh;
+        height: calc(100vh - 220px);
     }
+}
+@media(max-width: 700px){
+    /* .dashboard .col-md-7, .dashboard .col-md-5, .dashboard .col-md-4 {
+        overflow: auto;
+        height: 60vh;
+    } */
     .dashboard .dashboardSection #playGameBtn {
         padding: 5px!important;
     }
@@ -1069,6 +1106,11 @@ section h3.section-subheading {
 @media(max-width:600px){
     .dashboardSection .noGames, #currentGames .noGames {
         width:60%;
+    }
+}
+@media screen and (max-width: 767px){
+    .table-responsive {
+        margin-bottom: 0px;
     }
 }
 /********** END OF DASHBOARD ***********/
@@ -1206,10 +1248,15 @@ section h3.section-subheading {
 @media (max-width: 767px){
     #mainNav #bs-example-navbar-collapse-1 {
         clear: both;
+        padding: 0;
     }
     #mainNav .nav>li {
         width: auto!important;
         text-align: center;
+        border-bottom: 1px solid #333;
+    }
+    #mainNav .nav>li:hover {
+        background: #111;
     }
     #mainNav {
         background-color: #222;

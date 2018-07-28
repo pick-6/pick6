@@ -33,7 +33,7 @@
                         @if ($date->date_for_week == $game->date_for_week)
                             <tr>
                                 <td class="gameDayTime" data-title="Kick-Off">
-                                    <div class="gamePrice hideOnMobile">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                    <div class="gamePrice">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
                                     @if (is_null($game->time))
                                         TBD
                                     @else

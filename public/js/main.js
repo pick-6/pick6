@@ -151,4 +151,46 @@
         }
     });
 
+
+    // Dashboard Dropdown
+    $('.dashboard').find('.dashDrop').find('ul li.dropdown-item').on('click', function(){
+        var item = $(this).data('item');
+
+        var title = '';
+        var section = '';
+
+        switch (item) {
+            case 1:
+                title = 'Games For The Week';
+                section = '.gamesForWeek';
+                break;
+            case 2:
+                title = 'My Current Games';
+                section = '.myCurrentGames';
+                break;
+            case 3:
+                title = 'Last Week\'s Results';
+                section = '.lastWeekResults';
+                break;
+            case 4:
+                title = 'Leaderboard';
+                section = '.leaderboard';
+                break;
+            case 5:
+                title = 'Next Week\'s Games';
+
+
+                section = '.nextWeekGames';
+                break;
+        }
+
+        $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet').addClass('hideOnTablet');
+        $('.dashboard').find(''+section+'').parent().removeClass('hideOnTablet').addClass('showOnTablet');
+        $('.dashDrop').find('.dashDropBtn').find('.btnTitle').text(title);
+    });
+    $(window).resize(function() {
+        if ($(document).width() > 991) {
+            $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet');
+        }
+    });
 })();
