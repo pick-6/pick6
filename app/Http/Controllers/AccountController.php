@@ -86,7 +86,7 @@ class AccountController extends Controller
         $hasCurrentGames = count($currentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
 
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $id)->groupBy("game_id")->get();
+        $gamesUserIsPlaying = Selections::where('user_id', "=", Auth::id())->groupBy("game_id")->get();
         $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
         $playingIn = [];
         foreach ($gamesUserIsPlaying as $game) {

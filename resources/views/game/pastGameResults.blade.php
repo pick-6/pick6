@@ -5,10 +5,6 @@
     $awayTeam = $thisGame[0]['away'];
     $awayScore = $thisGame[0]['away_score'];
     $awayLogo = $thisGame[0]['away_logo'];
-    $winningUserId = $winningSelection[0]['winning_user'];
-    $winningUser = $winningSelection[0]['first_name'] . " " .$winningSelection[0]['last_name'];
-    $winningTotal = $winningSelection[0]['winning_total'];
-
 ?>
 
 <h1 class="text-center" style="color: #fed136">
@@ -35,11 +31,20 @@
 
 <!-- Winning User -->
 <div class="text-center">
-    @if (Auth::user()->id == $winningUserId)
-    <a class="btn btn-xl dropdown-toggle gameBtn" type="button" href="#gameDetails" data-toggle="modal">
-        You Won!
-    </a>
+    @if($hasWinningUser)
+    <?php
+        $winningUserId = $winningSelection[0]['winning_user'];
+        $winningUser = $winningSelection[0]['first_name'] . " " .$winningSelection[0]['last_name'];
+        $winningTotal = $winningSelection[0]['winning_total'];
+    ?>
+        @if (Auth::id() == $winningUserId)
+            <a class="btn btn-xl dropdown-toggle gameBtn" type="button" href="#gameDetails" data-toggle="modal">
+                You Won!
+            </a>
+        @else
+            <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">{{$winningUser}}</span></h2>
+        @endif
     @else
-    <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">{{$winningUser}}</span></h2>
+        <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">None</span></h2>
     @endif
 </div>

@@ -20,14 +20,14 @@
         </th>
         <!-- Creates numbers 0-9 going across -->
         @for ($column = 0; $column < 10; $column++)
-            <th class="gameTableHeader">{{ $gameOver? $randomNumbers['home'][$column]: '?'}}<!-- {{$column}} --></th>
+            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['home'][$column]: '?'}}<!-- {{$column}} --></th>
         @endfor
     </tr>
 
     <!-- Creates numbers 0-9 going down -->
     @for ($row = 0; $row < 10; $row++)
         <tr>
-            <th class="gameTableHeader">{{ $gameOver? $randomNumbers['away'][$row]: '?'}}<!-- {{$row}} --></th>
+            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['away'][$row]: '?'}}<!-- {{$row}} --></th>
             <!-- Creates all 100 squares on the table -->
             @for ($column = 0; $column < 10; $column++)
                 @if (in_array("$column$row", $thisGameSelections))

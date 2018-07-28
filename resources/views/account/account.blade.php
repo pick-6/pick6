@@ -1,3 +1,7 @@
+<?php
+    use \App\Http\Controllers\GamesController;
+    use Carbon\Carbon;
+?>
 @extends('layouts.master')
 @section('content')
 <style>
@@ -174,7 +178,23 @@
 
                             <td data-title="" id="playGameBtn" class="middle padding-0">
                                 <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn" style="min-width:85%;">
-                                    GO TO GAME
+                                    <?php
+                                        $gameTime = $game->date_for_week . ' ' . $game->time;
+                                        $gameStarted = $gameTime <= Carbon::now('America/New_York');
+                                        $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
+                                    ?>
+                                     @if($gameEnded)
+                                        SEE RESULTS
+                                     @else
+                                         <?php
+                                              $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
+                                         ?>
+                                         @if ($numberOfPicks < 100 && !$gameStarted)
+                                             {{(in_array("$game->game_id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                         @else
+                                             SEE GAME
+                                         @endif
+                                     @endif
                                 </a>
                             </td>
                         </tr>

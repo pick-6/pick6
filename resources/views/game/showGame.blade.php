@@ -4,7 +4,7 @@ use App\User;
 @extends('layouts.master')
 @section('content')
     <div id="picksTable" class="picksTable">
-        @if ($thisGame[0]['week'] >= $currentWeek) <!-- Show game table for current/future games -->
+        @if ($thisGame[0]['week'] >= $currentWeek && !$gameOver) <!-- Show game table for current/future games -->
             <!-- CREDIT BALANCE -->
             <?php
                 $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();

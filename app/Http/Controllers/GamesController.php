@@ -69,15 +69,11 @@ class GamesController extends Controller
 
         $gameOver = $this->gameOverCheck($id);
         $data['gameOver'] = $gameOver;
-        if($gameOver) {
-            $randomNumbers = $this->getRandomNumbers();
-            $data['randomNumbers'] = $randomNumbers;
-        }
 
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
 
-        $allGames = Games::select(DB::raw('games.id, week, date_for_week, time, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $allGames = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.season_type', '=', $this->season_type)
@@ -88,6 +84,11 @@ class GamesController extends Controller
 
         $winningSelection = User::select('*')->join('winnings', 'users.id', '=', 'winnings.winning_user')->where('winnings.game_id', '=', $id)->get();
         $data['winningSelection'] = $winningSelection;
+        if (count($winningSelection) < 1) {
+            $data['hasWinningUser'] = false;
+        } else {
+            $data['hasWinningUser'] = true;
+        }
 
         $squaresSelected = Selections::select('*')
         ->join('users', 'selections.user_id', '=', 'users.id')
@@ -138,9 +139,12 @@ class GamesController extends Controller
         $data['potentialEarnings'] = money_format('$%i', $potentialEarnings);
 
         $gameTime = $thisGame[0]['date_for_week'] . ' ' . $thisGame[0]['time'];
-        $gameStarted = $gameTime <= Carbon::now();
+        $gameStarted = $gameTime <= Carbon::now('America/New_York');
         $data['gameStarted'] = boolval($gameStarted) ? 'true' : 'false';
-
+        if($gameStarted) {
+            $randomNumbers = $this->getRandomNumbers();
+            $data['randomNumbers'] = $randomNumbers;
+        }
         return view('game.showGame')->with($data);
     }
 
@@ -180,8 +184,8 @@ class GamesController extends Controller
 
     public function gameOverCheck($gameId)
     {
-        $gameTime = Games::select('date_for_week')->where('id', '=', $gameId)->first();
-        $isGameOver = $gameTime->date_for_week < Carbon::now();
+        $game = Games::select('*')->where('id', '=', $gameId)->first();
+        $isGameOver = !is_null($game->home_score) || !is_null($game->away_score);
         return $isGameOver;
     }
 }
