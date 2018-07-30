@@ -1421,6 +1421,11 @@ font-size: 22px;
 #gameStartedModal .modal-body h3 {
     margin-top: 0px;
 }
+@media (max-width:480px) {
+    #gameStartedModal .modal-body h3 {
+        font-size: 1.9rem;
+    }
+}
 #gameStartedModal .modal-body {
     padding-top: 0px;
 }

@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Games;
 use App\Models\Teams;
 use App\Models\Selections;
-use App\Models\Charity;
+use App\Models\Winnings;
 use App\User;
 use Carbon\Carbon;
 use DB;
@@ -82,12 +82,24 @@ class GamesController extends Controller
         ->get();
         $data['allGames'] = $allGames;
 
-        $winningSelection = User::select('*')->join('winnings', 'users.id', '=', 'winnings.winning_user')->where('winnings.game_id', '=', $id)->get();
-        $data['winningSelection'] = $winningSelection;
-        if (count($winningSelection) < 1) {
-            $data['hasWinningUser'] = false;
-        } else {
-            $data['hasWinningUser'] = true;
+        if ($gameOver)
+        {
+            $gameWinnings = Winnings::select('*')->where('game_id', '=', $id)->get();
+            $data['gameWinnings'] = $gameWinnings;
+
+            $hasWinnings = boolval(count($gameWinnings) < 1) ? false : true;
+            $data['hasWinnings'] = $hasWinnings;
+
+            if ($hasWinnings) {
+                if (is_null($gameWinnings[0]['winning_user'])) {
+                    $data['hasWinningUser'] = false;
+                } else {
+                    $data['hasWinningUser'] = true;
+                }
+            }
+
+            $winningUser = Winnings::select(DB::raw('winning_user, users.*'))->join('users', 'winning_user', '=', 'users.id')->where('game_id', '=', $id)->get();
+            $data['winningUser'] = $winningUser;
         }
 
         $squaresSelected = Selections::select('*')

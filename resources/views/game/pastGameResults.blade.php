@@ -7,44 +7,61 @@
     $awayLogo = $thisGame[0]['away_logo'];
 ?>
 
-<h1 class="text-center" style="color: #fed136">
+<h1 class="text-center fc-yellow">
     Final Score
 </h1>
 
 <!-- Home Team Score -->
-<div class="col-md-6 text-center">
-    <h2 style="color: white">
-        <img src="/img/team_logos/{{$homeLogo}}" height="90" width="90" style="margin-bottom: 10px"><br>
+<div class="col-xs-6 text-center">
+    <h2 class="fc-white" style="font-size: 2.5rem">
+        <img src="/img/team_logos/{{$homeLogo}}" height="90" width="90" class="margin-bottom-10"><br>
         {{$homeTeam}}<br>
-        <span style="color: #FEC503;font-size: 2em">{{$homeScore}}</span>
+        <span class="fc-yellow" style="font-size: 5rem">{{$homeScore}}</span>
     </h2>
 </div>
 
 <!-- Away Team Score -->
-<div class="col-md-6 text-center">
-    <h2 style="color: white">
-        <img src="/img/team_logos/{{$awayLogo}}" height="90" width="90" style="margin-bottom: 10px"><br>
+<div class="col-xs-6 text-center">
+    <h2 class="fc-white"  style="font-size: 2.5rem">
+        <img src="/img/team_logos/{{$awayLogo}}" height="90" width="90" class="margin-bottom-10"><br>
         {{$awayTeam}}<br>
-        <span style="color: #FEC503;font-size: 2em">{{$awayScore}}</span>
+        <span class="fc-yellow" style="font-size: 5rem">{{$awayScore}}</span>
     </h2>
 </div>
 
-<!-- Winning User -->
-<div class="text-center">
-    @if($hasWinningUser)
-    <?php
-        $winningUserId = $winningSelection[0]['winning_user'];
-        $winningUser = $winningSelection[0]['first_name'] . " " .$winningSelection[0]['last_name'];
-        $winningTotal = $winningSelection[0]['winning_total'];
-    ?>
-        @if (Auth::id() == $winningUserId)
-            <a class="btn btn-xl dropdown-toggle gameBtn" type="button" href="#gameDetails" data-toggle="modal">
-                You Won!
-            </a>
+@if($hasWinnings)
+    <!-- Winning User -->
+    <div class="text-center">
+        @if($hasWinningUser)
+            <?php
+                $winningUserId = $gameWinnings[0]['winning_user'];
+                $winningUserName = $winningUser[0]['first_name'] . " " .$winningUser[0]['last_name'];
+                $winningTotal = $gameWinnings[0]['winning_total'];
+                $total = str_replace(".00","",money_format('$%i',$winningTotal));
+            ?>
+            <h2 class="fc-white">
+                Winning User:<br>
+                <span class="fc-yellow">
+                    @if (Auth::id() == $winningUserId)
+                        You Won!
+                    @else
+                        <a href="{{action('AccountController@show', $winningUserId)}}">{{$winningUserName}}</a>
+                    @endif
+                </span>
+            </h2>
+            <h2 class="fc-white">
+                Won a Total of:<br>
+                <span class="fc-yellow">{{$total}}</span>
+            </h2>
         @else
-            <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">{{$winningUser}}</span></h2>
+            <?php
+                $winningTotal = $gameWinnings[0]['winning_total'];
+                $total = str_replace(".00","",money_format('$%i',$winningTotal));
+            ?>
+            <h2 class="fc-white">Winning User:<br> <span class="fc-yellow">None</span></h2>
+            <h2 class="fc-white">
+                A Total of <span class="fc-yellow">{{$total}}</span> goes to the house.
+            </h2>
         @endif
-    @else
-        <h2 style="color: white">Winning User:<br> <span style="color: #FEC503">None</span></h2>
-    @endif
-</div>
+    </div>
+@endif

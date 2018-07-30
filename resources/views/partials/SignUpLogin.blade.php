@@ -25,7 +25,7 @@
        grid-column: 1/3;
        align-self: center;
        text-align: center;
-       margin: 1em;
+       margin: 1em auto;
     }
 
 
