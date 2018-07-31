@@ -7,7 +7,7 @@
       background-color: #2e2e2e;
       width: 40%;
       margin: auto;
-      margin-top: 50px;
+      /* margin-top: 50px; */
       padding: 2em;
       border-radius: 8px;
       border: hidden;

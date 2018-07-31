@@ -5,88 +5,8 @@
 @extends('layouts.master')
 @section('content')
 <style>
-    @media(max-width: 991px){
-        #accountPage section#accountInfo {
-            background: unset!important;
-        }
-        #accountPage ul {
-            max-width: 85%;
-            margin: 0 auto;
-        }
-        #pageContent section {
-            padding-top: 10px!important;
-        }
-        #accountPage section {
-            height: calc(100vh - 88px)!important;
-        }
-        #accountPage .userCurrentGames {
-            height:calc(100vh - 150px)!important;
-        }
-    }
-    #accountPage .userCurrentGames {
-        overflow:auto;
-        height: 594px;
-    }
-    #accountPage section {
-        min-height: 650px;
-    }
-    #accountPage #changePhoto:hover {
-        color: var(--yellow-font)!important;
-    }
-    #accountPage ul li {
-        list-style: none;
-        background-color:#32333B;
-        border-left: 6px solid;
-        margin-bottom: 1px;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-    #accountPage ul li:hover {
-        cursor: pointer;
-        color: #000!important;
-    }
-    #accountPage ul a:hover {
-        text-decoration: none;
-    }
-    #accountPage ul li.addCredit {
-        border-color: #5cb85c;
-    }
-    #accountPage ul li.addCredit:hover {
-        background-color: #449d44;
-        border-color: #449d44;
-    }
-    #accountPage ul li.editInfo {
-        border-color: #0ebeff;
-    }
-    #accountPage ul li.editInfo:hover {
-        background-color: #0ebeff;
-        border-color: #0ebeff;
-    }
-    #accountPage ul li.changePassword {
-        border-color: #fed136;
-    }
-    #accountPage ul li.changePassword:hover {
-        background-color: #FEC503;
-        border-color: #FEC503;
-    }
-    #accountPage ul li.deleteAccount {
-        border-color: #d9534f;
-    }
-    #accountPage ul li.deleteAccount:hover {
-        background-color: #c9302c;
-        border-color: #c9302c;
-    }
     #accountPage .showAvatarContainer {
-        max-width: 220px;
-        height: 220px;
         background-image: url('/img/profilePics/{{$avatar}}');
-        background-size: cover;
-    }
-    #accountPage #accountInfo {
-        background-color: #202125;
-    }
-    #accountPage #currentGames {
-        background-color: #181818;
     }
 </style>
 <div class="text-center" id="accountPage">
@@ -195,66 +115,114 @@
             <div id="no-more-tables" class="table-responsive userCurrentGames">
                 <table class="table table-bordered margin-bottom-0">
                     <colgroup>
+                        <col style="width: 10%">
                         <col>
-                        <col style="width: 35%">
+                        <col style="width: 25%">
                     </colgroup>
                     <tbody>
                         @foreach ($currentGames as $game)
-                        <tr>
-                            <td class="middle text-center padding-10">
-                                <a href="{{action('GamesController@show', [$game->game_id])}}">
-                                    <div class="pull-left width50 fs-16">
-                                        <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
-                                        <div class="text-left middle width60 inline-flex">
-                                            {{$game->home}}
+                        <?php
+                            $numberOfPicks = GamesController::numberOfPicksForGame($game->game_id);
+                            $gameTime = $game->date_for_week . ' ' . $game->time;
+                            $gameStarted = $gameTime <= Carbon::now('America/New_York');
+                            $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
+                        ?>
+                            <tr>
+                                @if($gameEnded)
+                                    <td class="fs-18 fc-yellow middle text-center padding-5">
+                                        FINAL
+                                    </td>
+                                @else
+                                    <td class="gameDayTime" data-title="Kick-Off">
+                                        <div class="gamePrice">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                        @if (is_null($game->time))
+                                            TBD
+                                        @else
+                                            {{date("g:i", strtotime("$game->time"))}} <small>{{date("A", strtotime("$game->time"))}}</small>
+                                        @endif
+                                    </td>
+                                @endif
+                                <td class="gameTeams text-left padding-10">
+                                    <a class="{{$gameEnded ? 'fs-30' : 'fs-16'}}" href="{{action('GamesController@show', [$game->game_id])}}">
+                                        <div class="pull-left width50 homeTeam">
+                                            <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
+                                            <div class="text-left middle {{$gameEnded ? '' : 'width60'}} inline-flex">
+                                                {{$gameEnded ? $game->home_score : $game->home}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="pull-right width50 fs-16">
-                                        <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
-                                        <div class="text-left middle width60 inline-flex">
-                                            {{$game->away}}
+                                        <div class="pull-right width50">
+                                            <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
+                                            <div class="text-left middle {{$gameEnded ? '' : 'width60'}} inline-flex">
+                                                {{$gameEnded ? $game->away_score : $game->away}}
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </td>
+                                    </a>
+                                </td>
 
-                            <td data-title="" id="playGameBtn" class="middle padding-0">
-                                <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn" style="min-width:85%;">
-                                    <?php
-                                        $gameTime = $game->date_for_week . ' ' . $game->time;
-                                        $gameStarted = $gameTime <= Carbon::now('America/New_York');
-                                        $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
-                                    ?>
-                                     @if($gameEnded)
-                                        SEE RESULTS
-                                     @else
-                                         <?php
-                                              $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
-                                         ?>
-                                         @if ($numberOfPicks < 100 && !$gameStarted)
-                                             {{(in_array("$game->game_id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                <td id="playGameBtn" class="middle padding-0 padding-b-10">
+                                    <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn" style="min-width:85%;">
+                                         @if($gameEnded)
+                                            SEE RESULTS
                                          @else
-                                             SEE GAME
+                                             @if ($numberOfPicks < 100 && !$gameStarted)
+                                                 {{(in_array("$game->game_id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                             @else
+                                                 SEE GAME
+                                             @endif
                                          @endif
-                                     @endif
-                                </a>
-                            </td>
-                        </tr>
+                                    </a>
+                                    @if(!$gameStarted && !$gameEnded)
+                                        <div class="width25 absolute">
+                                            <div id="availablePicks">
+                                                <div id="availablePicksBar" style="width: {{($numberOfPicks<92)?(100-$numberOfPicks):(($numberOfPicks >= 92 && $numberOfPicks < 100)?8:100)}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
+                                            </div>
+                                            <div id="availablePicksLabel">
+                                                <small>
+                                                    <i>
+                                                        @if ($numberOfPicks == 100)
+                                                            Sorry, Game is Full
+                                                        @elseif ($numberOfPicks >= 90 && $numberOfPicks < 100)
+                                                            Hurry, only {{100 - $numberOfPicks}} pick{{($numberOfPicks == 99) ? '' : 's'}} left!
+                                                        @elseif ($numberOfPicks > 0 && $numberOfPicks < 100)
+                                                            {{100 - $numberOfPicks}} Picks Available
+                                                        @else
+                                                            Be the first to pick!
+                                                        @endif
+                                                    </i>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="width25 absolute">
+                                            <div id="availablePicks">
+                                                <div id="availablePicksBar" style="width: 100%; background-color: crimson"></div>
+                                            </div>
+                                            <div id="availablePicksLabel">
+                                                <small>
+                                                    <i>
+                                                        Game {{$gameEnded ? "Over" : "Started"}}
+                                                    </i>
+                                                </small>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         @else
-        <div style="transform:translateY(10vh);">
-            <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
-                {{$isLoggedInUser ? 'You\'re' : $first_name.'\'s'}} not involved in any games yet.
-            </p>
-            @if($isLoggedInUser)
-                <div id="startPlayingBtn">
-                    <a href="/play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
-                </div>
-            @endif
-        </div>
+            <div style="transform:translateY(10vh);">
+                <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                    {{$isLoggedInUser ? 'You\'re' : $first_name.'\'s'}} not involved in any games yet.
+                </p>
+                @if($isLoggedInUser)
+                    <div id="startPlayingBtn">
+                        <a href="/play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
+                    </div>
+                @endif
+            </div>
         @endif
     </section>
 </div>

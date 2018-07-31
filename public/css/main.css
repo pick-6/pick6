@@ -235,6 +235,9 @@ textarea.form-control:focus::placeholder {
     .margin-top-10 {
         margin-top: 10px!important;
     }
+    .margin-top-15 {
+        margin-top: 15px!important;
+    }
     .margin-top-20 {
         margin-top: 20px!important;
     }
@@ -261,6 +264,9 @@ textarea.form-control:focus::placeholder {
     }
     .margin-bottom-10 {
         margin-bottom: 10px!important;
+    }
+    .margin-bottom-15 {
+        margin-bottom: 15px!important;
     }
     .margin-bottom-20 {
         margin-bottom: 20px!important;
@@ -297,6 +303,9 @@ textarea.form-control:focus::placeholder {
     }
     .padding-t-30 {
         padding-top: 30px !important;
+    }
+    .padding-b-10 {
+        padding-bottom: 10px !important;
     }
     .underline {
         text-decoration: underline!important;
@@ -660,19 +669,19 @@ section h3.section-subheading {
         width: 0!important;
     }
 }
-.gamesForWeek .gamePrice {
+.gamePrice {
     background: #000;
     color: lightgreen;
     margin-bottom: 15px;
 }
 @media(min-width:701px){
-    .gamesForWeek td.gameDayTime {
+    td.gameDayTime {
         vertical-align: top;
         padding: 0px!important;
     }
 }
 @media(max-width:701px){
-    .gamesForWeek .gamePrice {
+    .gamePrice {
         display: none!important;
     }
 }
@@ -754,17 +763,6 @@ section h3.section-subheading {
     .playGamePage #no-more-tables .dateOfGame  {
         background-color: #000;
         text-align: center;
-    }
-    .playGamePage .gameTeams .pull-left, .playGamePage .gameTeams .pull-right {
-        float: none !important;
-    }
-    .playGamePage .gameTeams .homeTeam {
-        margin-bottom: 10px;
-    }
-    .playGamePage .gameTeams .width50 {
-        /* width: unset !important; */
-        width: 48% !important;
-        display: inline-block;
     }
 }
     .playGamePage #no-more-tables {
@@ -1026,21 +1024,18 @@ section h3.section-subheading {
     .dashboard .dashboardSection h4 {
         text-align: center;
     }
-    .dashboard .gameTeams .pull-left, .dashboard .gameTeams .pull-right {
+    .gameTeams .pull-left, .gameTeams .pull-right {
         float: none !important;
         display: inline-block;
     }
-    .dashboard .gameTeams .homeTeam {
+    .gameTeams .homeTeam {
         margin-bottom: 10px;
     }
-    .dashboard .gameTeams .width50 {
-        /* width: unset !important; */
+    .gameTeams .width50 {
         width: 48% !important;
     }
-    .dashboard .absolute {
+    .width25.absolute {
         position: unset !important;
-    }
-    .dashboard .width25 {
         width: unset !important;
     }
     .dashboard .dashboardSection #availablePicks {
@@ -1160,7 +1155,7 @@ section h3.section-subheading {
         font-size: 16px!important;
     }
     .myCurrentGames .width50 {
-        width: 49%!important;
+        width: 48%!important;
         display: inline-block;
     }
     .myCurrentGames .pull-left, .myCurrentGames .pull-right {
@@ -1233,6 +1228,11 @@ section h3.section-subheading {
 #mainNav .accountDropdown {
     padding: 0px;
     border-color: #444;
+}
+#mainNav .accountDropdown .showAvatarContainer {
+    max-width: 106px;
+    height: 106px;
+    background-size: cover;
 }
 #mainNav .viewDashBtn,
 #mainNav .viewDashBtn:focus,
@@ -1491,3 +1491,97 @@ font-size: 22px;
     }
 }
 /************ END OF DELETE ACCOUNT MODAL *************/
+
+
+/******************* ACCOUNT PAGE ********************/
+@media(max-width: 991px){
+    #accountPage section#accountInfo {
+        background: unset!important;
+    }
+    #accountPage ul {
+        max-width: 85%;
+        margin: 0 auto;
+    }
+    #pageContent section {
+        padding-top: 10px!important;
+    }
+    #accountPage section {
+        height: calc(100vh - 88px)!important;
+    }
+    #accountPage .userCurrentGames {
+        height:calc(100vh - 150px)!important;
+    }
+}
+#accountPage .userCurrentGames {
+    overflow:auto;
+    height: 594px;
+}
+#accountPage section {
+    min-height: 650px;
+}
+#accountPage #changePhoto:hover {
+    color: var(--yellow-font)!important;
+}
+#accountPage ul li {
+    list-style: none;
+    background-color:#32333B;
+    border-left: 6px solid;
+    margin-bottom: 1px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+#accountPage ul li:hover {
+    cursor: pointer;
+    color: #000!important;
+}
+#accountPage ul a:hover {
+    text-decoration: none;
+}
+#accountPage ul li.addCredit {
+    border-color: #5cb85c;
+}
+#accountPage ul li.addCredit:hover {
+    background-color: #449d44;
+    border-color: #449d44;
+}
+#accountPage ul li.editInfo {
+    border-color: #0ebeff;
+}
+#accountPage ul li.editInfo:hover {
+    background-color: #0ebeff;
+    border-color: #0ebeff;
+}
+#accountPage ul li.changePassword {
+    border-color: #fed136;
+}
+#accountPage ul li.changePassword:hover {
+    background-color: #FEC503;
+    border-color: #FEC503;
+}
+#accountPage ul li.deleteAccount {
+    border-color: #d9534f;
+}
+#accountPage ul li.deleteAccount:hover {
+    background-color: #c9302c;
+    border-color: #c9302c;
+}
+#accountPage .showAvatarContainer {
+    max-width: 220px;
+    height: 220px;
+    background-size: cover;
+}
+#accountPage #accountInfo {
+    background-color: #202125;
+}
+#accountPage #currentGames {
+    background-color: #181818;
+}
+#accountPage .width25 {
+    width: 24.25%!important;
+}
+@media(max-width: 700px){
+    #accountPage .width25 {
+        width: unset!important;
+    }
+}
+/************ END OF ACCOUNT PAGE *************/

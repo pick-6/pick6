@@ -28,21 +28,21 @@
 
 
     // don't close Account Dropdown when clicking in it
-    $('ul.accountDropdown *').click(function(e){
+    $('ul.accountDropdown:not(.showAvatarContainer)').click(function(e){
         e.stopPropagation();
     });
 
 
     // Upload Profile Pic from Account Dropdown
-    $('#changePhoto').click(function(){
+    $('.accountDropdown').find('#changePhoto').click(function(){
         $('#chooseProfilePic').trigger('click');
     });
 
-    $('#chooseProfilePic').on('click touchstart', function(){
+    $('.accountDropdown').find('#chooseProfilePic').on('click touchstart', function(){
         $(this).val('');
     });
 
-    $("#chooseProfilePic").change(function(e) {
+    $('.accountDropdown').find("#chooseProfilePic").change(function(e) {
         $("#submitProfilePic").trigger('click');
     });
 
@@ -154,38 +154,11 @@
 
     // Dashboard Dropdown
     $('.dashboard').find('.dashDrop').find('ul li.dropdown-item').on('click', function(){
-        var item = $(this).data('item');
-
-        var title = '';
-        var section = '';
-
-        switch (item) {
-            case 1:
-                title = 'Games For The Week';
-                section = '.gamesForWeek';
-                break;
-            case 2:
-                title = 'My Current Games';
-                section = '.myCurrentGames';
-                break;
-            case 3:
-                title = 'Last Week\'s Results';
-                section = '.lastWeekResults';
-                break;
-            case 4:
-                title = 'Leaderboard';
-                section = '.leaderboard';
-                break;
-            case 5:
-                title = 'Next Week\'s Games';
-
-
-                section = '.nextWeekGames';
-                break;
-        }
+        var title = $(this).text();
+        var section = $(this).data('section');
 
         $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet').addClass('hideOnTablet');
-        $('.dashboard').find(''+section+'').parent().removeClass('hideOnTablet').addClass('showOnTablet');
+        $('.dashboard').find('.'+section+'').parent().removeClass('hideOnTablet').addClass('showOnTablet');
         $('.dashDrop').find('.dashDropBtn').find('.btnTitle').text(title);
     });
     $(window).resize(function() {

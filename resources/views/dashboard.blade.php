@@ -7,11 +7,11 @@
             <span class="btnTitle">Games For The Week</span> <i class="fas fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li class="dropdown-item" data-item="1">Games For The Week</li>
-            <li class="dropdown-item" data-item="2">My Current Games</li>
-            <li class="dropdown-item" data-item="3">Last Week's Results</li>
-            <li class="dropdown-item" data-item="4">Leaderboard</li>
-            <li class="dropdown-item" data-item="5">Next Week's Games</li>
+            <li class="dropdown-item" data-item="1" data-section="gamesForWeek">Games For The Week</li>
+            <li class="dropdown-item" data-item="2" data-section="myCurrentGames">My Current Games</li>
+            <li class="dropdown-item" data-item="3" data-section="lastWeekResults">Last Week's Results</li>
+            <li class="dropdown-item" data-item="4" data-section="leaderboard">Leaderboard</li>
+            <li class="dropdown-item" data-item="5" data-section="nextWeekGames">Next Week's Games</li>
         </ul>
     </div>
     <div class="row">
