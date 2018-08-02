@@ -66,6 +66,15 @@
         font-size: 16px;
     }
 
+    .newSignLogin .last-name {
+        margin-left: 5px;
+    }
+    .newSignLogin .last-name,
+    .newSignLogin .first-name {
+        width:calc(50% - 5px);
+        display: inline-block;
+    }
+
     .newSignLogin .forgot-pass {
         grid-column: 1/3;
         text-align: right;
@@ -103,16 +112,6 @@
     @media (max-width: 700px) {
         .newSignLogin#container {
             width: 95%;
-        }
-    }
-    @media (min-width: 700px) {
-        .newSignLogin .last-name {
-            margin-left: 5px;
-        }
-        .newSignLogin .last-name,
-        .newSignLogin .first-name {
-            width:calc(50% - 5px);
-            display: inline-block;
         }
     }
 </style>
