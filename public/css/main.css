@@ -26,20 +26,20 @@ th {
 
 input.form-control,
 textarea.form-control {
-    color: #FED136;
-    background-color: #333;
-    border-color: #ccc;
+    color: #FED136!important;
+    background-color: #333!important;
+    border-color: #ccc!important;
 }
 
 input.form-control::placeholder,
 textarea.form-control::placeholder  {
-    color: #ccc;
+    color: #ccc!important;
 }
 
 input.form-control:focus,
 textarea.form-control:focus  {
-    border-color: #FED136;
-    box-shadow: none;
+    border-color: #FED136!important;
+    box-shadow: none!important;
 }
 
 input.form-control:focus::placeholder,
