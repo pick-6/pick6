@@ -74,13 +74,27 @@ class DashboardController extends Controller
 
     public function getLastWeekResults($lastWeekNo)
     {
+        $seasonType = $this->season_type;
+        $week = $lastWeekNo;
+
+        if ($lastWeekNo == 0 && $seasonType > 1) {
+            $seasonType = $this->season_type - 1;
+            $lastWeek = Games::select('week')
+            ->distinct()
+            ->where('season_type', '=', $seasonType)
+            ->orderBy('week', 'DESC')
+            ->limit(1)
+            ->get();
+            $week = $lastWeek[0]['week'];
+        }
+
         $lastWeekResults = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
         ->join('users', 'winnings.winning_user', '=', 'users.id')
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $lastWeekNo)
+        ->where('games.season_type', '=', $seasonType)
+        ->where('games.week', '=', $week)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
         ->orderBy('games.id', 'ASC')
