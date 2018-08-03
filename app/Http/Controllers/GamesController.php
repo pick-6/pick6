@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use \App\Http\Controllers\RandNums;
 use App\Models\Games;
 use App\Models\Teams;
 use App\Models\Selections;
@@ -154,7 +155,8 @@ class GamesController extends Controller
         $gameStarted = $gameTime <= Carbon::now('America/New_York');
         $data['gameStarted'] = boolval($gameStarted) ? 'true' : 'false';
         if($gameStarted) {
-            $randomNumbers = $this->getRandomNumbers();
+            // $randomNumbers = $this->getRandomNumbers();
+            $randomNumbers = RandNums::getRandomNumbers($id);
             $data['randomNumbers'] = $randomNumbers;
         }
         return view('game.showGame')->with($data);

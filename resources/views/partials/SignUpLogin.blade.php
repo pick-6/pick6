@@ -138,7 +138,7 @@
         <input type="text" class="form-control first-name" name="first_name" placeholder="First Name *">
         <input type="text" class="form-control last-name" name="last_name" placeholder="Last Name *">
         <input type="text" class="form-control first-name" name="username" placeholder="Username *">
-        <input type="email" class="form-control last-name" name="email" placeholder="Email Adress *">
+        <input type="email" class="form-control last-name" name="email" placeholder="Email Address *">
         <input type="password" class="form-control" name="password" placeholder="Create a Password *">
         <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password *">
         <input type="submit" class="btn btn-lg" name="submit" value="Get Started">

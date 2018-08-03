@@ -4,3 +4,5 @@ Homestead.json
 .env
 **/.DS_Store
 /public/img/profilePics
+
+/app/Http/Controllers/RandNums.php
