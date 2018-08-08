@@ -20,10 +20,31 @@
         color: seagreen;
         cursor: pointer;
     }
+    @media(max-width:767px){
+        #paymentBtns span.dollar {
+            left: 38%;
+        }
+    }
+    @media(max-width:540px){
+        #paymentBtns span.dollar {
+            left: 33%;
+        }
+    }
+    @media(max-width:467px){
+        #paymentBtns span.dollar {
+            left: 28%;
+        }
+    }
+    @media(max-width:425px){
+        .modal-body h3 {
+            width: 70%;
+            margin: 0 auto;
+        }
+    }
 </style>
 
-<div id="paymentBtns" class="paymentBtns inline-block width100">
-    <div class="col-sm-4 fc-grey">
+<div id="paymentBtns" class="paymentBtns inline-block width100 margin-top-20">
+    <div class="col-xs-4 fc-grey">
         <a class="addCredit" data-amount="10">
             <i class="fas fa-money-bill-wave"></i>
             <span class="dollar dollar10">$10</span>
@@ -42,7 +63,7 @@
             <input type="hidden" name=description value="{{Auth::user()->first_name}} {{Auth::user()->last_name}} added $10"/>
         </form>
     </div>
-    <div class="col-sm-4 fc-grey">
+    <div class="col-xs-4 fc-grey">
         <a class="addCredit" data-amount="20">
             <i class="fas fa-money-bill-wave"></i>
             <span class="dollar dollar20">$20</span>
@@ -61,7 +82,7 @@
             <input type="hidden" name=description value="{{Auth::user()->first_name}} {{Auth::user()->last_name}} added $20"/>
         </form>
     </div>
-    <div class="col-sm-4 fc-grey">
+    <div class="col-xs-4 fc-grey">
         <a class="addCredit" data-amount="50">
             <i class="fas fa-money-bill-wave"></i>
             <span class="dollar dollar50">$50</span>

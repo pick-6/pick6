@@ -60,6 +60,7 @@ use Carbon\Carbon;
                                         <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
                                             <?php
                                                 $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
+                                                $gameCancel = $numberOfPicks <= 90 && $gameStarted;
                                             ?>
                                             <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn" style="min-width:85%;">
                                                 @if($gameEnded)
@@ -67,6 +68,8 @@ use Carbon\Carbon;
                                                 @else
                                                     @if ($numberOfPicks < 100 && !$gameStarted)
                                                         {{(in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                                    @elseif($gameCancel)
+                                                        CANCELLED
                                                     @else
                                                         SEE GAME
                                                     @endif
@@ -101,7 +104,7 @@ use Carbon\Carbon;
                                                     <div id="availablePicksLabel">
                                                         <small>
                                                             <i>
-                                                                Game {{$gameEnded ? "Over" : "Started"}}
+                                                                Game {{$gameEnded ? "Over" : $gameCancel ? "Cancelled" : "Started"}}
                                                             </i>
                                                         </small>
                                                     </div>

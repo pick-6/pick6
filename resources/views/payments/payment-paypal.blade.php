@@ -1,4 +1,12 @@
-<div id="paypal-button10"></div>
+<style>
+@media(max-width:425px){
+    .modal-body h3 {
+        width: 70%;
+        margin: 0 auto;
+    }
+}
+</style>
+<div id="paypal-button10" class="margin-top-20"></div>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
 paypal.Button.render({

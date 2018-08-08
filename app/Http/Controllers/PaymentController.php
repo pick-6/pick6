@@ -67,4 +67,20 @@ class PaymentController extends Controller
         $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
         return redirect('/dashboard');
     }
+
+    public function freeCharge(Request $request, $amountToCharge)
+    {
+        // update user's credit
+        $creditAmountAdded = $amountToCharge;
+        $user = User::find(\Auth::id());
+        $userId = $user->id;
+        $getUserCurrentCredit = User::select('credit')->where('id', '=', $userId)->get();
+        $userCurrentCreditAmount = $getUserCurrentCredit[0]['credit'];
+        $updatedCreditAmount = $userCurrentCreditAmount + $creditAmountAdded;
+        $user->credit = $updatedCreditAmount;
+        $user->save();
+
+        $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
+        return redirect('/dashboard');
+    }
 }

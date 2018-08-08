@@ -25,9 +25,10 @@
             </div>
             <div class="modal-body text-center">
                 <div>
-                    <h3 class="fc-grey margin-top-0 margin-bottom-20">Select an amount to add</h3>
+                    <h3 class="fc-grey margin-0-auto">Select an amount to add</h3>
                 </div>
-                @include('payments.payment')
+                @include('payments.payment-free')
+                <!-- @include('payments.payment') -->
                 <!-- @include('payments.payment-paypal') -->
                 <div class="text-right margin-top-20 clear">
                     <button class="btn" data-dismiss="modal">Cancel</button>

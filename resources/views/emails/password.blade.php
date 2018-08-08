@@ -111,7 +111,7 @@
                                                                <tr>
                                                                   <td style="">
                                                                       <div style="margin-left:25px;">
-                                                                          <span style="font-style:italic;font-family: 'Graduate', sans-serif;color:#fed136;font-size:3rem;">PICK<span style="display:none">6</span></span>
+                                                                          <span style="font-style:italic;font-family: 'Graduate','Helvetica Neue',Helvetica,Arial,sans-serif;color:#fed136;font-size:4rem;">PICK<span style="display:none">6</span></span>
                                                                           <img alt="Pick6 | Online Football Squares" height="75" width="75" src="https://pick6.mavdeveloper.com/img/pick6_logo_low.png" style="top: 18px;position: relative;left: -10px;">
                                                                       </div>
                                                                   </td>
@@ -136,15 +136,17 @@
                                                    </tr>
                                                    <tr>
                                                       <td style="word-wrap:break-word;font-size:0px;padding:20px 25px 20px 25px;padding-top:10px;padding-left:25px;" align="center">
-                                                         <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0">
-                                                            <tbody>
-                                                               <tr>
-                                                                  <td style="border:none;border-radius:5px;color:#FFFFFF;cursor:auto;padding:10px 25px;" align="center" valign="middle" bgcolor="#5cb85c">
-                                                                      <a href="{{ url('/password/reset/'.$token) }}" style="text-decoration: none; background: #5cb85c; color: #000; font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 15px; font-weight: bold; line-height: 120%; text-transform: uppercase; margin: 0px;" target="_blank">Reset Password</a>
-                                                                  </td>
-                                                               </tr>
-                                                            </tbody>
-                                                         </table>
+                                                          <a href="{{ url('/password/reset/'.$token) }}" style="text-decoration: none; background: #5cb85c; color: #000; font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 15px; font-weight: bold; line-height: 120%; text-transform: uppercase; margin: 0px;" target="_blank">
+                                                             <table role="presentation" cellpadding="0" cellspacing="0" style="border-collapse:separate;" align="center" border="0">
+                                                                <tbody>
+                                                                   <tr>
+                                                                      <td style="border:none;border-radius:5px;color:#000;cursor:auto;padding:10px 25px;" align="center" valign="middle" bgcolor="#5cb85c">
+                                                                              Reset Password
+                                                                      </td>
+                                                                   </tr>
+                                                                </tbody>
+                                                             </table>
+                                                         </a>
                                                       </td>
                                                    </tr>
                                                    <!-- <tr>

@@ -126,6 +126,7 @@
                             $gameTime = $game->date_for_week . ' ' . $game->time;
                             $gameStarted = $gameTime <= Carbon::now('America/New_York');
                             $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
+                            $gameCancel = $numberOfPicks <= 90 && $gameStarted;
                         ?>
                             <tr>
                                 @if($gameEnded)
@@ -166,6 +167,8 @@
                                          @else
                                              @if ($numberOfPicks < 100 && !$gameStarted)
                                                  {{(in_array("$game->game_id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                             @elseif($gameCancel)
+                                                CANCELLED
                                              @else
                                                  SEE GAME
                                              @endif
@@ -200,7 +203,7 @@
                                             <div id="availablePicksLabel">
                                                 <small>
                                                     <i>
-                                                        Game {{$gameEnded ? "Over" : "Started"}}
+                                                        Game {{$gameEnded ? "Over" : $gameCancel ? "Cancelled" : "Started"}}
                                                     </i>
                                                 </small>
                                             </div>
