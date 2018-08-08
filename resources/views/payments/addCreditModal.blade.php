@@ -28,6 +28,7 @@
                     <h3 class="fc-grey margin-top-0 margin-bottom-20">Select an amount to add</h3>
                 </div>
                 @include('payments.payment')
+                <!-- @include('payments.payment-paypal') -->
                 <div class="text-right margin-top-20 clear">
                     <button class="btn" data-dismiss="modal">Cancel</button>
                 </div>

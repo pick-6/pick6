@@ -159,6 +159,10 @@ class GamesController extends Controller
             $randomNumbers = RandNums::getRandomNumbers($id);
             $data['randomNumbers'] = $randomNumbers;
         }
+
+        $gameCancel = $this->numberOfPicksForGame($id) <= 90 && $gameStarted;
+        $data['gameCancel'] = $gameCancel;
+
         return view('game.showGame')->with($data);
     }
 

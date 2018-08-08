@@ -110,6 +110,7 @@
     // adding Credit
     $('.paymentBtns').find('.addCredit').on('click', function(e){
         $(this).siblings().find('button.stripe-button-el').trigger('click');
+        // $(this).parent().siblings().find('button.stripe-button-el').trigger('click');
     });
 
 

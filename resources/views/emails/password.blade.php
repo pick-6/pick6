@@ -111,7 +111,7 @@
                                                                <tr>
                                                                   <td style="">
                                                                       <div style="margin-left:25px;">
-                                                                          <span style="font-style:italic;font-family: 'Graduate', cursive!important;color:#fed136;font-size:3rem;">PICK</span>
+                                                                          <span style="font-style:italic;font-family: 'Graduate', sans-serif;color:#fed136;font-size:3rem;">PICK<span style="display:none">6</span></span>
                                                                           <img alt="Pick6 | Online Football Squares" height="75" width="75" src="https://pick6.mavdeveloper.com/img/pick6_logo_low.png" style="top: 18px;position: relative;left: -10px;">
                                                                       </div>
                                                                   </td>

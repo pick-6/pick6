@@ -6,13 +6,13 @@
 <footer>
     <div class="container">
         <div class="row">
-            <p class="footer-links">
+            <!-- <p class="footer-links">
                 <a href="/about">About</a>
 
                 <a href="/howtoplay">How To Play</a>
 
                 <a href="/terms">Terms & Conditions</a>
-            </p>
+            </p> -->
             <div class="col-md-12">
                 <span class="copyright">Have Questions or Feedback? Please <a href="/contact" class="underline">Contact Us</a> </span>
             </div>

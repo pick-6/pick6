@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'pick6@noreply.com', 'name' => 'Pick6 | Online Football Squares'],
+    'from' => ['address' => 'pick6@mavdeveloper.com', 'name' => 'Pick6 | Online Football Squares'],
 
     /*
     |--------------------------------------------------------------------------
