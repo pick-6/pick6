@@ -44,9 +44,6 @@
 </style>
 
 <div id="paymentBtns" class="paymentBtns inline-block width100">
-    <div class="fc-yellow italic margin-bottom-10">
-        <small>* Limited Time Only * -- All Credit is Free!</small>
-    </div>
     <div class="col-xs-4 fc-grey">
         <form id="payForm" action="{{action('PaymentController@freeCharge', 10)}}" method="POST">
             {{ csrf_field() }}

@@ -25,6 +25,7 @@ Route::get('/account', 'AccountController@index');
 Route::get('/account/edit', 'AccountController@edit');
 Route::put('/account/update', 'AccountController@update');
 Route::put('/account/updatePassword', 'AccountController@updatePassword');
+Route::post('/account/updateFavTeam/{team}', 'AccountController@updateFavTeam');
 Route::get('/account/changePassword', 'AccountController@editPassword');
 Route::post('/upload', 'AccountController@uploadProfilePic');
 Route::get('/account/{user}', 'AccountController@show');

@@ -37,15 +37,43 @@ use App\User;
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
-                    <!-- <li class="showOnMobile">
-                        <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm margin-top-10" style="font-weight:bold;font-size: 14px;">
+                    <li class="showOnMobile padding-10">
+                        <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm" style="font-weight:bold;font-size: 14px;">
                             <i class="fas fa-dollar-sign"></i> Add Credit
                         </a>
-                    </li> -->
-                    <li class="showOnMobile"><a href="/dashboard">Dashboard</a></li>
-                    <li class="showOnMobile"><a href="/account">My Profile</a></li>
-                    <li class="showOnMobile"><a href="/play">View Games</a></li>
-                    <li class="showOnMobile"><a href="{{action('Auth\AuthController@getLogout')}}" class="fc-yellow">Log Out</a></li>
+                    </li>
+                    <li class="showOnMobile">
+                        <a href="/dashboard">
+                            <span class="inline-block" style="min-width:25px;font-size:1.25em;">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="showOnMobile">
+                        <a href="/account">
+                            <span class="inline-block" style="min-width:25px;font-size:1.25em;">
+                                <i class="fas fa-user-circle"></i>
+                            </span>
+                            My Profile
+                        </a>
+                    </li>
+                    <li class="showOnMobile">
+                        <a href="/play">
+                            <span class="inline-block" style="min-width:25px;font-size:1.25em;">
+                                <i class="fas fa-football-ball"></i>
+                            </span>
+                            View Games
+                        </a>
+                    </li>
+                    <li class="showOnMobile">
+                        <a href="{{action('Auth\AuthController@getLogout')}}" class="fc-yellow">
+                            <span class="inline-block" style="min-width:25px;font-size:1.25em;">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </span>
+                            Log Out
+                        </a>
+                    </li>
 
                     <!-- User Account Dropdown -->
                     <li class="dropdown userAccount hideOnMobile">
@@ -58,9 +86,9 @@ use App\User;
                     <!-- End of User Account Dropdown -->
                 @else
                     <!-- <li><a href="/about">About</a></li>
-                    <li><a href="/howtoplay">How To Play</a></li>
+                    <li><a href="/howtoplay">How To Play</a></li>-->
                     <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/" class="fc-yellow">Signup / Login</a></li> -->
+                    <li><a href="/" class="fc-yellow">Signup / Login</a></li>
                 @endif
             </ul>
         </div>

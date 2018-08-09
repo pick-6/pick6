@@ -45,6 +45,26 @@ class AccountController extends Controller
         }
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = true;
+
+        $totalWinnings = Winnings::select(DB::raw('sum(winning_total) AS winnings'))->where('winning_user', '=', Auth::id())->get();
+        $data['totalWinnings'] = str_replace(".00","",money_format('$%i', $totalWinnings[0]['winnings']));
+        $hasWinnings = $totalWinnings[0]['winnings'] > 0;
+        $data['hasWinnings'] = $hasWinnings;
+
+        $favoriteTeam = User::select(DB::raw('users.fav_team, teams.*'))
+        ->join('teams', 'teams.id', '=', 'users.fav_team')
+        ->where('users.id', '=', Auth::id())
+        ->get();
+        $data['favoriteTeam'] = $favoriteTeam;
+        $hasFavTeam = count($favoriteTeam) > 0;
+        $data['hasFavTeam'] = $hasFavTeam;
+
+        $allTeams = DB::table('teams')
+        ->where('teams.id', '!=', 33)
+        ->where('teams.id', '!=', 34)
+        ->get();
+        $data['allTeams'] = $allTeams;
+
         return view('account.account')->with($data);
     }
 
@@ -94,6 +114,25 @@ class AccountController extends Controller
         }
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = $isLoggedInUser;
+
+        $totalWinnings = Winnings::select(DB::raw('sum(winning_total) AS winnings'))->where('winning_user', '=', $id)->get();
+        $data['totalWinnings'] = str_replace(".00","",money_format('$%i', $totalWinnings[0]['winnings']));
+        $hasWinnings = $totalWinnings[0]['winnings'] > 0;
+        $data['hasWinnings'] = $hasWinnings;
+
+        $favoriteTeam = User::select(DB::raw('users.fav_team, teams.*'))
+        ->join('teams', 'teams.id', '=', 'users.fav_team')
+        ->where('users.id', '=', $id)
+        ->get();
+        $data['favoriteTeam'] = $favoriteTeam;
+        $hasFavTeam = count($favoriteTeam) > 0;
+        $data['hasFavTeam'] = $hasFavTeam;
+
+        $allTeams = DB::table('teams')
+        ->where('teams.id', '!=', 33)
+        ->where('teams.id', '!=', 34)
+        ->get();
+        $data['allTeams'] = $allTeams;
 
         return view('account.account')->with($data);
     }
@@ -159,6 +198,18 @@ class AccountController extends Controller
             $user->save();
         }
         $request->session()->flash('successMessage', 'Profile Image updated successfully!');
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function updateFavTeam(Request $request)
+    {
+        $team = $request->favTeam;
+
+        $user = User::find(\Auth::id());
+        $user->fav_team = $team;
+        $user->save();
+        $request->session()->flash('successMessage', 'Favorite Team updated successfully!');
 
         return redirect($_SERVER['HTTP_REFERER']);
     }

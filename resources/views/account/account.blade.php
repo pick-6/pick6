@@ -43,24 +43,7 @@
                     </a>
                 @endif
             </div>
-            <!-- <div class="text-left">
-                <div class="margin-top-5">
-                    <div class="fc-yellow inline-block">Winnings:</div>
-                    <div class="fc-grey inline-block">$3,000</div>
-                </div>
-                <div class="margin-top-5">
-                    <div class="fc-yellow inline-block">Favorite Team:</div>
-                    <div class="fc-grey inline-block">Dallas Cowboys</div>
-                </div>
-                <div class="margin-top-5">
-                    <div class="fc-yellow inline-block" style="width:35px;vertical-align:top">Bio:</div>
-                    <div class="fc-grey overflow-auto inline-block" style="height:84px;width:calc(100% - 40px);">
-                        This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
-                        This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
-                        This a bio about me. This a bio about me.
-                    </div>
-                </div>
-            </div> -->
+            @include('account.additionalInfo')
         </div>
         @if($isLoggedInUser)
             <div>

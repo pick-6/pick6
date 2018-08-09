@@ -24,12 +24,13 @@
                 <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>
             </div>
             <div class="modal-body text-center">
+                <div class="fc-yellow italic margin-bottom-10">
+                    <small>* Limited Time Only * -- All Credit is Free!</small>
+                </div>
                 <div>
-                    <h3 class="fc-grey margin-0-auto">Select an amount to add</h3>
+                    <h3 class="fc-grey margin-0-auto margin-bottom-15">Select an amount to add</h3>
                 </div>
                 @include('payments.payment-free')
-                <!-- @include('payments.payment') -->
-                <!-- @include('payments.payment-paypal') -->
                 <div class="text-right margin-top-20 clear">
                     <button class="btn" data-dismiss="modal">Cancel</button>
                 </div>

@@ -334,6 +334,9 @@ textarea.form-control:focus::placeholder {
     .clear {
         clear: both;
     }
+    .width20 {
+        width: 20%!important;
+    }
     .width25 {
         width: 25%!important;
     }
@@ -1585,3 +1588,44 @@ font-size: 22px;
     }
 }
 /************ END OF ACCOUNT PAGE *************/
+
+
+/************ CHOOSE FAVORITE TEAM MODAL *************/
+#chooseFavTeamModal .modal-dialog {
+    transform: translateY(10vh);
+    max-width: 500px;
+    width: auto;
+    margin: 0 auto;
+}
+#chooseFavTeamModal .modal-content {
+    background-color:#222;
+}
+#chooseFavTeamModal .modal-body {
+    padding-top: 0px;
+}
+#chooseFavTeamModal .closeModalBtnContainer {
+    height: 20px;
+}
+#chooseFavTeamModal .closeModalBtn {
+    padding: 0 5px;
+}
+#chooseFavTeamModal #no-more-tables {
+    height:calc(100% - 40px);
+    overflow:auto;
+}
+@media(max-width:439px){
+    #chooseFavTeamModal #no-more-tables {
+        height:calc(100% - 70px);
+    }
+}
+#chooseFavTeamModal a {
+    text-decoration: none;
+}
+#chooseFavTeamModal .teamsList {
+    height: 550px;
+}
+#chooseFavTeamModal #no-more-tables td:hover {
+    background: #111;
+    cursor: pointer;
+}
+/************ END OF CHOOSE FAVORITE TEAM MODAL *************/

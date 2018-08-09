@@ -170,4 +170,14 @@
             $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet');
         }
     });
+
+
+    // Add Favorite Team
+    $("#chooseFavTeamModal .teamsList td").on('click', function(){
+        var team = $(this).data("id");
+        var form = $("#chooseFavTeamModal #addFavTeamForm");
+        form.append("<input type='hidden' name='favTeam' value='"+team+"'/>");
+        form.submit();
+    });
+    
 })();
