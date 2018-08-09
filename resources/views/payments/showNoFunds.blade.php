@@ -9,7 +9,8 @@
             <div class="modal-body text-center">
                 <div>
                     <h3 class="fc-grey margin-top-0 margin-bottom-20">Would you like to add more?</h3>
-                    @include('payments.payment')
+                    <!-- @include('payments.payment') -->
+                    @include('payments.payment-free')
                     <div class="text-right margin-top-20 clear">
                         <button class="btn" data-dismiss="modal">No, thanks</button>
                     </div>
