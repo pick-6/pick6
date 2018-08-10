@@ -67,10 +67,10 @@ use App\User;
             </div>
 
             @include('game.deletePickModal')
-        @elseif($gameCancel)
-            @include('game.gameCancel')
-        @else <!-- Show past game results -->
+        @elseif($gameOver)
             @include('game.pastGameResults')
+        @else <!-- Show past game results -->
+            @include('game.gameCancel')
         @endif
 
         @include('game.gameDetailsModal')
