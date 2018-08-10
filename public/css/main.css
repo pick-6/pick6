@@ -322,6 +322,9 @@ textarea.form-control:focus::placeholder {
     .top {
         vertical-align: top!important;
     }
+    .bottom {
+        vertical-align: bottom!important;
+    }
     .inline-block {
         display: inline-block!important;
     }
