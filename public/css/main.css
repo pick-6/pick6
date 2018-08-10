@@ -376,7 +376,7 @@ textarea.form-control:focus::placeholder {
     }
     .showUserName {
         text-overflow: ellipsis!important;
-        width: 50px!important;
+        max-width: 50px!important;
         white-space: nowrap!important;
         margin: 0 auto;
         overflow: hidden!important;

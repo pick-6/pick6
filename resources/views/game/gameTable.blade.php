@@ -1,16 +1,16 @@
 <table class="table table-bordered margin-bottom-0">
     <colgroup>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
-        <col style="width:75px"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
+        <col style="width:9%"/>
     </colgroup>
     <tr>
         <th class="gameTableHeader">
@@ -35,12 +35,12 @@
                         @if($user->square_selection == $column.$row)
                             <td class="notAvailable text-center middle padding-0" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" data-title="{{$user->username}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
                                 @if($user->id != Auth::id())
-                                    <div class='showUserContainer'>
-                                        <div class='showUserBG'></div>
-                                        <a href="{{action('AccountController@show', [$user->id])}}" title="View {{$user->username}}'s Profile" style="cursor:pointer">
-                                            <small><span class='showUserName margin-top-10 inline-block'></span></small>
-                                        </a>
-                                    </div>
+                                    <a href="{{action('AccountController@show', [$user->id])}}" title="View {{$user->username}}'s Profile" style="cursor:pointer">
+                                        <div class='showUserContainer'>
+                                            <div class='showUserBG'></div>
+                                                <small class="hideOnMobile"><span class='showUserName margin-top-10 inline-block'></span></small>
+                                        </div>
+                                    </a>
                                 @endif
                             </td>
                         @endif
