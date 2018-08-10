@@ -110,11 +110,11 @@
                                     @else
                                         <div class="width25 absolute">
                                             <div id="availablePicks">
-                                                <div id="availablePicksBar" style="width: 100%; background-color: crimson"></div>
+                                                <div id="availablePicksBar" style="width: 100%; background-color: {{$gameEnded ? '#181818' : ($gameCancel ? 'crimson' : '#2A68A4') }};"></div>
                                             </div>
                                             <div id="availablePicksLabel">
                                                 <small>
-                                                    <i>
+                                                    <i style="color: {{$gameEnded ? 'grey' : '#fff'}};">
                                                         Game
                                                         @if($gameEnded)
                                                             Over
@@ -122,7 +122,7 @@
                                                             Cancelled
                                                         @else
                                                             Started
-                                                        @endif                                                        
+                                                        @endif
                                                     </i>
                                                 </small>
                                             </div>
