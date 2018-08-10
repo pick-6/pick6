@@ -104,7 +104,14 @@ use Carbon\Carbon;
                                                     <div id="availablePicksLabel">
                                                         <small>
                                                             <i>
-                                                                Game {{$gameEnded ? "Over" : $gameCancel ? "Cancelled" : "Started"}}
+                                                                Game
+                                                                @if($gameEnded)
+                                                                    Over
+                                                                @elseif ($gameCancel)
+                                                                    Cancelled
+                                                                @else
+                                                                    Started
+                                                                @endif 
                                                             </i>
                                                         </small>
                                                     </div>
