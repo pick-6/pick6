@@ -48,6 +48,9 @@ class GamesController extends Controller
         }
         $data['playingIn'] = $playingIn;
 
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
+
         return view('game.playGame')->with($data);
     }
 
@@ -161,11 +164,17 @@ class GamesController extends Controller
             $data['randomNumbers'] = $randomNumbers;
         }
 
-        $gameCancel = $this->numberOfPicksForGame($id) <= 90 && $gameStarted;
+        $numberOfPicks = $this->numberOfPicksForGame($id);
+        $data['numberOfPicks'] = $numberOfPicks;
+
+        $gameCancel = $numberOfPicks < $this->minGamePicks && $gameStarted;
         $data['gameCancel'] = $gameCancel;
         if ($gameCancel) {
             SelectionsController::gameCancelled($id);
         }
+
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
 
         return view('game.showGame')->with($data);
     }

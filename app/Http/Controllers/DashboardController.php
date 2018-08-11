@@ -141,6 +141,9 @@ class DashboardController extends Controller
         $isPostSeason = $this->isPostSeason;
         $data['isPostSeason'] = $isPostSeason;
 
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
+
         // Games for the Week
         $gamesForWeek = $this->getGamesForWeek($currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;

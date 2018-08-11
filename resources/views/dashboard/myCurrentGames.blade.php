@@ -40,7 +40,7 @@
                                 $gameStarted = $gameTime <= Carbon::now('America/New_York');
                                 $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
                                 $numberOfPicks = GamesController::numberOfPicksForGame($game->game_id);
-                                $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                                $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
                                 if ($gameCancel) {
                                     SelectionsController::gameCancelled($game->game_id);
                                 }

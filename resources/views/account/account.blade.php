@@ -115,7 +115,7 @@
                             $gameTime = $game->date_for_week . ' ' . $game->time;
                             $gameStarted = $gameTime <= Carbon::now('America/New_York');
                             $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
-                            $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                            $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
                             if ($gameCancel) {
                                 SelectionsController::gameCancelled($game->game_id);
                             }

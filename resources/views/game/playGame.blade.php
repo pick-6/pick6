@@ -23,12 +23,12 @@ use Carbon\Carbon;
                             <?php
                                 $gameTime = $game->date_for_week . ' ' . $game->time;
                                 $gameStarted = $gameTime <= Carbon::now('America/New_York');
-                                $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
+                                $gameOver = !is_null($game->home_score) || !is_null($game->away_score);
                             ?>
                             @if ($date->week == $currentWeek)
                                 @if ($date->date_for_week == $game->date_for_week)
                                     <tr>
-                                        @if($gameEnded)
+                                        @if($gameOver)
                                             <td class="fs-18 fc-yellow" style="padding:5px;text-align:center;">
                                                 FINAL
                                             </td>
@@ -43,17 +43,17 @@ use Carbon\Carbon;
                                             </td>
                                         @endif
                                         <td class="gameTeams text-left padding-10">
-                                            <a class="{{$gameEnded ? 'fs-30' : 'fs-16'}}" href="{{action('GamesController@show', [$game->id])}}">
+                                            <a class="{{$gameOver ? 'fs-30' : 'fs-16'}}" href="{{action('GamesController@show', [$game->id])}}">
                                                 <div class="pull-left width50 homeTeam">
                                                     <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
-                                                    <div class="text-left middle {{$gameEnded ? '' : 'width60'}} inline-flex">
-                                                        {{$gameEnded ? $game->home_score : $game->home}}
+                                                    <div class="text-left middle {{$gameOver ? '' : 'width60'}} inline-flex">
+                                                        {{$gameOver ? $game->home_score : $game->home}}
                                                     </div>
                                                 </div>
                                                 <div class="pull-right width50">
                                                     <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
-                                                    <div class="text-left middle {{$gameEnded ? '' : 'width60'}} inline-flex">
-                                                        {{$gameEnded ? $game->away_score : $game->away}}
+                                                    <div class="text-left middle {{$gameOver ? '' : 'width60'}} inline-flex">
+                                                        {{$gameOver ? $game->away_score : $game->away}}
                                                     </div>
                                                 </div>
                                             </a>
@@ -61,13 +61,13 @@ use Carbon\Carbon;
                                         <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
                                             <?php
                                                 $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
-                                                $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                                                $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
                                                 if ($gameCancel) {
                                                     SelectionsController::gameCancelled($game->id);
                                                 }
                                             ?>
                                             <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn" style="min-width:85%;">
-                                                @if($gameEnded)
+                                                @if($gameOver)
                                                     SEE RESULTS
                                                 @else
                                                     @if ($numberOfPicks < 100 && !$gameStarted)
@@ -79,7 +79,7 @@ use Carbon\Carbon;
                                                     @endif
                                                 @endif
                                             </a>
-                                            @if(!$gameStarted && !$gameEnded)
+                                            @if(!$gameStarted && !$gameOver)
                                                 <div class="absolute width25">
                                                     <div id="availablePicks">
                                                         <div id="availablePicksBar" style="width: {{($numberOfPicks<92)?(100-$numberOfPicks):(($numberOfPicks >= 92 && $numberOfPicks < 100)?8:100)}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
@@ -103,13 +103,13 @@ use Carbon\Carbon;
                                             @else
                                                 <div class="absolute width25">
                                                     <div id="availablePicks">
-                                                        <div id="availablePicksBar" style="width: 100%; background-color: {{$gameEnded ? '#181818' : ($gameCancel ? 'crimson' : '#2A68A4') }};"></div>
+                                                        <div id="availablePicksBar" style="width: 100%; background-color: {{$gameOver ? '#181818' : ($gameCancel ? 'crimson' : '#2A68A4') }};"></div>
                                                     </div>
                                                     <div id="availablePicksLabel">
                                                         <small>
-                                                            <i style="color: {{$gameEnded ? 'grey' : '#fff'}};">
+                                                            <i style="color: {{$gameOver ? 'grey' : '#fff'}};">
                                                                 Game
-                                                                @if($gameEnded)
+                                                                @if($gameOver)
                                                                     Over
                                                                 @elseif ($gameCancel)
                                                                     Cancelled

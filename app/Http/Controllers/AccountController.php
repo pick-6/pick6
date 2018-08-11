@@ -65,6 +65,9 @@ class AccountController extends Controller
         ->get();
         $data['allTeams'] = $allTeams;
 
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
+
         return view('account.account')->with($data);
     }
 
@@ -129,10 +132,13 @@ class AccountController extends Controller
         $data['hasFavTeam'] = $hasFavTeam;
 
         $allTeams = DB::table('teams')
-        ->where('teams.id', '!=', 33)
-        ->where('teams.id', '!=', 34)
+        ->where('teams.id', '!=', 33) // NFC
+        ->where('teams.id', '!=', 34) // AFC
         ->get();
         $data['allTeams'] = $allTeams;
+
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
 
         return view('account.account')->with($data);
     }

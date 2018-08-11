@@ -23,5 +23,7 @@ abstract class Controller extends BaseController
         $this->isPreSeason = $this->season_type == 1;
         $this->isRegularSeason = $this->season_type == 2;
         $this->isPostSeason = $this->season_type == 3;
+
+        $this->minGamePicks = 90;
     }
 }

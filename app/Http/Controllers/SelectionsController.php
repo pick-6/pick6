@@ -126,6 +126,6 @@ class SelectionsController extends Controller
             $user->save();
         }
 
-        return redirect($_SERVER['HTTP_REFERER']);
+        return;
     }
 }

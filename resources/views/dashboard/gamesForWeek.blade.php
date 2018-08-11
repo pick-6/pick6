@@ -72,7 +72,7 @@
                                 <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
                                     <?php
                                         $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
-                                        $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                                        $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
                                         if ($gameCancel) {
                                             SelectionsController::gameCancelled($game->id);
                                         }
