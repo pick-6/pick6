@@ -57,7 +57,7 @@ use App\User;
             <!-- CHOOSE ANOTHER GAME -->
             <div class="text-center clear" style="padding-top: 30px;">
                 <button href="#chooseAnotherGame" data-toggle="modal" class="btn btn-lg gameBtn">Join Another Game</button>
-                @include('game.chooseAnotherGameModal')
+                @include('game.modals.chooseAnotherGameModal')
             </div>
 
             <!-- NO FUNDS MODAL BUTTON (HIDDEN) -->
@@ -66,15 +66,15 @@ use App\User;
                 @include('payments.showNoFunds')
             </div>
 
-            @include('game.deletePickModal')
+            @include('game.modals.deletePickModal')
         @elseif($gameOver)
             @include('game.pastGameResults')
         @else <!-- Show past game results -->
             @include('game.gameCancel')
         @endif
 
-        @include('game.gameDetailsModal')
-        @include('game.gameStartedModal')
+        @include('game.modals.gameDetailsModal')
+        @include('game.modals.gameStartedModal')
     </div>
 
     <script src="/vendor/jquery/jquery.min.js"></script>

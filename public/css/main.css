@@ -1632,3 +1632,25 @@ font-size: 22px;
     cursor: pointer;
 }
 /************ END OF CHOOSE FAVORITE TEAM MODAL *************/
+
+
+/************ GAME TABLE MODAL *************/
+#gameTableModal .modal-dialog {
+    transform: translateY(10vh);
+    max-width: 750px;
+    width: auto;
+    margin: 0 auto;
+}
+#gameTableModal .modal-content {
+    background-color:#222;
+}
+#gameTableModal .modal-body {
+    padding-top: 0px;
+}
+#gameTableModal .closeModalBtnContainer {
+    height: 30px;
+}
+#gameTableModal .closeModalBtn {
+    padding: 0 5px;
+}
+/************ END OF GAME TABLE MODAL *************/

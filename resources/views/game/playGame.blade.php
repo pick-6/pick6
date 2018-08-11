@@ -1,5 +1,6 @@
 <?php
 use \App\Http\Controllers\GamesController;
+use \App\Http\Controllers\SelectionsController;
 use Carbon\Carbon;
 ?>
 
@@ -61,6 +62,9 @@ use Carbon\Carbon;
                                             <?php
                                                 $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
                                                 $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                                                if ($gameCancel) {
+                                                    SelectionsController::gameCancelled($game->id);
+                                                }
                                             ?>
                                             <a href="{{action('GamesController@show', [$game->id])}}" class="btn playGameBtn" style="min-width:85%;">
                                                 @if($gameEnded)

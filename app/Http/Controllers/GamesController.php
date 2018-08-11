@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use \App\Http\Controllers\RandNums;
+use \App\Http\Controllers\SelectionsController;
 use App\Models\Games;
 use App\Models\Teams;
 use App\Models\Selections;
@@ -162,6 +163,9 @@ class GamesController extends Controller
 
         $gameCancel = $this->numberOfPicksForGame($id) <= 90 && $gameStarted;
         $data['gameCancel'] = $gameCancel;
+        if ($gameCancel) {
+            SelectionsController::gameCancelled($id);
+        }
 
         return view('game.showGame')->with($data);
     }

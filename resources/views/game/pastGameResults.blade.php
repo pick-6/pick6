@@ -29,7 +29,7 @@
     </h2>
 </div>
 
-@if($hasWinnings)
+@if($hasWinnings && !$gameCancel)
     <!-- Winning User -->
     <div class="text-center">
         @if($hasWinningUser)
@@ -63,5 +63,11 @@
                 A Total of <span class="fc-yellow">{{$total}}</span> goes to the house.
             </h2>
         @endif
+    </div>
+
+    <!-- See Table Button -->
+    <div class="text-center clear" style="padding-top: 30px;">
+        <button href="#gameTableModal" data-toggle="modal" class="btn btn-lg gameBtn" style="min-width:175px;">See Table</button>
+        @include('game.modals.gameTableModal')
     </div>
 @endif

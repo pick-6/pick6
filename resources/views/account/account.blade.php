@@ -1,5 +1,6 @@
 <?php
     use \App\Http\Controllers\GamesController;
+    use \App\Http\Controllers\SelectionsController;
     use Carbon\Carbon;
 ?>
 @extends('layouts.master')
@@ -110,6 +111,9 @@
                             $gameStarted = $gameTime <= Carbon::now('America/New_York');
                             $gameEnded = !is_null($game->home_score) || !is_null($game->away_score);
                             $gameCancel = $numberOfPicks <= 90 && $gameStarted;
+                            if ($gameCancel) {
+                                SelectionsController::gameCancelled($game->game_id);
+                            }
                         ?>
                             <tr>
                                 @if($gameEnded)

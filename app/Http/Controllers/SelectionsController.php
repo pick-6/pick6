@@ -102,4 +102,30 @@ class SelectionsController extends Controller
         return redirect()->action('GamesController@show', $gameId);
 
     }
+
+    public static function gameCancelled($gameId)
+    {
+        $selections = Selections::select('selections.id', 'selections.user_id', 'games.pick_cost')
+        ->join('games', 'games.id', '=', 'selections.id')
+        ->where('selections.game_id', '=', $gameId)
+        ->get();
+
+        foreach ($selections as $selection) {
+            $id = $selection['id'];
+            $userId = $selection['user_id'];
+            $cost = $selection['pick_cost'];
+
+            $selection->delete();
+
+            $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+            $userCredit = $getUserCredit[0]['credit'];
+            $updatedCreditAmount = $userCredit + $cost;
+
+            $user = User::find($userId);
+            $user->credit = $updatedCreditAmount;
+            $user->save();
+        }
+
+        return redirect($_SERVER['HTTP_REFERER']);
+    }
 }
