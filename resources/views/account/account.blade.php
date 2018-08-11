@@ -14,6 +14,11 @@
     <section id="accountInfo" class="padding-0 col-md-3">
         <div class="padding-10">
             <div class="margin-bottom-10 fc-yellow">
+                @if(Auth::user()->email == 'mattvaldez01@gmail.com')
+                    <p class="fc-red margin-0">
+                        User Id: {{$id}}
+                    </p>
+                @endif
                 <h3 class="margin-0 ellipsis" style="white-space: normal;">
                     {{$first_name}}
                     {{$last_name}}
