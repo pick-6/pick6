@@ -37,7 +37,7 @@
     }
     @media(max-width:425px){
         .modal-body h3 {
-            width: 70%;
+            width: 75%;
             margin: 0 auto;
         }
     }

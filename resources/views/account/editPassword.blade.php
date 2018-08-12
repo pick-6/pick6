@@ -18,20 +18,25 @@
     section#contact.editPassword .form-group {
         margin: 0!important;
     }
+    @media(max-width:767px){
+        section#contact .section-heading {
+            font-size: 25px;
+        }
+    }
 </style>
 
-<section id="contact" class="editPassword" style="background: none;padding: 40px 20px 20px 20px;text-align: left;">
+<section id="contact" class="editPassword" style="background: none;padding: 0px;text-align: left;">
     <div id="container">
-        <div class="row">
+        <div class="">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">Change Password</h2>
+                <h2 class="section-heading margin-0">Change Password</h2>
             </div>
         </div>
-        <div class="row">
+        <div class="">
             <div class="col-lg-12">
                 <form method="POST" action="{{action('AccountController@updatePassword')}}">
                     {!! csrf_field() !!}
-                    <div class="row">
+                    <div class="">
                         <div class="form-group">
                             <label class="fc-grey">New Password</label>
                             <input type="password" name="password" class="form-control">

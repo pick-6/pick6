@@ -6,8 +6,8 @@
 <ul class="dropdown-menu accountDropdown">
     <li>
         <div class="navbar-content">
-            <div class="row margin-bottom-15">
-                <div class="col-sm-5 padding-r-5">
+            <div class="row margin-bottom-10">
+                <div class="col-sm-5" style="padding:10px!important;">
                     <div class="margin-0-auto showAvatarContainer smallGreyBorder">
                         <form enctype="multipart/form-data" action="{{action('AccountController@uploadProfilePic')}}" method="POST">
                             <input type="file" name="avatar" id="chooseProfilePic" class="hidden">
@@ -24,7 +24,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-sm-7" style="padding:10px!important;">
                     <div class="fc-yellow" title="{{Auth::user()->full_name}}">
                         <span class="ellipsis inline-block pull-left" style="width:unset;max-width: calc(100% - 22px)!important;">{{Auth::user()->full_name}}</span>
                         <a class="editAccount inline-block top pull-left" href="{{action('AccountController@edit')}}"><i class="fa fa-edit margin-left-5"></i></a>
@@ -39,10 +39,10 @@
         <div class="navbar-footer">
             <div class="navbar-footer-content">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding:10px!important;">
                         <a href="{{action('AccountController@editPassword')}}" class="closeDrop btn btn-default btn-sm">Change Password</a>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" style="padding:10px!important;">
                         <a href="{{action('Auth\AuthController@getLogout')}}" class="closeDrop btn btn-default btn-sm pull-right">Log Out</a>
                     </div>
                 </div>

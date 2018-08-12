@@ -7,15 +7,12 @@
 ?>
 
 <div class="fc-grey hideOnMobile" style="position: absolute;left:40%;top:25px;">
-    <div class="col-sm-8" style="padding:20px;margin-top:-15px">
-        Credit Balance:
-        <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
-            {{$creditAmount}}
-        </span>
-    </div>
-    <div class="col-sm-4" style="padding:0px;">
-        <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm">
-            <i class="fas fa-dollar-sign"></i> Add Credit
-        </a>
-    </div>
+    Credit Balance:
+    <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
+        {{$creditAmount}}
+    </span>
+    
+    <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm" style="margin-left:20px">
+        <i class="fas fa-dollar-sign"></i> Add Credit
+    </a>
 </div>

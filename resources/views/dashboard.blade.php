@@ -3,38 +3,34 @@
 <!-- Dashboard -->
 <div class="dashboard text-center">
     @include('dashboard.dropDown')
-    <div class="row">
-        <!-- Games For The Week -->
-        <div class="col-md-7">
-            <div class="dashboardSection gamesForWeek">
-                @include('dashboard.gamesForWeek')
-            </div>
-        </div>
-        <!-- My Current Games -->
-        <div class="col-md-5 hideOnTablet">
-            <div class="dashboardSection myCurrentGames">
-                @include('dashboard.myCurrentGames')
-            </div>
+    <!-- Games For The Week -->
+    <div class="col-md-7">
+        <div class="dashboardSection gamesForWeek">
+            @include('dashboard.gamesForWeek')
         </div>
     </div>
-    <div class="row padding-t-30">
-        <!-- Last Week's Results -->
-        <div class="col-md-4 hideOnTablet">
-            <div class="dashboardSection lastWeekResults">
-                @include('dashboard.lastWeekResults')
-            </div>
+    <!-- My Current Games -->
+    <div class="col-md-5 hideOnTablet">
+        <div class="dashboardSection myCurrentGames">
+            @include('dashboard.myCurrentGames')
         </div>
-        <!-- Leaderboard -->
-        <div class="col-md-4 hideOnTablet">
-            <div class="dashboardSection leaderboard">
-                @include('dashboard.leaderboard')
-            </div>
+    </div>
+    <!-- Last Week's Results -->
+    <div class="col-md-4 hideOnTablet">
+        <div class="dashboardSection lastWeekResults">
+            @include('dashboard.lastWeekResults')
         </div>
-        <!-- Next Week's Games -->
-        <div class="col-md-4 hideOnTablet">
-            <div class="dashboardSection nextWeekGames">
-                @include('dashboard.nextWeekGames')
-            </div>
+    </div>
+    <!-- Leaderboard -->
+    <div class="col-md-4 hideOnTablet">
+        <div class="dashboardSection leaderboard">
+            @include('dashboard.leaderboard')
+        </div>
+    </div>
+    <!-- Next Week's Games -->
+    <div class="col-md-4 hideOnTablet">
+        <div class="dashboardSection nextWeekGames">
+            @include('dashboard.nextWeekGames')
         </div>
     </div>
 </div>

@@ -97,11 +97,10 @@ class GamesController extends Controller
             $hasWinnings = boolval(count($gameWinnings) < 1) ? false : true;
             $data['hasWinnings'] = $hasWinnings;
 
+            $winningSelection = Games::getWinningScore($id);
+            $data['winningSelection'] = $winningSelection;
 
             if ($hasWinnings) {
-                $winningSelection = $gameWinnings[0]['winning_selection'];
-                $data['winningSelection'] = $winningSelection;
-
                 $winningUser = Winnings::select(DB::raw('winning_user, users.*'))->join('users', 'winning_user', '=', 'users.id')->where('game_id', '=', $id)->get();
                 $data['winningUser'] = $winningUser;
 

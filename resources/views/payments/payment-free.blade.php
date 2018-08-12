@@ -3,9 +3,14 @@
         font-size: 25px;
         color: #fff;
         position: absolute;
-        top: 12px;
+        top: 20px;
         font-weight: bold;
         left: 70px;
+    }
+    @media(max-width:991px){
+        #paymentBtns span.dollar {
+            top: 16px;
+        }
     }
     #paymentBtns button.stripe-button-el {
         display: none;
@@ -37,7 +42,7 @@
     }
     @media(max-width:425px){
         .modal-body h3 {
-            width: 70%;
+            width: 75%;
             margin: 0 auto;
         }
     }

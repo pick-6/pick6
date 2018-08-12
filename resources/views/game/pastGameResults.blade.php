@@ -37,6 +37,9 @@
         @endif
     </div>
 
+@endif
+
+@if(!$gameCancel)
     <!-- See Table Button -->
     <div class="text-center clear" style="padding-top: 15px;">
         <button href="#gameTableModal" data-toggle="modal" class="btn btn-lg gameBtn" style="min-width:175px;">See Table</button>
