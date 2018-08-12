@@ -20,7 +20,7 @@
     </h2>
 </div>
 
-@if($hasWinnings && $gameCancel)
+@if($hasWinnings && !$gameCancel)
     <!-- Winning User -->
     <div class="text-center">
         @if($hasWinningUser)
