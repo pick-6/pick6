@@ -30,10 +30,14 @@
             <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['away'][$row]: '?'}}<!-- {{$row}} --></th>
             <!-- Creates all 100 squares on the table -->
             @for ($column = 0; $column < 10; $column++)
+                <?php
+                    $winningSelectionId = $gameStarted == 'true' ? $randomNumbers['home'][$column].$randomNumbers['away'][$row] : '?';
+                    $isWinningSquare = $gameOver == 'true' ? ($winningSelection == $winningSelectionId) : '';
+                ?>
                 @if (in_array("$column$row", $thisGameSelections))
                     @foreach($squaresSelected as $user)
                         @if($user->square_selection == $column.$row)
-                            <td class="notAvailable text-center middle padding-0" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" data-title="{{$user->username}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
+                            <td class="notAvailable text-center middle padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" data-title="{{$user->username}}" data-winning-id="{{$winningSelectionId}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
                                 @if($user->id != Auth::id())
                                     <a href="{{action('AccountController@show', [$user->id])}}" title="View {{$user->username}}'s Profile" style="cursor:pointer">
                                         <div class='showUserContainer'>
@@ -46,7 +50,7 @@
                         @endif
                     @endforeach
                 @else
-                    <td class="middle availableSquare text-center padding-0" data-id="{{$column}}{{$row}}"><i class="fc-green fas"></i></td>
+                    <td class="middle availableSquare text-center padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-winning-id="{{$winningSelectionId}}"><i class="fc-green fas"></i></td>
                 @endif
             @endfor
         </tr>

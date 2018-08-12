@@ -1,32 +1,24 @@
-<?php
-use App\User;
-?>
 @extends('layouts.master')
 @section('content')
     <div id="picksTable" class="picksTable">
         @if (!$gameOver && !$gameCancel) <!-- Show game table for current/future games -->
             <!-- CREDIT BALANCE -->
-            <?php
-                $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
-                $credit = $creditForUser[0]['credit'];
-                $creditAmount = money_format('$%i', $credit);
-            ?>
             <div class="col-xs-12 text-center fc-grey showOnMobile">
                 <h3 class="margin-top-0 margin-bottom-20">Credit Balance: <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span></h3>
             </div>
 
             <!-- HOME TEAM NAME -->
             <div class="col-sm-12 homeTeamName">
-                <h1 class="text-center margin-top-0 fc-white margin-bottom-0">{{$thisGame[0]['home']}}
-                    <img src="/img/team_logos/{{$thisGame[0]['home_logo']}}" width="40" height="35">
+                <h1 class="text-center margin-top-0 fc-white margin-bottom-0">{{$homeTeam}}
+                    <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
                 </h1>
                 <div class="text-center homeTeamTop fc-white margin-bottom-5">(Top of the table)</div>
             </div>
 
             <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
             <div class="col-md-2">
-                <h1 class="text-center awayTeamNameDesktop">{{$thisGame[0]['away']}}
-                    <img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35">
+                <h1 class="text-center awayTeamNameDesktop">{{$awayTeam}}
+                    <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
                 </h1>
             </div>
 
@@ -37,7 +29,7 @@ use App\User;
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
             <div class="col-sm-12 awayTeamName fc-white">
-                <h1 class="text-center margin-bottom-0 margin-top-5">{{$thisGame[0]['away']}}<img src="/img/team_logos/{{$thisGame[0]['away_logo']}}" width="40" height="35"></h1>
+                <h1 class="text-center margin-bottom-0 margin-top-5">{{$awayTeam}}<img src="/img/team_logos/{{$awayLogo}}" width="40" height="35"></h1>
                 <div class="text-center fc-white">(Left side of the table)</div>
             </div>
 
@@ -155,6 +147,9 @@ use App\User;
 
         // For pick selection
         $this.find(".availableSquare").on('click', function(e){
+            if ({{$isOver}}) {
+                return false;
+            }
             if ({{$gameStarted}}) {
                 $('#gameStartedModal').modal();
                 return false;
@@ -174,7 +169,7 @@ use App\User;
             if (pendingPicks.length < 1 || pendingPicks.length > {{$userCredit}}/{{$pickCost}} ) {
                 return false;
             } else {
-                var gameId = {{$thisGame[0]['id']}};
+                var gameId = {{$gameId}};
                 var gameIdInput = "<input type=hidden name=game_id value="+gameId+">";
                 $("#selectionsForm").append(gameIdInput);
 
@@ -225,7 +220,7 @@ use App\User;
 
 
         // For pick deletion
-        $this.find('.notAvailable[data-user='+{{Auth::user()->id}}+']').each(function() {
+        $this.find('.notAvailable[data-user='+{{Auth::id()}}+']').each(function() {
             if ({{$gameStarted}}) {
                 return false;
             }
@@ -241,7 +236,7 @@ use App\User;
         });
 
         $this.find('.notAvailable').on('mouseover mouseout', function(e){
-            var isLoggedInUser = $(this).data('user') == {{Auth::user()->id}};
+            var isLoggedInUser = $(this).data('user') == {{Auth::id()}};
 
             if (isLoggedInUser)
             {
@@ -324,7 +319,7 @@ use App\User;
             if (pickToDelete.length != 1) {
                 return false;
             } else {
-                var gameId = {{$thisGame[0]['id']}};
+                var gameId = {{$gameId}};
                 var gameIdInput = "<input type=hidden name=game_id value="+gameId+">";
                 $("#deletePickForm").append(gameIdInput);
 

@@ -184,6 +184,9 @@ textarea.form-control:focus::placeholder {
     .capitalize {
         text-transform: capitalize!important;
     }
+    .thickLimeGreenBorder {
+        border: 2px solid #26f326!important;
+    }
     .fc-black {
         color: #000!important;
     }

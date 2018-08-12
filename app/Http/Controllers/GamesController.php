@@ -13,6 +13,7 @@ use App\Models\Teams;
 use App\Models\Selections;
 use App\Models\Winnings;
 use App\User;
+use Auth;
 use Carbon\Carbon;
 use DB;
 
@@ -74,6 +75,7 @@ class GamesController extends Controller
 
         $gameOver = $this->gameOverCheck($id);
         $data['gameOver'] = $gameOver;
+        $data['isOver'] = boolval($gameOver) ? 'true' : 'false';
 
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
@@ -95,16 +97,29 @@ class GamesController extends Controller
             $hasWinnings = boolval(count($gameWinnings) < 1) ? false : true;
             $data['hasWinnings'] = $hasWinnings;
 
+
             if ($hasWinnings) {
-                if (is_null($gameWinnings[0]['winning_user'])) {
+                $winningSelection = $gameWinnings[0]['winning_selection'];
+                $data['winningSelection'] = $winningSelection;
+
+                $winningUser = Winnings::select(DB::raw('winning_user, users.*'))->join('users', 'winning_user', '=', 'users.id')->where('game_id', '=', $id)->get();
+                $data['winningUser'] = $winningUser;
+
+                $winningUserId = $gameWinnings[0]['winning_user'];
+                $data['winningUserId'] = $winningUserId;
+                $winningUserFullName = $winningUser[0]['first_name'] . " " .$winningUser[0]['last_name'];
+                $data['winningUserFullName'] = $winningUserFullName;
+                $winningTotal = $gameWinnings[0]['winning_total'];
+                $data['winningTotal'] = $winningTotal;
+                $total = str_replace(".00","",money_format('$%i',$winningTotal));
+                $data['total'] = $total;
+
+                if (is_null($winningUserId)) {
                     $data['hasWinningUser'] = false;
                 } else {
                     $data['hasWinningUser'] = true;
                 }
             }
-
-            $winningUser = Winnings::select(DB::raw('winning_user, users.*'))->join('users', 'winning_user', '=', 'users.id')->where('game_id', '=', $id)->get();
-            $data['winningUser'] = $winningUser;
         }
 
         $squaresSelected = Selections::select('*')
@@ -175,6 +190,27 @@ class GamesController extends Controller
 
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
+
+        $creditForUser = User::select('credit')->where('id', '=', Auth::id())->get();
+        $credit = $creditForUser[0]['credit'];
+        $data['credit'] = $credit;
+        $creditAmount = money_format('$%i', $credit);
+        $data['creditAmount'] = $creditAmount;
+
+        $gameId = $thisGame[0]['id'];
+        $data['gameId'] = $gameId;
+        $homeTeam = $thisGame[0]['home'];
+        $data['homeTeam'] = $homeTeam;
+        $awayTeam = $thisGame[0]['away'];
+        $data['awayTeam'] = $awayTeam;
+        $homeLogo = $thisGame[0]['home_logo'];
+        $data['homeLogo'] = $homeLogo;
+        $awayLogo = $thisGame[0]['away_logo'];
+        $data['awayLogo'] = $awayLogo;
+        $homeScore = $thisGame[0]['home_score'];
+        $data['homeScore'] = $homeScore;
+        $awayScore = $thisGame[0]['away_score'];
+        $data['awayScore'] = $awayScore;
 
         return view('game.showGame')->with($data);
     }
