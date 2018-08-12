@@ -295,6 +295,12 @@ textarea.form-control:focus::placeholder {
     .padding-10 {
         padding: 10px !important;
     }
+    .padding-t-0 {
+        padding-top: 0px !important;
+    }
+    .padding-b-0 {
+        padding-bottom: 0px !important;
+    }
     .padding-l-0 {
         padding-left: 0px !important;
     }
@@ -633,6 +639,13 @@ section#contact {
     background-color: #000;
     padding: 100px 0px 20px;
 }
+#contact .form-group input,
+#contact .form-group textarea {
+    padding: 12px;
+}
+#contact .form-group textarea.form-control {
+    height: 188px;
+}
 @media(min-width: 992px){
     section#contact {
         min-height: calc(100vh - 168px);
@@ -650,6 +663,7 @@ section h3.section-subheading {
         width: 75%;
         margin: 0 auto;
         margin-top: 15px!important;
+        margin-bottom: 15px!important;
     }
 }
 
@@ -704,8 +718,9 @@ section h3.section-subheading {
     display: block;
 }
 .playGamePage {
-    height: 700px;
-    padding: 0px;
+    /* height: 700px; */
+    height: calc(100vh - 105px);
+    padding: 5px;
 }
 .playGamePage #no-more-tables {
     overflow: auto;
@@ -1006,7 +1021,7 @@ section h3.section-subheading {
 }
 @media (max-width: 991px) {
     .dashboard [class^="col-md-"] {
-        margin-bottom: 20px;
+        margin-bottom: 0px;
     }
     .dashboard .row {
         padding-top: 0px!important;
@@ -1015,7 +1030,7 @@ section h3.section-subheading {
 @media(max-width: 991px){
     .dashboard .col-md-7, .dashboard .col-md-5, .dashboard .col-md-4 {
         overflow: auto;
-        height: calc(100vh - 220px);
+        height: calc(100vh - 165px);
     }
 }
 @media(max-width: 700px){
@@ -1191,6 +1206,7 @@ section h3.section-subheading {
 #mainNav .accountDropdown .navbar-content {
     width:320px;
     padding: 15px;
+    padding-top: 5px;
     padding-bottom:0px;
     background-color: #222;
 }
@@ -1215,14 +1231,14 @@ section h3.section-subheading {
 }
 
 #mainNav .accountDropdown .navbar-footer-content {
-    padding:15px;
+    padding: 5px 15px;
     border-top: 1px solid #444;
 }
-#mainNav .accountDropdown .navbar-footer-content>.row a {
+#mainNav .accountDropdown .navbar-footer-content a {
     background-color: #222;
     color: #fed136!important;
 }
-#mainNav .accountDropdown .navbar-footer-content>.row a:hover {
+#mainNav .accountDropdown .navbar-footer-content a:hover {
     color: #000!important;
     background-color: #fed136;
     border-color: #000;
@@ -1657,3 +1673,14 @@ font-size: 22px;
     padding: 0 5px;
 }
 /************ END OF GAME TABLE MODAL *************/
+
+@media (max-width: 991px) {
+    [class*='col-'] {
+        padding: 5px!important;
+    }
+}
+@media (min-width: 992px) {
+    [class*='col-'] {
+        padding: 10px!important;
+    }
+}

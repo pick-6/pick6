@@ -2,17 +2,17 @@
 @section('content')
 <!-- Contact Section -->
 <div id="contact">
-    <div class="row">
+    <div class="">
         <div class="col-lg-12 text-center">
             <h2 class="pageTitle">Contact Us</h2>
-            <h3 class="section-subheading fc-grey">Please leave any questions or feedback you may have.</h3>
+            <h3 class="section-subheading fc-grey margin-bottom-15">Please leave any questions or feedback you may have.</h3>
         </div>
     </div>
-    <div class="row">
+    <div class="">
         <div class="col-lg-12">
             <form name="sentMessage" id="contactForm" novalidate>
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="">
+                    <div class="col-md-6 padding-b-0">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
                             <p class="help-block text-danger"></p>
