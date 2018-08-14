@@ -3,33 +3,29 @@
     <div id="picksTable" class="picksTable">
         @if (!$gameOver && !$gameCancel) <!-- Show game table for current/future games -->
             <!-- CREDIT BALANCE -->
-            <div class="col-xs-12 text-center fc-grey showOnMobile">
-                <h3 class="margin-top-0 margin-bottom-20">Credit Balance: <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span></h3>
+            <div class="col-xs-12 text-center fc-grey showOnMobile margin-bottom-20">
+                <h3 class="margin-0 fs-16">
+                    Credit Balance:
+                    <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">{{$creditAmount}}</span>
+                </h3>
             </div>
 
             <!-- HOME TEAM NAME -->
-            <div class="col-sm-12 homeTeamName">
-                <h1 class="text-center margin-top-0 fc-white margin-bottom-0">{{$homeTeam}}
-                    <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
-                </h1>
+            <div class="col-sm-12 homeTeamName clear">
                 <div class="text-center homeTeamTop fc-white margin-bottom-5">(Top of the table)</div>
-            </div>
-
-            <!-- AWAY TEAM NAME FOR DESKTOP (shows on the left side of the table) -->
-            <div class="col-md-2">
-                <h1 class="text-center awayTeamNameDesktop">{{$awayTeam}}
-                    <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+                <h1 class="text-center margin-top-0 fc-white margin-bottom-0 outline-text">{{$homeTeam}}
+                    <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
                 </h1>
             </div>
 
             <!-- SQUARES GAME TABLE -->
-            <div class="col-sm-12 col-md-10 col-lg-8 padding-0">
+            <div class="col-xs-12">
                 @include('game.gameTable')
             </div>
 
             <!-- AWAY TEAM NAME FOR MOBILE, TABLET (shows below the table) -->
-            <div class="col-sm-12 awayTeamName fc-white">
-                <h1 class="text-center margin-bottom-0 margin-top-5">{{$awayTeam}}<img src="/img/team_logos/{{$awayLogo}}" width="40" height="35"></h1>
+            <div class="col-sm-12 awayTeamName fc-white clear">
+                <h1 class="text-center margin-bottom-0 margin-top-5 outline-text">{{$awayTeam}}<img src="/img/team_logos/{{$awayLogo}}" width="40" height="35"></h1>
                 <div class="text-center fc-white">(Left side of the table)</div>
             </div>
 
@@ -61,7 +57,7 @@
             @include('game.modals.deletePickModal')
         @elseif($gameOver)
             @include('game.pastGameResults')
-        @else <!-- Show past game results -->
+        @else
             @include('game.gameCancel')
         @endif
 

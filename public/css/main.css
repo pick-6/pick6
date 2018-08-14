@@ -1,5 +1,6 @@
 html, body {
     background-color: black;
+    min-width: 360px;
 }
 
 body {
@@ -390,6 +391,21 @@ textarea.form-control:focus::placeholder {
         margin: 0 auto;
         overflow: hidden!important;
     }
+    .noBorder {
+        border: none!important;
+    }
+    .transparent {
+        background: transparent!important;
+    }
+    .cursor-arrow {
+        cursor: default!important;
+    }
+    .outline-text {
+        -webkit-text-stroke: 1px #000;
+        -moz-text-stroke: 1px #000;
+        -o-text-stroke: 1px #000;
+        -ms-text-stroke: 1px #000;
+    }
 
 
 
@@ -421,27 +437,6 @@ footer {
 #picksTable td:not(.notAvailable):hover, #picksTable .deletePick:hover {
     cursor: pointer;
 }
-#picksTable .awayTeamNameDesktop {
-    margin: 0px!important;
-    width: 375px!important;
-    left: -40px!important;
-    position: absolute!important;
-    top: 180px!important;
-    display: block;
-    color: white;
-    transform: rotate(-90deg);
-    transform-origin: center;
-}
-@media (max-width:1200px) {
-    #picksTable .awayTeamNameDesktop {
-        width: 405px!important;
-        left: -135px!important;
-        top: 165px!important;
-    }
-    #picksTable .col-md-2 {
-        width: 11.66667%
-    }
-}
 #picksTable .gameTableHeader a:hover {
     color: #333!important;
 }
@@ -464,25 +459,11 @@ footer {
 #picksTable .picksBtns .col-xs-6 {
     padding: 0px;
 }
-#picksTable .picksBtns .col-xs-6 {
-    width: calc(50% - 10px);
-}
-#picksTable .picksBtns .col-xs-6:first-of-type {
-    margin-right: 20px;
-}
-@media(max-width:410px){
-#picksTable .picksBtns .col-xs-6 {
-    width: calc(50% - 5px);
-}
-#picksTable .picksBtns .col-xs-6:first-of-type {
-    margin-right: 10px;
-}
-}
 @media(min-width: 992px){
     #picksTable .awayTeamNameDesktop {
         display: block;
     }
-    #picksTable .awayTeamName {
+    #picksTable .awayTeamName, #picksTable .homeTeamName {
         display: none;
     }
     #picksTable .picksBtns {
@@ -490,7 +471,9 @@ footer {
     }
 }
 #picksTable .picksBtns #confirmPicksBtn {
-    min-width: 190px;
+    max-width: 190px;
+    width: 100%;
+    font-size: 1.5rem;
     background-color: #58af42;
     border-color: darkgreen;
 }
@@ -498,7 +481,9 @@ footer {
     background-color: #52a03d!important;
 }
 #picksTable .picksBtns #clearPicksBtn {
-    min-width: 190px;
+    max-width: 190px;
+    width: 100%;
+    font-size: 1.5rem;
     background-color: #db3125;
     border-color: darkred;
 }
@@ -508,6 +493,36 @@ footer {
 @media(max-width:565px){
     #picksTable .awayTeamName h1, #picksTable .homeTeamName h1{
         font-size: 20px;
+    }
+}
+#picksTable #gameTable .verticalTeamName {
+     text-align: center;
+     width: 408px;
+     margin-left: -165px;
+     position: absolute;
+     top: 243px!important;
+     transform: rotate(-90deg);
+     -webkit-transform: rotate(-90deg); /* Safari/Chrome */
+     -moz-transform: rotate(-90deg); /* Firefox */
+     -o-transform: rotate(-90deg); /* Opera */
+     -ms-transform: rotate(-90deg); /* IE 9 */
+}
+#picksTable #gameTable .gameTableColumns {
+    width: calc(100%/13);
+}
+@media(max-width:991px) {
+    #picksTable #gameTable .hideAwayTeam,
+    #picksTable #gameTable .hideHomeTeam,
+    #picksTable #gameTable .hideGameTableColumn {
+        display: none;
+    }
+    #picksTable #gameTable .gameTableColumns {
+        width: calc(100%/12);
+    }
+}
+@media(min-width:1200px) {
+    #picksTable #gameTable .verticalTeamName {
+        margin-left: -150px;
     }
 }
 /******** END PICKS TABLE  **********/
@@ -1656,21 +1671,27 @@ font-size: 22px;
 /************ GAME TABLE MODAL *************/
 #gameTableModal .modal-dialog {
     transform: translateY(10vh);
-    max-width: 750px;
+    max-width: 1200px;
     width: auto;
     margin: 0 auto;
 }
 #gameTableModal .modal-content {
     background-color:#222;
+    height: 515px;
 }
 #gameTableModal .modal-body {
     padding-top: 0px;
 }
 #gameTableModal .closeModalBtnContainer {
-    height: 30px;
+    height: 20px;
 }
 #gameTableModal .closeModalBtn {
     padding: 0 5px;
+}
+@media(max-width:991px){
+    #gameTableModal .modal-content {
+        height: 600px;
+    }
 }
 /************ END OF GAME TABLE MODAL *************/
 

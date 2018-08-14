@@ -1,18 +1,32 @@
-<table class="table table-bordered margin-bottom-0">
+<table id="gameTable" class="table table-bordered margin-bottom-0 noBorder transparent">
     <colgroup>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
-        <col style="width:9%"/>
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
+        <col class="gameTableColumns" />
     </colgroup>
     <tr>
+        <td rowspan="12" class="uppercase bold fs-25 hideAwayTeam noBorder cursor-arrow outline-text">
+            <div class="verticalTeamName">
+                {{$awayTeam}}
+                <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+            </div>
+        </td>
+        <td colspan="11" class="text-center uppercase bold fs-25 padding-5 hideHomeTeam noBorder transparent cursor-arrow outline-text">
+            {{$homeTeam}}
+            <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
+        </td>
+    </tr>
+    <tr class="transparent">
         <th class="gameTableHeader">
             <a class="fc-black" href="#gameDetails" data-toggle="modal" title="View Game/Pot Details">
                 <i class="fas fa-info-circle fs-20"></i>
@@ -20,14 +34,15 @@
         </th>
         <!-- Creates numbers 0-9 going across -->
         @for ($column = 0; $column < 10; $column++)
-            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['home'][$column]: '?'}}<!-- {{$column}} --></th>
+            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['home'][$column]: '?'}}</th>
         @endfor
+        <td class="hideGameTableColumn noBorder cursor-arrow"></td>
     </tr>
 
     <!-- Creates numbers 0-9 going down -->
     @for ($row = 0; $row < 10; $row++)
-        <tr>
-            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['away'][$row]: '?'}}<!-- {{$row}} --></th>
+        <tr class="transparent">
+            <th class="gameTableHeader">{{ $gameStarted == 'true'? $randomNumbers['away'][$row]: '?'}}</th>
             <!-- Creates all 100 squares on the table -->
             @for ($column = 0; $column < 10; $column++)
                 <?php
@@ -53,6 +68,7 @@
                     <td class="middle availableSquare text-center padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-winning-id="{{$winningSelectionId}}"><i class="fc-green fas"></i></td>
                 @endif
             @endfor
+            <td class="hideGameTableColumn noBorder cursor-arrow"></td>
         </tr>
     @endfor
 </table>
