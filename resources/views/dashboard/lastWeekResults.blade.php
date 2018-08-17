@@ -5,12 +5,12 @@
         <table class="table table-bordered margin-bottom-0">
             <colgroup>
                 <col>
-                <col style="width:35%">
+                <col style="width:120px">
             </colgroup>
             <thead>
                 <tr>
                     <th style="padding: 3px" class="text-center">Final Score</th>
-                    <th style="padding: 3px;min-width:128px" class="text-center">Winner</th>
+                    <th style="padding: 3px;" class="text-center">Winner</th>
                 </tr>
             </thead>
         </table>
@@ -19,7 +19,7 @@
         <table class="table table-bordered margin-bottom-0">
             <colgroup>
                 <col>
-                <col style="width:35%">
+                <col style="width:120px">
             </colgroup>
             <tbody>
                 @foreach ($lastWeekResults as $game)
