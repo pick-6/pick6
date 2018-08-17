@@ -27,91 +27,6 @@ class DashboardController extends Controller
         return $leaderboard;
     }
 
-    public function getGamesForWeek($weekNo)
-    {
-        $gamesForWeek = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $weekNo)
-        ->orderBy('games.date_for_week', 'ASC')
-        ->orderBy('games.time', 'ASC')
-        ->orderBy('games.id', 'ASC')
-        ->get();
-        return $gamesForWeek;
-    }
-
-    public function getMyCurrentGames($currentWeekNo, $user)
-    {
-        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->join('selections', 'games.id', '=', 'selections.game_id')
-        ->where('selections.user_id', "=", $user->id)
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $currentWeekNo)
-        ->groupBy('selections.game_id')
-        ->orderBy('games.date_for_week', 'ASC')
-        ->orderBy('games.time', 'ASC')
-        ->orderBy('games.id', 'ASC')
-        ->get();
-        return $myCurrentGames;
-    }
-
-    public function getNextWeekGames($nextWeekNo)
-    {
-        $nextWeekGames = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $nextWeekNo)
-        ->orderBy('games.date_for_week', 'ASC')
-        ->orderBy('games.time', 'ASC')
-        ->orderBy('games.id', 'ASC')
-        ->get();
-        return $nextWeekGames;
-    }
-
-    public function getLastWeekResults($lastWeekNo)
-    {
-        $seasonType = $this->season_type;
-        $week = $lastWeekNo;
-
-        if ($lastWeekNo == 0 && $seasonType > 1) {
-            $seasonType = $this->season_type - 1;
-            $lastWeek = Games::select('week')
-            ->distinct()
-            ->where('season_type', '=', $seasonType)
-            ->orderBy('week', 'DESC')
-            ->limit(1)
-            ->get();
-            $week = $lastWeek[0]['week'];
-        }
-
-        $lastWeekResults = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->join('winnings', 'games.id', '=', 'winnings.game_id')
-        ->join('users', 'winnings.winning_user', '=', 'users.id')
-        ->where('games.season_type', '=', $seasonType)
-        ->where('games.week', '=', $week)
-        ->orderBy('games.date_for_week', 'ASC')
-        ->orderBy('games.time', 'ASC')
-        ->orderBy('games.id', 'ASC')
-        ->get();
-        return $lastWeekResults;
-    }
-
-    public function getDatesOfGames($weekNo)
-    {
-        $dateOfGames = Games::select('date_for_week')
-        ->where('season_type', '=', $this->season_type)
-        ->where('week', '=', $weekNo)
-        ->groupBy('date_for_week')
-        ->get();
-        return $dateOfGames;
-    }
-
     public function dashboard()
     {
         $data = [];
@@ -119,20 +34,18 @@ class DashboardController extends Controller
         $user = \Auth::user();
         $data['user'] = $user;
 
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
-        $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
-        $playingIn = [];
-        foreach ($gamesUserIsPlaying as $game) {
-            $playingIn[] =  "$game->game_id";
-        }
+        $playingIn = GamesController::gamesUserIsPlayingIn($user->id);
         $data['playingIn'] = $playingIn;
 
         $currentWeek = $this->currentWeek;
-        $data['week'] = $currentWeek;
+        $data['currentWeek'] = $currentWeek;
         $lastWeek = $this->lastWeek;
         $data['lastWeek'] = $lastWeek;
         $nextWeek = $this->nextWeek;
         $data['nextWeek'] = $nextWeek;
+
+        $seasonType = $this->season_type;
+        $data['seasonType'] = $seasonType;
 
         $isPreSeason = $this->isPreSeason;
         $data['isPreSeason'] = $isPreSeason;
@@ -145,29 +58,29 @@ class DashboardController extends Controller
         $data['minGamePicks'] = $minGamePicks;
 
         // Games for the Week
-        $gamesForWeek = $this->getGamesForWeek($currentWeek);
+        $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;
         $hasGamesForWeek = count($gamesForWeek) > 0;
         $data['hasGamesForWeek'] = $hasGamesForWeek;
-        $datesOfCurrentWeekGames = $this->getDatesOfGames($currentWeek);
+        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
 
         // My Current Games
-        $myCurrentGames = $this->getMyCurrentGames($currentWeek, $user);
+        $myCurrentGames = GamesController::getMyCurrentGames($user->id, $seasonType, $currentWeek);
         $data['myCurrentGames'] = $myCurrentGames;
         $hasCurrentGames = count($myCurrentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
 
         // Upcoming Games
-        $nextWeekGames = $this->getNextWeekGames($nextWeek);
+        $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek);
         $data['nextWeekGames'] = $nextWeekGames;
         $hasNextWeekGames = count($nextWeekGames) > 0;
         $data['hasNextWeekGames'] = $hasNextWeekGames;
-        $datesOfNextWeekGames = $this->getDatesOfGames($nextWeek);
+        $datesOfNextWeekGames = GamesController::getDatesOfGames($seasonType, $nextWeek);
         $data['datesOfNextWeekGames'] = $datesOfNextWeekGames;
 
         // Last Week's Results
-        $lastWeekResults = $this->getLastWeekResults($lastWeek);
+        $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType);
         $data['lastWeekResults'] = $lastWeekResults;
         $hasLastWkGames = count($lastWeekResults) > 0 ;
         $data['hasLastWkGames'] = $hasLastWkGames;

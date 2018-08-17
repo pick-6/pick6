@@ -155,7 +155,11 @@
                                 <td id="playGameBtn" class="middle padding-0 padding-b-10">
                                     <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn" style="min-width:85%;">
                                          @if($gameEnded)
-                                            SEE RESULTS
+                                             @if($gameCancel)
+                                                 CANCELLED
+                                             @else
+                                                 SEE RESULTS
+                                             @endif
                                          @else
                                              @if ($numberOfPicks < 100 && !$gameStarted)
                                                  {{(in_array("$game->game_id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}

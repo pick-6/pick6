@@ -371,6 +371,9 @@ textarea.form-control:focus::placeholder {
     .absolute {
         position: absolute!important;
     }
+    .fixed {
+        position: fixed!important;
+    }
     .blackBorder {
         border-color: black!important;
     }
@@ -734,7 +737,7 @@ section h3.section-subheading {
 }
 .playGamePage {
     /* height: 700px; */
-    height: calc(100vh - 105px);
+    height: calc(100vh - 175px);
     padding: 5px;
 }
 .playGamePage #no-more-tables {
@@ -776,7 +779,7 @@ section h3.section-subheading {
     .playGamePage #no-more-tables .table-bordered {
         border:none!important;
     }
-    .playGamePage #no-more-tables .table-bordered tbody tr{
+    .playGamePage #no-more-tables .table-bordered tbody tr:not(:last-of-type) {
         border-bottom:none!important;
         margin-bottom: 15px;
     }
@@ -1677,7 +1680,7 @@ font-size: 22px;
 }
 #gameTableModal .modal-content {
     background-color:#222;
-    height: 515px;
+    height: 555px;
 }
 #gameTableModal .modal-body {
     padding-top: 0px;
@@ -1704,4 +1707,8 @@ font-size: 22px;
     [class*='col-'] {
         padding: 10px!important;
     }
+}
+
+.modal-body {
+    padding: 10px;
 }

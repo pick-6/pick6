@@ -35,12 +35,6 @@
             left: 28%;
         }
     }
-    @media(max-width:425px){
-        .modal-body h3 {
-            width: 75%;
-            margin: 0 auto;
-        }
-    }
 </style>
 
 <div id="paymentBtns" class="paymentBtns inline-block width100 margin-top-20">

@@ -25,28 +25,101 @@ class GamesController extends Controller
         parent::__construct();
     }
 
+    public static function gamesForWeek($seasonType, $weekNo)
+    {
+        $games = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->where('games.season_type', '=', $seasonType)
+        ->where('games.week', '=', $weekNo)
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
+        ->get();
+        return $games;
+    }
+
+    public static function getDatesOfGames($seasonType, $weekNo)
+    {
+        $dateOfGames = Games::groupBy('date_for_week')
+        ->where('games.season_type', '=', $seasonType)
+        ->where('week', '=', $weekNo)
+        ->get();
+        return $dateOfGames;
+    }
+
+    public static function gamesUserIsPlayingIn($userId)
+    {
+        $playingIn = [];
+        $gamesUserIsPlaying = Selections::where('user_id', "=", $userId)->groupBy("game_id")->get();
+        foreach ($gamesUserIsPlaying as $game) {
+            $playingIn[] =  "$game->game_id";
+        }
+        return $playingIn;
+    }
+
+    public static function getMyCurrentGames($userId, $seasonType, $weekNo)
+    {
+        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->join('selections', 'games.id', '=', 'selections.game_id')
+        ->where('selections.user_id', "=", $userId)
+        ->where('games.season_type', '=', $seasonType)
+        ->where('games.week', '=', $weekNo)
+        ->groupBy('selections.game_id')
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
+        ->get();
+        return $myCurrentGames;
+    }
+
+    public static function getWeekResults($weekNo, $seasonType)
+    {
+        if ($weekNo == 0 && $seasonType > 1) {
+            $seasonType = $seasonType - 1;
+            $week = Games::select('week')
+            ->distinct()
+            ->where('season_type', '=', $seasonType)
+            ->orderBy('week', 'DESC')
+            ->limit(1)
+            ->get();
+            $weekNo = $week[0]['week'];
+        }
+
+        $weekResults = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->join('winnings', 'games.id', '=', 'winnings.game_id')
+        ->join('users', 'winnings.winning_user', '=', 'users.id')
+        ->where('games.season_type', '=', $seasonType)
+        ->where('games.week', '=', $weekNo)
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
+        ->get();
+        return $weekResults;
+    }
+
     public function index()
     {
         $data = [];
 
-        $user = \Auth::user();
-        $games = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $this->currentWeek)
-        ->orderBy('games.time', 'ASC')
-        ->get();
-        $data['games'] = $games;
-        $dates = Games::groupBy('date_for_week')->where('games.season_type', '=', $this->season_type)->get();
-        $data['dates'] = $dates;
+        $userId = \Auth::id();
+
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
-        $playingIn = [];
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
-        foreach ($gamesUserIsPlaying as $game) {
-            $playingIn[] =  "$game->game_id";
-        }
+        $seasonType = $this->season_type;
+        $data['season_type'] = $seasonType;
+
+        $gamesForWeek = $this->gamesForWeek($seasonType, $currentWeek);
+        $data['gamesForWeek'] = $gamesForWeek;
+
+        $dates = $this->getDatesOfGames($seasonType, $currentWeek);
+        $data['datesOfCurrentWeekGames'] = $dates;
+
+        $playingIn = $this->gamesUserIsPlayingIn($userId);
         $data['playingIn'] = $playingIn;
 
         $minGamePicks = $this->minGamePicks;
@@ -61,10 +134,15 @@ class GamesController extends Controller
 
         $user = \Auth::user();
 
+        $currentWeek = $this->currentWeek;
+        $data['currentWeek'] = $currentWeek;
+        $seasonType = $this->season_type;
+        $data['seasonType'] = $seasonType;
+
         $thisGame = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $this->season_type)
+        ->where('games.season_type', '=', $seasonType)
         // ->where('games.week', '=', $this->currentWeek) //to only pick in games in current week
         ->where('games.id', '=', $id)
         ->get();
@@ -77,17 +155,8 @@ class GamesController extends Controller
         $data['gameOver'] = $gameOver;
         $data['isOver'] = boolval($gameOver) ? 'true' : 'false';
 
-        $currentWeek = $this->currentWeek;
-        $data['currentWeek'] = $currentWeek;
-
-        $allGames = Games::select(DB::raw('games.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $this->season_type)
-        ->where('games.week', '=', $this->currentWeek)
-        ->orderBy('games.time', 'ASC')
-        ->get();
-        $data['allGames'] = $allGames;
+        $gamesForWeek = $this->gamesForWeek($seasonType, $currentWeek);
+        $data['gamesForWeek'] = $gamesForWeek;
 
         if ($gameOver)
         {
@@ -133,14 +202,10 @@ class GamesController extends Controller
         }
         $data['thisGameSelections'] = $thisGameSelections;
 
-        $dates = Games::groupBy('date_for_week')->where('games.season_type', '=', $this->season_type)->get();
-        $data['dates'] = $dates;
+        $dates = Games::groupBy('date_for_week')->where('games.season_type', '=', $seasonType)->get();
+        $data['datesOfCurrentWeekGames'] = $dates;
 
-        $playingIn = [];
-        $gamesUserIsPlaying = Selections::where('user_id', "=", $user->id)->groupBy("game_id")->get();
-        foreach ($gamesUserIsPlaying as $game) {
-            $playingIn[] =  "$game->game_id";
-        }
+        $playingIn = $this->gamesUserIsPlayingIn($user->id);
         $data['playingIn'] = $playingIn;
 
         $cost = Games::select('pick_cost')->where('id', '=', $id)->get();

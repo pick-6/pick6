@@ -14,6 +14,12 @@
     #addCreditModal .closeModalBtn {
         padding: 0 5px;
     }
+    @media(max-width:425px){
+        #addCreditModal .modal-body h3 {
+            width: 75%;
+            margin: 0 auto;
+        }
+    }
 </style>
 
 <!-- Add Credit Modal -->

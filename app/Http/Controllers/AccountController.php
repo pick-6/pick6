@@ -33,16 +33,15 @@ class AccountController extends Controller
         $data['username'] = $user[0]['username'];
         $data['email'] = $user[0]['email'];
         $data['avatar'] = $user[0]['avatar'];
-        $currentGames = $this->getMyCurrentGames($this->currentWeek, Auth::id());
+        $currentWeek = $this->currentWeek;
+        $data['currentWeek'] = $currentWeek;
+        $seasonType = $this->season_type;
+        $data['season_type'] = $seasonType;
+        $currentGames = GamesController::getMyCurrentGames(Auth::id(), $seasonType, $currentWeek);
         $data['currentGames'] = $currentGames;
         $hasCurrentGames = count($currentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
-        $gamesUserIsPlaying = Selections::where('user_id', "=", Auth::id())->groupBy("game_id")->get();
-        $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
-        $playingIn = [];
-        foreach ($gamesUserIsPlaying as $game) {
-            $playingIn[] =  "$game->game_id";
-        }
+        $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = true;
 
@@ -104,17 +103,16 @@ class AccountController extends Controller
         $data['email'] = $user[0]['email'];
         $data['avatar'] = $user[0]['avatar'];
 
-        $currentGames = $this->getMyCurrentGames($this->currentWeek, $id);
+        $currentWeek = $this->currentWeek;
+        $data['currentWeek'] = $currentWeek;
+        $seasonType = $this->season_type;
+        $data['season_type'] = $seasonType;
+        $currentGames = GamesController::getMyCurrentGames($id, $seasonType, $currentWeek);;
         $data['currentGames'] = $currentGames;
         $hasCurrentGames = count($currentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
 
-        $gamesUserIsPlaying = Selections::where('user_id', "=", Auth::id())->groupBy("game_id")->get();
-        $data['gamesUserIsPlaying'] = $gamesUserIsPlaying;
-        $playingIn = [];
-        foreach ($gamesUserIsPlaying as $game) {
-            $playingIn[] =  "$game->game_id";
-        }
+        $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = $isLoggedInUser;
 
@@ -141,22 +139,6 @@ class AccountController extends Controller
         $data['minGamePicks'] = $minGamePicks;
 
         return view('account.account')->with($data);
-    }
-
-    public function getMyCurrentGames($currentWeekNo, $user)
-    {
-        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.name as home, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
-        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
-        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->join('selections', 'games.id', '=', 'selections.game_id')
-        ->where('selections.user_id', "=", $user)
-        ->where('games.week', '=', $currentWeekNo)
-        ->groupBy('selections.game_id')
-        ->orderBy('games.date_for_week', 'ASC')
-        ->orderBy('games.time', 'ASC')
-        ->orderBy('games.id', 'ASC')
-        ->get();
-        return $myCurrentGames;
     }
 
     public function edit()
