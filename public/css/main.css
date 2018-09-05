@@ -976,9 +976,11 @@ section h3.section-subheading {
 }
 .dashboard .col-md-7, .dashboard .col-md-5 {
     height: calc(50vh - 70px);
+    min-height: 365px;
 }
 .dashboard .col-md-4 {
     height: calc(50vh - 102px);
+    min-height: 335px;
 }
 .dashboard .dashboardSection {
     border:1px solid #555;
