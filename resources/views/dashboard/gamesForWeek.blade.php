@@ -13,10 +13,7 @@
 </h3>
 
 @if ($hasGamesForWeek)
-    @include('game.gamesForWeekList')
-    <div class="time text-left margin-top-5">
-        <small>* All times are in Eastern Time (ET)</small>
-    </div>
+    @include('game.list', ['showGameId'=>true])
 @else
     <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
         There are no games this week.

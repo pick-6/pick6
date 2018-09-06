@@ -3,7 +3,7 @@
 
 <div class="playGamePage">
     <h3 class="fc-white text-center margin-top-0">Games for the Week</h3>
-    @include('game.gamesForWeekList')
+    @include('game.list')
 </div>
 
 <script src="/vendor/jquery/jquery.min.js"></script>

@@ -158,6 +158,9 @@ class GamesController extends Controller
         $gamesForWeek = $this->gamesForWeek($seasonType, $currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;
 
+        $datesForWeek = $this->getDatesOfGames($seasonType, $currentWeek);
+        $data['datesForWeek'] = $datesForWeek;
+
         if ($gameOver)
         {
             $gameWinnings = Winnings::select('*')->where('game_id', '=', $id)->get();
