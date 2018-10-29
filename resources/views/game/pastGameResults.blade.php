@@ -25,7 +25,7 @@
             @if($hasWinningUser)
                 <h2 class="fc-white">
                     Winner:<br>
-                    <a href="{{action('AccountController@show', $winningUserId)}}">{{ Auth::id() == $winningUserId ? "You Won!" : $winningUserFullName}}</a>
+                    <a data-role-ajax="{{action('AccountController@show', $winningUserId)}}">{{ Auth::id() == $winningUserId ? "You Won!" : $winningUserFullName}}</a>
                 </h2>
                 <h2 class="fc-white">
                     Total Amount:<br>

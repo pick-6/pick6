@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Games;
+use App\Models\Teams;
 use App\Models\Winnings;
 use App\Models\Selections;
 use App\User;
@@ -148,15 +149,29 @@ class AccountController extends Controller
 
     public function update(Request $request)
     {
-        $existingUser = User::find(\Auth::id());
-        $existingUser->first_name = $request->first_name;
-        $existingUser->last_name = $request->last_name;
-        $existingUser->username = $request->username;
-        $existingUser->email = $request->email;
-        $existingUser->save();
-        $request->session()->flash('successMessage', 'Account updated successfully!');
+        try
+        {
+            $existingUser = User::find(\Auth::id());
+            $existingUser->first_name = $request->first_name;
+            $existingUser->last_name = $request->last_name;
+            $existingUser->username = $request->username;
+            $existingUser->email = $request->email;
+            $existingUser->save();
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'msg' => 'Failed to update account info.'
+            ]);
+            return $response;
+        }
 
-        return redirect('/dashboard');
+        $response = response()->json([
+            'success' => true,
+            'msg' => 'Account updated successfully!'
+        ]);
+        return $response;
     }
 
     public function editPassword()
@@ -166,40 +181,86 @@ class AccountController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $existingUser = User::find(\Auth::id());
-        $existingUser->password = bcrypt($request->password);
-        $existingUser->save();
-        $request->session()->flash('successMessage', 'Password updated successfully!');
+        try
+        {
+            $existingUser = User::find(\Auth::id());
+            $existingUser->password = bcrypt($request->password);
+            $existingUser->save();
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'msg' => 'Failed to update password.'
+            ]);
+            return $response;
+        }
 
-        return redirect('/dashboard');
+        $response = response()->json([
+            'success' => true,
+            'msg' => 'Password updated successfully!'
+        ]);
+        return $response;
     }
 
     public function uploadProfilePic(Request $request)
     {
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300, 300)->save( public_path('/img/profilePics/' . $filename ) );
+        try
+        {
+            if ($request->hasFile('avatar'))
+            {
+                $avatar = $request->file('avatar');
+                $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                Image::make($avatar)->resize(300, 300)->save( public_path('/img/profilePics/' . $filename ) );
 
-            $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
+                $user = Auth::user();
+                $user->avatar = $filename;
+                $user->save();
+            }
         }
-        $request->session()->flash('successMessage', 'Profile Image updated successfully!');
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'msg' => 'Failed to update profile image.'
+            ]);
+            return $response;
+        }
 
-        return redirect($_SERVER['HTTP_REFERER']);
+        $response = response()->json([
+            'success' => true,
+            'msg' => 'Your profile image was updated successfully!'
+        ]);
+        return $response;
     }
 
     public function updateFavTeam(Request $request)
     {
-        $team = $request->favTeam;
+        try
+        {
+            $team = $request->favTeam;
+            $user = User::find(\Auth::id());
+            $user->fav_team = $team;
+            $user->save();
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'msg' => 'Failed to update your favorite team.'
+            ]);
+            return $response;
+        }
 
-        $user = User::find(\Auth::id());
-        $user->fav_team = $team;
-        $user->save();
-        $request->session()->flash('successMessage', 'Favorite Team updated successfully!');
+        $favTeam = Teams::select('name')->where('id', '=', $team)->get();
+        $teamName = $favTeam[0]['name'];
 
-        return redirect($_SERVER['HTTP_REFERER']);
+
+        $response = response()->json([
+            'success' => true,
+            'msg' => $teamName.' set as your favorite team.'
+        ]);
+        return $response;
     }
 
     public function destroy(Request $request)

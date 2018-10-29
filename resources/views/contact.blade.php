@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 <!-- Contact Section -->
 <div id="contact">
     <div class="">
@@ -41,4 +40,3 @@
         </div>
     </div>
 </div>
-@stop

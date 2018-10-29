@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 
 <style type="text/css">
     section#contact.editAccount label {
@@ -34,14 +33,14 @@
 </style>
 
 <section id="contact" class="editAccount" style="background: none;padding: 0;padding-top: 40px;text-align: left;">
-    <div id="container">
+    <!-- <div id="container"> -->
         <div class="">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading margin-0">Edit Account</h2>
             </div>
         </div>
         <div class="col-lg-12">
-            <form method="POST" action="{{action('AccountController@update')}}">
+            <form id="updateAccountForm" method="POST" action="{{action('AccountController@update')}}">
                 {!! csrf_field() !!}
                 <div class="col-md-6">
                     <div class="form-group">
@@ -73,22 +72,33 @@
                     <div class="form-group text-right">
                         {{ method_field('PUT') }}
                         <div class="col-xs-6">
-
                             <button type="submit" class="btn btn-success margin-right-10 width100">UPDATE</button>
                         </div>
                         <div class="col-xs-6">
                             <a id="back" class="btn btn-danger width100">CANCEL</a>
-
                         </div>
                     </div>
                     <div class="form-group text-right margin-top-20">
                         <div class="col-xs-12">
-                            <a href="{{action('AccountController@editPassword')}}" class="btn btn-primary width100">change password</a>
+                            <a data-role-ajax="{{action('AccountController@editPassword')}}" class="btn btn-primary width100">change password</a>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-    </div>
+    <!-- </div> -->
 </section>
-@stop
+<script type="text/javascript">
+    $('#updateAccountForm').on('submit', function(e){
+        e.preventDefault();
+
+        $(this).postForm({
+            url: "/account/update",
+            reload: "/account"
+        });
+    });
+
+    $('#back').on('click', function(){
+        $(this).loadPage({url:'/account'});
+    });
+</script>

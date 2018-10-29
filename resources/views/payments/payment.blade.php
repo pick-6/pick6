@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     #paymentBtns span.dollar {
         font-size: 25px;
         color: #fff;
@@ -95,4 +95,4 @@
             <input type="hidden" name=description value="{{Auth::user()->first_name}} {{Auth::user()->last_name}} added $50"/>
         </form>
     </div>
-</div>
+</div> -->

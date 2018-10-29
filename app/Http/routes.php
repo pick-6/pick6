@@ -13,9 +13,22 @@
 
 // Welcome/Home page
 Route::get('/', function () {
-    // return view('welcome');
     return view('welcome-new');
 });
+
+Route::get('/addCreditFromNav', function () {
+    return view('partials.navbar.addCreditFromNav');
+});
+
+Route::get('/getProfilePic', function () {
+    return view('account.profileImage');
+});
+
+Route::get('/SignUpLoginView', function () {
+    return view('partials.SignUpLogin');
+});
+
+Route::get('/cancel/{game}', 'SelectionsController@gameCancelled');
 
 // Dashboard
 Route::get('/dashboard', 'DashboardController@dashboard');
@@ -68,8 +81,8 @@ Route::post('/register', 'Auth\AuthController@postRegister');
 
 
 // Payment
-Route::post('/charge/{amount}', 'PaymentController@charge');
-Route::post('/charge/{amount}', 'PaymentController@freeCharge');
+// Route::post('/charge/{amount}', 'PaymentController@charge');
+Route::post('/charge', 'PaymentController@freeCharge');
 
 
 // Password reset link request routes...

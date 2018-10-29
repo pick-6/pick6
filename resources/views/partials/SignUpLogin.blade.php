@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 <style type="text/css">
     .newSignLogin#container {
         background-color: #2e2e2e;
@@ -154,4 +153,28 @@
         </div>
     @endif
 </div>
-@stop
+
+<script type="text/javascript">
+    $this = $('.newSignLogin');
+
+    var signupForm = $this.find('.signup-form');
+    var loginForm = $this.find('.login-form');
+    var signupButton = $this.find('.signup');
+    var loginButton = $this.find('.login');
+
+    signupButton.on('click', function() {
+        loginButton.removeClass('active');
+        signupButton.addClass('active');
+        signupForm.removeClass('hide');
+        loginForm.addClass('hide');
+        signupForm.find("input").first().focus();
+    });
+
+    loginButton.on('click', function() {
+        signupButton.removeClass('active');
+        loginButton.addClass('active');
+        loginForm.removeClass('hide');
+        signupForm.addClass('hide');
+        loginForm.find("input").first().focus();
+    });
+</script>

@@ -1,130 +1,287 @@
 (function() {
     "use strict";
 
-    // Flash Success message
-    setTimeout(function(){
-        $('#successMessage').fadeOut(1500);
-    }, 4000);
+    function goToTop() {
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+    };
 
+    function closeModals() {
+        $('.modal-backdrop, .modal').hide();
+        $('body').removeClass('modal-open');
+    };
 
-    // section scrolling
-    $(".scroll a").bind("click",function(t){
-        var l = $(this);
-        $('html, body').find("section").stop().animate({
-            scrollTop:$(l.attr("href")).offset().top-65
-        },1500)
-        t.preventDefault();
-    });
+    $.fn.confirm = function(data) {
+        var url = data.targetUrl,
+            text = data.text,
+            confirmBtnText = data.confirmText || "Yes",
+            cancelBtnText = data.cancelText || "No";
 
+        var confirmModal = $("<div>").addClass("confirm-modal"),
+            confirmMessage = $("<div>").attr("id", "confirmMessage"),
+            confirmContainer = $("<div>").addClass("confirm-container"),
+            message = $("<div>").addClass("confirmText").text(text),
+            btnContainer = $("<div>").addClass("confirm-btns"),
+            confirmBtn = $("<div>").addClass("confirm").html($("<button>").addClass("btn btn-success").text(confirmBtnText)),
+            cancelBtn = $("<div>").addClass("cancel").html($("<button>").addClass("btn btn-danger").text(cancelBtnText));
 
-    // changes background-color when hovering over available square
-    $(".availableSquare").on('mouseout mouseover', function(e){
-        var gradientStart = '';
-        if (!$(this).hasClass('pendingPick')) {
-            gradientStart = (e.type == 'mouseout') ? '#333' : '#111';
-            $(this).css('background','linear-gradient(' + gradientStart + ', #222)');
-        }
-    });
+        btnContainer.append(confirmBtn).append(cancelBtn);
+        confirmContainer.append(message).append(btnContainer);
+        confirmMessage.append(confirmContainer);
+        confirmModal.append(confirmMessage);
 
+        $("body").append(confirmModal);
 
-    // don't close Account Dropdown when clicking in it
-    $('ul.accountDropdown:not(.showAvatarContainer)').click(function(e){
-        e.stopPropagation();
-    });
-
-
-    // Upload Profile Pic from Account Dropdown
-    $('.accountDropdown').find('#changePhoto').click(function(){
-        $('#chooseProfilePic').trigger('click');
-    });
-
-    $('.accountDropdown').find('#chooseProfilePic').on('click touchstart', function(){
-        $(this).val('');
-    });
-
-    $('.accountDropdown').find("#chooseProfilePic").change(function(e) {
-        $("#submitProfilePic").trigger('click');
-    });
-
-
-    // Upload Profile Pic from Account Page
-    $('#accountPage').find('.changePhoto').click(function(){
-        $('.chooseProfilePic').trigger('click');
-    });
-
-    $('#accountPage').find('.chooseProfilePic').on('click touchstart', function(){
-        $(this).val('');
-    });
-
-    $('#accountPage').find(".chooseProfilePic").change(function(e) {
-        $(".submitProfilePic").trigger('click');
-    });
-
-
-    // switch between signup / login
-    const signupForm = $('.signup-form');
-    const loginForm = $('.login-form');
-    const signupButton = $('.signup');
-    const loginButton= $('.login');
-    signupButton.on('click', function() {
-        loginButton.removeClass('active');
-        signupButton.addClass('active');
-        signupForm.removeClass('hide');
-        loginForm.addClass('hide');
-        signupForm.find("input").first().focus();
-    });
-    loginButton.on('click', function() {
-        signupButton.removeClass('active');
-        loginButton.addClass('active');
-        loginForm.removeClass('hide');
-        signupForm.addClass('hide');
-        loginForm.find("input").first().focus();
-    });
-
-
-    // hover effect on dashboard sections for desktop
-    if ($(document).width() > 768) {
-        $(".dashboardSection").on("mouseover", function(){
-            $(this).css({"opacity":"0.95", "background-color":"rgba(0, 0, 0, 1)", "transition" : "opacity .2s ease-in"});
-            $("body").css("overflow", "hidden");
+        $(this).getAnswer({ targetPage: url });
+    }
+    $.fn.getAnswer = function(data){
+        $(".confirm-btns").find("button").on("click", function(){
+            if ($(this).parent().hasClass("confirm")) {
+                $(this).loadPage({ url: data.targetPage });
+            }
+            $(".confirm-modal").remove();
         });
-        $(".dashboardSection").on("mouseout", function(){
-            $(this).css({"opacity":"0.80", "background-color":"rgba(0, 0, 0, 0.75)", "transition": "opacity .2s ease-out"});
-            $("body").css("overflow", "auto");
-        });
-    } else {
-        $(".dashboardSection").css({"opacity":"0.95", "background-color":"rgba(0, 0, 0, 1)"});
     }
 
-    if ($(document).width() > 768) {
-        $(".userCurrentGames").on("mouseover mouseout", function(e){
-            if (e.type == 'mouseover') {
-                $("body").css("overflow", "hidden");
-            } else if (e.type == 'mouseout') {
-                $("body").css("overflow", "auto");
+    $.fn.pageControl = function(links){
+        links.on('click', function(){
+            closeModals();
+
+            var targetPage = $(this).data('role-ajax'),
+                previousPage = $(".page-content").data("url"),
+                isLogout = $(this).hasClass('logout'),
+                forGameCancel = $(this).hasClass('forGameCancel'),
+                hasPendingPicks = $('#gameTable').find('td.pendingPick').length,
+                url = targetPage,
+                hasFadeFX = targetPage == previousPage ? false : true;
+
+            if (hasPendingPicks) {
+                $(this).confirm({
+                    text: "Are you sure you want to leave this page? Your pending picks will not be saved.",
+                    confirmText: "Yes, leave",
+                    cancelText: "No, stay",
+                    targetUrl: targetPage
+                });
+                return false;
+            }
+
+            $(this).loadPage({
+                url: url,
+                showLoading: false,
+                logout: isLogout,
+                gameCancel: forGameCancel,
+                hasFadeFX: hasFadeFX
+            });
+        });
+    }
+    var links = $(document).find('[data-role-ajax]');
+    $(document).pageControl(links);
+
+    $.fn.postForm = function(data) {
+        var url = data.url,
+            reload = data.reload,
+            addingCredit = data.addingCredit;
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            async: true,
+            data: $(this).serialize(),
+            success: function(data) {
+                if (reload != null) {
+                    $(this).loadPage({
+                        url: reload,
+                        hasFadeFX: false
+                    });
+                }
+                $(this).loadCredit();
+            },
+            error: function(data) {
+                if (reload != null) {
+                    $(this).loadPage({
+                        url: reload,
+                        hasFadeFX: false
+                    });
+                }
+            }
+        }).done(function(data){
+            closeModals();
+            $(this).notify({
+                success: data.success,
+                text: data.msg,
+                info: data.info
+            });
+        });
+    };
+
+    $.fn.notify = function(data) {
+        var isSuccess = data.success,
+            isInfo = data.info,
+            type = isInfo ? "infoMessage" : isSuccess ? "successMessage" : "errorMessage",
+            messageText = data.text || (isSuccess ? "Success!" : "Oops, something went wrong..."),
+            messageDuration = data.duration || 4000,
+            animateInCls = data.animateInCls || "bounceInRight fast",
+            animateOutCls = data.animateOutCls || "bounceOutRight fast",
+            maxWidth = data.maxWidth,
+            message = $("<div>").addClass("alert animated").addClass(animateInCls).attr("id", type).html(messageText);
+
+        if (maxWidth != null) {
+            message.css("max-width", maxWidth + "px");
+        }
+
+        $("body").append(message);
+
+        setTimeout(function(){
+            message.removeClass(animateInCls).addClass(animateOutCls);
+        }, messageDuration);
+
+        setTimeout(function(){
+            message.remove();
+        }, messageDuration + 1000);
+    };
+
+    $.fn.loadPage = function(data) {
+        var url = data.url,
+            showLoading = data.showLoading,
+            hasFadeFX = data.hasFadeFX,
+            logout = data.logout,
+            loadCredit = data.loadCredit,
+            gameCancel = data.gameCancel;
+
+        hasFadeFX = hasFadeFX != null ? hasFadeFX : true;
+
+        $.ajax({
+            url: url,
+            async: true,
+            beforeSend: function() {
+                if (showLoading) {
+                    $('#loading').show();
+                }
+                if (hasFadeFX){
+                    $(".page-content").hide();
+                }
+            },
+            complete: function(){
+                if (showLoading) {
+                    $('#loading').hide();
+                }
+                if (hasFadeFX){
+                    $(".page-content").fadeIn(50);
+                }
+            },
+            error: function(xhr, status, error) {
+                $(this).notify({
+                    success: false,
+                    text: error
+                });
+            }
+        }).done(function(data){
+            if (logout) {
+                $('body').html(data);
+                $(this).notify({
+                    success: true,
+                    text: "Logged out successfully!"
+                });
+            } else if(gameCancel) {
+                $(this).notify({
+                    success: data.success,
+                    text: data.msg,
+                    duration: data.duration
+                });
+                $(this).loadCredit();
+            } else {
+                $(this).loadCredit();
+                $('.page-content').html(data).data("url", url);
+                goToTop();
+                var links = $('.page-content').find('[data-role-ajax]');
+                $(this).pageControl(links);
+            }
+
+        });
+    }
+
+    $.fn.loadCredit = function(data) {
+        closeModals();
+        $.ajax({
+            url: '/addCreditFromNav',
+            async: true,
+        }).done(function(data) {
+            $('.addCreditFromNav').html(data);
+        });
+    }
+
+    $.fn.loadProfileImage = function(data) {
+        $.ajax({
+            url: "/getProfilePic",
+            async: true,
+            success: function(data) {
+                $('.dropdown.userAccount').html(data);
+            }
+        });
+    }
+
+    $.fn.uploadFile = function(data) {
+        var url = data.url,
+            reload = data.reload,
+            getAvatar = data.getAvatar,
+            data = data.data;
+
+        $.ajax({
+            url: url,
+            data: data,
+            async: true,
+            type: 'post',
+            processData: false,
+            contentType: false,
+            error: function(data){
+                $(this).notify({
+                    success: false,
+                });
+                $(this).loadPage({
+                    url: reload
+                });
+            }
+        }).done(function(data){
+            $(this).notify({
+                success: data.success,
+                text: data.msg
+            });
+            if (reload != null) {
+                $(this).loadPage({
+                    url: reload,
+                    hasFadeFX: false
+                });
+            }
+            if (getAvatar != null) {
+                $(this).loadProfileImage();
+                $.holdReady( true );
+                $.getScript( "/js/main.js", function() {
+                    $.holdReady( false );
+                });
             }
         });
     }
 
 
-    // adding Credit
-    $('.paymentBtns').find('.addCredit').on('click', function(e){
-        // For Stripe
-        // $(this).siblings().find('button.stripe-button-el').trigger('click');
-
-        // For Free Credit
-        $(this).closest('#payForm').submit();
+    var $addCredit = $("a.addCredit");
+    $addCredit.on("click", function(){
+        var amount = $(this).data("amount");
+        var input = $("<input>").attr("type", "hidden").attr("name", "amount").attr("value", amount);
+        var $form = $(this).closest("#payForm");
+        $form.append(input).submit();
+    });
+    $("#payForm").on("submit", function(e){
+        e.preventDefault();
+        var url = $(".page-content").data("url");
+        $(this).postForm({
+            url: "/charge",
+            addingCredit: true,
+            reload: url
+        });
     });
 
 
-    // Back to previous page
-    $('#back').on('click', function() {
-        window.history.back();
-    });
-
-
-    // Change Profile Pic on Account Page
-    $('.showAvatarContainer').on('mouseover mouseout', function(e){
+    // Change Profile Pic
+    $('.accountDropdown').find('.showAvatarContainer').on('mouseover mouseout', function(e){
         if (e.type == 'mouseover')
         {
             $(this).find('.showAvatar').text('Change Photo');
@@ -155,29 +312,42 @@
         }
     });
 
-
-    // Dashboard Dropdown
-    $('.dashboard').find('.dashDrop').find('ul li.dropdown-item').on('click', function(){
-        var title = $(this).text();
-        var section = $(this).data('section');
-
-        $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet').addClass('hideOnTablet');
-        $('.dashboard').find('.'+section+'').parent().removeClass('hideOnTablet').addClass('showOnTablet');
-        $('.dashDrop').find('.dashDropBtn').find('.btnTitle').text(title);
-    });
-    $(window).resize(function() {
-        if ($(document).width() > 991) {
-            $('.dashboard').find('.dashboardSection').parent().removeClass('showOnTablet');
-        }
+    // don't close Account Dropdown when clicking in it
+    $('.accountDropdown').find('.showAvatarContainer').click(function(e){
+        e.stopPropagation();
     });
 
-
-    // Add Favorite Team
-    $("#chooseFavTeamModal .teamsList td").on('click', function(){
-        var team = $(this).data("id");
-        var form = $("#chooseFavTeamModal #addFavTeamForm");
-        form.append("<input type='hidden' name='favTeam' value='"+team+"'/>");
-        form.submit();
+    // Upload Profile Pic from Account Dropdown
+    $('.accountDropdown').find('#changePhoto').click(function(){
+        $('#chooseProfilePic').trigger('click');
     });
-    
+
+    $('.accountDropdown').find('#chooseProfilePic').on('click touchstart', function(){
+        $(this).val('');
+    });
+
+    $('.accountDropdown').find("#chooseProfilePic").change(function(e) {
+        $("#submitProfilePic").trigger('click');
+    });
+
+    $('.profilePicForm').on('submit', function(e){
+        e.preventDefault();
+        var url = $(".page-content").data("url");
+        $(this).uploadFile({
+            url: "/upload",
+            data: new FormData(this),
+            reload: url,
+            getAvatar: true
+        });
+    });
+
+    // Flash Success message
+    var duration = 4000;
+    setTimeout(function(){
+        $('.alert').addClass("animated bounceOutRight fast");
+    }, duration);
+    setTimeout(function(){
+        $('.alert').remove();
+    }, duration + 1000);
+
 })();

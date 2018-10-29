@@ -4,7 +4,7 @@
         @include('partials.navbar.navHeader')
 
         @if (Auth::check())
-            @include('partials.navbar.addCreditFromNav')
+            <div class="addCreditFromNav"></div>
         @endif
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,3 +21,4 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+<div class="text-center" id="loading" style="display:none">Loading...</div>

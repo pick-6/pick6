@@ -13,6 +13,6 @@
         You're not involved in any games yet.
     </p>
     <div id="startPlayingBtn">
-        <a href="/play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
+        <a class="btn btn-xl startPlayingBtn" data-role-ajax="play">JOIN A GAME</a>
     </div>
 @endif

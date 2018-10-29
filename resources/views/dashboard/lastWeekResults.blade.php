@@ -25,7 +25,7 @@
                 @foreach ($lastWeekResults as $game)
                     <tr>
                         <td data-title="Final Score" class="fc-yellow middle fs-25">
-                            <a href="{{action('GamesController@show', [$game->game_id])}}">
+                            <a data-role-ajax="{{action('GamesController@show', [$game->game_id])}}">
                                 <div class="pull-left width50">
                                     <img src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
                                     <div class="scores">
@@ -41,7 +41,7 @@
                             </a>
                         </td>
                         <td data-title="Winner" class="middle" style="padding:5px;">
-                            <a href="{{action('AccountController@show', [($game->id == Auth::id()) ? '' : $game->id])}}">
+                            <a data-role-ajax="{{action('AccountController@show', [($game->id == Auth::id()) ? '' : $game->id])}}">
                                 <img src="/img/profilePics/{{$game->avatar}}" height="40" width="40" alt="{{$game->full_name}}">
                                 <div class="winningUsername {{$game->id == Auth::user()->id ? 'fc-yellow' : 'fc-white'}}" title="{{$game->full_name}}">
                                     <small>{{$game->full_name}}</small>

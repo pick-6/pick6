@@ -1,21 +1,21 @@
 <!-- Show No Funds Modal -->
 <div id="showNoFundsModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width: 550px;">
         <div class="modal-content">
-            <div class="modal-header text-center closeModalBtnContainer">
-                <button class="close btn closeModalBtn" data-dismiss="modal">×</button>
-                <h3 class="fc-grey">Timeout... you are out of credit.</h3>
+            <div class="text-center closeModalBtnContainer">
+                <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>
             </div>
-            <div class="modal-body text-center">
-                <div>
-                    <div class="fc-yellow italic margin-bottom-10">
-                        <small>* Limited Time Only * -- All Credit is Free!</small>
+            <div class="modal-body text-center fc-grey">
+                <div class="text-center fc-grey">
+                    <div>
+                        <h3>Timeout... You are out of credit.</h3>
                     </div>
-                    <h3 class="fc-grey margin-top-0 margin-bottom-20">Would you like to add more?</h3>
-                    @include('payments.payment-free')
-                    <div class="text-right margin-top-20 clear">
-                        <button class="btn" data-dismiss="modal">No, thanks</button>
+                    <div>
+                        <h3>Please add more to make additional picks.</h3>
                     </div>
+                </div>
+                <div class="text-right margin-top-20 clear">
+                    <button class="btn btn-success" data-dismiss="modal" style="min-width:85px;">Ok</button>
                 </div>
             </div>
         </div>

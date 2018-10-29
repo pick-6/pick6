@@ -15,7 +15,7 @@ abstract class Controller extends BaseController
     {
         // TO DO: get 'week' and 'season_type' numbers dynamically
         $this->season_type = 2;
-        $this->currentWeek = 1;
+        $this->currentWeek = 8;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;
@@ -24,6 +24,7 @@ abstract class Controller extends BaseController
         $this->isRegularSeason = $this->season_type == 2;
         $this->isPostSeason = $this->season_type == 3;
 
+        // $this->minGamePicks = 0;
         $this->minGamePicks = 90;
     }
 }

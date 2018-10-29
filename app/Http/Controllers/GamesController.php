@@ -251,9 +251,10 @@ class GamesController extends Controller
 
         $gameCancel = $numberOfPicks < $this->minGamePicks && $gameStarted;
         $data['gameCancel'] = $gameCancel;
-        if ($gameCancel) {
-            SelectionsController::gameCancelled($id);
-        }
+        // if ($gameCancel) {
+        //     SelectionsController::gameCancelled($id);
+        // }
+        $data['isCancelled'] = boolval($gameCancel) ? 'true' : 'false';
 
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
@@ -278,6 +279,9 @@ class GamesController extends Controller
         $data['homeScore'] = $homeScore;
         $awayScore = $thisGame[0]['away_score'];
         $data['awayScore'] = $awayScore;
+
+        $data['homeScoreDigit'] = substr($homeScore, -1);
+        $data['awayScoreDigit'] = substr($awayScore, -1);
 
         return view('game.showGame')->with($data);
     }

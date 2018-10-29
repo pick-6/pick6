@@ -15,7 +15,7 @@
 <script src="/js/agency.min.js"></script>
 
 <!-- Stripe JavaScript -->
-<script src="https://js.stripe.com/v3/"></script>
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
 
 <!-- Site JavaScript -->
 <script src="/js/main.js"></script>

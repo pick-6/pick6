@@ -65,22 +65,33 @@ class PaymentController extends Controller
         $user->save();
 
         $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
-        return redirect('/dashboard');
+        // return redirect('/dashboard');
+        return redirect($_SERVER['HTTP_REFERER']);
     }
 
-    public function freeCharge(Request $request, $amountToCharge)
+    public function freeCharge(Request $request)
     {
-        // update user's credit
-        $creditAmountAdded = $amountToCharge;
-        $user = User::find(\Auth::id());
-        $userId = $user->id;
-        $getUserCurrentCredit = User::select('credit')->where('id', '=', $userId)->get();
-        $userCurrentCreditAmount = $getUserCurrentCredit[0]['credit'];
-        $updatedCreditAmount = $userCurrentCreditAmount + $creditAmountAdded;
-        $user->credit = $updatedCreditAmount;
-        $user->save();
+        try {
+            // update user's credit
+            $creditAmountAdded = $request->amount;
+            $user = User::find(\Auth::id());
+            $userId = $user->id;
+            $getUserCurrentCredit = User::select('credit')->where('id', '=', $userId)->get();
+            $userCurrentCreditAmount = $getUserCurrentCredit[0]['credit'];
+            $updatedCreditAmount = $userCurrentCreditAmount + $creditAmountAdded;
+            $user->credit = $updatedCreditAmount;
+            $user->save();
 
-        $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
-        return redirect('/dashboard');
+            // $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
+            // return redirect('/dashboard');
+            // return redirect($_SERVER['HTTP_REFERER']);
+
+            $response = response()->json(['success' => true, 'msg' => "$".$creditAmountAdded.".00 was added to your credit balance.", 'credit' => $updatedCreditAmount]);
+            return $response;
+
+        } catch (\Exception $e) {
+            $response = response()->json(['success' => false, 'msg' => "Failed to add credit"]);
+            return $response;
+        }
     }
 }

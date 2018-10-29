@@ -23,19 +23,28 @@
                 $gameOver = !is_null($game->home_score) || !is_null($game->away_score);
                 $numberOfPicks = GamesController::numberOfPicksForGame($game->game_id);
                 $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
-                if ($gameCancel) {
-                    SelectionsController::gameCancelled($game->game_id);
-                }
+                // if ($gameCancel) {
+                //     SelectionsController::gameCancelled($game->game_id);
+                // }
             ?>
             <tr>
                 @if($showGameTime)
                     @if($gameOver)
-                        <td class="fs-18 fc-yellow" style="padding:5px;text-align:center;">
-                            FINAL
+                        <td class="gameDayTime fc-yellow" style="padding:5px;text-align:center;">
+                            @if($showGameId)
+                                <div class="gameId">
+                                    <div class="gameId-ribbon-wrapper">
+                                        <div class="gameId-ribbon"><small class="fc-red">Id: {{$game->id}}</small></div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="gameTime fs-18">
+                                FINAL
+                            </div>
                         </td>
                     @else
                         <td class="gameDayTime" data-title="Kick-Off">
-                            @if ($showPrice && (!$gameOver && !$gameCancel))
+                            @if ($showPrice && (!$gameOver && !$gameCancel && !$gameStarted))
                             <div class="gamePrice">
                                 <div class="gamePrice-ribbon-wrapper">
                                     <div class="gamePrice-ribbon">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
@@ -62,7 +71,7 @@
 
                 <td class="gameTeams text-left padding-0">
                     @if ($isNextWeekList || !$showGameTime)
-                    @if ($showPrice && (!$gameOver && !$gameCancel))
+                    @if ($showPrice && (!$gameOver && !$gameCancel && !$gameStarted))
                     <div class="gamePrice">
                         <div class="gamePrice-ribbon-wrapper">
                             <div class="gamePrice-ribbon">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
@@ -77,7 +86,7 @@
                     </div>
                     @endif
                     @endif
-                    <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}}" href="{{action('GamesController@show', [$game->game_id])}}">
+                    <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->game_id.'' : action('GamesController@show', [$game->game_id]) ?>">
                         <div class="pull-left width50 homeTeam padding-10">
                             <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
                             <div class="text-left middle {{$gameOver ? '' : 'width60'}} inline-flex">
@@ -96,7 +105,7 @@
                 @if($showPlayGameBtn || $showPicksAvail)
                     <td id="playGameBtn" style="padding: 0px;{{$showPicksAvail ? "padding-bottom:10px;" :""}} ">
                         @if($showPlayGameBtn)
-                            <a href="{{action('GamesController@show', [$game->game_id])}}" class="btn playGameBtn" style="min-width:85%;">
+                            <a data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->game_id.'' : action('GamesController@show', [$game->game_id]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
                                 @if($gameOver)
                                     @if($gameCancel)
                                         CANCELLED

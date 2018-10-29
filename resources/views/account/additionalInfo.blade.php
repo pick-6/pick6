@@ -1,3 +1,7 @@
+<?php
+    $showBio = false
+?>
+
 <div class="text-center">
     @if($hasWinnings)
         <div class="margin-top-5">
@@ -30,12 +34,14 @@
     @endif
     @include('account.chooseFavTeamModal')
 
-    <!-- <div class="margin-top-5">
-        <div class="fc-yellow inline-block" style="width:35px;vertical-align:top">Bio:</div>
-        <div class="fc-grey overflow-auto inline-block" style="height:84px;width:calc(100% - 40px);">
-            This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
-            This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
-            This a bio about me. This a bio about me.
-        </div>
-    </div> -->
+    @if($showBio)
+        <!-- <div class="margin-top-5">
+            <div class="fc-yellow inline-block" style="width:35px;vertical-align:top">Bio:</div>
+            <div class="fc-grey overflow-auto inline-block" style="height:84px;width:calc(100% - 40px);">
+                This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
+                This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me. This a bio about me.
+                This a bio about me. This a bio about me.
+            </div>
+        </div> -->
+    @endif
 </div>

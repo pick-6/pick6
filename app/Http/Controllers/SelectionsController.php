@@ -53,79 +53,119 @@ class SelectionsController extends Controller
         $userCredit = $getUserCredit[0]['credit'];
         $costOfPicks = $validPicks * $pickCost;
         $updatedCreditAmount = $userCredit - $costOfPicks;
+        $picks = count($request->selection)  > 1 ? "picks were" : "pick was";
 
         $user = User::find($userId);
         $user->credit = $updatedCreditAmount;
         $user->save();
 
-        $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
-        return redirect()->action('GamesController@show', $gameId);
+        // $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
+        // return redirect()->action('GamesController@show', $gameId);
+        // return redirect($_SERVER['HTTP_REFERER']);
+        $response = response()->json(['success' => true, 'msg' => "Your $picks saved. Good luck!", 'game' => $gameId]);
+        return $response;
     }
 
     public function destroy(Request $request)
     {
-        $user = \Auth::user();
-        $userId = $user->id;
-        $gameId = $request->game_id;
-        $selection = $request->selection;
+        try
+        {
+            $user = \Auth::user();
+            $userId = $user->id;
+            $gameId = $request->game_id;
+            $selection = $request->selection;
 
-        $selections = Selections::select('id')
-        ->where('square_selection', '=', $selection)
-        ->where('game_id', '=', $gameId)
-        ->where('user_id', '=', $userId)
-        ->get();
-
-        if (count($selections) != 1) {
-            $request->session()->flash('errorMessage', 'Oops, failed to delete pick.');
-            return redirect()->action('GamesController@show', $gameId);
-        } else {
-            $pick = Selections::select('id')
+            $selections = Selections::select('id')
             ->where('square_selection', '=', $selection)
             ->where('game_id', '=', $gameId)
-            ->where('user_id', '=', $userId);
-            $pick->delete();
-        }
+            ->where('user_id', '=', $userId)
+            ->get();
 
-        // update credit balance
-        $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
-        $pickCost = $getCost[0]['pick_cost'];
-        $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
-        $userCredit = $getUserCredit[0]['credit'];
-        $updatedCreditAmount = $userCredit + $pickCost;
+            if (count($selections) != 1) {
+                $response = response()->json([
+                    'success' => false,
+                    'msg' => "Oops, we failed to delete your pick.",
+                    'game' => $gameId
+                ]);
+                return $response;
+            } else {
+                $selections = Selections::select('id')
+                ->where('square_selection', '=', $selection)
+                ->where('game_id', '=', $gameId)
+                ->where('user_id', '=', $userId);
+                $selections->delete();
+            }
 
-        $user = User::find($userId);
-        $user->credit = $updatedCreditAmount;
-        $user->save();
-
-        $request->session()->flash('successMessage', 'Your pick was deleted successfully!');
-
-        return redirect()->action('GamesController@show', $gameId);
-
-    }
-
-    public static function gameCancelled($gameId)
-    {
-        $selections = Selections::select('selections.id', 'selections.user_id', 'games.pick_cost')
-        ->join('games', 'games.id', '=', 'selections.id')
-        ->where('selections.game_id', '=', $gameId)
-        ->get();
-
-        foreach ($selections as $selection) {
-            $id = $selection['id'];
-            $userId = $selection['user_id'];
-            $cost = $selection['pick_cost'];
-
-            $selection->delete();
-
+            // update credit balance
+            $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get(); // todo: update to get cost from request
+            $pickCost = $getCost[0]['pick_cost'];
             $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
             $userCredit = $getUserCredit[0]['credit'];
-            $updatedCreditAmount = $userCredit + $cost;
+            $updatedCreditAmount = $userCredit + $pickCost;
 
             $user = User::find($userId);
             $user->credit = $updatedCreditAmount;
             $user->save();
+
+            $response = response()->json([
+                'success' => true,
+                'msg' => "Your pick was deleted successfully!",
+                'game' => $gameId
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'msg' => $e->getMessage().
+                        '<br />'.$e->getFile().
+                        '<br /> Line: '.$e->getLine()
+            ]);
         }
 
-        return;
+        return $response;
+    }
+
+    public function gameCancelled(Request $request, $gameId)
+    {
+        try
+        {
+            $selections = Selections::select('selections.id', 'selections.user_id', 'games.pick_cost')
+            ->join('games', 'games.id', '=', 'selections.game_id')
+            ->where('selections.game_id', '=', $gameId)
+            ->get();
+
+            if (count($selections) > 0) {
+                foreach ($selections as $selection) {
+                    $id = $selection['id'];
+                    $userId = $selection['user_id'];
+                    $cost = $selection['pick_cost'];
+
+                    $selection->delete();
+
+                    $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+                    $userCredit = $getUserCredit[0]['credit'];
+                    $updatedCreditAmount = $userCredit + $cost;
+
+                    $user = User::find($userId);
+                    $user->credit = $updatedCreditAmount;
+                    $user->save();
+                }
+            }
+
+            $response = response()->json([
+                'success' => false, // set to false to have red bkgd message
+                'msg' => "Sorry the game was cancelled. <br /> All your picks, if any, have been refunded.",
+                'duration' => 10000,
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+            ]);
+        }
+
+        return $response;
     }
 }

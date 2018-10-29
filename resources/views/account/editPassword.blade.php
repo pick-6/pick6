@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 
 <style type="text/css">
     section#contact.editPassword label {
@@ -26,7 +25,7 @@
 </style>
 
 <section id="contact" class="editPassword" style="background: none;padding: 0px;text-align: left;">
-    <div id="container">
+    <!-- <div id="container"> -->
         <div class="">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading margin-0">Change Password</h2>
@@ -34,7 +33,7 @@
         </div>
         <div class="">
             <div class="col-lg-12">
-                <form method="POST" action="{{action('AccountController@updatePassword')}}">
+                <form id="updatePwdForm" method="POST" action="{{action('AccountController@updatePassword')}}">
                     {!! csrf_field() !!}
                     <div class="">
                         <div class="form-group">
@@ -57,6 +56,20 @@
                 </form>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </section>
-@stop
+
+<script type="text/javascript">
+    $('#updatePwdForm').on('submit', function(e){
+        e.preventDefault();
+
+        $(this).postForm({
+            url: "/account/updatePassword",
+            reload: "/account"
+        });
+    });
+
+    $('#back').on('click', function(){
+        $(this).loadPage({url:'/account'});
+    });
+</script>

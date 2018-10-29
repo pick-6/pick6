@@ -42,5 +42,28 @@
     <!-- JS SCRIPTS -->
     @include('partials.common_js')
 
+    <!-- LOAD INITIAL PAGE CONTENT -->
+    @if (Auth::check())
+        <script>
+            $(document).ready(function(){
+                $(this).loadPage({
+                    url: "/dashboard",
+                    showLoading: true,
+                    loadCredit: true
+                });
+            });
+        </script>
+    @else
+        <script>
+            $(document).ready(function(){
+                $(this).loadPage({
+                    url: "/SignUpLoginView",
+                    showLoading: true,
+                    loadCredit: false
+                });
+            });
+        </script>
+    @endif
+
 </body>
 </html>

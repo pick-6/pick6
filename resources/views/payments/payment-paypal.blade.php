@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
 @media(max-width:425px){
     .modal-body h3 {
         width: 70%;
@@ -77,4 +77,4 @@ paypal.Button.render({
       });
   }
 }, '#paypal-button50');
-</script>
+</script> -->

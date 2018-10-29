@@ -5,7 +5,7 @@
     </a>
 </li>
 <li class="showOnMobile">
-    <a href="/dashboard">
+    <a data-role-ajax="/dashboard">
         <span class="inline-block" style="min-width:25px;font-size:1.25em;">
             <i class="fas fa-tachometer-alt"></i>
         </span>
@@ -13,7 +13,7 @@
     </a>
 </li>
 <li class="showOnMobile">
-    <a href="/account">
+    <a data-role-ajax="/account">
         <span class="inline-block" style="min-width:25px;font-size:1.25em;">
             <i class="fas fa-user-circle"></i>
         </span>
@@ -21,7 +21,7 @@
     </a>
 </li>
 <li class="showOnMobile">
-    <a href="/play">
+    <a data-role-ajax="/play">
         <span class="inline-block" style="min-width:25px;font-size:1.25em;">
             <i class="fas fa-football-ball"></i>
         </span>

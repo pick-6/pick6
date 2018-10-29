@@ -13,6 +13,13 @@
     $onDash = $onDash ?? false;
 ?>
 
+<style>
+    #currentGames div#no-more-tables {
+        max-height: 570px;
+        overflow: auto;
+    }
+</style>
+
 <div id="no-more-tables" class="table-responsive">
     @if(!$dates)
         @include('game.gameListTable')

@@ -41,7 +41,7 @@
                         <td data-title="Player Name" class="text-left">
                             <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->full_name}}">
                             <div class="text-left middle inline-block leaderboardName">
-                                <a href="{{action('AccountController@show', [($player->id == Auth::id()) ? '' : $player->id])}}" class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}" title="{{$player->full_name}}">{{$player->full_name}}</a>
+                                <a data-role-ajax="{{action('AccountController@show', [($player->id == Auth::id()) ? '' : $player->id])}}" class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}" title="{{$player->full_name}}">{{$player->full_name}}</a>
                             </div>
                         </td>
                         <td data-title="Wins" class="middle">{{$player->wins}}</td>
