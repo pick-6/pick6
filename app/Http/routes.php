@@ -44,6 +44,8 @@ Route::post('/upload', 'AccountController@uploadProfilePic');
 Route::get('/account/{user}', 'AccountController@show');
 Route::delete('/account/delete', 'AccountController@destroy');
 
+Route::post('/postContact', 'AccountController@postContact');
+
 // About Us Page
 Route::get('/about', function () {
     return view('about');

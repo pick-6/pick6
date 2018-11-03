@@ -1,120 +1,3 @@
-
-<style type="text/css">
-    .newSignLogin#container {
-        background-color: #2e2e2e;
-        width: 40%;
-        margin: auto;
-        padding: 2em;
-        border-radius: 8px;
-        border: hidden;
-        opacity: .98;
-    }
-
-    .newSignLogin #buttons {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .newSignLogin .signup,
-    .newSignLogin .login {
-        height: 3em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: hidden;
-        font-size: large;
-        font-weight: bold;
-        color: #fff;
-        background-color: #fff4;
-        outline: none!important;
-    }
-
-    .newSignLogin .signup {
-        border-radius: 8px 0 0 8px;
-    }
-
-    .newSignLogin .login {
-        border-radius: 0 8px 8px 0;
-    }
-
-    .newSignLogin .active {
-        background-color: #fed136;
-        color: #111;
-    }
-
-    .newSignLogin .button,
-    .newSignLogin .forgot-link {
-        cursor: pointer;
-    }
-
-    .newSignLogin .button:hover {
-        background-color: #FEC503;
-        color: #111;
-    }
-
-    .newSignLogin .message {
-        grid-column: 1/3;
-        align-self: center;
-        text-align: center;
-        margin: .75em auto;
-    }
-
-    .newSignLogin input.form-control {
-        grid-column: 1/3;
-        margin-bottom: 1.5em;
-        font-size: 16px;
-    }
-
-    .newSignLogin .last-name {
-        margin-left: 5px;
-    }
-    .newSignLogin .last-name,
-    .newSignLogin .first-name {
-        width:calc(50% - 5px);
-        display: inline-block;
-    }
-
-    .newSignLogin .forgot-pass {
-        grid-column: 1/3;
-        text-align: right;
-        font-size: 0.8em;
-        position: relative;
-        top: -1em;
-    }
-
-    .newSignLogin .forgot-link {
-        color: lightgrey;
-        text-decoration: underline;
-    }
-
-    .newSignLogin input[type="submit"] {
-        width: 100%;
-        letter-spacing: 3px;
-        border-radius: 8px;
-    }
-
-    @media (max-width: 1300px) {
-        .newSignLogin#container {
-            width: 50%;
-        }
-    }
-    @media (max-width: 1000px) {
-        .newSignLogin#container {
-            width: 70%;
-        }
-    }
-    @media (max-width: 900px) {
-        .newSignLogin#container {
-            width: 80%;
-        }
-    }
-    @media (max-width: 700px) {
-        .newSignLogin#container {
-            width: 95%;
-        }
-    }
-</style>
-
 <!-- Sign Up / Login Section -->
 <div id="container" class="newSignLogin">
     <div id="buttons">
@@ -177,4 +60,107 @@
         signupForm.addClass('hide');
         loginForm.find("input").first().focus();
     });
+
+    loginForm.on('submit', function(e){
+        e.preventDefault();
+
+        var e = loginForm.find("input[name=email]").val().trim();
+        var p = loginForm.find("input[name=password]").val().trim();
+
+        if (e == '' || p == '') {
+            if (e == '' && p == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The email field is required.<br />The password field is required."
+                });
+                return false;
+            }
+
+            if (e == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The email field is required."
+                });
+                return false;
+            }
+
+            if (p == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The password field is required."
+                });
+                return false;
+            }
+        }
+
+        $.ajax({
+            url: "/login",
+            type: "post",
+            data: $(this).serialize(),
+            error: function(data) {
+                var text = "";
+                var email = data.responseJSON.email;
+                var password = data.responseJSON.password;
+                if (email !== null && email !== undefined) {
+                    text+=email;
+                }
+                if (password !== null && password !== undefined) {
+                    if (email) {
+                        text+="<br>";
+                    }
+                    text+=password;
+                }
+                $(this).notify({
+                    success: false,
+                    text: text
+                });
+            }
+        }).done(function(data){
+            if (data.success)
+            {
+                $(this).loadPage({
+                    url: "/",
+                    login: true,
+                    message: data.msg
+                });
+            }
+            else
+            {
+                $(this).notify({
+                    success: data.success,
+                    text: data.msg,
+                });
+            }
+        });
+    });
+
+    signupForm.on('submit', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type: "post",
+            url: "/register",
+            data: $(this).serialize(),
+            error: function(data){
+                $(this).notify({
+                    success: data.success,
+                    text: data.msg
+                });
+            }
+        }).done(function(data){
+            $(this).notify({
+                success: data.success,
+                text: data.msg,
+            });
+
+            if (data.success) {
+                $(this).loadPage({
+                    url: "/",
+                    isRegis: true,
+                    message: data.msg
+                });
+            }
+        });
+    });
+
 </script>

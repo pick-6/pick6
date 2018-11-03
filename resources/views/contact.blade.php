@@ -10,6 +10,7 @@
     <div class="">
         <div class="col-lg-12">
             <form name="sentMessage" id="contactForm" novalidate>
+                {!! csrf_field() !!}
                 <div class="">
                     <div class="col-md-6 padding-b-0">
                         <div class="form-group">
@@ -40,3 +41,100 @@
         </div>
     </div>
 </div>
+<script>
+    $("#contactForm").on('submit', function(e){
+        e.preventDefault();
+        var token = $("input[name=_token]").val().trim();
+        var name = $("input#name").val().trim();
+        var email = $("input#email").val().trim();
+        var phone = $("input#phone").val().trim();
+        var message = $("textarea#message").val().trim();
+        var firstName = name; // For Success/Failure Message
+        // Check for white space in name for Success/Fail message
+        if (firstName.indexOf(' ') >= 0) {
+            firstName = name.split(' ').slice(0, -1).join(' ');
+        }
+
+        if (name == '' || email == '' || message == '') {
+            if (name == '' && email == '' && message == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The name field is required.<br />The email field is required.<br />The message field is required."
+                });
+                return false;
+            }
+
+            if (name == '' && email == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The name field is required.<br />The email field is required."
+                });
+                return false;
+            }
+
+            if (name == '' && message == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The name field is required.<br />The message field is required."
+                });
+                return false;
+            }
+
+            if (email == '' && message == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The email field is required.<br />The message field is required."
+                });
+                return false;
+            }
+
+            if (name == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The name field is required."
+                });
+                return false;
+            }
+
+            if (email == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The email field is required."
+                });
+                return false;
+            }
+
+            if (message == '') {
+                $(this).notify({
+                    success: false,
+                    text: "The message field is required."
+                });
+                return false;
+            }
+        }
+
+
+        $.ajax({
+            url: "/postContact",
+            type: 'post',
+            data: {
+                name: name,
+                phone: phone,
+                email: email,
+                message: message,
+                _token: token
+            },
+            error: function(data){
+
+            }
+        }).done(function(data){
+            $(this).notify({
+                success: data.success,
+                text: data.msg
+            });
+            if (data.success) {
+                $('#contactForm').trigger("reset");
+            }
+        });
+    });
+</script>

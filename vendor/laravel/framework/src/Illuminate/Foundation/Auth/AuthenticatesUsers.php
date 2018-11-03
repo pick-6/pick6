@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
+use App\User;
 
 trait AuthenticatesUsers
 {
@@ -32,6 +33,40 @@ trait AuthenticatesUsers
      */
     public function postLogin(Request $request)
     {
+        // $this->validate($request, [
+        //     $this->loginUsername() => 'required', 'password' => 'required',
+        // ]);
+        //
+        // // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // // the login attempts for this application. We'll key this by the username and
+        // // the IP address of the client making these requests into this application.
+        // $throttles = $this->isUsingThrottlesLoginsTrait();
+        //
+        // if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+        //     return $this->sendLockoutResponse($request);
+        // }
+        //
+        // $credentials = $this->getCredentials($request);
+        //
+        // if (Auth::attempt($credentials, $request->has('remember'))) {
+        //     return $this->handleUserWasAuthenticated($request, $throttles);
+        // }
+        //
+        // // If the login attempt was unsuccessful we will increment the number of attempts
+        // // to login and redirect the user back to the login form. Of course, when this
+        // // user surpasses their maximum number of attempts they will get locked out.
+        // if ($throttles) {
+        //     $this->incrementLoginAttempts($request);
+        // }
+        //
+        // return redirect($this->loginPath())
+        //     ->withInput($request->only($this->loginUsername(), 'remember'))
+        //     ->withErrors([
+        //         $this->loginUsername() => $this->getFailedLoginMessage(),
+        //     ]);
+
+
+
         $this->validate($request, [
             $this->loginUsername() => 'required', 'password' => 'required',
         ]);
@@ -47,8 +82,13 @@ trait AuthenticatesUsers
 
         $credentials = $this->getCredentials($request);
 
+        $user = User::select("*")->where("email", "=", $request->email)->get();
+
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
+            return response()->json([
+                'success' => true,
+                'msg' => "Welcome back, ".$user[0]['first_name']."!"
+            ]);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -58,11 +98,10 @@ trait AuthenticatesUsers
             $this->incrementLoginAttempts($request);
         }
 
-        return redirect($this->loginPath())
-            ->withInput($request->only($this->loginUsername(), 'remember'))
-            ->withErrors([
-                $this->loginUsername() => $this->getFailedLoginMessage(),
-            ]);
+        return response()->json([
+            'success' => false,
+            'msg' => $this->getFailedLoginMessage()
+        ]);
     }
 
     /**

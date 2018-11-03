@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Selections;
 use App\Models\Games;
 use App\User;
+use DB;
 
 class SelectionsController extends Controller
 {
@@ -152,17 +153,29 @@ class SelectionsController extends Controller
                     $user->save();
                 }
             }
+            // $teams = Games::select("games.home_team", "games.away_team")->where("id", "=", $gameId)->get();
+            $teams = Games::select(DB::raw('home_team.name as home, away_team.name as away'))
+            ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+            ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+            ->where("games.id", "=", $gameId)
+            ->get();
+            $homeTeam = $teams[0]['home'];
+            $awayTeam = $teams[0]['away'];
 
             $response = response()->json([
                 'success' => false, // set to false to have red bkgd message
-                'msg' => "Sorry the game was cancelled. <br /> All your picks, if any, have been refunded.",
+                'msg' => "Sorry, the $homeTeam vs. $awayTeam game was cancelled due to low user participation. <br /> All your picks, if any, have been refunded.",
                 'duration' => 10000,
+                'maxWidth' => 500,
             ]);
         }
         catch (\Exception $e)
         {
             $response = response()->json([
                 'success' => false,
+                'duration' => 1000000,
+                'msg' => $e->getMessage()
+                // 'msg' => $e->getMessage().$e->getCode().$e->getFile().$e->getLine().$e->getTraceAsString();
             ]);
         }
 

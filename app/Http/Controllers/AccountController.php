@@ -20,7 +20,7 @@ class AccountController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except'=>['postContact']]);
         parent::__construct();
     }
 
@@ -277,5 +277,34 @@ class AccountController extends Controller
         $request->session()->flash('successMessage', 'Account deleted successfully!');
 
         return redirect('/');
+    }
+
+    public function postContact(Request $request)
+    {
+        try
+        {
+            $this->validate($request, ['email' => 'required|email']);
+
+            $name = strip_tags(htmlspecialchars($_POST['name']));
+            $email_address = strip_tags(htmlspecialchars($_POST['email']));
+            $phone = strip_tags(htmlspecialchars($_POST['phone']));
+            $message = strip_tags(htmlspecialchars($_POST['message']));
+
+            // Create the email and send the message
+            $to = 'mattvaldez01@gmail.com'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
+            $email_subject = "Pick 6 Contact Form:  $name";
+            $email_body = "You have received a new message from your Pick 6 contact form.\n\n"."Here are the details:\n\nName: $name\n\nEmail: $email_address\n\nPhone: $phone\n\nMessage:\n$message";
+            $headers = "From: noreply@pick6.com\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
+            $headers .= "Reply-To: $email_address";
+            mail($to,$email_subject,$email_body,$headers);
+
+            $response = response()->json([ 'success' => true, 'msg' => 'Your message has been sent.']);
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([ 'success' => false, 'msg' => $e->getMessage()]);
+        }
+
+        return $response;
     }
 }

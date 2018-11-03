@@ -12,7 +12,7 @@
 <script src="/js/contact_me.js"></script>
 
 <!-- Theme JavaScript -->
-<script src="/js/agency.min.js"></script>
+<!-- <script src="/js/agency.min.js"></script> -->
 
 <!-- Stripe JavaScript -->
 <!-- <script src="https://js.stripe.com/v3/"></script> -->

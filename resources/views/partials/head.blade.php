@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Droid+Serif:400,700,400italic,700italic|Graduate" rel="stylesheet" type="text/css">
 
     <!-- Theme CSS -->
-    <link href="/css/agency.min.css" rel="stylesheet">
+    <!-- <link href="/css/agency.min.css" rel="stylesheet"> -->
 
     <!-- Main Custom CSS -->
     <link rel="stylesheet" type="text/css" href="/css/main.css">

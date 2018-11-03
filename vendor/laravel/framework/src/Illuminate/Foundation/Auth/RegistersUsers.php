@@ -27,16 +27,31 @@ trait RegistersUsers
      */
     public function postRegister(Request $request)
     {
-        $validator = $this->validator($request->all());
+        try
+        {
+            $validator = $this->validator($request->all());
 
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
+            if ($validator->fails()) {
+                $this->throwValidationException(
+                    $request, $validator
+                );
+            }
+
+            Auth::login($this->create($request->all()));
+
+            $message = response()->json([
+                'success' => true,
+                'msg' => "Welcome to Pick6, $request->first_name!"
+            ]);
         }
+        catch (\Exception $e)
+        {
+            $message = response()->json([
+                'success' => false,
+                'msg' => implode("<br />",$validator->messages()->all())
+            ]);
 
-        Auth::login($this->create($request->all()));
-
-        return redirect($this->redirectPath());
+        }
+        return $message;
     }
 }
