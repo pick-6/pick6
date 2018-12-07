@@ -208,7 +208,8 @@
         var gameId = $(this).find('input[name=game_id]').val();
         $(this).postForm({
             url: "/selections",
-            reload: "/play/"+gameId+""
+            reload: "/play/"+gameId+"",
+            makingPicks: true,
         });
     });
 

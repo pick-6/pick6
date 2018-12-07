@@ -78,7 +78,8 @@
                 forGameCancel = $(this).hasClass('forGameCancel'),
                 hasPendingPicks = $('#gameTable').find('td.pendingPick').length,
                 url = targetPage,
-                hasFadeFX = targetPage == previousPage ? false : true;
+                // hasFadeFX = targetPage == previousPage ? false : true;
+                hasFadeFX = true;
 
             if (hasPendingPicks) {
                 $(this).confirm({
@@ -105,13 +106,22 @@
     $.fn.postForm = function(data) {
         var url = data.url,
             reload = data.reload,
-            addingCredit = data.addingCredit;
+            addingCredit = data.addingCredit,
+            makingPicks = data.makingPicks;
 
         $.ajax({
             type: "POST",
             url: url,
             async: true,
             data: $(this).serialize(),
+            beforeSend: function(data){
+                if (makingPicks) {
+                    var pendingPicks = $("#gameTable").find(".pendingPick");
+                    var icon = pendingPicks.find("i");
+                    icon.removeClass();
+                    icon.addClass("fas fa-spinner fa-pulse fc-yellow fs-20");
+                }
+            },
             success: function(data) {
                 if (reload != null) {
                     $(this).loadPage({
@@ -208,7 +218,7 @@
                 $('body').html(data);
                 $(this).notify({
                     success: true,
-                    text: login || isRegis ? message : "Logged out successfully!"
+                    text: logout ? "Logged out successfully!" : message
                 });
             } else if(gameCancel) {
                 $(this).notify({
@@ -379,5 +389,22 @@
     setTimeout(function(){
         $('.alert').remove();
     }, duration + 1000);
+
+
+    // Clicking Account Dropdown
+    $('[data-toggle="dropdown"]').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        var isExpanded = $(this).attr("aria-expanded");
+
+        if (isExpanded == 'true') {
+            $(this).attr("aria-expanded", false);
+            $(this).parent().removeClass("open");
+        } else {
+            $(this).attr("aria-expanded", true);
+            $(this).parent().addClass("open");
+        }
+    });
 
 })();

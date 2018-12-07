@@ -11,7 +11,7 @@
                     @include('game.list', ['dates' => $datesForWeek])
                 </div>
             </div>
-            <div class="text-right margin-top-0 margin-bottom-15 margin-right-20 clear">
+            <div class="text-right margin-top-20 margin-bottom-15 margin-right-20 clear">
                 <button class="btn" data-dismiss="modal">Close</button>
             </div>
         </div>
