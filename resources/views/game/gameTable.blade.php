@@ -57,15 +57,15 @@
             <!-- Creates all 100 squares on the table -->
             @for ($column = 0; $column < 10; $column++)
                 <?php
-                    $winningSelectionId = $gameStarted == 'true' ? $randomNumbers['home'][$column].$randomNumbers['away'][$row] : '?';
-                    $isWinningSquare = $gameOver == 'true' ? ($winningSelection == $winningSelectionId) : '';
+                    $squareId = $gameStarted == 'true' ? $randomNumbers['home'][$column].$randomNumbers['away'][$row] : '?';
+                    $isWinningSquare = $gameOver == 'true' ? ($winningSelection == $squareId) : '';
                 ?>
                 @if (in_array("$column$row", $thisGameSelections))
                     @foreach($squaresSelected as $user)
                         @if($user->square_selection == $column.$row)
-                            <td class="notAvailable text-center middle padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-user="{{$user->id}}" data-id="{{$column}}{{$row}}" data-title="{{$user->username}}" data-winning-id="{{$winningSelectionId}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
+                            <td class="notAvailable text-center middle padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-user-id="{{$user->id}}" data-username="{{$user->username}}" data-square-id="{{$squareId}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
                                 @if($user->id != Auth::id() || $gameOver)
-                                    <a data-role-ajax="{{action('AccountController@show', [$user->id])}}" <?= $user->id != Auth::id() ? "title=\"View $user->username's Profile\"": "" ?> style="cursor:pointer">
+                                    <a data-role-ajax="{{action('AccountController@show', [$user->id])}}" <?= $user->id != Auth::id() ? "title=\"View $user->username's Profile\"" : "" ?> style="cursor:pointer">
                                         <div class='showUserContainer'>
                                             <div class='showUserBG'></div>
                                                 <small class="hideOnMobile"><span class='showUserName margin-top-10 inline-block'></span></small>
@@ -76,7 +76,7 @@
                         @endif
                     @endforeach
                 @else
-                    <td class="middle availableSquare text-center padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-winning-id="{{$winningSelectionId}}"><i class="fc-green fas"></i></td>
+                    <td class="middle availableSquare text-center padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-square-id="{{$squareId}}"><i class="fc-green fas"></i></td>
                 @endif
             @endfor
             <td class="hideGameTableColumn noBorder cursor-arrow"></td>
@@ -95,12 +95,33 @@
     </div>
 </div>
 
-
+<?php
+    $notStarted = $gameStarted == 'false';
+?>
+@if($notStarted)
+    <div class="fc-grey text-right margin-top-5" style="margin-right:90px">
+        Picks Available: <span class="counter inline-block fc-yellow text-left" style="width:20px"></span>
+    </div>
+@endif
 
 <!-- <script src="/vendor/jquery/jquery.min.js"></script> -->
 <script type="text/javascript">
     // Square Selection JS
     $this = $('#gameTable');
+
+    function updateCounter(){
+        var picks = $this.find(".notAvailable, .pendingPick").length;
+        var picksLeft = 100 - picks;
+        if (picksLeft == 0) {
+            $(".counter").addClass("fc-red");
+            $(".counter").removeClass("fc-yellow");
+        } else {
+            $(".counter").removeClass("fc-red");
+            $(".counter").addClass("fc-yellow");
+        }
+        $(".counter").html(picksLeft);
+    }
+    updateCounter();
 
     function hasFunds(){
         return getEndBalance() >= {{$pickCost}};
@@ -189,6 +210,7 @@
         changeCreditBalance();
         togglePicksBtns();
         updatePotAmounts();
+        updateCounter();
     });
     // Submit Picks
     $('#selectionsForm').on('submit', function(e) {
@@ -238,7 +260,7 @@
     });
     if (!{{$isOver}}) {
         $this.find('.notAvailable').on('mouseover mouseout', function(e){
-        var isLoggedInUser = $(this).data('user') == {{Auth::id()}};
+        var isLoggedInUser = $(this).data('user-id') == {{Auth::id()}};
 
         if (isLoggedInUser)
         {
@@ -277,7 +299,7 @@
         {
             if (e.type == 'mouseover')
             {
-                $(this).find('.showUserName').text($(this).data('title'));
+                $(this).find('.showUserName').text($(this).data('username'));
                 $(this).find('.showUserContainer')
                 .css({
                     'position': 'relative',
@@ -383,6 +405,7 @@
         changeCreditBalance();
         togglePicksBtns();
         updatePotAmounts();
+        updateCounter();
     });
 
 
@@ -400,12 +423,12 @@
         $squares = $this.find('td').not('.thickLimeGreenBorder');
         $squares.on('mouseover mouseout', function(e){
             if (e.type == 'mouseover') {
-                var isLoggedInUser = $(this).data('user') == {{Auth::id()}};
+                var isLoggedInUser = $(this).data('user-id') == {{Auth::id()}};
                 if (isLoggedInUser) {
                     return false;
                 }
 
-                $(this).find('.showUserName').text($(this).data('title'));
+                $(this).find('.showUserName').text($(this).data('username'));
             } else {
                 $(this).find('.showUserName').text('');
             }

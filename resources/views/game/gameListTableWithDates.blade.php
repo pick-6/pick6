@@ -9,11 +9,13 @@
         <?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?>
     </h4>
     <table class="col-sm-12 table-bordered table-condensed gamesForWeekTables">
-            <colgroup>
-                <col style="width: {{$showGameTime ? 10 : 75}}%">
-                <col>
-                <col style="width: 25%">
-            </colgroup>
+            @if (!$isNextWeekList)
+                <colgroup>
+                    <col style="width: {{$showGameTime ? 10 : 75}}%">
+                    <col>
+                    <col style="width: 25%">
+                </colgroup>
+            @endif
             <tbody>
                 @foreach ($games as $game)
                     <?php

@@ -14,9 +14,15 @@
             </div>
 
             @if(Auth::user()->email == 'mattvaldez01@gmail.com')
-                <div class="fc-red absolute" style="bottom:10px;left:15px;">
-                    Game Id: {{$gameId}}
+                <div class="fc-red absolute text-left" style="bottom:10px;left:15px;">
+                    Game Id: <span class="bold">{{$gameId}}</span> <br />
+                    Winning Selection: <span class="bold">{{$winningSelection}}</span> <br />
+                    Winning User: <span id=winningUserId class="bold"></span>
                 </div>
+                <script>
+                    var winningUser = $("#gameTable td.thickLimeGreenBorder").data("user-id");
+                    $("#winningUserId").html(winningUser);
+                </script>
             @endif
         </div>
     </div>

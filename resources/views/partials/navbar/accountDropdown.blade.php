@@ -40,7 +40,7 @@
             <div class="navbar-footer-content">
                 <div class="row">
                     <div class="col-sm-6" style="padding:10px!important;">
-                        <a data-role-ajax="{{action('AccountController@editPassword')}}" class="closeDrop btn btn-default btn-sm">Change Password</a>
+                        <a data-role-ajax="/dashboard" class="closeDrop btn btn-default btn-sm">Go to Dashboard</a>
                     </div>
                     <div class="col-sm-6" style="padding:10px!important;">
                         <a data-role-ajax="{{action('Auth\AuthController@getLogout')}}" class="closeDrop logout btn btn-default btn-sm pull-right">Log Out</a>

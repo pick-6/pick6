@@ -2,8 +2,8 @@
 <div class="navbar-header">
     <!-- Brand -->
     <a data-role-ajax="{{ Auth::check() ? '/dashboard' : '/SignUpLoginView'}}">
-        <span class="navbar-brand logoName">PICK</span>
-        <span><img class="logoImage"  src="/img/pick6_logo_low.png" onContextMenu="return false;"></span>
+        <!-- <span class="navbar-brand logoName">PICK</span> -->
+        <span><img class="logoImage"  src="/img/pick6_logo_new1.png" onContextMenu="return false;"></span>
     </a>
 
     <!-- Hamburger -->

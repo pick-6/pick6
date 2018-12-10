@@ -11,7 +11,7 @@
       <!--<![endif]-->
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Droid+Serif:400,700,400italic,700italic|Graduate" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
       <style type="text/css">  #outlook a { padding: 0; }  .ReadMsgBody { width: 100%; }  .ExternalClass { width: 100%; }  .ExternalClass * { line-height:100%; }  body { margin: 0; padding: 0; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }  table, td { border-collapse:collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }  img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; }  p { display: block; margin: 13px 0; }</style>
       <!--[if !mso]><!-->
       <style type="text/css">  @media only screen and (max-width:480px) {    @-ms-viewport { width:320px; }    @viewport { width:320px; }  }</style>
@@ -111,8 +111,9 @@
                                                                <tr>
                                                                   <td style="">
                                                                       <div style="margin-left:25px;">
-                                                                          <span style="font-style:italic;font-family: 'Graduate','Helvetica Neue',Helvetica,Arial,sans-serif;color:#fed136;font-size:4rem;">PICK<span style="display:none">6</span></span>
-                                                                          <img alt="Pick6 | Online Football Squares" height="75" width="75" src="https://pick6.mavdeveloper.com/img/pick6_logo_low.png" style="top: 18px;position: relative;left: -10px;">
+                                                                          <!-- <span style="font-style:italic;font-family: 'Graduate','Helvetica Neue',Helvetica,Arial,sans-serif;color:#fed136;font-size:4rem;">PICK<span style="display:none">6</span></span> -->
+                                                                          <!-- <img alt="Pick6 | Online Football Squares" height="75" width="75" src="https://pick6.mavdeveloper.com/img/pick6_logo_low.png" style="top: 18px;position: relative;left: -10px;"> -->
+                                                                          <img alt="Pick6 | Online Football Squares" height="45" width="175" src="https://pick6.mavdeveloper.com/img/pick6_logo_new1.png" style="top: 18px;position: relative;left: -10px;">
                                                                       </div>
                                                                   </td>
                                                                </tr>

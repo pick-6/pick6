@@ -46,19 +46,36 @@
             @include('account.additionalInfo')
         </div>
         @if($isLoggedInUser)
-            <div>
-                <ul class="padding-0 text-left">
+            <style>
+                .settings {
+                    border: 1px solid #444;
+                    /* box-shadow: 1px 1px 5px #333; */
+                }
+                .settings:hover, .open .settings {
+                    background: #111;
+                }
+            </style>
+            <div class="absolute dropdown hideOnTablet" style="bottom:0;padding-bottom:10px">
+                <a class="dropdown-toggle no-decor" data-toggle="dropdown">
+                    <div class="padding-5 fc-grey fs-18 addCredit ellipsis settings">
+                        <span class="inline-block" style="min-width:25px;">
+                            <i class="fas fa-cog"></i>
+                            <!-- <small class="uppercase bold">Account Settings</small> -->
+                        </span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu padding-0 text-left" style="top:-30px;left: 45px;background:#444">
                     <a href="#addCreditModal" data-toggle="modal">
                         <li class="padding-10 fc-grey fs-18 addCredit ellipsis">
-                            <span class="inline-block" style="min-width:25px;">
-                                <i class="fas fa-dollar-sign" ></i><i class="fas fa-dollar-sign"></i>
+                            <span class="inline-block text-center" style="min-width:25px;">
+                                <i class="fas fa-dollar-sign"></i>
                             </span>
                             Add Credit
                         </li>
                     </a>
                     <a data-role-ajax="{{action('AccountController@edit')}}">
                         <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
-                            <span class="inline-block" style="min-width:25px;">
+                            <span class="inline-block text-center" style="min-width:25px;">
                                 <i class="fas fa-edit"></i>
                             </span>
                             Edit Info
@@ -66,7 +83,7 @@
                     </a>
                     <a data-role-ajax="{{action('AccountController@editPassword')}}">
                         <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
-                            <span class="inline-block" style="min-width:25px;">
+                            <span class="inline-block text-center" style="min-width:25px;">
                                 <i class="fas fa-key"></i>
                             </span>
                             Change Password
@@ -74,7 +91,43 @@
                     </a>
                     <a href="#deleteAccountModal" data-toggle="modal">
                         <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
-                            <span class="inline-block" style="min-width:25px;">
+                            <span class="inline-block text-center" style="min-width:25px;">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                            Delete Account
+                        </li>
+                    </a>
+                </ul>
+            </div>
+            <div class="showOnTablet">
+                <ul class="padding-0 text-left">
+                    <a href="#addCreditModal" data-toggle="modal">
+                        <li class="padding-10 fc-grey fs-18 addCredit ellipsis">
+                            <span class="inline-block text-center" style="min-width:25px;">
+                                <i class="fas fa-dollar-sign"></i>
+                            </span>
+                            Add Credit
+                        </li>
+                    </a>
+                    <a data-role-ajax="{{action('AccountController@edit')}}">
+                        <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
+                            <span class="inline-block text-center" style="min-width:25px;">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                            Edit Info
+                        </li>
+                    </a>
+                    <a data-role-ajax="{{action('AccountController@editPassword')}}">
+                        <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
+                            <span class="inline-block text-center" style="min-width:25px;">
+                                <i class="fas fa-key"></i>
+                            </span>
+                            Change Password
+                        </li>
+                    </a>
+                    <a href="#deleteAccountModal" data-toggle="modal">
+                        <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
+                            <span class="inline-block text-center" style="min-width:25px;">
                                 <i class="fas fa-trash-alt"></i>
                             </span>
                             Delete Account

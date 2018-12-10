@@ -649,7 +649,9 @@ th.winningScore {
     .c-pointer {
         cursor: pointer;
     }
-
+    .no-decor {
+        text-decoration: none !important;
+    }
 
 
 /****** FOOTER ******/
@@ -1644,14 +1646,20 @@ font-size: 22px;
 
 #mainNav .logoName {
     font-style: italic;
-    font-family: 'Graduate', cursive!important;
+    /* font-family: 'Graduate', cursive!important; */
     font-size: 3em;
 }
 #mainNav .logoImage {
-    position: relative;
+    /* position: relative;
     top: -12px;
     width: 70px;
     height: 70px;
+    left: -10px; */
+
+    position: relative;
+    top: 2px;
+    width: 175px;
+    height: 45px;
     left: -10px;
 }
 #mainNav.navbar-default .navbar-toggle:focus,
