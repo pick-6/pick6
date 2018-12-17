@@ -36,7 +36,12 @@
                 <div>
                     <h3 class="fc-grey margin-0-auto margin-bottom-15">Select an amount to add</h3>
                 </div>
-                @include('payments.payment-free')
+                <div id="paymentBtns" class="paymentBtns inline-block width100">
+                    <form id="payForm" method="post" action="{{action('PaymentController@freeCharge')}}">
+                        {{ csrf_field() }}
+                        @include('payments.payment-options')
+                    </form>
+                </div>
                 <div class="text-right margin-top-20 clear">
                     <button class="btn" data-dismiss="modal">Cancel</button>
                 </div>
