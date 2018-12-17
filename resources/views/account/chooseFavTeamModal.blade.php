@@ -20,7 +20,7 @@
                                                 <img src="/img/team_logos/{{$team->logo}}" height="60" width="65" alt="{{$team->name}}">
                                             </div>
                                             <div class="inline-block width70 middle">
-                                                {{$team->name}}
+                                                {{$team->city}} {{$team->name}}
                                             </div>
                                             <div class="inline-block middle">
                                                 @if($hasFavTeam)

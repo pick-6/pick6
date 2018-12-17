@@ -21,4 +21,4 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="text-center" id="loading" style="display:none">Loading...</div>
+<div class="text-center" id="loading" style="display:none">Loading... <i class="fas fa-spinner fa-pulse" style="margin-left:5px"></i></div>
