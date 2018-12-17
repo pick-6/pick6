@@ -87,7 +87,8 @@ trait AuthenticatesUsers
         if (Auth::attempt($credentials, $request->has('remember'))) {
             return response()->json([
                 'success' => true,
-                'msg' => "Welcome back, ".$user[0]['first_name']."!"
+                'msg' => "Welcome back, ".$user[0]['first_name']."!",
+                'userId' => $user[0]['id']
             ]);
         }
 

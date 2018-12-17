@@ -34,6 +34,7 @@
     function closeModals() {
         $('.modal-backdrop, .modal').hide();
         $('body').removeClass('modal-open');
+        $("#addCreditModal").find("article").removeClass("active blur selected");
     };
 
     $.fn.confirm = function(data) {
@@ -296,6 +297,22 @@
                 $.holdReady( true );
                 $.getScript( "/js/main.js", function() {
                     $.holdReady( false );
+                });
+            }
+        });
+    }
+
+    $.fn.checkGamesCancelled = function(data) {
+        var url = data.url,
+            userId = data.userId;
+
+        $.ajax({
+            url: url + "/" + userId,
+        }).done(function(data){
+            if (!data.success) {
+                $(this).notify({
+                    success: data.success,
+                    text: data.msg
                 });
             }
         });

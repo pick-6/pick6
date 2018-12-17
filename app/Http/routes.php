@@ -29,6 +29,7 @@ Route::get('/SignUpLoginView', function () {
 });
 
 Route::get('/cancel/{game}', 'SelectionsController@gameCancelled');
+Route::get('/checkGamesCancelled/{userId}', 'SelectionsController@checkGamesCancelled');
 
 // Dashboard
 Route::get('/dashboard', 'DashboardController@dashboard');

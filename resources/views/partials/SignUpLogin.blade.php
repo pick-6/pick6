@@ -11,7 +11,7 @@
         <input type="email" class="form-control" name="email" placeholder="Email Address *">
         <input type="password" class="form-control" name="password" placeholder="Password *">
         <div class="forgot-pass"><a href="{{action('Auth\PasswordController@postEmail')}}"><span class="forgot-link">Forgot Password?</span></a></div>
-        <input type="submit" class="btn btn-lg" name="submit" value="Log in">
+        <button type="submit" class="btn btn-lg width100" name="submit">Log In</button>
     </form>
 
     <form class="signup-form hide" method="POST" action="{{action('Auth\AuthController@postRegister')}}">
@@ -97,6 +97,9 @@
             url: "/login",
             type: "post",
             data: $(this).serialize(),
+            beforeSend: function(){
+                $(".login-form").find("button[type=submit]").text("Processing").append("<i class='fas fa-spinner fa-pulse' style='margin-left:5px'></i>");
+            },
             error: function(data) {
                 var text = "";
                 var email = data.responseJSON.email;
@@ -118,10 +121,17 @@
         }).done(function(data){
             if (data.success)
             {
+                var userID = data.userId;
+
                 $(this).loadPage({
                     url: "/",
                     login: true,
                     message: data.msg
+                });
+
+                $(this).checkGamesCancelled({
+                    url: "/checkGamesCancelled",
+                    userId: userID
                 });
             }
             else

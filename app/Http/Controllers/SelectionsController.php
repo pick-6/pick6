@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Selections;
 use App\Models\Games;
 use App\User;
+use Carbon\Carbon;
 use DB;
 
 class SelectionsController extends Controller
@@ -16,6 +17,7 @@ class SelectionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        parent::__construct();
     }
 
     public function checkPickExists($pick, $gameId)
@@ -126,8 +128,45 @@ class SelectionsController extends Controller
 
         return $response;
     }
+    public function checkGamesCancelled(Request $request, $userId)
+    {
+        try
+        {
+            $minGamePicks = $this->minGamePicks;
+            $games = GamesController::getAllMyGames($userId);
+            $cancelledGames = [];
 
-    public function gameCancelled(Request $request, $gameId)
+            foreach ($games as $game) {
+                $gameTime = $game->date_for_week . ' ' . $game->time;
+                $gameStarted = $gameTime <= Carbon::now('America/New_York');
+                $numberOfPicks = GamesController::numberOfPicksForGame($game->game_id);
+                $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
+
+                if ($gameCancel) {
+                    $cancelledGames[] =  $game->game_id;
+                }
+            }
+
+            foreach ($cancelledGames as $game) {
+                $this->removePicks($game);
+            }
+
+            $response = response()->json([
+                'success' => true,
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'duration' => 10000,
+                'msg' => $e->getMessage()
+            ]);
+        }
+        return $response;
+    }
+
+    public function removePicks($gameId)
     {
         try
         {
@@ -153,7 +192,24 @@ class SelectionsController extends Controller
                     $user->save();
                 }
             }
-            // $teams = Games::select("games.home_team", "games.away_team")->where("id", "=", $gameId)->get();
+        }
+        catch (\Exception $e)
+        {
+            $response = response()->json([
+                'success' => false,
+                'duration' => 10000,
+                'msg' => $e->getMessage()
+            ]);
+            return $response;
+        }
+    }
+
+    public function gameCancelled($gameId)
+    {
+        try
+        {
+            $this->removePicks($gameId);
+
             $teams = Games::select(DB::raw('home_team.name as home, away_team.name as away'))
             ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
             ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
@@ -166,14 +222,14 @@ class SelectionsController extends Controller
                 'success' => false, // set to false to have red bkgd message
                 'msg' => "Sorry, the $homeTeam vs. $awayTeam game was cancelled due to low user participation. <br /> All your picks, if any, have been refunded.",
                 'duration' => 10000,
-                'maxWidth' => 500,
+                'maxWidth' => 400,
             ]);
         }
         catch (\Exception $e)
         {
             $response = response()->json([
                 'success' => false,
-                'duration' => 1000000,
+                'duration' => 10000,
                 'msg' => $e->getMessage()
                 // 'msg' => $e->getMessage().$e->getCode().$e->getFile().$e->getLine().$e->getTraceAsString();
             ]);
