@@ -57,86 +57,50 @@ use Carbon\Carbon;
                                         <a class="{{$gameOver ? 'fs-30' : 'fs-16'}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->id.'' : action('GamesController@show', [$game->id]) ?>">
                                             <div class="pull-left width50 homeTeam">
                                                 <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="65" alt="{{$game->home}}">
-                                                <div class="text-left middle {{$gameOver ? '' : 'width60'}} inline-flex">
+                                                <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 68 : 65}}px);">
                                                     {{$gameOver ? $game->home_score : $game->home}}
                                                 </div>
                                             </div>
                                             <div class="pull-right width50">
                                                 <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="65" alt="{{$game->away}}">
-                                                <div class="text-left middle {{$gameOver ? '' : 'width60'}} inline-flex">
+                                                <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 68 : 65}}px);">
                                                     {{$gameOver ? $game->away_score : $game->away}}
                                                 </div>
                                             </div>
                                         </a>
                                     </td>
-                                    <td id="playGameBtn" style="padding: 0px;padding-bottom:10px;">
-                                        <?php
-                                            $numberOfPicks = GamesController::numberOfPicksForGame($game->id);
-                                            $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
-                                            if ($gameCancel) {
-                                                SelectionsController::gameCancelled($game->id);
-                                            }
-                                        ?>
-                                        <a data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->id.'' : action('GamesController@show', [$game->id]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
-                                            @if($gameOver)
-                                                @if($gameCancel)
-                                                    CANCELLED
-                                                @else
-                                                    SEE RESULTS
-                                                @endif
-                                            @else
-                                                @if ($numberOfPicks < 100 && !$gameStarted)
-                                                    {{(in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
-                                                @elseif($gameCancel)
-                                                    CANCELLED
-                                                @else
-                                                    SEE GAME
-                                                @endif
+                                    @if($showPlayGameBtn || $showPicksAvail)
+                                        <td id="playGameBtn" style="padding: 0px;{{$showPicksAvail ? "padding-bottom:10px;" :""}} ">
+                                            @if($showPlayGameBtn)
+                                                <a data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->id.'' : action('GamesController@show', [$game->id]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
+                                                    @if($gameOver)
+                                                        @if($gameCancel)
+                                                            CANCELLED
+                                                        @else
+                                                            SEE RESULTS
+                                                        @endif
+                                                    @else
+                                                        @if ($numberOfPicks < 100 && !$gameStarted)
+                                                            {{(in_array("$game->id", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                                        @elseif($gameCancel)
+                                                            CANCELLED
+                                                        @else
+                                                            SEE GAME
+                                                        @endif
+                                                    @endif
+                                                </a>
                                             @endif
-                                        </a>
-                                        @if(!$gameStarted && !$gameOver)
-                                            <div class="absolute width25">
-                                                <div id="availablePicks">
-                                                    <div id="availablePicksBar" style="width: {{($numberOfPicks<92)?(100-$numberOfPicks):(($numberOfPicks >= 92 && $numberOfPicks < 100)?8:100)}}%; background-color: <?= ($numberOfPicks <= 40) ? 'green' : (($numberOfPicks <= 65 && $numberOfPicks > 40) ? '#475613' : (($numberOfPicks <= 80 && $numberOfPicks > 65) ? '#923127' : 'crimson'))?>;"></div>
-                                                </div>
-                                                <div id="availablePicksLabel">
-                                                    <small>
-                                                        <i>
-                                                            @if ($numberOfPicks == 100)
-                                                                Sorry, Game is Full
-                                                            @elseif ($numberOfPicks >= 90 && $numberOfPicks < 100)
-                                                                Hurry, only {{100 - $numberOfPicks}} pick{{($numberOfPicks == 99) ? '' : 's'}} left!
-                                                            @elseif ($numberOfPicks > 0 && $numberOfPicks < 100)
-                                                                {{100 - $numberOfPicks}} Picks Available
-                                                            @else
-                                                                Be the first to pick!
-                                                            @endif
-                                                        </i>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        @else
-                                            <div class="absolute width25">
-                                                <div id="availablePicks">
-                                                    <div id="availablePicksBar" style="width: 100%; background-color: {{$gameOver ? '#181818' : ($gameCancel ? 'crimson' : '#2A68A4') }};"></div>
-                                                </div>
-                                                <div id="availablePicksLabel">
-                                                    <small>
-                                                        <i style="color: {{$gameOver ? 'grey' : '#fff'}};">
-                                                            Game
-                                                            @if($gameOver)
-                                                                Over
-                                                            @elseif ($gameCancel)
-                                                                Cancelled
-                                                            @else
-                                                                Started
-                                                            @endif
-                                                        </i>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </td>
+                                            @if ($showPicksAvail)
+                                                @include('game.availPicksBar',
+                                                [
+                                                    'picksMade' => $numberOfPicks,
+                                                    'isGameOver' =>  $gameOver,
+                                                    'isGameStarted' => $gameStarted,
+                                                    'isGameCancel' => $gameCancel
+                                                ])
+                                            @endif
+                                        </td>
+                                    @endif
                                 </tr>
                             @endif
                         @endif

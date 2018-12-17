@@ -652,7 +652,21 @@ th.winningScore {
     .no-decor {
         text-decoration: none !important;
     }
-
+    .bg-success {
+        background-color: #28A745!important;
+    }
+    .bg-info {
+        background-color: #15A2B8!important;
+    }
+    .bg-warning {
+        background-color: #dda508!important;
+    }
+    .bg-danger {
+        background-color: #DC3545!important;
+    }
+    .bg-black {
+        background-color: #181818!important;
+    }
 
 /****** FOOTER ******/
 footer {
@@ -1931,7 +1945,7 @@ font-size: 22px;
     background-color: #181818;
 }
 #accountPage .width25 {
-    width: 24.25%!important;
+    width: 25%!important;
 }
 @media(max-width: 700px){
     #accountPage .width25 {
