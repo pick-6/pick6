@@ -237,7 +237,7 @@
 
 
     // For pick deletion
-    $this.find('.notAvailable[data-user='+{{Auth::id()}}+']').each(function() {
+    $this.find('.notAvailable[data-user-id='+{{Auth::id()}}+']').each(function() {
         if ({{$gameStarted}}) {
             return false;
         }
