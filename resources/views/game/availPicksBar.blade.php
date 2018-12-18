@@ -7,7 +7,7 @@
     $picks = $picksAvail == 1 ? "pick" : "picks" ;
     $bgColor = "";
     $labelText = "";
-    $width = $isGameStarted || $isGameCancel || $isGameOver ? 100 : $picksAvail;
+    $width = $isGameStarted || $isGameCancel || $isGameOver || $picksAvail == 0 ? 100 : $picksAvail;
 
     switch (true) {
         case $picksMade <= 25:
@@ -55,7 +55,7 @@
 ?>
     <div class="absolute width25">
         <div id="availablePicks">
-            <div id="availablePicksBar" class="bg-{{$bgColor}}" style="width: {{$width}}%"></div>
+            <div id="availablePicksBar" class="bg-{{$bgColor}}" style="width: {{$width}}%; min-width:8%"></div>
         </div>
         <div id="availablePicksLabel">
             <small><i>{{$labelText}}</i></small>

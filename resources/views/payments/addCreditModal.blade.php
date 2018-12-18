@@ -30,9 +30,9 @@
                 <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>
             </div>
             <div class="modal-body text-center">
-                <div class="fc-yellow italic margin-bottom-10">
+                <!-- <div class="fc-yellow italic margin-bottom-10">
                     <small>* Limited Time Only * -- All Credit is Free!</small>
-                </div>
+                </div> -->
                 <div>
                     <h3 class="fc-grey margin-0-auto margin-bottom-15">Select an amount to add</h3>
                 </div>

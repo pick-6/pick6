@@ -119,6 +119,7 @@
                 });
             }
         }).done(function(data){
+            $(".login-form").find("button[type=submit]").text("Log In")
             if (data.success)
             {
                 var userID = data.userId;

@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     #paymentBtns span.dollar {
         font-size: 25px;
         color: #fff;
@@ -59,4 +59,4 @@
         <i class="fas fa-money-bill-wave"></i>
         <span class="dollar dollar10">$50</span>
     </a>
-</div>
+</div> -->

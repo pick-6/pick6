@@ -1,6 +1,6 @@
 <!-- Show No Funds Modal -->
 <div id="showNoFundsModal" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="max-width: 550px;">
+    <div class="modal-dialog" style="max-width: 550px;margin: 0 auto">
         <div class="modal-content">
             <div class="text-center closeModalBtnContainer">
                 <button class="close btn closeModalBtn" data-dismiss="modal">&times</button>

@@ -90,13 +90,13 @@
                                     <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$game->id.'' : action('GamesController@show', [$game->id]) ?>">
                                         <div class="pull-left width50 homeTeam padding-10">
                                             <img src="/img/team_logos/{{$game->home_logo}}" height="60" width="60" alt="{{$game->home}}">
-                                            <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 68 : 65}}px);">
+                                            <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 75 : 70}}px);">
                                                 {{$gameOver ? $game->home_score : ($showTeamName ? $game->home : "")}}
                                             </div>
                                         </div>
                                         <div class="pull-right width50 padding-10">
                                             <img src="/img/team_logos/{{$game->away_logo}}" height="60" width="60" alt="{{$game->away}}">
-                                            <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 68 : 65}}px);">
+                                            <div class="text-left middle inline-flex" style="width:calc(100% - {{$gameOver ? 75 : 70}}px);">
                                                 {{$gameOver ? $game->away_score : ($showTeamName ? $game->away : "")}}
                                             </div>
                                         </div>

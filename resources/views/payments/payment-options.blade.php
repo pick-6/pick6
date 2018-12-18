@@ -18,30 +18,34 @@
         width: calc(33% - 29px);
         overflow-y: auto;
         height: 110px;
-        background: #fff;
+        background: #111;
         cursor: pointer;
         float: left;
-        border: 10px solid #fff;
+        border: 10px solid #111;
         text-align: left;
         text-transform: none;
         margin: 15px;
         z-index: 1;
         box-shadow:
-            0px 0px 0px 10px rgba(255,255,255,1),
-            1px 1px 3px 10px rgba(0,0,0,0.2);
+            0px 0px 0px 10px #111,
+            1px 1px 3px 10px rgba(125,125,125,0.2);
         transition:
             opacity 0.4s linear,
             transform 0.4s ease-in-out,
             box-shadow 0.4s ease-in-out;
       -webkit-backface-visibility: hidden
     }
-
+    @media(max-width:450px){
+        .ib-container article{
+            width: calc(100% - 29px);
+        }
+    }
     .ib-container h3 a{
         font-size: 16pt;
       font-family:"Arial";
         font-weight: 400;
-        color: rgba(0, 0, 0, 1);
-        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0px 0px 0px rgba(51, 51, 51, 1);
         opacity: 0.8;
     }
     .ib-container article header span{
@@ -57,7 +61,8 @@
     .ib-container article p{
         font-family: Arial, sans-serif;
         font-size: 11pt;
-        color: rgba(51, 51, 51, 1);
+        color: #5cb85c;
+        /* color: --var(yellow); */
         text-shadow: 0px 0px 0px rgba(51, 51, 51, 1);
         opacity: 0.8;
     }
@@ -72,14 +77,14 @@
     }
 
     .ib-container article.blur{
-        box-shadow: 0px 0px 20px 10px rgba(255,255,255,1);
+        box-shadow: 0px 0px 20px 10px #111;
         transform: scale(0.9);
         opacity: 0.7;
     }
 
 
     .ib-container article.blur h3 a{
-        text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+        text-shadow: 0px 0px 10px rgba(51, 51, 51, 0.9);
         color: rgba(0, 0, 0, 0);
         opacity: 0.5;
     }
@@ -89,7 +94,7 @@
         opacity: 0.5;
     }
     .ib-container article.blur  p{
-        text-shadow: 0px 0px 10px rgba(51, 51, 51, 0.9);
+        text-shadow: 0px 0px 10px rgba(34, 79, 34, 0.9);
         color: rgba(51, 51, 51, 0);
         opacity: 0.5;
     }
@@ -97,8 +102,8 @@
     .ib-container article.active{
         transform: scale(1.05);
         box-shadow:
-            0px 0px 0px 10px rgba(255,255,255,1),
-            1px 11px 15px 10px rgba(0,0,0,0.4);
+            0px 0px 0px 10px #111,
+            1px 11px 15px 10px rgba(51,51,51,0.4);
         z-index: 100;
         opacity: 1;
     }
@@ -163,5 +168,6 @@
         if( $articles.hasClass('selected') ) return false;
         $articles.removeClass('selected')
         $(this).addClass("selected");
+        console.log("yo");
     });
 </script>
