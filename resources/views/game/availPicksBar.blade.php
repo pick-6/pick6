@@ -49,13 +49,14 @@
             $bgColor = "danger";
             break;
         case $isGameStarted == true:
-            $labelText = "Game Started";
+            $labelText = "Game In Progress";
+            $bgColor = "info";
             break;
     }
 ?>
     <div class="absolute width25">
         <div id="availablePicks">
-            <div id="availablePicksBar" class="bg-{{$bgColor}}" style="width: {{$width}}%; min-width:8%"></div>
+            <div id="availablePicksBar" class="bg-{{$bgColor}} {{$isGameStarted && !$isGameOver ? 'in-progress' : ''}}" style="width: {{$width}}%; min-width:8%"></div>
         </div>
         <div id="availablePicksLabel">
             <small><i>{{$labelText}}</i></small>

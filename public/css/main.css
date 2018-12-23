@@ -1173,6 +1173,11 @@ section h3.section-subheading {
     background-color: green;
     border-radius: 10px;
 }
+#availablePicksBar.in-progress {
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-size: 1rem 1rem;
+    animation: progress-bar-stripes 5s linear infinite;
+}
 @media(max-width:700px){
     #availablePicks {
         width: 100%!important;
