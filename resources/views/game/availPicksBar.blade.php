@@ -56,7 +56,7 @@
 ?>
     <div class="absolute width25">
         <div id="availablePicks">
-            <div id="availablePicksBar" class="bg-{{$bgColor}} {{$isGameStarted && !$isGameOver ? 'in-progress' : ''}}" style="width: {{$width}}%; min-width:8%"></div>
+            <div id="availablePicksBar" class="bg-{{$bgColor}} {{$isGameStarted && !$isGameOver && !$isGameCancel ? 'in-progress' : ''}}" style="width: {{$width}}%; min-width:8%"></div>
         </div>
         <div id="availablePicksLabel">
             <small><i>{{$labelText}}</i></small>
