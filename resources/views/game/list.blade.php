@@ -11,6 +11,7 @@
     $showTimeZone = $showTimeZone ?? $showGameTime ?? false;
     $showGameId = is_null($showGameId ?? null) ? false : $isAdmin;
     $onDash = $onDash ?? false;
+    $showWinner = $showWinner ?? true;
 ?>
 
 <style>
@@ -22,9 +23,14 @@
 
 <div id="no-more-tables" class="table-responsive">
     @if(!$dates)
-        @include('game.gameListTable')
+        @include('game.list-table.partial')
     @else
-        @include('game.gameListTableWithDates')
+        @foreach ($dates as $date)
+            <h4 class="dateOfGame text-left clear fc-grey">
+                <?=date("l, F j<\s\m\a\l\l><\s\up>S</\s\up></\s\m\a\l\l>", strtotime("$date->date_for_week"))?>
+            </h4>
+            @include('game.list-table.partial')
+        @endforeach
     @endif
 </div>
 

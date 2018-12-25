@@ -97,7 +97,8 @@
                 showLoading: false,
                 logout: isLogout,
                 gameCancel: forGameCancel,
-                hasFadeFX: hasFadeFX
+                hasFadeFX: hasFadeFX,
+                showBackBtn: targetPage != "/dashboard"
             });
         });
     }
@@ -185,6 +186,7 @@
             isRegis = data.isRegis,
             message = data.message,
             loadCredit = data.loadCredit,
+            showBackBtn = data.showBackBtn || false,
             gameCancel = data.gameCancel;
 
         hasFadeFX = hasFadeFX != null ? hasFadeFX : true;
@@ -233,6 +235,11 @@
                     $(this).loadCredit();
                 }
                 $('.page-content').html(data).data("url", url);
+                if (showBackBtn) {
+                    $('#back-btn').show();
+                } else {
+                    $('#back-btn').hide();
+                }
                 goToTop();
                 var links = $('.page-content').find('[data-role-ajax]');
                 $(this).pageControl(links);

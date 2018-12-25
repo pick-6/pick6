@@ -6,10 +6,7 @@
                 <button type="button" class="close btn closeModalBtn" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="playGamePage">
-                    <h3 class="fc-white text-center margin-top-0">Games for the Week</h3>
-                    @include('game.list', ['dates' => $datesForWeek])
-                </div>
+                @include('game.gamesForWeekList', ['dates' => $datesForWeek])
             </div>
             <div class="text-right margin-top-20 margin-bottom-15 margin-right-20 clear">
                 <button class="btn" data-dismiss="modal">Close</button>

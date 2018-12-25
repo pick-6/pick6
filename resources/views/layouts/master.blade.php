@@ -24,6 +24,9 @@
     <!-- PAGE CONTENT -->
     <div class="welcome" style="min-height: 100vh">
         <div id="pageContent">
+            <!-- <div id="back-btn" class="absolute" style="left:25px;top:90px;display:none">
+                <button class="btn back-btn" data-role-ajax="/dashboard"><i class="far fa-arrow-alt-circle-left"></i> Back</button>
+            </div> -->
             <section style="background: none;padding: 0;padding-top: 40px;height: calc(100vh - 80px);overflow:auto;">
                 <div class="container">
                     @yield('content')
@@ -49,7 +52,8 @@
                 $(this).loadPage({
                     url: "/dashboard",
                     showLoading: true,
-                    loadCredit: true
+                    loadCredit: true,
+                    showBackBtn: false
                 });
             });
         </script>

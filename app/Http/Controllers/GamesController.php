@@ -138,7 +138,7 @@ class GamesController extends Controller
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
 
-        return view('game.playGame')->with($data);
+        return view('game.gamesForWeekList')->with($data);
     }
 
     public function show(Request $request, $id)
