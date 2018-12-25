@@ -42,10 +42,11 @@
     <tbody>
         @foreach($games as $game)
         <?php
+            $gameId = $game->game_id ?? $game->id;
             $gameTime = $game->date_for_week . ' ' . $game->time;
             $gameStarted = $gameTime <= Carbon::now('America/New_York');
             $gameOver = !is_null($game->home_score) || !is_null($game->away_score);
-            $numberOfPicks = GamesController::numberOfPicksForGame(($game->game_id ?? $game->id));
+            $numberOfPicks = GamesController::numberOfPicksForGame($gameId);
             $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
         ?>
         @if ($dates ? $date->date_for_week == $game->date_for_week : true)
@@ -56,7 +57,7 @@
                             @if($showGameId)
                                 <div class="gameId">
                                     <div class="gameId-ribbon-wrapper">
-                                        <div class="gameId-ribbon"><small class="fc-red">Id: {{($game->game_id ?? $game->id)}}</small></div>
+                                        <div class="gameId-ribbon"><small class="fc-red">Id: {{$gameId}}</small></div>
                                     </div>
                                 </div>
                             @endif
@@ -67,24 +68,24 @@
                     @else
                         <td class="gameDayTime" data-title="Kick-Off">
                             @if ($showPrice && (!$gameOver && !$gameCancel && !$gameStarted))
-                            <div class="gamePrice">
-                                <div class="gamePrice-ribbon-wrapper">
-                                    <div class="gamePrice-ribbon">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                <div class="gamePrice">
+                                    <div class="gamePrice-ribbon-wrapper">
+                                        <div class="gamePrice-ribbon">{{ str_replace(".00","",money_format('$%i',$game->pick_cost)) }}</div>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                             @if($showGameId)
-                            <div class="gameId">
-                                <div class="gameId-ribbon-wrapper">
-                                    <div class="gameId-ribbon"><small class="fc-red">Id: {{($game->game_id ?? $game->id)}}</small></div>
+                                <div class="gameId">
+                                    <div class="gameId-ribbon-wrapper">
+                                        <div class="gameId-ribbon"><small class="fc-red">Id: {{$gameId}}</small></div>
+                                    </div>
                                 </div>
-                            </div>
                             @endif
                             <div class="gameTime">
                                 @if (is_null($game->time))
-                                TBD
+                                    TBD
                                 @else
-                                {{date("g:i", strtotime("$game->time"))}} <small>{{date("A", strtotime("$game->time"))}}</small>
+                                    {{date("g:i", strtotime("$game->time"))}} <small>{{date("A", strtotime("$game->time"))}}</small>
                                 @endif
                             </div>
                         </td>
@@ -102,12 +103,12 @@
                         @if($showGameId)
                             <div class="gameId">
                                 <div class="gameId-ribbon-wrapper">
-                                    <div class="gameId-ribbon"><small class="fc-red">Id: {{($game->game_id ?? $game->id)}}</small></div>
+                                    <div class="gameId-ribbon"><small class="fc-red">Id: {{$gameId}}</small></div>
                                 </div>
                             </div>
                         @endif
                     @endif
-                    <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.($game->game_id ?? $game->id).'' : action('GamesController@show', [($game->game_id ?? $game->id)]) ?>">
+                    <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$gameId.'' : action('GamesController@show', [$gameId]) ?>">
                         <div class="pull-left width50 homeTeam padding-10">
                             <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
                             <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
@@ -139,7 +140,7 @@
                 @if($showBtn || $showPicksAvail)
                     <td id="playGameBtn" style="padding: 0px;{{$showPicksAvail ? "padding-bottom:10px;" :""}} ">
                         @if($showBtn)
-                            <a data-role-ajax="<?= $gameCancel ? '/cancel/'.($game->game_id ?? $game->id).'' : action('GamesController@show', [($game->game_id ?? $game->id)]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
+                            <a data-role-ajax="<?= $gameCancel ? '/cancel/'.$gameId.'' : action('GamesController@show', [$gameId]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
                                 @if($gameOver)
                                     @if($gameCancel)
                                         CANCELLED
@@ -148,7 +149,7 @@
                                     @endif
                                 @else
                                     @if ($numberOfPicks < 100 && !$gameStarted)
-                                        {{(in_array("($game->game_id ?? $game->id)", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
+                                        {{(in_array("$gameId", $playingIn)) ? 'GO TO GAME' : 'JOIN GAME'}}
                                     @elseif ($gameCancel)
                                         CANCELLED
                                     @else
