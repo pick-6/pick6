@@ -42,7 +42,7 @@
     switch (true) {
         case $isGameOver == true:
             $labelText = "Game Over";
-            $bgColor = "black";
+            $bgColor = "blackGrey";
             break;
         case $isGameCancel == true:
             $labelText = "Game Cancelled";

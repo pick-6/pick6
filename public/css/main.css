@@ -431,6 +431,9 @@ th.winningScore {
     .fc-yellow {
         color: #fed136!important;
     }
+    .fc-gold {
+        color: #DAA520!important;
+    }
     :root {
       --yellow-font: #fed136!important;
     }
@@ -520,6 +523,9 @@ th.winningScore {
     }
     .margin-0 {
         margin: 0px!important;
+    }
+    .margin-5 {
+        margin: 5px!important;
     }
     .padding-0 {
         padding: 0px !important;
@@ -667,8 +673,11 @@ th.winningScore {
     .bg-danger {
         background-color: #DC3545!important;
     }
-    .bg-black {
+    .bg-blackGrey {
         background-color: #181818!important;
+    }
+    .bg-black {
+        background-color: #000!important;
     }
 
 /****** FOOTER ******/
@@ -1960,6 +1969,22 @@ font-size: 22px;
         width: unset!important;
     }
 }
+
+#accountPage .dateOfGame {
+    position: sticky;
+    top: 0px;
+    background-color: #181818;
+    z-index: 3;
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+}
+#accountPage #no-more-tables .gamesForWeekTables:not(:last-child) {
+    margin-bottom: 10px;
+}
 /************ END OF ACCOUNT PAGE *************/
 
 
@@ -1982,24 +2007,64 @@ font-size: 22px;
 #chooseFavTeamModal .closeModalBtn {
     padding: 0 5px;
 }
-#chooseFavTeamModal #no-more-tables {
-    height:calc(100% - 40px);
+#chooseFavTeamModal .team-list {
+    height:calc(100% - 41px);
     overflow:auto;
 }
+#chooseFavTeamModal .team-list.hasFavTeam {
+    height:calc(100% - 133px);
+}
 @media(max-width:439px){
-    #chooseFavTeamModal #no-more-tables {
-        height:calc(100% - 70px);
+    #chooseFavTeamModal .team-list {
+        height:calc(100% - 67px);
+    }
+    #chooseFavTeamModal .team-list.hasFavTeam {
+        height:calc(100% - 160px);
     }
 }
 #chooseFavTeamModal a {
     text-decoration: none;
 }
-#chooseFavTeamModal .teamsList {
+#chooseFavTeamModal .list {
     height: 550px;
 }
-#chooseFavTeamModal #no-more-tables td:hover {
+#chooseFavTeamModal .team-list {
+    border-top: 1px solid #ddd!important;
+    border-bottom: 1px solid #ddd!important;
+}
+#chooseFavTeamModal .team-list .team {
+    height: 82px;
+    box-shadow: 0px 0px 15px 3px #111;
+}
+#chooseFavTeamModal .team-list .team:not(:last-child) {
+    margin-bottom: 5px;
+}
+#chooseFavTeamModal .team-list .team:last-child table,
+#chooseFavTeamModal .team-list .team:last-child table tr td {
+    border-bottom: none!important;
+}
+#chooseFavTeamModal .team-list .team:first-child table,
+#chooseFavTeamModal .team-list .team:first-child table tr td {
+    border-top: none!important;
+}
+#chooseFavTeamModal .team-list .team:nth-child(even) table {
+    background-color: #262424;
+}
+#chooseFavTeamModal .team-list td:hover {
     background: #111;
     cursor: pointer;
+}
+#chooseFavTeamModal .currentTeam {
+    position: absolute;
+    left: calc(50% - 85px);
+    border: 1px solid;
+    background: #333;
+    color: #ccc;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px;
+    z-index: 1;
 }
 /************ END OF CHOOSE FAVORITE TEAM MODAL *************/
 

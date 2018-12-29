@@ -3,7 +3,6 @@
 @if ($hasCurrentGames)
     @include('game.list', [
         'games' => $myCurrentGames,
-        'dates' => false,
         'showGameTime' => false,
         'showPicksAvail' => false,
         'onDash' => true

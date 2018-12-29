@@ -4,26 +4,31 @@
 
 <div class="text-center">
     @if($hasWinnings)
-        <div class="margin-top-5">
-            <div class="fc-yellow inline-block">Total Winnings:</div>
-            <div class="fc-grey inline-block">{{$totalWinnings}}</div>
+        <div class="margin-top-20">
+            <div class="fc-yellow fs-16">Total Winnings:</div>
+            <div class="fc-grey">
+                <h3 class="margin-0">{{$totalWinnings}}</h3>
+            </div>
         </div>
     @endif
 
     @if($hasFavTeam)
-        <div class="margin-top-5">
-            <div class="fc-yellow inline-block">Favorite Team:</div>
-            <div class="fc-grey inline-block">
-                {{$favoriteTeam[0]['name']}}
+        <div class="margin-top-20">
+            <div class="fc-yellow fs-16">
+                Favorite Team:
                 @if($isLoggedInUser)
-                    <a href="#chooseFavTeamModal" data-toggle="modal" class="fc-grey">
+                    <a href="#chooseFavTeamModal" data-toggle="modal" class="fc-grey fs-14">
                         <i class="fa fa-edit margin-left-5"></i>
                     </a>
                 @endif
             </div>
+            <div class="fc-grey margin-top-5">
+                <img src="/img/team_logos/{{$favoriteTeam[0]['logo']}}" height="80" width="85" alt="{{$favoriteTeam[0]['name']}}">
+                <h4 class="margin-5">{{$favoriteTeam[0]['name']}}</h4>
+            </div>
         </div>
     @elseif($isLoggedInUser)
-        <div class="margin-top-5">
+        <div class="margin-top-20">
             <div class="fc-grey inline-block">
                 <a href="#chooseFavTeamModal" class="btn btn-xs" data-toggle="modal">
                     <i class="fas fa-plus"></i>

@@ -42,6 +42,8 @@ class AccountController extends Controller
         $data['currentGames'] = $currentGames;
         $hasCurrentGames = count($currentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
+        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
+        $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
         $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = true;
@@ -112,6 +114,8 @@ class AccountController extends Controller
         $data['currentGames'] = $currentGames;
         $hasCurrentGames = count($currentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
+        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
+        $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
 
         $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
@@ -258,7 +262,7 @@ class AccountController extends Controller
 
         $response = response()->json([
             'success' => true,
-            'msg' => $teamName.' set as your favorite team.'
+            'msg' => 'The '.$teamName.' were set as your favorite team.'
         ]);
         return $response;
     }

@@ -148,7 +148,7 @@
     <section id="currentGames" class="padding-10 myCurrentGames col-md-9 {{ $hasCurrentGames ? '' : 'hideOnTablet'}}">
         <h3 class="fc-white margin-top-0">{{$isLoggedInUser ? 'My' : $first_name.'\'s'}} Current Games</h3>
         @if ($hasCurrentGames)
-            @include('game.list', ['games' => $currentGames, 'dates' => false])
+            @include('game.list', ['games' => $currentGames])
         @else
             <div style="transform:translateY(10vh);">
                 <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
@@ -219,7 +219,7 @@
     });
 
     // Add Favorite Team
-    $('#accountPage').find("#chooseFavTeamModal .teamsList td").on('click', function(){
+    $('#accountPage').find("#chooseFavTeamModal .team-list td").on('click', function(){
         var team = $(this).data("id");
         var form = $("#chooseFavTeamModal #addFavTeamForm");
         form.append("<input type='hidden' name='favTeam' value='"+team+"'/>");
