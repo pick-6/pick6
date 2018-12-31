@@ -377,7 +377,9 @@
         $stripeScript.attr("src", "https://checkout.stripe.com/checkout.js");
         $stripeScript.attr("data-key", "pk_test_7AL8K2hvvfLEyVuLe6eLL1jE");
         $stripeScript.attr("data-amount", $amountForStripe);
+        $stripeScript.attr("data-name", "Pick6 - Online Squares");
         $stripeScript.attr("data-description", "Add $"+$amount+" of Credit");
+        $stripeScript.attr("data-image", "img/pick6_128.jpg");
         $stripeScript.attr("data-locale", "auto");
         $stripeScript.attr("data-email", "{{Auth::user()->email}}");
         $stripeScript.attr("data-zip-code", true);

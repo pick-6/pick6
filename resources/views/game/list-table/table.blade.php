@@ -127,7 +127,7 @@
                             <img src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
                             <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                 <span class="{{($game->away_score > $game->home_score) && $showWinner ? 'bold' : ''}}">
-                                    {{$gameOver ? $game->home_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}
+                                    {{$gameOver ? $game->away_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}
                                 </span>
                                 @if(($game->away_score > $game->home_score) && $showWinner)
                                     <span class="fs-16 margin-left-10 margin-top-10" style="color: sienna;">
