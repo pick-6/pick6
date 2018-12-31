@@ -14,8 +14,8 @@ abstract class Controller extends BaseController
     public function __construct()
     {
         // TO DO: get 'week' and 'season_type' numbers dynamically
-        $this->season_type = 2;
-        $this->currentWeek = 17;
+        $this->season_type = 3;
+        $this->currentWeek = 1;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;
@@ -26,5 +26,25 @@ abstract class Controller extends BaseController
 
         // $this->minGamePicks = 0;
         $this->minGamePicks = 90;
+
+        $postSeasonTitle = "";
+        switch ($this->currentWeek) {
+            case 1:
+                $postSeasonTitle = "WILD CARD WEEKEND";
+                break;
+            case 2:
+                $postSeasonTitle = "DIVISIONAL PLAYOFFS";
+                break;
+            case 3:
+                $postSeasonTitle = "CONFERENCE CHAMPIONSHIPS";
+                break;
+            case 4:
+                $postSeasonTitle = "PRO BOWL";
+                break;
+            case 5:
+                $postSeasonTitle = "SUPER BOWL";
+                break;
+        }
+        $this->postSeasonTitle = $postSeasonTitle;
     }
 }

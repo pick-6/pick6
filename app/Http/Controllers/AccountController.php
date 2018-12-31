@@ -64,6 +64,7 @@ class AccountController extends Controller
         $allTeams = DB::table('teams')
         ->where('teams.id', '!=', 33)
         ->where('teams.id', '!=', 34)
+        ->where('teams.id', '!=', 35)
         ->get();
         $data['allTeams'] = $allTeams;
 

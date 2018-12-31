@@ -264,9 +264,6 @@ class GamesController extends Controller
 
         $gameCancel = $numberOfPicks < $this->minGamePicks && $gameStarted;
         $data['gameCancel'] = $gameCancel;
-        // if ($gameCancel) {
-        //     SelectionsController::gameCancelled($id);
-        // }
         $data['isCancelled'] = boolval($gameCancel) ? 'true' : 'false';
 
         $minGamePicks = $this->minGamePicks;

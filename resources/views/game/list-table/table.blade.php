@@ -110,7 +110,7 @@
                         @endif
                     @endif
                     <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$gameId.'' : action('GamesController@show', [$gameId]) ?>">
-                        <div class="pull-left width50 homeTeam padding-10">
+                        <div class="pull-left {{$game->away != 'TBD' ? 'width50' : 'width60'}} homeTeam padding-10">
                             <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
                             <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                 <span class="{{($game->home_score > $game->away_score) && $showWinner ? 'bold' : ''}}">
@@ -123,18 +123,22 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="pull-right width50 padding-10">
-                            <img src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
-                            <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
-                                <span class="{{($game->away_score > $game->home_score) && $showWinner ? 'bold' : ''}}">
-                                    {{$gameOver ? $game->away_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}
-                                </span>
-                                @if(($game->away_score > $game->home_score) && $showWinner)
-                                    <span class="fs-16 margin-left-10 margin-top-10" style="color: sienna;">
-                                        <i class="fas fa-football-ball" style="transform: rotate(45deg);"></i>
+                        <div class="pull-right padding-10 {{$game->away != 'TBD' ? 'width50' : 'text-center width40'}}">
+                            @if($game->away != 'TBD')
+                                <img src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
+                                <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
+                                    <span class="{{($game->away_score > $game->home_score) && $showWinner ? 'bold' : ''}}">
+                                        {{$gameOver ? $game->away_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}
                                     </span>
-                                @endif
-                            </div>
+                                    @if(($game->away_score > $game->home_score) && $showWinner)
+                                        <span class="fs-16 margin-left-10 margin-top-10" style="color: sienna;">
+                                            <i class="fas fa-football-ball" style="transform: rotate(45deg);"></i>
+                                        </span>
+                                    @endif
+                                </div>
+                            @else
+                                <span class="fs-20 middle text-center" style="line-height: 60px;">TBD</span>
+                            @endif
                         </div>
                     </a>
                 </td>

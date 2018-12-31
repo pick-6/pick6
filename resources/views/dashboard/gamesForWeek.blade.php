@@ -2,11 +2,7 @@
     @if($isPreSeason)
         <span class="fc-yellow">Preseason</span> Games - Week {{$currentWeek}}
     @elseif ($isPostSeason)
-        <!-- WILD CARD WEEKEND -->
-        <!-- DIVISIONAL PLAYOFFS -->
-        <!-- CONFERENCE CHAMPIONSHIPS -->
-        <!-- PRO BOWL -->
-        <!-- SUPER BOWL -->
+        {{$postSeasonTitle}}
     @else
         Games for Week {{$currentWeek}}
     @endif

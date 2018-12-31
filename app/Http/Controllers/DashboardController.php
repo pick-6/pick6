@@ -53,6 +53,9 @@ class DashboardController extends Controller
         $data['isRegularSeason'] = $isRegularSeason;
         $isPostSeason = $this->isPostSeason;
         $data['isPostSeason'] = $isPostSeason;
+        if ($isPostSeason) {
+            $data['postSeasonTitle'] = $this->postSeasonTitle;
+        }
 
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;

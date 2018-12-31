@@ -29,7 +29,9 @@
         <td rowspan="12" class="uppercase bold fs-25 hideAwayTeam noBorder cursor-arrow outline-text">
             <div class="verticalTeamName">
                 {{$awayTeam}}
-                <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+                @if($awayLogo != 'TBD')
+                    <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+                @endif
             </div>
         </td>
         <td colspan="11" class="text-center uppercase bold fs-25 padding-5 hideHomeTeam noBorder transparent cursor-arrow outline-text">
@@ -88,7 +90,9 @@
 <div class="col-xs-12 awayTeamName fc-white clear">
     <h1 class="text-center margin-bottom-0 margin-top-5 outline-text">
         {{$awayTeam}}
-        <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+        @if($awayLogo != 'TBD')
+            <img src="/img/team_logos/{{$awayLogo}}" width="40" height="35">
+        @endif
     </h1>
     <div class="text-center fc-white">
         (Left side of the table)

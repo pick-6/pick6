@@ -596,6 +596,9 @@ th.winningScore {
     .width25 {
         width: 25%!important;
     }
+    .width40 {
+        width: 40%!important;
+    }
     .width50 {
         width: 50%!important;
     }
