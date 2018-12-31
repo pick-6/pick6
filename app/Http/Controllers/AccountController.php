@@ -46,6 +46,8 @@ class AccountController extends Controller
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
         $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
+        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames(Auth::id(), $seasonType, $currentWeek);
+        $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
         $data['isLoggedInUser'] = true;
 
         $totalWinnings = Winnings::select(DB::raw('sum(winning_total) AS winnings'))->where('winning_user', '=', Auth::id())->get();
@@ -117,7 +119,8 @@ class AccountController extends Controller
         $data['hasCurrentGames'] = $hasCurrentGames;
         $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
-
+        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($id, $seasonType, $currentWeek);
+        $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
         $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
         $data['playingIn'] = $playingIn;
         $data['isLoggedInUser'] = $isLoggedInUser;

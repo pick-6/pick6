@@ -48,6 +48,17 @@ class GamesController extends Controller
         return $dateOfGames;
     }
 
+    public static function getDatesOfMyCurrentGames($userId, $seasonType, $weekNo)
+    {
+        $dateOfGames = Games::groupBy('date_for_week')
+        ->join('selections', 'games.id', '=', 'selections.game_id')
+        ->where('selections.user_id', "=", $userId)
+        ->where('games.season_type', '=', $seasonType)
+        ->where('week', '=', $weekNo)
+        ->get();
+        return $dateOfGames;
+    }
+
     public static function gamesUserIsPlayingIn($userId)
     {
         $playingIn = [];

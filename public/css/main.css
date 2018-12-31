@@ -1068,7 +1068,8 @@ section h3.section-subheading {
 }
 .playGamePage {
     /* height: 700px; */
-    height: calc(100vh - 175px);
+    /* height: calc(100vh - 175px); */
+    height: 100%;
     padding: 5px;
 }
 .playGamePage #no-more-tables {

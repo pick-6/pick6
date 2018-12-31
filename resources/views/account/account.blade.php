@@ -148,7 +148,7 @@
     <section id="currentGames" class="padding-10 myCurrentGames col-md-9 {{ $hasCurrentGames ? '' : 'hideOnTablet'}}">
         <h3 class="fc-white margin-top-0">{{$isLoggedInUser ? 'My' : $first_name.'\'s'}} Current Games</h3>
         @if ($hasCurrentGames)
-            @include('game.list', ['games' => $currentGames])
+            @include('game.list', ['games' => $currentGames, 'dates' => $datesOfMyCurrentGames])
         @else
             <div style="transform:translateY(10vh);">
                 <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">

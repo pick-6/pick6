@@ -73,6 +73,8 @@ class DashboardController extends Controller
         $data['myCurrentGames'] = $myCurrentGames;
         $hasCurrentGames = count($myCurrentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
+        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($user->id, $seasonType, $currentWeek);
+        $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
 
         // Next Week's Games
         $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek);
