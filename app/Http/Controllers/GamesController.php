@@ -155,8 +155,6 @@ class GamesController extends Controller
         $thisGame = Games::select(DB::raw('games.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
-        ->where('games.season_type', '=', $seasonType)
-        // ->where('games.week', '=', $this->currentWeek) //to only pick in games in current week
         ->where('games.id', '=', $id)
         ->get();
         $data['thisGame'] = $thisGame;

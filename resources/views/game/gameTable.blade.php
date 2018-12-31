@@ -5,7 +5,9 @@
     </div> -->
     <h1 class="text-center margin-top-0 fc-white margin-bottom-0 outline-text">
         {{$homeTeam}}
-        <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
+        @if($homeLogo != 'TBD')
+            <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
+        @endif
     </h1>
 </div>
 
@@ -36,7 +38,9 @@
         </td>
         <td colspan="11" class="text-center uppercase bold fs-25 padding-5 hideHomeTeam noBorder transparent cursor-arrow outline-text">
             {{$homeTeam}}
-            <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
+            @if($homeLogo != 'TBD')
+                <img src="/img/team_logos/{{$homeLogo}}" width="40" height="35">
+            @endif
         </td>
     </tr>
     <tr class="transparent">
