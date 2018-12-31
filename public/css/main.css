@@ -2224,3 +2224,109 @@ font-size: 22px;
         width: 95%;
     }
 }
+
+
+/****** Add Credit Modal ******/
+#addCreditModal .modal-dialog {
+    transform: translateY(20vh);
+}
+#addCreditModal .modal-content {
+    background-color:#222;
+}
+#addCreditModal .modal-body {
+    padding-top: 0px;
+}
+#addCreditModal .closeModalBtnContainer {
+    height: 20px;
+}
+#addCreditModal .closeModalBtn {
+    padding: 0 5px;
+}
+@media(max-width:425px){
+    #addCreditModal .modal-body h3 {
+        width: 75%;
+        margin: 0 auto;
+    }
+}
+
+
+/********** Payment Options **********/
+#payment-options {
+    position: relative;
+    width: 100%;
+    margin: 0px auto;
+    background-color: transparent!important;
+}
+
+#payment-options:before,
+#payment-options:after {
+    content:"";
+    display:table;
+}
+#payment-options:after {
+    clear:both;
+}
+
+#payment-options article {
+    width: calc(33% - 29px);
+    overflow-y: auto;
+    height: 110px;
+    background: #111;
+    cursor: pointer;
+    float: left;
+    border: 10px solid #111;
+    text-align: left;
+    text-transform: none;
+    margin: 15px;
+    z-index: 1;
+    box-shadow:
+        0px 0px 0px 10px #111,
+        1px 1px 3px 10px rgba(125,125,125,0.2);
+    transition:
+        opacity 0.4s linear,
+        transform 0.4s ease-in-out,
+        box-shadow 0.4s ease-in-out;
+  -webkit-backface-visibility: hidden
+}
+@media(max-width:450px) {
+    #payment-options article {
+        width: calc(100% - 29px);
+    }
+}
+
+#payment-options article p {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    color: #5cb85c;
+    text-shadow: 0px 0px 0px rgba(51, 51, 51, 1);
+    opacity: 0.8;
+    transition:
+        opacity 0.2s linear,
+        text-shadow 0.5s ease-in-out,
+        color 0.5s ease-in-out;
+}
+
+#payment-options article.blur {
+    box-shadow: 0px 0px 20px 10px #111;
+    transform: scale(0.9);
+    opacity: 0.7;
+}
+
+#payment-options article.blur p {
+    text-shadow: 0px 0px 10px rgba(34, 79, 34, 0.9);
+    color: rgba(51, 51, 51, 0);
+    opacity: 0.5;
+}
+
+#payment-options article.active {
+    transform: scale(1.05);
+    box-shadow:
+        0px 0px 0px 10px #111,
+        1px 11px 15px 10px rgba(51,51,51,0.4);
+    z-index: 100;
+    opacity: 1;
+}
+
+#payment-options article.active p {
+    opacity; 1;
+}

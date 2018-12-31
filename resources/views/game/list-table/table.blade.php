@@ -7,6 +7,7 @@
     $showGameId = $showGameId ?? false;
     $showPrice = $showPrice ?? true;
     $showTeamName = $showTeamName ?? true;
+    $showCity = $showCity ?? true;
 
 
     $gameOver = $gameOver ?? false;
@@ -113,7 +114,7 @@
                             <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
                             <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                 <span class="{{($game->home_score > $game->away_score) && $showWinner ? 'bold' : ''}}">
-                                    {{$gameOver ? $game->home_score : ($showTeamName ? $game->home : "")}}
+                                    {{$gameOver ? $game->home_score : ($showTeamName ? ($showCity ? $game->home_city." ".$game->home : $game->home) : "")}}
                                 </span>
                                 @if(($game->home_score > $game->away_score) && $showWinner)
                                 <span class="fs-16 margin-left-10 margin-top-10" style="color: sienna;">
@@ -126,7 +127,7 @@
                             <img src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
                             <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                 <span class="{{($game->away_score > $game->home_score) && $showWinner ? 'bold' : ''}}">
-                                    {{$gameOver ? $game->away_score : ($showTeamName ? $game->away : "")}}
+                                    {{$gameOver ? $game->home_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}
                                 </span>
                                 @if(($game->away_score > $game->home_score) && $showWinner)
                                     <span class="fs-16 margin-left-10 margin-top-10" style="color: sienna;">

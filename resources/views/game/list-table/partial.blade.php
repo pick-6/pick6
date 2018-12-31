@@ -9,5 +9,6 @@
     'showGameId' => $showGameId,
     'onDash' => $onDash,
     'showWinner' => $showWinner,
-    'isNextWeekList' => $isNextWeekList
+    'isNextWeekList' => $isNextWeekList,
+    'showCity' => $showCity
 ])

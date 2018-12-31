@@ -84,8 +84,8 @@ Route::post('/register', 'Auth\AuthController@postRegister');
 
 
 // Payment
-// Route::post('/charge/{amount}', 'PaymentController@charge');
-Route::post('/charge', 'PaymentController@freeCharge');
+Route::post('/charge', 'PaymentController@charge');
+Route::post('/freecharge', 'PaymentController@freecharge');
 
 
 // Password reset link request routes...

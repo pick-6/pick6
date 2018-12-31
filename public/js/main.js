@@ -1,5 +1,6 @@
 (function() {
     "use strict";
+    var freeCredit = true;
 
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
@@ -325,22 +326,90 @@
         });
     }
 
-
-    var $addCredit = $("a.addCredit");
-    $addCredit.on("click", function(){
-        var amount = $(this).data("amount");
-        var input = $("<input>").attr("type", "hidden").attr("name", "amount").attr("value", amount);
-        var $form = $(this).closest("#payForm");
-        $form.append(input).submit();
-    });
-    $("#payForm").on("submit", function(e){
-        e.preventDefault();
-        var url = $(".page-content").data("url");
-        $(this).postForm({
-            url: "/charge",
-            addingCredit: true,
-            reload: url
+    //////////////// For Free Charge ////////////////
+    if (freeCredit) {
+        var $addCredit = $("a.addCredit");
+        $addCredit.on("click", function(){
+            $("#payForm").find("input[name=amount]").remove();
+            var amount = $(this).data("amount");
+            var input = $("<input>").attr("type", "hidden").attr("name", "amount").attr("value", amount);
+            var $form = $(this).closest("#payForm");
+            $form.append(input).submit();
         });
+        $("#payForm").on("submit", function(e){
+            e.preventDefault();
+            var url = $(".page-content").data("url");
+            $(this).postForm({
+                url: "/freecharge",
+                addingCredit: true,
+                reload: url
+            });
+        });
+    }
+    //////////////// End For Free Charge ////////////////
+
+    //////////////// For Stripe Charge ////////////////
+    if (!freeCredit) {
+        $("a.addCredit").on("click", function(){
+            var $amount = $(this).data("amount");
+            addStripePaymentButton($amount);
+        });
+        $('#payForm').get(0).submit = function() {
+            var url = $(".page-content").data("url");
+            $(this).postForm({
+                url: "/charge",
+                addingCredit: true,
+                reload: url
+            });
+
+            return false;
+        }
+    }
+    //////////////// End For Stripe Charge ////////////////
+
+    function addStripePaymentButton($amount){
+        removeStripeScript();
+
+        var $amountForStripe = $amount*100,
+            $container = $("<div>").attr("id", "stripeBtnScript"),
+            $stripeScript = $("<script>").addClass("stripe-button");
+
+        $stripeScript.attr("src", "https://checkout.stripe.com/checkout.js");
+        $stripeScript.attr("data-key", "pk_test_7AL8K2hvvfLEyVuLe6eLL1jE");
+        $stripeScript.attr("data-amount", $amountForStripe);
+        $stripeScript.attr("data-description", "Add $"+$amount+" of Credit");
+        $stripeScript.attr("data-locale", "auto");
+        $stripeScript.attr("data-email", "{{Auth::user()->email}}");
+        $stripeScript.attr("data-zip-code", true);
+
+        $container.append($stripeScript);
+        $("#forStripe").append($container);
+
+        var origin   = window.location.origin;
+        var url = origin+"/charge";
+        $("#payForm").attr("action", url);
+
+        var $amountInput = $("<input>");
+        $amountInput.attr("type", "hidden");
+        $amountInput.attr("name", "amount");
+        $amountInput.attr("value", $amountForStripe);
+        $("#payForm").append($amountInput);
+
+        setTimeout(function(){
+            $("button.stripe-button-el").trigger("click");
+        }, 500);
+    }
+
+    function removeStripeScript(){
+        $("#forStripe").find("#stripeBtnScript").remove();
+        $("#payForm").attr("action", "");
+        $("#payForm").find("input[name=amount]").remove();
+        $("iframe[name=stripe_checkout_app").remove();
+    }
+
+    $("button#closeAddCreditModal").on("click", function(){
+        removeStripeScript();
+        $(this).loadCredit();
     });
 
 

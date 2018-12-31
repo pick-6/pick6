@@ -12,6 +12,7 @@
     $showGameId = is_null($showGameId ?? null) ? false : $isAdmin;
     $onDash = $onDash ?? false;
     $showWinner = $showWinner ?? true;
+    $showCity = $showCity ?? true;
 ?>
 
 <style>

@@ -5,7 +5,8 @@
         'games' => $myCurrentGames,
         'showGameTime' => false,
         'showPicksAvail' => false,
-        'onDash' => true
+        'onDash' => true,
+        'showCity' => false
     ])
 @else
     <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">

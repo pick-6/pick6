@@ -12,6 +12,7 @@ use App\Models\Selections;
 use App\User;
 use Carbon\Carbon;
 use DB;
+use Auth;
 
 class PaymentController extends Controller
 {
@@ -21,7 +22,7 @@ class PaymentController extends Controller
         parent::__construct();
     }
 
-    public function charge(Request $request, $amountToCharge)
+    public function charge(Request $request)
     {
         try
         {
@@ -29,9 +30,9 @@ class PaymentController extends Controller
             // See your keys here: https://dashboard.stripe.com/account/apikeys
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-            $amount = $amountToCharge*100;
-
-            $description = $request->description;
+            $amount = $request->amount;
+            $name = Auth::user()->first_name ." ". Auth::user()->last_name;
+            $description = $name." added $".($amount/100);
             $email = $request->email;
             $token = $request->stripeToken;
 
@@ -50,8 +51,11 @@ class PaymentController extends Controller
             $err  = $body['error'];
             $message = $err['message'];
 
-            $request->session()->flash('errorMessage', $message);
-            return redirect('/dashboard');
+            $response = response()->json([
+                'success' => false,
+                'msg' => "Failed to add credit. $message"
+            ]);
+            return $response;
         }
 
         // update user's credit
@@ -64,9 +68,12 @@ class PaymentController extends Controller
         $user->credit = $updatedCreditAmount;
         $user->save();
 
-        $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
-        // return redirect('/dashboard');
-        return redirect($_SERVER['HTTP_REFERER']);
+        $response = response()->json([
+            'success' => true,
+            'msg' => "$".$creditAmountAdded.".00 was added to your credit balance.",
+            'credit' => $updatedCreditAmount
+        ]);
+        return $response;
     }
 
     public function freeCharge(Request $request)
