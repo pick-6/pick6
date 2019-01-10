@@ -126,6 +126,17 @@ class GamesController extends Controller
         return $weekResults;
     }
 
+    public static function getLeaderBoard()
+    {
+        $leaderboard = Winnings::select(DB::raw('users.id, concat(first_name, " " ,last_name) AS full_name, username, email, avatar, count(winning_user) AS wins'))
+        ->join('users', 'winning_user', '=', 'users.id')
+        ->groupBy('winning_user')
+        ->orderBy('wins', 'DESC')
+        ->orderBy('users.last_name', 'ASC')
+        ->get();
+        return $leaderboard;
+    }
+
     public function index()
     {
         $data = [];

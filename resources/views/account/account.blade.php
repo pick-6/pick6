@@ -46,93 +46,18 @@
             @include('account.additionalInfo')
         </div>
         @if($isLoggedInUser)
-            <style>
-                .settings {
-                    border: 1px solid #444;
-                    /* box-shadow: 1px 1px 5px #333; */
-                }
-                .settings:hover, .open .settings {
-                    background: #111;
-                }
-            </style>
             <div class="absolute dropdown hideOnTablet" style="bottom:0;padding-bottom:10px">
-                <a class="dropdown-toggle no-decor" data-toggle="dropdown">
-                    <div class="padding-5 fc-grey fs-18 addCredit ellipsis settings">
-                        <span class="inline-block" style="min-width:25px;">
-                            <i class="fas fa-cog"></i>
-                            <!-- <small class="uppercase bold">Account Settings</small> -->
-                        </span>
-                    </div>
-                </a>
-                <ul class="dropdown-menu padding-0 text-left" style="top:-30px;left: 45px;background:#444">
-                    <a href="#addCreditModal" data-toggle="modal">
-                        <li class="padding-10 fc-grey fs-18 addCredit ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-dollar-sign"></i>
-                            </span>
-                            Add Credit
-                        </li>
-                    </a>
-                    <a data-role-ajax="{{action('AccountController@edit')}}">
-                        <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-edit"></i>
-                            </span>
-                            Edit Info
-                        </li>
-                    </a>
-                    <a data-role-ajax="{{action('AccountController@editPassword')}}">
-                        <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-key"></i>
-                            </span>
-                            Change Password
-                        </li>
-                    </a>
-                    <a href="#deleteAccountModal" data-toggle="modal">
-                        <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-trash-alt"></i>
-                            </span>
-                            Delete Account
-                        </li>
-                    </a>
+                @include('partials.dropdown.item', [
+                    'isDropDownBtn' => true,
+                    'icon' => 'cog',
+                ])
+                <ul class="dropdown-menu new-menu padding-0 text-left" style="top:-30px;left: 45px;background:#444">
+                    @include('partials.dropdown.account-items')
                 </ul>
             </div>
             <div class="showOnTablet">
-                <ul class="padding-0 text-left">
-                    <a href="#addCreditModal" data-toggle="modal">
-                        <li class="padding-10 fc-grey fs-18 addCredit ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-dollar-sign"></i>
-                            </span>
-                            Add Credit
-                        </li>
-                    </a>
-                    <a data-role-ajax="{{action('AccountController@edit')}}">
-                        <li class="padding-10 fc-grey fs-18 editInfo ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-edit"></i>
-                            </span>
-                            Edit Info
-                        </li>
-                    </a>
-                    <a data-role-ajax="{{action('AccountController@editPassword')}}">
-                        <li class="padding-10 fc-grey fs-18 changePassword ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-key"></i>
-                            </span>
-                            Change Password
-                        </li>
-                    </a>
-                    <a href="#deleteAccountModal" data-toggle="modal">
-                        <li class="padding-10 fc-grey fs-18 deleteAccount ellipsis">
-                            <span class="inline-block text-center" style="min-width:25px;">
-                                <i class="fas fa-trash-alt"></i>
-                            </span>
-                            Delete Account
-                        </li>
-                    </a>
+                <ul class="padding-0 text-left new-menu">
+                    @include('partials.dropdown.account-items')
                 </ul>
             </div>
             @include('account.deleteAccount')
@@ -146,21 +71,62 @@
     </section>
 
     <section id="currentGames" class="padding-10 myCurrentGames col-md-9 {{ $hasCurrentGames ? '' : 'hideOnTablet'}}">
-        <h3 class="fc-white margin-top-0">{{$isLoggedInUser ? 'My' : $first_name.'\'s'}} Current Games</h3>
-        @if ($hasCurrentGames)
-            @include('game.list', ['games' => $currentGames, 'dates' => $datesOfMyCurrentGames])
+        @if($isLoggedInUser)
+            <a class="dropdown-toggle no-decor" data-toggle="dropdown">
+                <h3 class="fc-white margin-top-0 inline section-title">My Current Games</h3>
+                <i class="fas fa-caret-down inline fc-white margin-left-5"></i>
+            </a>
+            <ul class="dropdown-menu new-menu padding-0 text-left" style="top:40px;left: calc(50% - 145px);background:#444">
+                @include('partials.dropdown.item', [
+                    'icon' => 'calendar-alt',
+                    'label' => $gamesForWeekTitle,
+                    'url' => '/gamesForWeek',
+                    'forSectionLoad' => true
+                ])
+                @include('partials.dropdown.item', [
+                    'icon' => 'football-ball',
+                    'label' => $myCurrentGamesTitle,
+                    'url' => '/myCurrentGames',
+                    'forSectionLoad' => true
+                ])
+                @include('partials.dropdown.item', [
+                    'icon' => 'calendar-check',
+                    'label' => $lastWeekResultsTitle,
+                    'url' => '/lastWeekResults',
+                    'forSectionLoad' => true
+                ])
+                @include('partials.dropdown.item', [
+                    'icon' => 'trophy',
+                    'label' => $leaderboardTitle,
+                    'url' => '/leaderboard',
+                    'forSectionLoad' => true
+                ])
+                @include('partials.dropdown.item', [
+                    'icon' => 'calendar-plus',
+                    'label' => $nextWeekGamesTitle,
+                    'url' => '/nextWeekGames',
+                    'forSectionLoad' => true
+                ])
+            </ul>
         @else
-            <div style="transform:translateY(10vh);">
-                <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
-                    {{$isLoggedInUser ? 'You\'re' : $first_name.'\'s'}} not involved in any games yet.
-                </p>
-                @if($isLoggedInUser)
-                    <div id="startPlayingBtn">
-                        <a data-role-ajax="play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
-                    </div>
-                @endif
-            </div>
+            <h3 class="fc-white margin-top-0">{{$first_name.'\'s'}} Current Games</h3>
         @endif
+        <div id="loadedSection" class="margin-top-10">
+            @if ($hasCurrentGames)
+                @include('game.list', ['games' => $currentGames, 'dates' => $datesOfMyCurrentGames])
+            @else
+                <div style="transform:translateY(10vh);">
+                    <p class="noGames margin-0-auto fc-grey margin-top-50" style="font-size: 1.5em;">
+                        {{$isLoggedInUser ? 'You\'re' : $first_name.'\'s'}} not involved in any games yet.
+                    </p>
+                    @if($isLoggedInUser)
+                        <div id="startPlayingBtn">
+                            <a data-role-ajax="play" class="btn btn-xl startPlayingBtn">JOIN A GAME</a>
+                        </div>
+                    @endif
+                </div>
+            @endif
+        </div>
     </section>
 </div>
 
@@ -171,6 +137,52 @@
             scrollTop:$(l.data("href")).offset().top-65
         },1500)
         t.preventDefault();
+    });
+
+    $("[data-role-ajaxsection]").on("click", function(){
+        var url = $(this).data("role-ajaxsection"),
+            title = "",
+            isGamesForWeek = url == "/gamesForWeek",
+            isPreSeason = {{boolval($isPreSeason) ? 'true' : 'false'}};
+
+        switch (url) {
+            case "/gamesForWeek":
+                title = "{{$gamesForWeekTitle}}";
+                break;
+            case "/myCurrentGames":
+                title = "{{$myCurrentGamesTitle}}";
+                break;
+            case "/lastWeekResults":
+                title = "Last Week's Results";
+                break;
+            case "/leaderboard":
+                title = "{{$leaderboardTitle}}";
+                break;
+            case "/nextWeekGames":
+                title = "Next Week's Games";
+                break;
+        }
+
+        $.ajax({
+            url: url,
+            data:
+            {
+                includeTitle: false,
+                showPicksAvail: true,
+                showGameTime: true,
+                showCity: true,
+                onDash: false
+            }
+        }).done(function(data){
+            $("#loadedSection").html(data);
+            $(".section-title").text(title);
+            if (isGamesForWeek && isPreSeason) {
+                $preseason = $("<span>").addClass("fc-yellow").text("PreSeason ");
+                $(".section-title").prepend($preseason);
+            }
+            var links = $("#loadedSection").find("[data-role-ajax]");
+            $("#loadedSection").pageControl(links);
+        });
     });
 
     // Upload Profile Pic from Account Page

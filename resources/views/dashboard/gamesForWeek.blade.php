@@ -1,12 +1,16 @@
-<h3 class="fc-white">
-    @if($isPreSeason)
-        <span class="fc-yellow">Preseason</span> Games - Week {{$currentWeek}}
-    @elseif ($isPostSeason)
-        {{$postSeasonTitle}}
-    @else
-        Games for Week {{$currentWeek}}
-    @endif
-</h3>
+<?php
+$includeTitle =  $includeTitle ?? true;
+$showTitle = $includeTitle == 'true' ? true : false;
+?>
+
+@if($showTitle)
+    <h3 class="fc-white">
+        @if($isPreSeason)
+            <span class="fc-yellow">Preseason</span>
+        @endif
+        {{$gamesForWeekTitle ?? $title}}
+    </h3>
+@endif
 
 @if ($hasGamesForWeek)
     @include('game.list', ['showGameId'=>true])

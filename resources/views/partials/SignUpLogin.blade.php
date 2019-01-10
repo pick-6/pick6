@@ -10,7 +10,7 @@
         <h2 class="message fc-grey">Welcome back!</h2>
         <input type="email" class="form-control" name="email" placeholder="Email Address *">
         <input type="password" class="form-control" name="password" placeholder="Password *">
-        <div class="forgot-pass"><a href="{{action('Auth\PasswordController@postEmail')}}"><span class="forgot-link">Forgot Password?</span></a></div>
+        <div class="forgot-pass"><a id="forgot-link"><span class="forgot-link">Forgot Password?</span></a></div>
         <button type="submit" class="btn btn-lg width100" name="submit">Log In</button>
     </form>
 
@@ -171,6 +171,14 @@
                     message: data.msg
                 });
             }
+        });
+    });
+
+    $('#forgot-link').on('click', function(){
+        $.ajax({
+            url: "/password/email",
+        }).done(function(data){
+            $('.page-content').html(data);
         });
     });
 

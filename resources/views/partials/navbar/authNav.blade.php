@@ -1,8 +1,22 @@
-<li class="showOnMobile padding-10">
-    <a href="#addCreditModal" data-toggle="modal" class="btn btn-success btn-sm bold fs-14">
-        <i class="fas fa-dollar-sign"></i>
-        Add Credit
-    </a>
+<?php
+    use App\User;
+
+    $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
+    $credit = $creditForUser[0]['credit'];
+    $creditAmount = money_format('$%i', $credit);
+?>
+
+<li class="showOnMobile padding-10 fc-white">
+    Credit Balance:
+    <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
+        {{$creditAmount}}
+    </span>
+    <span class="margin-left-10">
+        <a href="#addCreditModal" data-toggle="modal" class="fc-black btn-success btn-sm bold fs-12 no-decor">
+            <i class="fas fa-plus"></i>
+            Add
+        </a>
+    </span>
 </li>
 <li class="showOnMobile">
     <a data-role-ajax="/dashboard">

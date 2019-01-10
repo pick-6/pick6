@@ -1,4 +1,11 @@
-<h3 class="fc-white">Leaderboard</h3>
+<?php
+$includeTitle =  $includeTitle ?? true;
+$showTitle = $includeTitle == 'true' ? true : false;
+?>
+
+@if($showTitle)
+    <h3 class="fc-white">{{$leaderboardTitle ?? $title}}</h3>
+@endif
 
 @if($hasLeaders)
     <div class="table-responsive table-header">
@@ -17,7 +24,7 @@
             </thead>
         </table>
     </div>
-    <div class="table-responsive margin-bottom-0" style="height:calc(100% - 85px);overflow:auto">
+    <div id="leaderboard" class="table-responsive margin-bottom-0" style="height:calc(100% - 85px);overflow:auto">
        <table class="table table-bordered margin-bottom-0">
             <colgroup>
                 <col style="width: 55px">

@@ -50,6 +50,10 @@ a {
     }
 }
 
+.container>.navbar-header {
+    margin: 0;
+}
+
 .navbar-custom {
     background-color: #222;
     border-color: transparent;
@@ -663,6 +667,7 @@ th.winningScore {
     }
     .no-decor {
         text-decoration: none !important;
+        list-style: none !important;
     }
     .bg-success {
         background-color: #28A745!important;
@@ -681,6 +686,9 @@ th.winningScore {
     }
     .bg-black {
         background-color: #000!important;
+    }
+    .height100 {
+        height: 100% !important;
     }
 
 /****** FOOTER ******/
@@ -772,7 +780,7 @@ footer {
 #picksTable #gameTable .verticalTeamName {
      text-align: center;
      width: 408px;
-     margin-left: -165px;
+     margin-left: -180px;
      position: absolute;
      top: 243px!important;
      transform: rotate(-90deg);
@@ -796,7 +804,7 @@ footer {
 }
 @media(min-width:1200px) {
     #picksTable #gameTable .verticalTeamName {
-        margin-left: -150px;
+        margin-left: -165px;
     }
 }
 /******** END PICKS TABLE  **********/
@@ -1911,7 +1919,7 @@ font-size: 22px;
 #accountPage #changePhoto:hover {
     color: var(--yellow-font)!important;
 }
-#accountPage ul li {
+ul.new-menu  li {
     list-style: none;
     background-color:#32333B;
     border-left: 6px solid;
@@ -1919,40 +1927,50 @@ font-size: 22px;
     text-transform: uppercase;
     font-weight: bold;
 }
-#accountPage ul li:hover {
+ul.new-menu  li:hover {
     cursor: pointer;
     color: #000!important;
 }
-#accountPage ul a:hover {
+ul.new-menu a:hover {
     text-decoration: none;
 }
-#accountPage ul li.addCredit {
+ul.new-menu li.green {
     border-color: #5cb85c;
 }
-#accountPage ul li.addCredit:hover {
+ul.new-menu li.green:hover {
     background-color: #449d44;
     border-color: #449d44;
 }
-#accountPage ul li.editInfo {
+ul.new-menu li.blue {
     border-color: #0ebeff;
 }
-#accountPage ul li.editInfo:hover {
+ul.new-menu li.blue:hover {
     background-color: #0ebeff;
     border-color: #0ebeff;
 }
-#accountPage ul li.changePassword {
+ul.new-menu li.yellow {
     border-color: #fed136;
 }
-#accountPage ul li.changePassword:hover {
+ul.new-menu li.yellow:hover {
     background-color: #FEC503;
     border-color: #FEC503;
 }
-#accountPage ul li.deleteAccount {
+ul.new-menu li.red {
     border-color: #d9534f;
 }
-#accountPage ul li.deleteAccount:hover {
+ul.new-menu li.red:hover {
     background-color: #c9302c;
     border-color: #c9302c;
+}
+ul.new-menu li.black {
+    background-color: #181818;
+    border-color: #181818;
+    color: #fff!important;
+}
+ul.new-menu li.black:hover {
+    background-color: #000;
+    border-color: #000;
+    color: #eee!important;
 }
 #accountPage .showAvatarContainer {
     max-width: 220px;
@@ -1964,6 +1982,9 @@ font-size: 22px;
 }
 #accountPage #currentGames {
     background-color: #181818;
+}
+#accountPage #currentGames h4 small {
+    color: lightgrey;
 }
 #accountPage .width25 {
     width: 25%!important;
@@ -1988,6 +2009,20 @@ font-size: 22px;
 }
 #accountPage #no-more-tables .gamesForWeekTables:not(:last-child) {
     margin-bottom: 10px;
+}
+
+#accountPage .dropDownBtn {
+    border: 1px solid #444;
+}
+#accountPage .dropDownBtn:hover,
+#accountPage .open .dropDownBtn {
+    background: #111;
+}
+
+#accountPage #loadedSection div#last-week-table,
+#accountPage #loadedSection div#leaderboard {
+    max-height: 566px;
+    overflow: auto;
 }
 /************ END OF ACCOUNT PAGE *************/
 
@@ -2233,6 +2268,11 @@ font-size: 22px;
 /****** Add Credit Modal ******/
 #addCreditModal .modal-dialog {
     transform: translateY(20vh);
+}
+@media (max-width: 768px) {
+    #addCreditModal .modal-dialog {
+        transform: translateY(10vh);
+    }
 }
 #addCreditModal .modal-content {
     background-color:#222;

@@ -38,6 +38,24 @@
         $("#addCreditModal").find("article").removeClass("active blur selected");
     };
 
+    $.fn.spinner = function(data) {
+        var target = data.target;
+        var spinner = $("<div>");
+        spinner.addClass("forSpinner")
+        spinner.attr("id", "test");
+        spinner.css("display", "none");
+        var icon = $("<i>");
+        icon.addClass("fas fa-spinner fa-pulse");
+        icon.css({
+            "font-size":"70px",
+            "color":"var(--yellow-font)",
+            "line-height":"5"
+        });
+        spinner.append(icon);
+        target.append(spinner);
+        $('.forSpinner').show();
+    }
+
     $.fn.confirm = function(data) {
         var url = data.targetUrl,
             text = data.text,
@@ -501,5 +519,25 @@
             $(this).parent().addClass("open");
         }
     });
+
+
+    // var load = $("[data-load]");
+    // $.each(load, function(){
+    //     var $this = $(this);
+    //     var url = $this.data("load");
+    //     $.ajax({
+    //         url: url,
+    //         beforeSend: function() {
+    //             $(this).spinner({ target : $this });
+    //         },
+    //     }).done(function(data){
+    //         console.log(data);
+    //         $.holdReady( true );
+    //         $.getScript( "/js/main.js", function() {
+    //             $.holdReady( false );
+    //         });
+    //         $this.html(data);
+    //     });
+    // });
 
 })();

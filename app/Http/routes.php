@@ -28,11 +28,16 @@ Route::get('/SignUpLoginView', function () {
     return view('partials.SignUpLogin');
 });
 
+// Dashboard
+Route::get('/dashboard', 'DashboardController@index');
+Route::get('/gamesForWeek', 'DashboardController@getGamesForWeekView');
+Route::get('/myCurrentGames', 'DashboardController@getMyCurrentGamesView');
+Route::get('/lastWeekResults', 'DashboardController@getLastWeekResultsView');
+Route::get('/leaderboard', 'DashboardController@getLeaderboardView');
+Route::get('/nextWeekGames', 'DashboardController@getNextWeekGamesView');
+
 Route::get('/cancel/{game}', 'SelectionsController@gameCancelled');
 Route::get('/checkGamesCancelled/{userId}', 'SelectionsController@checkGamesCancelled');
-
-// Dashboard
-Route::get('/dashboard', 'DashboardController@dashboard');
 
 // Account
 Route::get('/account', 'AccountController@index');

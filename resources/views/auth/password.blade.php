@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 
 <style type="text/css">
     section#contact.editAccount label {
@@ -57,4 +56,3 @@
         </div>
     </div>
 </section>
-@stop

@@ -1,4 +1,11 @@
-<h3 class="fc-white">Last Week's Results</h3>
+<?php
+$includeTitle =  $includeTitle ?? true;
+$showTitle = $includeTitle == 'true' ? true : false;
+?>
+
+@if($showTitle)
+    <h3 class="fc-white">{{$lastWeekResultsTitle ?? $title}}</h3>
+@endif
 
 @if ($hasLastWkGames)
     <div class="table-responsive table-header">
@@ -15,7 +22,7 @@
             </thead>
         </table>
     </div>
-    <div class="table-responsive margin-bottom-0" style="height:calc(100% - 85px);overflow:auto">
+    <div id="last-week-table" class="table-responsive margin-bottom-0" style="height:calc(100% - 85px);overflow:auto">
         <table class="table table-bordered margin-bottom-0">
             <colgroup>
                 <col>

@@ -15,7 +15,7 @@ abstract class Controller extends BaseController
     {
         // TO DO: get 'week' and 'season_type' numbers dynamically
         $this->season_type = 3;
-        $this->currentWeek = 1;
+        $this->currentWeek = 2;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;

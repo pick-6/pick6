@@ -1,4 +1,11 @@
-<h3 class="fc-white">Next Week's Games</h3>
+<?php
+$includeTitle =  $includeTitle ?? true;
+$showTitle = $includeTitle == 'true' ? true : false;
+?>
+
+@if($showTitle)
+    <h3 class="fc-white">{{$nextWeekGamesTitle ?? $title}}</h3>
+@endif
 
 @if ($hasNextWeekGames)
     @include('game.list', [

@@ -73,6 +73,24 @@ class AccountController extends Controller
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
 
+        $isPreSeason = $this->isPreSeason;
+        $data['isPreSeason'] = $isPreSeason;
+        $isRegularSeason = $this->isRegularSeason;
+        $data['isRegularSeason'] = $isRegularSeason;
+        $isPostSeason = $this->isPostSeason;
+        $data['isPostSeason'] = $isPostSeason;
+        if ($isPostSeason) {
+            $data['gamesForWeekTitle'] = $this->postSeasonTitle;
+        } else if ($isPreSeason) {
+            $data['gamesForWeekTitle'] = "Games - Week $currentWeek";
+        } else {
+            $data['gamesForWeekTitle'] = "Games for Week $currentWeek";
+        }
+        $data['myCurrentGamesTitle'] = "My Current Games";
+        $data['nextWeekGamesTitle'] = "Next Week's Games";
+        $data['lastWeekResultsTitle'] = "Last Week's Results";
+        $data['leaderboardTitle'] = "Leaderboard";
+
         return view('account.account')->with($data);
     }
 
@@ -146,6 +164,24 @@ class AccountController extends Controller
 
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
+
+        $isPreSeason = $this->isPreSeason;
+        $data['isPreSeason'] = $isPreSeason;
+        $isRegularSeason = $this->isRegularSeason;
+        $data['isRegularSeason'] = $isRegularSeason;
+        $isPostSeason = $this->isPostSeason;
+        $data['isPostSeason'] = $isPostSeason;
+        if ($isPostSeason) {
+            $data['gamesForWeekTitle'] = $this->postSeasonTitle;
+        } else if ($isPreSeason) {
+            $data['gamesForWeekTitle'] = "Games - Week $currentWeek";
+        } else {
+            $data['gamesForWeekTitle'] = "Games for Week $currentWeek";
+        }
+        $data['myCurrentGamesTitle'] = "My Current Games";
+        $data['nextWeekGamesTitle'] = "Next Week's Games";
+        $data['lastWeekResultsTitle'] = "Last Week's Results";
+        $data['leaderboardTitle'] = "Leaderboard";
 
         return view('account.account')->with($data);
     }
