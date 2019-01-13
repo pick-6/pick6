@@ -69,7 +69,7 @@
                 @if (in_array("$column$row", $thisGameSelections))
                     @foreach($squaresSelected as $user)
                         @if($user->square_selection == $column.$row)
-                            <td class="notAvailable text-center middle padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-user-id="{{$user->id}}" data-username="{{$user->username}}" data-square-id="{{$squareId}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;">
+                            <td class="notAvailable text-center middle padding-0 {{ $isWinningSquare ? 'thickLimeGreenBorder' : '' }}" data-id="{{$column}}{{$row}}" data-user-id="{{$user->id}}" data-username="{{$user->username}}" data-square-id="{{$squareId}}" style="background-image: url('/img/profilePics/{{$user->avatar}}');background-size: cover;background-color:#111">
                                 @if($user->id != Auth::id() || $gameOver)
                                     <a data-role-ajax="{{action('AccountController@show', [$user->id])}}" <?= $user->id != Auth::id() ? "title=\"View $user->username's Profile\"" : "" ?> style="cursor:pointer">
                                         <div class='showUserContainer'>

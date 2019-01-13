@@ -59,6 +59,15 @@ class GamesController extends Controller
         return $dateOfGames;
     }
 
+    public static function getDatesOfWinningGames($userId)
+    {
+        $dateOfGames = Games::groupBy('date_for_week')
+        ->join('winnings', 'games.id', '=', 'winnings.game_id')
+        ->where('winnings.winning_user', "=", $userId)
+        ->get();
+        return $dateOfGames;
+    }
+
     public static function gamesUserIsPlayingIn($userId)
     {
         $playingIn = [];

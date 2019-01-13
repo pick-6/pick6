@@ -51,6 +51,7 @@ Route::get('/account/{user}', 'AccountController@show');
 Route::delete('/account/delete', 'AccountController@destroy');
 
 Route::post('/postContact', 'AccountController@postContact');
+Route::get('/winningGames', 'AccountController@getUserWinningGames');
 
 // About Us Page
 Route::get('/about', function () {

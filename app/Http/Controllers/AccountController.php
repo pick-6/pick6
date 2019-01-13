@@ -90,6 +90,7 @@ class AccountController extends Controller
         $data['nextWeekGamesTitle'] = "Next Week's Games";
         $data['lastWeekResultsTitle'] = "Last Week's Results";
         $data['leaderboardTitle'] = "Leaderboard";
+        $data['winningGamesTitle'] = "My Winning Games";
 
         return view('account.account')->with($data);
     }
@@ -121,7 +122,8 @@ class AccountController extends Controller
         }
 
         $data['id'] = $user[0]['id'];
-        $data['first_name'] = $user[0]['first_name'];
+        $usersFirstName = $user[0]['first_name'];
+        $data['first_name'] = $usersFirstName;
         $data['last_name'] = $user[0]['last_name'];
         $data['username'] = $user[0]['username'];
         $data['email'] = $user[0]['email'];
@@ -178,10 +180,11 @@ class AccountController extends Controller
         } else {
             $data['gamesForWeekTitle'] = "Games for Week $currentWeek";
         }
-        $data['myCurrentGamesTitle'] = "My Current Games";
+        $data['myCurrentGamesTitle'] = "Current Games";
         $data['nextWeekGamesTitle'] = "Next Week's Games";
         $data['lastWeekResultsTitle'] = "Last Week's Results";
         $data['leaderboardTitle'] = "Leaderboard";
+        $data['winningGamesTitle'] = "Winning Games";
 
         return view('account.account')->with($data);
     }
@@ -350,5 +353,48 @@ class AccountController extends Controller
         }
 
         return $response;
+    }
+
+    public function getUserWinningGames(Request $request)
+    {
+        $data = [];
+        
+        $userId = $request->userId;
+        $data['userId'] = $userId;
+
+        $winningGames = Winnings::select(DB::raw('games.*, winnings.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        ->join('games', 'winnings.game_id', '=', 'games.id')
+        ->where('winnings.winning_user', '=', $userId)
+        ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
+        ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
+        ->orderBy('games.date_for_week', 'ASC')
+        ->orderBy('games.time', 'ASC')
+        ->orderBy('games.id', 'ASC')
+        ->get();
+        $data['winningGames'] = $winningGames;
+
+        $minGamePicks = $this->minGamePicks;
+        $data['minGamePicks'] = $minGamePicks;
+
+        $includeTitle = $request->includeTitle ?? true;
+        $data['includeTitle'] = $includeTitle;
+        $data['title'] = "Winning Games";
+
+        $totalWinnings = Winnings::select(DB::raw('sum(winning_total) AS winnings'))->where('winning_user', '=', $userId)->get();
+        $data['totalWinnings'] = str_replace(".00","",money_format('$%i', $totalWinnings[0]['winnings']));
+        $hasWinnings = $totalWinnings[0]['winnings'] > 0;
+        $data['hasWinnings'] = $hasWinnings;
+
+        $datesOfWinningGames = GamesController::getDatesOfWinningGames($userId);
+        $data['datesOfWinningGames'] = $datesOfWinningGames;
+
+        $isLoggedInUser = $userId == Auth::id();
+        $data['isLoggedInUser'] = $isLoggedInUser;
+
+        $user = User::select('*')->where('id', '=', $userId)->get();
+        $usersFirstName = $user[0]['first_name'];
+        $data['usersFirstName'] = $usersFirstName;
+
+        return view('account.winningGames')->with($data);
     }
 }

@@ -97,7 +97,9 @@
                 isLogout = $(this).hasClass('logout'),
                 forGameCancel = $(this).hasClass('forGameCancel'),
                 hasPendingPicks = $('#gameTable').find('td.pendingPick').length,
-                url = targetPage,
+                isGameTable = targetPage == "/play" || targetPage == "/cancel",
+                gameId = $(this).data('game-id'),
+                url = isGameTable ? targetPage+'/'+gameId : targetPage,
                 // hasFadeFX = targetPage == previousPage ? false : true;
                 hasFadeFX = true;
 
@@ -113,6 +115,7 @@
 
             $(this).loadPage({
                 url: url,
+                pageUrl: targetPage,
                 showLoading: false,
                 logout: isLogout,
                 gameCancel: forGameCancel,
@@ -128,8 +131,11 @@
         var url = data.url,
             reload = data.reload,
             addingCredit = data.addingCredit,
-            makingPicks = data.makingPicks;
-
+            makingPicks = data.makingPicks,
+            previousPage = $(".page-content").data("url"),
+            simpleUrl = $(".page-content").data("page-url"),
+            onGameTable = simpleUrl == "/play";
+            
         $.ajax({
             type: "POST",
             url: url,
@@ -144,7 +150,7 @@
                 }
             },
             success: function(data) {
-                if (reload != null) {
+                if (reload != null && (addingCredit && onGameTable)) {
                     $(this).loadPage({
                         url: reload,
                         hasFadeFX: false
@@ -198,6 +204,7 @@
 
     $.fn.loadPage = function(data) {
         var url = data.url,
+            pageUrl = data.pageUrl,
             showLoading = data.showLoading,
             hasFadeFX = data.hasFadeFX,
             logout = data.logout,
@@ -253,7 +260,7 @@
                 if (url != "/SignUpLoginView" && url != "/contact" ) {
                     $(this).loadCredit();
                 }
-                $('.page-content').html(data).data("url", url);
+                $('.page-content').html(data).data("url", url).data("page-url", pageUrl);
                 if (showBackBtn) {
                     $('#back-btn').show();
                 } else {

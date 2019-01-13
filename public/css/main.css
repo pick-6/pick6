@@ -2374,3 +2374,11 @@ ul.new-menu li.black:hover {
 #payment-options article.active p {
     opacity; 1;
 }
+
+
+.dropdown-item .subLabel {
+    font-size: 10px;
+    text-align: center;
+    width: calc(100% - 25px);
+    margin-left: 25px;
+}

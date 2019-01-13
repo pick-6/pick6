@@ -166,7 +166,7 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $currentWeek = $this->currentWeek;
-        $userId = Auth::id();
+        $userId = $request->userId;
 
         $myCurrentGames = GamesController::getMyCurrentGames($userId, $seasonType, $currentWeek);
         $data['myCurrentGames'] = $myCurrentGames;

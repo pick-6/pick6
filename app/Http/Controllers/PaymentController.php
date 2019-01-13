@@ -89,10 +89,6 @@ class PaymentController extends Controller
             $user->credit = $updatedCreditAmount;
             $user->save();
 
-            // $request->session()->flash('successMessage', '$'.$creditAmountAdded.'.00 was added to your credit balance.');
-            // return redirect('/dashboard');
-            // return redirect($_SERVER['HTTP_REFERER']);
-
             $response = response()->json(['success' => true, 'msg' => "$".$creditAmountAdded.".00 was added to your credit balance.", 'credit' => $updatedCreditAmount]);
             return $response;
 

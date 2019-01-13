@@ -8,6 +8,7 @@
     $bgColor = "";
     $labelText = "";
     $width = $isGameStarted || $isGameCancel || $isGameOver || $picksAvail == 0 ? 100 : $picksAvail;
+    //$width = $isGameStarted || $isGameCancel || $isGameOver || $picksAvail == 0 || $picksAvail == 100 ? 100 : (100 - $picksAvail);
 
     switch (true) {
         case $picksMade <= 25:

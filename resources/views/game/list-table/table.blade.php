@@ -112,7 +112,7 @@
                             </div>
                         @endif
                     @endif
-                    <a class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="<?= $gameCancel ? '/cancel/'.$gameId.'' : action('GamesController@show', [$gameId]) ?>">
+                    <a data-game-id="{{$gameId}}" class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="{{$gameCancel ? '/cancel' : '/play'}}">
                         <div class="pull-left width50 {{ $noTeams || $noHomeTeam ? 'text-center' : '' }} homeTeam padding-10">
                             @if($game->home != 'TBD')
                                 <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
@@ -150,9 +150,9 @@
                     </a>
                 </td>
                 @if($showBtn || $showPicksAvail)
-                    <td id="playGameBtn" style="padding: 0px;{{$showPicksAvail ? "padding-bottom:10px;" :""}} ">
+                    <td id="playGameBtn" style="padding: 0px;{{$showPicksAvail ? 'padding-bottom:10px;' : ''}}">
                         @if($showBtn)
-                            <a data-role-ajax="<?= $gameCancel ? '/cancel/'.$gameId.'' : action('GamesController@show', [$gameId]) ?>" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
+                            <a data-game-id="{{$gameId}}" data-role-ajax="{{$gameCancel ? '/cancel' : '/play'}}" class="btn playGameBtn {{$gameCancel ? 'forGameCancel' : '' }}" style="min-width:85%;">
                                 @if($gameOver)
                                     @if($gameCancel)
                                         CANCELLED

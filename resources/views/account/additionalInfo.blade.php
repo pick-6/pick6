@@ -9,6 +9,9 @@
             <div class="fc-grey">
                 <h3 class="margin-0">{{$totalWinnings}}</h3>
             </div>
+            <div class="margin-top-5">
+                <button data-role-ajaxsection="/winningGames" class="btn btn-xs">See Wins</button>
+            </div>
         </div>
     @endif
 

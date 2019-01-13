@@ -62,9 +62,6 @@ class SelectionsController extends Controller
         $user->credit = $updatedCreditAmount;
         $user->save();
 
-        // $request->session()->flash('successMessage', 'Thanks for playing! You may pick more squares if you\'d like.');
-        // return redirect()->action('GamesController@show', $gameId);
-        // return redirect($_SERVER['HTTP_REFERER']);
         $response = response()->json(['success' => true, 'msg' => "Your $picks saved. Good luck!", 'game' => $gameId]);
         return $response;
     }

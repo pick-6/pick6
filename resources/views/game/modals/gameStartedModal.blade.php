@@ -8,7 +8,7 @@
             <div class="modal-body text-center fc-grey">
                 <div class="text-center fc-grey">
                     <div>
-                        <h3>Sorry, the game has started.</h3>
+                        <h3>Sorry, the game {{ $gameOver ? "is over" : "has started" }}.</h3>
                     </div>
                     <div>
                         <h3>No more picks can be made.</h3>

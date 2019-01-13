@@ -81,7 +81,8 @@
                     'icon' => 'calendar-alt',
                     'label' => $gamesForWeekTitle,
                     'url' => '/gamesForWeek',
-                    'forSectionLoad' => true
+                    'forSectionLoad' => true,
+                    'subLabel' => '(Games For The Week)'
                 ])
                 @include('partials.dropdown.item', [
                     'icon' => 'football-ball',
@@ -107,9 +108,39 @@
                     'url' => '/nextWeekGames',
                     'forSectionLoad' => true
                 ])
+                @if($hasWinnings)
+                @include('partials.dropdown.item', [
+                    'icon' => 'dollar-sign',
+                    'label' => 'My Winning Games',
+                    'url' => '/winningGames',
+                    'forSectionLoad' => true
+                ])
+                @endif
             </ul>
         @else
-            <h3 class="fc-white margin-top-0">{{$first_name.'\'s'}} Current Games</h3>
+            <a class="dropdown-toggle no-decor {{$hasWinnings ? '' : 'cursor-arrow'}}" data-toggle="dropdown">
+                <h3 class="fc-white margin-top-0 inline section-title">{{$first_name.'\'s'}} Current Games</h3>
+                @if($hasWinnings)
+                    <i class="fas fa-caret-down inline fc-white margin-left-5"></i>
+                @endif
+            </a>
+            @if($hasWinnings)
+                <ul class="dropdown-menu new-menu padding-0 text-left" style="top:40px;left: calc(50% - 145px);background:#444">
+                    @include('partials.dropdown.item', [
+                        'icon' => 'football-ball',
+                        'label' => "$first_name's Current Games",
+                        'url' => '/myCurrentGames',
+                        'forSectionLoad' => true
+                    ])
+
+                    @include('partials.dropdown.item', [
+                        'icon' => 'dollar-sign',
+                        'label' => "$first_name's Winning Games",
+                        'url' => '/winningGames',
+                        'forSectionLoad' => true
+                    ])
+                </ul>
+            @endif
         @endif
         <div id="loadedSection" class="margin-top-10">
             @if ($hasCurrentGames)
@@ -150,7 +181,9 @@
                 title = "{{$gamesForWeekTitle}}";
                 break;
             case "/myCurrentGames":
-                title = "{{$myCurrentGamesTitle}}";
+                forLoggedInUser = "{{$myCurrentGamesTitle}}";
+                forOtherUser = "{{$first_name}}'s {{$myCurrentGamesTitle}}";
+                title = {{boolval($isLoggedInUser) ? 'true' : 'false'}} ? forLoggedInUser : forOtherUser;
                 break;
             case "/lastWeekResults":
                 title = "Last Week's Results";
@@ -160,6 +193,11 @@
                 break;
             case "/nextWeekGames":
                 title = "Next Week's Games";
+                break;
+            case "/winningGames":
+                forLoggedInUser = "{{$winningGamesTitle}}";
+                forOtherUser = "{{$first_name}}'s {{$winningGamesTitle}}";
+                title = {{boolval($isLoggedInUser) ? 'true' : 'false'}} ? forLoggedInUser : forOtherUser;
                 break;
         }
 
@@ -171,7 +209,8 @@
                 showPicksAvail: true,
                 showGameTime: true,
                 showCity: true,
-                onDash: false
+                onDash: false,
+                userId: {{$id}}
             }
         }).done(function(data){
             $("#loadedSection").html(data);
