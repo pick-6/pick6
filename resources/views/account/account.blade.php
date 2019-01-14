@@ -8,7 +8,7 @@
     <section id="accountInfo" class="padding-0 col-md-3">
         <div class="padding-10">
             <div class="margin-bottom-10 fc-yellow">
-                @if(Auth::user()->email == 'mattvaldez01@gmail.com')
+                @if($isAdmin)
                     <p class="fc-red margin-0">
                         User Id: {{$id}}
                     </p>
@@ -71,76 +71,57 @@
     </section>
 
     <section id="currentGames" class="padding-10 myCurrentGames col-md-9 {{ $hasCurrentGames ? '' : 'hideOnTablet'}}">
-        @if($isLoggedInUser)
-            <a class="dropdown-toggle no-decor" data-toggle="dropdown">
-                <h3 class="fc-white margin-top-0 inline section-title">My Current Games</h3>
+        <a class="dropdown-toggle no-decor {{$hasWinnings || $isLoggedInUser  ? '' : 'cursor-arrow'}}" data-toggle="dropdown">
+            <h3 class="fc-white margin-top-0 inline section-title">{{$myCurrentGamesTitle}}</h3>
+            @if($hasWinnings || $isLoggedInUser)
                 <i class="fas fa-caret-down inline fc-white margin-left-5"></i>
-            </a>
+            @endif
+        </a>
+        @if($hasWinnings || $isLoggedInUser)
             <ul class="dropdown-menu new-menu padding-0 text-left" style="top:40px;left: calc(50% - 145px);background:#444">
-                @include('partials.dropdown.item', [
-                    'icon' => 'calendar-alt',
-                    'label' => $gamesForWeekTitle,
-                    'url' => '/gamesForWeek',
-                    'forSectionLoad' => true,
-                    'subLabel' => '(Games For The Week)'
-                ])
+                @if($isLoggedInUser)
+                    @include('partials.dropdown.item', [
+                        'icon' => 'calendar-alt',
+                        'label' => 'Games For The Week',
+                        'url' => '/gamesForWeek',
+                        'forSectionLoad' => true,
+                    ])
+                @endif
                 @include('partials.dropdown.item', [
                     'icon' => 'football-ball',
                     'label' => $myCurrentGamesTitle,
                     'url' => '/myCurrentGames',
                     'forSectionLoad' => true
                 ])
-                @include('partials.dropdown.item', [
-                    'icon' => 'calendar-check',
-                    'label' => $lastWeekResultsTitle,
-                    'url' => '/lastWeekResults',
-                    'forSectionLoad' => true
-                ])
-                @include('partials.dropdown.item', [
-                    'icon' => 'trophy',
-                    'label' => $leaderboardTitle,
-                    'url' => '/leaderboard',
-                    'forSectionLoad' => true
-                ])
-                @include('partials.dropdown.item', [
-                    'icon' => 'calendar-plus',
-                    'label' => $nextWeekGamesTitle,
-                    'url' => '/nextWeekGames',
-                    'forSectionLoad' => true
-                ])
-                @if($hasWinnings)
-                @include('partials.dropdown.item', [
-                    'icon' => 'dollar-sign',
-                    'label' => 'My Winning Games',
-                    'url' => '/winningGames',
-                    'forSectionLoad' => true
-                ])
-                @endif
-            </ul>
-        @else
-            <a class="dropdown-toggle no-decor {{$hasWinnings ? '' : 'cursor-arrow'}}" data-toggle="dropdown">
-                <h3 class="fc-white margin-top-0 inline section-title">{{$first_name.'\'s'}} Current Games</h3>
-                @if($hasWinnings)
-                    <i class="fas fa-caret-down inline fc-white margin-left-5"></i>
-                @endif
-            </a>
-            @if($hasWinnings)
-                <ul class="dropdown-menu new-menu padding-0 text-left" style="top:40px;left: calc(50% - 145px);background:#444">
+                @if($isLoggedInUser)
                     @include('partials.dropdown.item', [
-                        'icon' => 'football-ball',
-                        'label' => "$first_name's Current Games",
-                        'url' => '/myCurrentGames',
+                        'icon' => 'calendar-check',
+                        'label' => $lastWeekResultsTitle,
+                        'url' => '/lastWeekResults',
                         'forSectionLoad' => true
                     ])
-
+                    @include('partials.dropdown.item', [
+                        'icon' => 'trophy',
+                        'label' => $leaderboardTitle,
+                        'url' => '/leaderboard',
+                        'forSectionLoad' => true
+                    ])
+                    @include('partials.dropdown.item', [
+                        'icon' => 'calendar-plus',
+                        'label' => $nextWeekGamesTitle,
+                        'url' => '/nextWeekGames',
+                        'forSectionLoad' => true
+                    ])
+                @endif
+                @if($hasWinnings)
                     @include('partials.dropdown.item', [
                         'icon' => 'dollar-sign',
-                        'label' => "$first_name's Winning Games",
+                        'label' => $winningGamesTitle,
                         'url' => '/winningGames',
                         'forSectionLoad' => true
                     ])
-                </ul>
-            @endif
+                @endif
+            </ul>
         @endif
         <div id="loadedSection" class="margin-top-10">
             @if ($hasCurrentGames)
@@ -178,26 +159,22 @@
 
         switch (url) {
             case "/gamesForWeek":
-                title = "{{$gamesForWeekTitle}}";
+                title = "<?php echo $gamesForWeekTitle ?>";
                 break;
             case "/myCurrentGames":
-                forLoggedInUser = "{{$myCurrentGamesTitle}}";
-                forOtherUser = "{{$first_name}}'s {{$myCurrentGamesTitle}}";
-                title = {{boolval($isLoggedInUser) ? 'true' : 'false'}} ? forLoggedInUser : forOtherUser;
+                title = "<?php echo $myCurrentGamesTitle?>";
                 break;
             case "/lastWeekResults":
-                title = "Last Week's Results";
+                title = "<?php echo $lastWeekResultsTitle?>";
                 break;
             case "/leaderboard":
-                title = "{{$leaderboardTitle}}";
+                title = "<?php echo $leaderboardTitle ?>";
                 break;
             case "/nextWeekGames":
-                title = "Next Week's Games";
+                title = "<?php echo $nextWeekGamesTitle ?>";
                 break;
             case "/winningGames":
-                forLoggedInUser = "{{$winningGamesTitle}}";
-                forOtherUser = "{{$first_name}}'s {{$winningGamesTitle}}";
-                title = {{boolval($isLoggedInUser) ? 'true' : 'false'}} ? forLoggedInUser : forOtherUser;
+                title = "<?php echo $winningGamesTitle ?>";
                 break;
         }
 
@@ -284,6 +261,7 @@
         $(this).postForm({
             url: "/account/updateFavTeam/"+$team+"",
             reload: "/account",
+            forceReload: true
         });
     });
 
@@ -293,6 +271,7 @@
         $(this).uploadFile({
             url: "/upload",
             reload: "/account",
+            forceReload: true,
             data: new FormData(this),
             getAvatar: true
         });

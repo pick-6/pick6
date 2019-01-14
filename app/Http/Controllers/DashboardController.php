@@ -24,7 +24,8 @@ class DashboardController extends Controller
 
         $user = \Auth::user();
         $data['user'] = $user;
-
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
         $playingIn = GamesController::gamesUserIsPlayingIn($user->id);
         $data['playingIn'] = $playingIn;
 
@@ -126,6 +127,8 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $currentWeek = $this->currentWeek;
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;
@@ -167,6 +170,8 @@ class DashboardController extends Controller
         $seasonType = $this->season_type;
         $currentWeek = $this->currentWeek;
         $userId = $request->userId;
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $myCurrentGames = GamesController::getMyCurrentGames($userId, $seasonType, $currentWeek);
         $data['myCurrentGames'] = $myCurrentGames;
@@ -206,6 +211,8 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $nextWeek = $this->nextWeek;
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek);
         $data['nextWeekGames'] = $nextWeekGames;
@@ -230,6 +237,8 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $lastWeek = $this->lastWeek;
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType);
         $data['lastWeekResults'] = $lastWeekResults;
@@ -252,6 +261,8 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $lastWeek = $this->lastWeek;
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $leaderboard = GamesController::getLeaderBoard();
         $data['leaderboard'] = $leaderboard;

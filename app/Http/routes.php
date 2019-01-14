@@ -40,7 +40,7 @@ Route::get('/cancel/{game}', 'SelectionsController@gameCancelled');
 Route::get('/checkGamesCancelled/{userId}', 'SelectionsController@checkGamesCancelled');
 
 // Account
-Route::get('/account', 'AccountController@index');
+Route::get('/account', 'AccountController@show');
 Route::get('/account/edit', 'AccountController@edit');
 Route::put('/account/update', 'AccountController@update');
 Route::put('/account/updatePassword', 'AccountController@updatePassword');

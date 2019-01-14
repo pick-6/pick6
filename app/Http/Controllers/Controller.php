@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Auth;
 
 abstract class Controller extends BaseController
 {
@@ -13,9 +14,10 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
+        $this->isAdmin = Auth::user()->email == 'mattvaldez01@gmail.com';
         // TO DO: get 'week' and 'season_type' numbers dynamically
         $this->season_type = 3;
-        $this->currentWeek = 2;
+        $this->currentWeek = 3;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;

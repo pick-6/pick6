@@ -24,77 +24,6 @@ class AccountController extends Controller
         parent::__construct();
     }
 
-    public function index()
-    {
-        $data=[];
-        $user = User::select('*')->where('id', '=', Auth::id())->get();
-        $data['id'] = $user[0]['id'];
-        $data['first_name'] = $user[0]['first_name'];
-        $data['last_name'] = $user[0]['last_name'];
-        $data['username'] = $user[0]['username'];
-        $data['email'] = $user[0]['email'];
-        $data['avatar'] = $user[0]['avatar'];
-        $currentWeek = $this->currentWeek;
-        $data['currentWeek'] = $currentWeek;
-        $seasonType = $this->season_type;
-        $data['season_type'] = $seasonType;
-        $currentGames = GamesController::getMyCurrentGames(Auth::id(), $seasonType, $currentWeek);
-        $data['currentGames'] = $currentGames;
-        $hasCurrentGames = count($currentGames) > 0;
-        $data['hasCurrentGames'] = $hasCurrentGames;
-        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
-        $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
-        $playingIn = GamesController::gamesUserIsPlayingIn(Auth::id());
-        $data['playingIn'] = $playingIn;
-        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames(Auth::id(), $seasonType, $currentWeek);
-        $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
-        $data['isLoggedInUser'] = true;
-
-        $totalWinnings = Winnings::select(DB::raw('sum(winning_total) AS winnings'))->where('winning_user', '=', Auth::id())->get();
-        $data['totalWinnings'] = str_replace(".00","",money_format('$%i', $totalWinnings[0]['winnings']));
-        $hasWinnings = $totalWinnings[0]['winnings'] > 0;
-        $data['hasWinnings'] = $hasWinnings;
-
-        $favoriteTeam = User::select(DB::raw('users.fav_team, teams.*'))
-        ->join('teams', 'teams.id', '=', 'users.fav_team')
-        ->where('users.id', '=', Auth::id())
-        ->get();
-        $data['favoriteTeam'] = $favoriteTeam;
-        $hasFavTeam = count($favoriteTeam) > 0;
-        $data['hasFavTeam'] = $hasFavTeam;
-
-        $allTeams = DB::table('teams')
-        ->where('teams.id', '!=', 33)
-        ->where('teams.id', '!=', 34)
-        ->where('teams.id', '!=', 35)
-        ->get();
-        $data['allTeams'] = $allTeams;
-
-        $minGamePicks = $this->minGamePicks;
-        $data['minGamePicks'] = $minGamePicks;
-
-        $isPreSeason = $this->isPreSeason;
-        $data['isPreSeason'] = $isPreSeason;
-        $isRegularSeason = $this->isRegularSeason;
-        $data['isRegularSeason'] = $isRegularSeason;
-        $isPostSeason = $this->isPostSeason;
-        $data['isPostSeason'] = $isPostSeason;
-        if ($isPostSeason) {
-            $data['gamesForWeekTitle'] = $this->postSeasonTitle;
-        } else if ($isPreSeason) {
-            $data['gamesForWeekTitle'] = "Games - Week $currentWeek";
-        } else {
-            $data['gamesForWeekTitle'] = "Games for Week $currentWeek";
-        }
-        $data['myCurrentGamesTitle'] = "My Current Games";
-        $data['nextWeekGamesTitle'] = "Next Week's Games";
-        $data['lastWeekResultsTitle'] = "Last Week's Results";
-        $data['leaderboardTitle'] = "Leaderboard";
-        $data['winningGamesTitle'] = "My Winning Games";
-
-        return view('account.account')->with($data);
-    }
-
     public function create()
     {
         abort(404);
@@ -105,15 +34,14 @@ class AccountController extends Controller
         abort(404);
     }
 
-    public function show($id)
+    public function show($id = null)
     {
+        if ($id == null) {
+            $id = Auth::id();
+        }
         $isLoggedInUser = $id == Auth::id();
 
-        if ($isLoggedInUser) {
-            return redirect('/account');
-        }
-
-        $data=[];
+        $data = [];
 
         $user = User::select('*')->where('id', '=', $id)->get();
 
@@ -128,6 +56,8 @@ class AccountController extends Controller
         $data['username'] = $user[0]['username'];
         $data['email'] = $user[0]['email'];
         $data['avatar'] = $user[0]['avatar'];
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
 
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
@@ -161,6 +91,7 @@ class AccountController extends Controller
         $allTeams = DB::table('teams')
         ->where('teams.id', '!=', 33) // NFC
         ->where('teams.id', '!=', 34) // AFC
+        ->where('teams.id', '!=', 35)
         ->get();
         $data['allTeams'] = $allTeams;
 
@@ -180,11 +111,11 @@ class AccountController extends Controller
         } else {
             $data['gamesForWeekTitle'] = "Games for Week $currentWeek";
         }
-        $data['myCurrentGamesTitle'] = "Current Games";
+        $data['myCurrentGamesTitle'] = ($isLoggedInUser ? "My" : $usersFirstName."'s")." Current Games";
         $data['nextWeekGamesTitle'] = "Next Week's Games";
         $data['lastWeekResultsTitle'] = "Last Week's Results";
         $data['leaderboardTitle'] = "Leaderboard";
-        $data['winningGamesTitle'] = "Winning Games";
+        $data['winningGamesTitle'] = ($isLoggedInUser ? "My" : $usersFirstName."'s")." Winning Games";
 
         return view('account.account')->with($data);
     }
@@ -358,7 +289,7 @@ class AccountController extends Controller
     public function getUserWinningGames(Request $request)
     {
         $data = [];
-        
+
         $userId = $request->userId;
         $data['userId'] = $userId;
 

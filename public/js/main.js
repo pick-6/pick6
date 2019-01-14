@@ -130,12 +130,13 @@
     $.fn.postForm = function(data) {
         var url = data.url,
             reload = data.reload,
+            forceReload = data.forceReload,
             addingCredit = data.addingCredit,
             makingPicks = data.makingPicks,
             previousPage = $(".page-content").data("url"),
             simpleUrl = $(".page-content").data("page-url"),
             onGameTable = simpleUrl == "/play";
-            
+
         $.ajax({
             type: "POST",
             url: url,
@@ -150,7 +151,7 @@
                 }
             },
             success: function(data) {
-                if (reload != null && (addingCredit && onGameTable)) {
+                if ((reload != null && (addingCredit && onGameTable)) || forceReload) {
                     $(this).loadPage({
                         url: reload,
                         hasFadeFX: false

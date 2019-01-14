@@ -32,23 +32,23 @@ $showTitle = $includeTitle == 'true' ? true : false;
                 <col style="width: 55px">
             </colgroup>
            <tbody>
-                @foreach ($leaderboard as $index => $player)
+                @foreach ($leaderboard as $rank => $player)
                     <tr class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}">
                         <td data-title="Rank" class="middle">
-                            @if ($index == 0)
+                            @if ($rank == 0)
                                 <img src="/img/gold.png" height="20" width="20" alt="First Place">
-                            @elseif ($index == 1)
+                            @elseif ($rank == 1)
                                 <img src="/img/silver.png" height="20" width="20" alt="Second Place">
-                            @elseif ($index == 2)
+                            @elseif ($rank == 2)
                                 <img src="/img/bronze.png" height="20" width="20" alt="Third Place">
                             @else
-                                {{$index+1}}.
+                                {{$rank+1}}.
                             @endif
                         </td>
                         <td data-title="Player Name" class="text-left">
                             <img src="/img/profilePics/{{$player->avatar}}" height="25" width="25" alt="{{$player->full_name}}">
                             <div class="text-left middle inline-block leaderboardName">
-                                <a data-role-ajax="{{action('AccountController@show', [($player->id == Auth::id()) ? '' : $player->id])}}" class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}" title="{{$player->full_name}}">{{$player->full_name}}</a>
+                                <a data-role-ajax="{{action('AccountController@show', [$player->id])}}" class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}" title="{{$player->full_name}}">{{$player->full_name}}</a>
                             </div>
                         </td>
                         <td data-title="Wins" class="middle">{{$player->wins}}</td>

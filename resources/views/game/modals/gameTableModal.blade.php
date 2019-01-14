@@ -13,7 +13,7 @@
                 <button class="btn" data-dismiss="modal">Close</button>
             </div>
 
-            @if(Auth::user()->email == 'mattvaldez01@gmail.com')
+            @if($isAdmin)
                 <div class="fc-red absolute text-left" style="bottom:10px;left:15px;">
                     Game Id: <span class="bold">{{$gameId}}</span> <br />
                     Winning Selection: <span class="bold">{{$winningSelection}}</span> <br />

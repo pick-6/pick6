@@ -177,7 +177,8 @@ class GamesController extends Controller
         $data = [];
 
         $user = \Auth::user();
-
+        $isAdmin = $this->isAdmin;
+        $data['isAdmin'] = $isAdmin;
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
         $seasonType = $this->season_type;

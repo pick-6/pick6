@@ -1,5 +1,4 @@
 <?php
-    $isAdmin = Auth::user()->email == 'mattvaldez01@gmail.com';
     $games = $games ?? $gamesForWeek;
     $dates = $dates ?? $datesOfCurrentWeekGames;
     $showGameTime = $showGameTime ?? true;

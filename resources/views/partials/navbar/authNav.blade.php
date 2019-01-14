@@ -1,7 +1,7 @@
 <?php
     use App\User;
 
-    $creditForUser = User::select('credit')->where('id', '=', Auth::user()->id)->get();
+    $creditForUser = User::select('credit')->where('id', '=', Auth::id())->get();
     $credit = $creditForUser[0]['credit'];
     $creditAmount = money_format('$%i', $credit);
 ?>
