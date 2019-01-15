@@ -52,6 +52,8 @@ Route::delete('/account/delete', 'AccountController@destroy');
 
 Route::post('/postContact', 'AccountController@postContact');
 Route::get('/winningGames', 'AccountController@getUserWinningGames');
+Route::get('/favTeam', 'AccountController@getUserFavTeamLogo');
+Route::get('/avatar', 'AccountController@getUserAvatar');
 
 // About Us Page
 Route::get('/about', function () {

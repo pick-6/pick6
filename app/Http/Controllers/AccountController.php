@@ -91,7 +91,7 @@ class AccountController extends Controller
         $allTeams = DB::table('teams')
         ->where('teams.id', '!=', 33) // NFC
         ->where('teams.id', '!=', 34) // AFC
-        ->where('teams.id', '!=', 35)
+        ->where('teams.id', '!=', 35) // null
         ->get();
         $data['allTeams'] = $allTeams;
 
@@ -327,5 +327,61 @@ class AccountController extends Controller
         $data['usersFirstName'] = $usersFirstName;
 
         return view('account.winningGames')->with($data);
+    }
+
+    public function getUserFavTeamLogo(Request $request)
+    {
+        $data = [];
+
+        $id = $request->userId;
+        if ($id == null) {
+            $id = Auth::id();
+        }
+        $data['id'] = $id;
+
+        $isLoggedInUser = $id == Auth::id();
+        $data['isLoggedInUser'] = $isLoggedInUser;
+
+        $favoriteTeam = User::select(DB::raw('users.fav_team, teams.*'))
+        ->join('teams', 'teams.id', '=', 'users.fav_team')
+        ->where('users.id', '=', $id)
+        ->get();
+        $data['favoriteTeam'] = $favoriteTeam;
+
+        $hasFavTeam = count($favoriteTeam) > 0;
+        $data['hasFavTeam'] = $hasFavTeam;
+
+        $allTeams = DB::table('teams')
+        ->where('teams.id', '!=', 33) // NFC
+        ->where('teams.id', '!=', 34) // AFC
+        ->where('teams.id', '!=', 35) // null
+        ->get();
+        $data['allTeams'] = $allTeams;
+
+        return view('account.partials.favTeam')->with($data);
+    }
+
+    public function getUserAvatar(Request $request)
+    {
+        $data = [];
+
+        $id = $request->userId;
+        if ($id == null) {
+            $id = Auth::id();
+        }
+        $data['id'] = $id;
+
+        $isLoggedInUser = $id == Auth::id();
+        $data['isLoggedInUser'] = $isLoggedInUser;
+
+        $user = User::select('*')->where('id', '=', $id)->get();
+        if (count($user) < 1) {
+            abort(404);
+        }
+
+        $avatar = $user[0]['avatar'];
+        $data['avatar'] = $avatar;
+
+        return view('account.partials.avatar')->with($data);
     }
 }

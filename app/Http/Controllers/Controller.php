@@ -15,6 +15,7 @@ abstract class Controller extends BaseController
     public function __construct()
     {
         $this->isAdmin = Auth::user()->email == 'mattvaldez01@gmail.com';
+        $this->current_season = 1;
         // TO DO: get 'week' and 'season_type' numbers dynamically
         $this->season_type = 3;
         $this->currentWeek = 3;

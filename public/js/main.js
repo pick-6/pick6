@@ -131,6 +131,8 @@
         var url = data.url,
             reload = data.reload,
             forceReload = data.forceReload,
+            reloadUrl = data.reloadUrl,
+            forFavTeam = data.forFavTeam,
             addingCredit = data.addingCredit,
             makingPicks = data.makingPicks,
             previousPage = $(".page-content").data("url"),
@@ -157,6 +159,12 @@
                         hasFadeFX: false
                     });
                 }
+                if (forFavTeam) {
+                    $(this).reloadSection({
+                        url: reloadUrl,
+                        section: reload
+                    });
+                }
                 $(this).loadCredit();
             },
             error: function(data) {
@@ -176,6 +184,17 @@
             });
         });
     };
+
+    $.fn.reloadSection = function(data) {
+        var url = data.url,
+            section = data.section;
+
+        $.ajax({
+            url: url
+        }).done(function(data){
+            $(section).html(data);
+        });
+    }
 
     $.fn.notify = function(data) {
         var isSuccess = data.success,
@@ -297,7 +316,9 @@
     $.fn.uploadFile = function(data) {
         var url = data.url,
             reload = data.reload,
+            reloadUrl = data.reloadUrl,
             getAvatar = data.getAvatar,
+            forAvatar = data.forAvatar,
             data = data.data;
 
         $.ajax({
