@@ -24,7 +24,7 @@
 
 <script>
     // Upload Profile Pic from Account Page
-    $('#accountPage').find('.changePhoto').click(function(){
+    $('#accountPage').find('.changePhoto').on('click', function(){
         $('.chooseProfilePic').trigger('click');
     });
 
@@ -32,7 +32,7 @@
         .on('click touchstart', function(){
             $(this).val('');
         })
-        .change(function(e) {
+        .on('change', function(e) {
             $(".submitProfilePic").trigger('click');
         });
 
@@ -70,12 +70,18 @@
 
     $('#changeProfileImage').on('submit', function(e){
         e.preventDefault();
+        var url = $(".page-content").data("url"),
+            pageUrl = $(".page-content").data("page-url"),
+            onDash = url == "/dashboard",
+            isGameTable = pageUrl == "/play";
 
         $(this).uploadFile({
-            data: new FormData(this),
             url: "/upload",
-            reload: "/account",
             data: new FormData(this),
+            reload: url,
+            pageRefresh: false,
+            isGameTable: isGameTable,
+            onDash: onDash,
             getAvatar: true
         });
     });

@@ -170,7 +170,7 @@
                 userId: {{$id}}
             }
         }).done(function(data){
-            $("#loadedSection").html(data);
+            $("#loadedSection").html(data).attr('data-load', url);
             $(".section-title").text(title);
             if (isGamesForWeek && isPreSeason) {
                 $preseason = $("<span>").addClass("fc-yellow").text("PreSeason ");

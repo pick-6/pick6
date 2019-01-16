@@ -319,6 +319,9 @@
             reloadUrl = data.reloadUrl,
             getAvatar = data.getAvatar,
             forAvatar = data.forAvatar,
+            pageRefresh = data.pageRefresh == null ? true : data.pageRefresh,
+            isGameTable = data.isGameTable,
+            onDash = data.onDash,
             data = data.data;
 
         $.ajax({
@@ -341,7 +344,50 @@
                 success: data.success,
                 text: data.msg
             });
-            if (reload != null) {
+            if (!pageRefresh && !isGameTable) {
+                var $weekResults = $("[data-load='/lastWeekResults']");
+                var weekResults = $weekResults.data("load");
+                $.ajax({
+                    url: weekResults,
+                    data: { includeTitle: (onDash ? true : false) }
+                }).done(function(data){
+                    $("[data-load='"+weekResults+"']").html(data);
+                });
+
+                var $leaderboard = $("[data-load='/leaderboard']");
+                var leaderboard = $leaderboard.data("load");
+                $.ajax({
+                    url: leaderboard,
+                    data: { includeTitle: (onDash ? true : false) }
+                }).done(function(data){
+                    $("[data-load='"+leaderboard+"']").html(data);
+                });
+
+                var $avatar = $("[data-ajax-load='/avatar']");
+                var avatar = $avatar.data("ajax-load");
+                $.ajax({
+                    url: avatar
+                }).done(function(data){
+                    $("[data-ajax-load='"+avatar+"']").html(data);
+                });
+                // $.each($loadSections, function(){
+                //     var load = $(this).data("load");
+                //     $.ajax({
+                //         url: load
+                //     }).done(function(data){
+                //         $("[data-load='"+load+"']").html(data);
+                //     });
+                // });
+                // $.each($ajaxSections, function(){
+                //     var load = $(this).data("ajax-load");
+                //     $.ajax({
+                //         url: load
+                //     }).done(function(data){
+                //         $("[data-ajax-load='"+load+"']").html(data);
+                //     });
+                // });
+            }
+            if (reload != null && (pageRefresh || isGameTable)) {
                 $(this).loadPage({
                     url: reload,
                     hasFadeFX: false
@@ -495,12 +541,12 @@
     });
 
     // don't close Account Dropdown when clicking in it
-    $('.accountDropdown').find('.showAvatarContainer').click(function(e){
+    $('.accountDropdown').find('.showAvatarContainer').on('click', function(e){
         e.stopPropagation();
     });
 
     // Upload Profile Pic from Account Dropdown
-    $('.accountDropdown').find('#changePhoto').click(function(){
+    $('.accountDropdown').find('#changePhoto').on('click', function(){
         $('#chooseProfilePic').trigger('click');
     });
 
@@ -508,17 +554,24 @@
         $(this).val('');
     });
 
-    $('.accountDropdown').find("#chooseProfilePic").change(function(e) {
+    $('.accountDropdown').find("#chooseProfilePic").on('change', function(e) {
         $("#submitProfilePic").trigger('click');
     });
 
     $('.profilePicForm').on('submit', function(e){
         e.preventDefault();
-        var url = $(".page-content").data("url");
+        var url = $(".page-content").data("url"),
+            pageUrl = $(".page-content").data("page-url"),
+            onDash = url == "/dashboard",
+            isGameTable = pageUrl == "/play";
+
         $(this).uploadFile({
             url: "/upload",
             data: new FormData(this),
             reload: url,
+            pageRefresh: false,
+            isGameTable: isGameTable,
+            onDash: onDash,
             getAvatar: true
         });
     });

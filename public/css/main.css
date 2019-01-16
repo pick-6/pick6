@@ -2382,3 +2382,15 @@ ul.new-menu li.black:hover {
     width: calc(100% - 25px);
     margin-left: 25px;
 }
+
+a.dropdown-toggle:hover i.fa-caret-down {
+    color: var(--yellow-font)!important;
+}
+
+.myCurrentGames.open h3 {
+    background: rgb(0 ,0 ,0 ,0.5);
+}
+.myCurrentGames.open a.dropdown-toggle:hover i.fa-caret-down,
+.myCurrentGames.open i.fa-caret-down {
+    color: #555!important;
+}
