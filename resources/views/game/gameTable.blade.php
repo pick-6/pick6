@@ -240,6 +240,7 @@
             url: "/selections",
             reload: "/play/"+gameId+"",
             makingPicks: true,
+            forceReload: true
         });
     });
 
@@ -380,7 +381,8 @@
         var gameId = $(this).find('input[name=game_id]').val();
         $(this).postForm({
             url: "{{ action('SelectionsController@destroy') }}",
-            reload: "/play/"+gameId+""
+            reload: "/play/"+gameId+"",
+            forceReload: true,
         });
     });
 

@@ -80,12 +80,38 @@
         $(this).getAnswer({ targetPage: url });
     }
     $.fn.getAnswer = function(data){
+        $(document).on('keyup', function(e){
+            switch (e.keyCode) {
+                case 13: // enter
+                case 89: // y
+                    yes();
+                    break;
+                case 78: // n
+                case 27: // esc
+                    no();
+                    break;
+            }
+        });
+
         $(".confirm-btns").find("button").on("click", function(){
             if ($(this).parent().hasClass("confirm")) {
-                $(this).loadPage({ url: data.targetPage });
+                yes();
             }
-            $(".confirm-modal").remove();
+            closeModal();
         });
+
+        function yes(){
+            $(this).loadPage({ url: data.targetPage });
+            $(".confirm-modal").remove();
+        }
+
+        function no(){
+            closeModal();
+        }
+        
+        function closeModal(){
+            $(".confirm-modal").remove();
+        }
     }
 
     $.fn.pageControl = function(links){
