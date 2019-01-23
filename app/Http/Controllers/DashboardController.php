@@ -172,6 +172,15 @@ class DashboardController extends Controller
         $userId = $request->userId;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
+        $isLoggedInUser = $userId == Auth::id();
+        $data['isLoggedInUser'] = $isLoggedInUser;
+        
+        $user = User::select('*')->where('id', '=', $userId)->get();
+        if (count($user) < 1) {
+            abort(404);
+        }
+        $usersFirstName = $user[0]['first_name'];
+        $data['first_name'] = $usersFirstName;
 
         $myCurrentGames = GamesController::getMyCurrentGames($userId, $seasonType, $currentWeek);
         $data['myCurrentGames'] = $myCurrentGames;
