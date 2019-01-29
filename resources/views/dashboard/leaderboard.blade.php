@@ -32,17 +32,37 @@ $showTitle = $includeTitle == 'true' ? true : false;
                 <col style="width: 55px">
             </colgroup>
            <tbody>
+               <?php $currentRank = 1;?>
                 @foreach ($leaderboard as $rank => $player)
                     <tr class="{{ ($player->id == Auth::id()) ? 'fc-yellow' : 'fc-white' }}">
                         <td data-title="Rank" class="middle">
                             @if ($rank == 0)
                                 <img src="/img/gold.png" height="20" width="20" alt="First Place">
                             @elseif ($rank == 1)
-                                <img src="/img/silver.png" height="20" width="20" alt="Second Place">
+                                @if($player->wins == $leaderboard[$rank-1]->wins)
+                                    T{{$currentRank}}.
+                                @else
+                                    <img src="/img/silver.png" height="20" width="20" alt="Second Place">
+                                    <?php $currentRank++;?>
+                                @endif
                             @elseif ($rank == 2)
-                                <img src="/img/bronze.png" height="20" width="20" alt="Third Place">
+                                @if($player->wins == $leaderboard[$rank-1]->wins)
+                                    T{{$currentRank}}.
+                                @else
+                                    <img src="/img/bronze.png" height="20" width="20" alt="Third Place">
+                                    <?php $currentRank++;?>
+                                @endif
                             @else
-                                {{$rank+1}}.
+                                @if($player->wins == $leaderboard[$rank-1]->wins)
+                                    T{{$currentRank}}.
+                                @else
+                                    <?php $currentRank = $rank+1;?>
+                                    @if($player->wins == ($leaderboard[$rank+1]->wins ?? $player->wins == $leaderboard[$rank-1]->wins))
+                                        T{{$rank+1}}.
+                                    @else
+                                        {{$rank+1}}.
+                                    @endif
+                                @endif
                             @endif
                         </td>
                         <td data-title="Player Name" class="text-left">
