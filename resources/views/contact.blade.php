@@ -125,7 +125,9 @@
                 _token: token
             },
             error: function(data){
-
+                $(this).notify({
+                    success: false,
+                });
             }
         }).done(function(data){
             $(this).notify({

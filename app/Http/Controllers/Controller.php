@@ -14,11 +14,11 @@ abstract class Controller extends BaseController
 
     public function __construct()
     {
-        $this->isAdmin = Auth::user()->email == 'mattvaldez01@gmail.com';
+        $this->isAdmin = Auth::check() ? Auth::user()->email == 'mattvaldez01@gmail.com' : false;
         $this->current_season = 1;
         // TO DO: get 'week' and 'season_type' numbers dynamically
         $this->season_type = 3;
-        $this->currentWeek = 4;
+        $this->currentWeek = 5;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;
