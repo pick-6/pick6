@@ -262,7 +262,7 @@ class AccountController extends Controller
         try
         {
             $this->validate($request, ['email' => 'required|email']);
-
+            $firstName = $request->firstName;
             $name = strip_tags(htmlspecialchars($_POST['name']));
             $email_address = strip_tags(htmlspecialchars($_POST['email']));
             $phone = strip_tags(htmlspecialchars($_POST['phone']));
@@ -276,7 +276,7 @@ class AccountController extends Controller
             $headers .= "Reply-To: $email_address";
             mail($to,$email_subject,$email_body,$headers);
 
-            $response = response()->json([ 'success' => true, 'msg' => 'Your message has been sent.']);
+            $response = response()->json([ 'success' => true, 'msg' => "Thanks, $firstName! <br /> Your message has been sent."]);
         }
         catch (\Exception $e)
         {

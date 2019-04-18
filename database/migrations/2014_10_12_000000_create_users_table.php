@@ -18,11 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->decimal('credit', 8, 2)->default(0);
             $table->string('avatar')->default('default.png');
+            $table->decimal('credit', 8, 2)->default(0);
+            $table->integer('fav_team')->unsigned()->nullable();
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('fav_team')->references('id')->on('teams');
         });
     }
 

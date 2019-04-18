@@ -27,7 +27,7 @@ class GamesController extends Controller
 
     public static function gamesForWeek($seasonType, $weekNo)
     {
-        $games = Games::select(DB::raw('games.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $games = Games::select(DB::raw('games.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.season_type', '=', $seasonType)
@@ -93,7 +93,7 @@ class GamesController extends Controller
 
     public static function getMyCurrentGames($userId, $seasonType, $weekNo)
     {
-        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('selections', 'games.id', '=', 'selections.game_id')
@@ -121,7 +121,7 @@ class GamesController extends Controller
             $weekNo = $week[0]['week'];
         }
 
-        $weekResults = Games::select(DB::raw('games.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $weekResults = Games::select(DB::raw('games.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, winnings.winning_user, winnings.game_id, concat(users.first_name, " " ,users.last_name) AS full_name, users.id, users.avatar, users.username, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
@@ -184,7 +184,7 @@ class GamesController extends Controller
         $seasonType = $this->season_type;
         $data['seasonType'] = $seasonType;
 
-        $thisGame = Games::select(DB::raw('games.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
+        $thisGame = Games::select(DB::raw('games.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.id', '=', $id)

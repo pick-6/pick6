@@ -15,6 +15,7 @@ class CreateGamesTable extends Migration
 		Schema::create('games', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('season')->unsigned();
 			$table->integer('season_type')->unsigned();
 			$table->date('date_for_week');
 			$table->time('time')->nullable();

@@ -115,7 +115,7 @@
                     <a data-game-id="{{$gameId}}" class="{{$gameOver ? 'fs-30' : ($isNextWeekList || $onDash ? 'fs-12' : 'fs-16')}} {{$gameCancel ? 'forGameCancel' : '' }}" data-role-ajax="{{$gameCancel ? '/cancel' : '/play'}}">
                         <div class="pull-left width50 {{ $noTeams || $noHomeTeam ? 'text-center' : '' }} homeTeam padding-10">
                             @if($game->home != 'TBD')
-                                <img src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
+                                <img data-role="teamLogo" data-team-id="{{$game->homeId}}" src="/img/team_logos/{{$game->home_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->home}}">
                                 <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                     <span class="{{($game->home_score > $game->away_score) && $showWinner ? 'bold' : ''}}">
                                         {{$gameOver ? $game->home_score : ($showTeamName ? ($showCity ? $game->home_city." ".$game->home : $game->home) : "")}}
@@ -132,7 +132,7 @@
                         </div>
                         <div class="pull-right width50 {{ $noTeams || $noAwayTeam ? 'text-center' : '' }} awayTeam padding-10">
                             @if($game->away != 'TBD')
-                                <img src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
+                                <img data-role="teamLogo" data-team-id="{{$game->awayId}}" src="/img/team_logos/{{$game->away_logo}}" height="{{$onDash ? 30 : 60}}" width="{{$onDash ? 35 : 65}}" alt="{{$game->away}}">
                                 <div class="text-left middle inline-flex" style="width:calc(100% - {{$onDash ? 45 : 75}}px)">
                                     <span class="{{($game->away_score > $game->home_score) && $showWinner ? 'bold' : ''}}">
                                         {{$gameOver ? $game->away_score : ($showTeamName ? ($showCity ? $game->away_city." ".$game->away : $game->away) : "")}}

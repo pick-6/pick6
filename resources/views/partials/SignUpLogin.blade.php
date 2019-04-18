@@ -8,22 +8,22 @@
     <form class="login-form" method="POST" action="{{action('Auth\AuthController@postLogin')}}">
         {!! csrf_field() !!}
         <h2 class="message fc-grey">Welcome back!</h2>
-        <input type="email" class="form-control" name="email" placeholder="Email Address *">
-        <input type="password" class="form-control" name="password" placeholder="Password *">
-        <div class="forgot-pass"><a id="forgot-link"><span class="forgot-link">Forgot Password?</span></a></div>
+        <input data-required="true" type="email" class="form-control" name="email" placeholder="Email Address *">
+        <input data-required="true" type="password" class="form-control" name="password" placeholder="Password *">
+        <div class="forgot-pass"><a data-role-ajax="/password/email" id="forgot-link"><span class="forgot-link">Forgot Password?</span></a></div>
         <button type="submit" class="btn btn-lg width100" name="submit">Log In</button>
     </form>
 
     <form class="signup-form hide" method="POST" action="{{action('Auth\AuthController@postRegister')}}">
         {!! csrf_field() !!}
         <h2 class="message fc-grey" style="line-height:40px;">Ready to Play? <br />Sign Up for Free!</h2>
-        <input type="text" class="form-control first-name" name="first_name" placeholder="First Name *">
-        <input type="text" class="form-control last-name" name="last_name" placeholder="Last Name *">
-        <input type="text" class="form-control first-name" name="username" placeholder="Username *">
-        <input type="email" class="form-control last-name" name="email" placeholder="Email Address *">
-        <input type="password" class="form-control" name="password" placeholder="Create a Password *">
-        <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password *">
-        <input type="submit" class="btn btn-lg" name="submit" value="Get Started">
+        <input data-required="true" type="text" class="form-control first-name" name="first_name" placeholder="First Name *">
+        <input data-required="true" type="text" class="form-control last-name" name="last_name" placeholder="Last Name *">
+        <input data-required="true" type="text" class="form-control first-name" name="username" placeholder="Username *">
+        <input data-required="true" type="email" class="form-control last-name" name="email" placeholder="Email Address *">
+        <input data-required="true" type="password" class="form-control" name="password" placeholder="Create a Password *">
+        <input data-required="true" type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password *">
+        <button type="submit" class="btn btn-lg width100" name="submit">Get Started</button>
     </form>
 
     @if (count($errors) > 0)
@@ -64,85 +64,48 @@
     loginForm.on('submit', function(e){
         e.preventDefault();
 
-        var e = loginForm.find("input[name=email]").val().trim();
-        var p = loginForm.find("input[name=password]").val().trim();
+        if ($(this).validateForm(this)) {
+            $.ajax({
+                url: "/login",
+                type: "post",
+                data: $(this).serialize(),
+                beforeSend: function(){
+                    $(".login-form").find("button[type=submit]").text("Processing").append("<i class='fas fa-spinner fa-pulse' style='margin-left:5px'></i>");
+                },
+                error: function(xhr, status, error) {
+                    $(this).notify({
+                        success: false,
+                        text: error
+                    });
+                },
+                complete: function() {
+                    $(".login-form").find("button[type=submit]").text("Log In")
+                }
+            }).done(function(data){
+                if (data.success)
+                {
+                    var userID = data.userId;
 
-        if (e == '' || p == '') {
-            if (e == '' && p == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The email field is required.<br />The password field is required."
-                });
-                return false;
-            }
+                    $(this).loadPage({
+                        url: "/",
+                        login: true,
+                        message: data.msg
+                    });
 
-            if (e == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The email field is required."
-                });
-                return false;
-            }
-
-            if (p == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The password field is required."
-                });
-                return false;
-            }
+                    $(this).checkGamesCancelled({
+                        url: "/checkGamesCancelled",
+                        userId: userID
+                    });
+                }
+                else
+                {
+                    $(this).notify({
+                        success: data.success,
+                        text: data.msg,
+                    });
+                }
+            });
         }
-
-        $.ajax({
-            url: "/login",
-            type: "post",
-            data: $(this).serialize(),
-            beforeSend: function(){
-                $(".login-form").find("button[type=submit]").text("Processing").append("<i class='fas fa-spinner fa-pulse' style='margin-left:5px'></i>");
-            },
-            error: function(data) {
-                var text = "";
-                var email = data.responseJSON.email;
-                var password = data.responseJSON.password;
-                if (email !== null && email !== undefined) {
-                    text+=email;
-                }
-                if (password !== null && password !== undefined) {
-                    if (email) {
-                        text+="<br>";
-                    }
-                    text+=password;
-                }
-                $(this).notify({
-                    success: false,
-                    text: text
-                });
-            }
-        }).done(function(data){
-            $(".login-form").find("button[type=submit]").text("Log In")
-            if (data.success)
-            {
-                var userID = data.userId;
-
-                $(this).loadPage({
-                    url: "/",
-                    login: true,
-                    message: data.msg
-                });
-
-                $(this).checkGamesCancelled({
-                    url: "/checkGamesCancelled",
-                    userId: userID
-                });
-            }
-            else
-            {
-                $(this).notify({
-                    success: data.success,
-                    text: data.msg,
-                });
-            }
-        });
     });
 
     signupForm.on('submit', function(e){
@@ -152,33 +115,54 @@
             type: "post",
             url: "/register",
             data: $(this).serialize(),
-            error: function(data){
+            error: function(xhr, status, error) {
                 $(this).notify({
-                    success: data.success,
-                    text: data.msg
+                    success: false,
+                    text: error
                 });
             }
         }).done(function(data){
+
             $(this).notify({
                 success: data.success,
                 text: data.msg,
             });
 
-            if (data.success) {
+            if (data.success)
+            {
                 $(this).loadPage({
                     url: "/",
                     isRegis: true,
                     message: data.msg
                 });
             }
-        });
-    });
+            else
+            {
+                $.each(data.fields, function(field){
+                    var $this = signupForm.find("input[name="+field+"]");
+                    $this.css("border-color", "crimson");
+                    $this.on("change", function(){
+                        checkIfEmpty($this, true);
+                    });
+                    function checkIfEmpty(field, showValidColor) {
+                        var val = $(field).val().trim();
 
-    $('#forgot-link').on('click', function(){
-        $.ajax({
-            url: "/password/email",
-        }).done(function(data){
-            $('.page-content').html(data);
+                        if (val === "") {
+                            $(field).css({
+                                "border-color": "crimson"
+                            });
+                            return true;
+                        } else {
+                            if (showValidColor) {
+                                $(field).css({
+                                    "border-color": "#2ecc71"
+                                });
+                            }
+                            return false;
+                        }
+                    }
+                });
+            }
         });
     });
 

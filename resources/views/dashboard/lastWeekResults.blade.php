@@ -34,13 +34,13 @@ $showTitle = $includeTitle == 'true' ? true : false;
                         <td data-title="Final Score" class="fc-yellow middle fs-25">
                             <a data-role-ajax="{{action('GamesController@show', [$game->game_id])}}">
                                 <div class="pull-left width50">
-                                    <img src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
+                                    <img data-role="teamLogo" data-team-id="{{$game->homeId}}" src="img/team_logos/{{$game->home_logo}}" height="40" width="45" alt="{{$game->home}}">
                                     <div class="scores">
                                         {{$game->home_score}}
                                     </div>
                                 </div>
                                 <div class="pull-right width50">
-                                    <img src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
+                                    <img data-role="teamLogo" data-team-id="{{$game->awayId}}" src="img/team_logos/{{$game->away_logo}}" height="40" width="45" alt="{{$game->away}}">
                                     <div class="scores">
                                         {{$game->away_score}}
                                     </div>

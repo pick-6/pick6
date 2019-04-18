@@ -14,26 +14,22 @@
                 <div class="">
                     <div class="col-md-6 padding-b-0">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block text-danger"></p>
+                            <input id="name" data-required="true" type="text" class="form-control" placeholder="Your Name *" name="name">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Your Email *" id="email" required data-validation-required-message="Please enter your email address.">
-                            <p class="help-block text-danger"></p>
+                            <input id="email" data-required="true" type="email" class="form-control" placeholder="Your Email *" name="email">
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" placeholder="Your Phone" id="phone">
+                            <input id="phone" type="tel" class="form-control" placeholder="Your Phone" name="phone">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Your Message *" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                            <p class="help-block text-danger"></p>
+                            <textarea id="message" data-required="true" class="form-control" placeholder="Your Message *" name="message"></textarea>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-12 text-center">
-                        <div id="success"></div>
                         <button type="submit" class="btn btn-xl">Send Message</button>
                     </div>
                 </div>
@@ -42,101 +38,48 @@
     </div>
 </div>
 <script>
-    $("#contactForm").on('submit', function(e){
+    var $this = $("#contact"),
+        $contactForm = $this.find("#contactForm");
+
+    $contactForm.on('submit', function(e){
         e.preventDefault();
-        var token = $("input[name=_token]").val().trim();
-        var name = $("input#name").val().trim();
-        var email = $("input#email").val().trim();
-        var phone = $("input#phone").val().trim();
-        var message = $("textarea#message").val().trim();
+        var token = $(this).find("input[name=_token]").val().trim();
+        var name = $(this).find("input#name").val().trim();
+        var email = $(this).find("input#email").val().trim();
+        var phone = $(this).find("input#phone").val().trim();
+        var message = $(this).find("textarea#message").val().trim();
         var firstName = name; // For Success/Failure Message
         // Check for white space in name for Success/Fail message
         if (firstName.indexOf(' ') >= 0) {
             firstName = name.split(' ').slice(0, -1).join(' ');
         }
 
-        if (name == '' || email == '' || message == '') {
-            if (name == '' && email == '' && message == '') {
+        if ($(this).validateForm(this)) {
+            $.ajax({
+                url: "/postContact",
+                type: 'post',
+                data: {
+                    name: name,
+                    firstName: firstName,
+                    phone: phone,
+                    email: email,
+                    message: message,
+                    _token: token
+                },
+                error: function(data){
+                    $(this).notify({
+                        success: false,
+                    });
+                }
+            }).done(function(data){
                 $(this).notify({
-                    success: false,
-                    text: "The name field is required.<br />The email field is required.<br />The message field is required."
+                    success: data.success,
+                    text: data.msg
                 });
-                return false;
-            }
-
-            if (name == '' && email == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The name field is required.<br />The email field is required."
-                });
-                return false;
-            }
-
-            if (name == '' && message == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The name field is required.<br />The message field is required."
-                });
-                return false;
-            }
-
-            if (email == '' && message == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The email field is required.<br />The message field is required."
-                });
-                return false;
-            }
-
-            if (name == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The name field is required."
-                });
-                return false;
-            }
-
-            if (email == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The email field is required."
-                });
-                return false;
-            }
-
-            if (message == '') {
-                $(this).notify({
-                    success: false,
-                    text: "The message field is required."
-                });
-                return false;
-            }
-        }
-
-
-        $.ajax({
-            url: "/postContact",
-            type: 'post',
-            data: {
-                name: name,
-                phone: phone,
-                email: email,
-                message: message,
-                _token: token
-            },
-            error: function(data){
-                $(this).notify({
-                    success: false,
-                });
-            }
-        }).done(function(data){
-            $(this).notify({
-                success: data.success,
-                text: data.msg
+                if (data.success) {
+                    $contactForm.trigger("reset");
+                }
             });
-            if (data.success) {
-                $('#contactForm').trigger("reset");
-            }
-        });
+        }
     });
 </script>

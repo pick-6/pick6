@@ -74,7 +74,7 @@ class PasswordBroker implements PasswordBrokerContract
      * @param  \Closure|null  $callback
      * @return string
      */
-    public function sendResetLink(array $credentials, Closure $callback = null)
+    public function sendResetLink(array $credentials, Closure $callback = null, string $title = "", string $partial = "")
     {
         // First we will check to see if we found a user at the given credentials and
         // if we did not we will redirect back to this current URI with a piece of
@@ -90,7 +90,7 @@ class PasswordBroker implements PasswordBrokerContract
         // the current URI having nothing set in the session to indicate errors.
         $token = $this->tokens->create($user);
 
-        $this->emailResetLink($user, $token, $callback);
+        $this->emailResetLink($user, $token, $callback, $title, $partial);
 
         return PasswordBrokerContract::RESET_LINK_SENT;
     }
@@ -103,14 +103,14 @@ class PasswordBroker implements PasswordBrokerContract
      * @param  \Closure|null  $callback
      * @return int
      */
-    public function emailResetLink(CanResetPasswordContract $user, $token, Closure $callback = null)
+    public function emailResetLink(CanResetPasswordContract $user, $token, Closure $callback = null, string $title = "", string $partial = "")
     {
         // We will use the reminder view that was given to the broker to display the
         // password reminder e-mail. We'll pass a "token" variable into the views
         // so that it may be displayed for an user to click for password reset.
         $view = $this->emailView;
 
-        return $this->mailer->send($view, compact('token', 'user'), function ($m) use ($user, $token, $callback) {
+        return $this->mailer->send($view, compact('token', 'user', 'title', 'partial'), function ($m) use ($user, $token, $callback) {
             $m->to($user->getEmailForPasswordReset());
 
             if (! is_null($callback)) {

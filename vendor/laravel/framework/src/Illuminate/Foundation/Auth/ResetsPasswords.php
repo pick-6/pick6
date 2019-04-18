@@ -32,9 +32,12 @@ trait ResetsPasswords
     {
         $this->validate($request, ['email' => 'required|email']);
 
+        $title = $request->title ?? "Reset Your Password";
+        $partial = $request->partial ?? "emails.resetPassword";
+
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
             $message->subject($this->getEmailSubject());
-        });
+        }, $title, $partial);
 
         switch ($response) {
             case Password::RESET_LINK_SENT:

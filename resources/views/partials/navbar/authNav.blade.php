@@ -35,7 +35,7 @@
     </a>
 </li>
 <li class="showOnMobile">
-    <a data-role-ajax="/play">
+    <a data-role-ajax="play">
         <span class="inline-block" style="min-width:25px;font-size:1.25em;">
             <i class="fas fa-football-ball"></i>
         </span>

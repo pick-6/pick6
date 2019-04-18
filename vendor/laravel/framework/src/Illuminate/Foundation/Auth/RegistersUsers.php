@@ -48,7 +48,8 @@ trait RegistersUsers
         {
             $message = response()->json([
                 'success' => false,
-                'msg' => implode("<br />",$validator->messages()->all())
+                'msg' => implode("<br />",$validator->messages()->all()),
+                'fields' => $validator->messages()
             ]);
 
         }

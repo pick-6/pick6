@@ -69,19 +69,12 @@
                 </div>
                 <!-- <div class="clearfix"></div> -->
                 <div class="col-lg-12" style="margin-top: 10px">
-                    <div class="form-group text-right">
-                        {{ method_field('PUT') }}
-                        <div class="col-xs-6">
-                            <button type="submit" class="btn btn-success margin-right-10 width100">UPDATE</button>
-                        </div>
-                        <div class="col-xs-6">
-                            <a id="back" class="btn btn-danger width100">CANCEL</a>
-                        </div>
+                    <div class="inline-block">
+                        <a data-role-ajax="{{action('AccountController@editPassword')}}" class="btn btn-primary">change password</a>
                     </div>
-                    <div class="form-group text-right margin-top-20">
-                        <div class="col-xs-12">
-                            <a data-role-ajax="{{action('AccountController@editPassword')}}" class="btn btn-primary width100">change password</a>
-                        </div>
+                    <div class="pull-right inline-block">
+                        <button type="submit" class="btn btn-success margin-right-10">UPDATE</button>
+                        <a id="back" class="btn btn-danger">CANCEL</a>
                     </div>
                 </div>
             </form>

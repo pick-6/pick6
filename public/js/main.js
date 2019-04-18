@@ -108,7 +108,7 @@
         function no(){
             closeModal();
         }
-        
+
         function closeModal(){
             $(".confirm-modal").remove();
         }
@@ -193,7 +193,11 @@
                 }
                 $(this).loadCredit();
             },
-            error: function(data) {
+            error: function(xhr, status, error) {
+                $(this).notify({
+                    success: false,
+                    text: error
+                });
                 if (reload != null) {
                     $(this).loadPage({
                         url: reload,
@@ -283,9 +287,13 @@
                 }
             },
             error: function(xhr, status, error) {
+                var isUnauthorized = xhr.status == 401;
+                var errorMessage = isUnauthorized ? "<h4 class='margin-bottom-0'>Error: Unauthorized.</h4><div class='margin-top-5'>Please reload the app.</div><div class='margin-top-5'><a href='/' class='btn btn-sm btn-cancel'><i class='fas fa-sync'></i> Reload</a></div>" : error;
+                var time = isUnauthorized ? 10000 : null;
                 $(this).notify({
                     success: false,
-                    text: error
+                    text: errorMessage,
+                    duration: time
                 });
             }
         }).done(function(data){
@@ -303,7 +311,7 @@
                     maxWidth: data.maxWidth
                 });
             } else {
-                if (url != "/SignUpLoginView" && url != "/contact" ) {
+                if (url != "/SignUpLoginView" && url != "/contact" && url != "/password/email") {
                     $(this).loadCredit();
                 }
                 $('.page-content').html(data).data("url", url).data("page-url", pageUrl);
@@ -443,6 +451,59 @@
                 });
             }
         });
+    }
+
+    $.fn.validateForm = function(form) {
+        var reqFlds = $(form).find("input,textarea,select").filter("[data-required=true]:visible"),
+            missingFlds = [],
+            errorMessage = "";
+
+        $.each(reqFlds, function(){
+                var name = $(this).attr("name"),
+                isEmpty = checkIfEmpty($(this));
+
+            if (isEmpty) {
+                name = name.replace("_", " ");
+                missingFlds.push(name);
+
+                $(this).on("change", function(){
+                    checkIfEmpty($(this), true);
+                });
+            }
+        });
+
+        if (missingFlds.length > 0) {
+            missingFlds.forEach(function(fieldname){
+                errorMessage += "The "+fieldname+" field is required.<br />";
+            });
+
+            $(this).notify({
+                success: false,
+                text: errorMessage
+            });
+
+            return false;
+        }
+
+        function checkIfEmpty(field, showValidColor) {
+            var val = $(field).val().trim();
+
+            if (val === "") {
+                $(field).css({
+                    "border-color": "crimson"
+                });
+                return true;
+            } else {
+                if (showValidColor) {
+                    $(field).css({
+                        "border-color": "#2ecc71"
+                    });
+                }
+                return false;
+            }
+        }
+
+        return true;
     }
 
     //////////////// For Free Charge ////////////////

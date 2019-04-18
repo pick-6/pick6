@@ -48,7 +48,7 @@
                     <div class="text-right margin-top-20">
                         <div class="form-group">
                             <button type="submit" class="btn btn-success margin-right-10">Send Link</button>
-                            <a href="/" class="btn btn-danger">CANCEL</a>
+                            <a data-role-ajax="/SignUpLoginView" class="btn btn-danger">CANCEL</a>
                         </div>
                     </div>
                 </form>
