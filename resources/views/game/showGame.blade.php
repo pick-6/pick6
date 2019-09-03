@@ -1,15 +1,17 @@
 
     <div id="picksTable" class="picksTable">
         @if (!$gameOver && !$gameCancel) <!-- Show game table for current/future games -->
-            <!-- CREDIT BALANCE -->
-            <div class="col-xs-12 text-center fc-grey showOnMobile">
-                <h3 class="margin-0 fs-16">
-                    Credit Balance:
-                    <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
-                        {{$creditAmount}}
-                    </span>
-                </h3>
-            </div>
+            @if(!$gamesAreFree)
+                <!-- CREDIT BALANCE -->
+                <div class="col-xs-12 text-center fc-grey showOnMobile">
+                    <h3 class="margin-0 fs-16">
+                        Credit Balance:
+                        <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
+                            {{$creditAmount}}
+                        </span>
+                    </h3>
+                </div>
+            @endif
 
             <!-- SQUARES GAME TABLE -->
             <div class="col-xs-12">
