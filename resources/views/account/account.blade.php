@@ -33,13 +33,15 @@
                 ])
                 <ul class="dropdown-menu new-menu padding-0 text-left" style="top:-30px;left: 45px;background:#444">
                     @include('partials.dropdown.account-items', [
-                        'showAddCredit' => false
+                        'showAddCredit' => !$gamesAreFree
                     ])
                 </ul>
             </div>
             <div class="showOnTablet">
                 <ul class="padding-0 text-left new-menu">
-                    @include('partials.dropdown.account-items')
+                    @include('partials.dropdown.account-items', [
+                        'showAddCredit' => !$gamesAreFree
+                    ])
                 </ul>
             </div>
             @include('account.deleteAccount')
