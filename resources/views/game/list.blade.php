@@ -6,7 +6,7 @@
     $showPicksAvail = $showPicksAvail ?? true;
     $showPlayGameBtn = $showPlayGameBtn ?? true;
     $showTeamName = $showTeamName ?? true;
-    $showPrice = $showPrice ?? true;
+    $showPrice = !$gamesAreFree ?? $showPrice ?? true;
     $isNextWeekList = $isNextWeekList ?? false;
     $showTimeZone = $showTimeZone ?? $showGameTime ?? false;
     $showGameId = is_null($showGameId ?? null) ? false : $isAdmin;

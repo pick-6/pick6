@@ -59,6 +59,9 @@ class AccountController extends Controller
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
 
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
         $currentWeek = $this->currentWeek;
         $data['currentWeek'] = $currentWeek;
         $seasonType = $this->season_type;
@@ -292,6 +295,9 @@ class AccountController extends Controller
 
         $userId = $request->userId;
         $data['userId'] = $userId;
+
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
 
         $winningGames = Winnings::select(DB::raw('games.*, winnings.*, home_team.city as home_city, home_team.name as home, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join('games', 'winnings.game_id', '=', 'games.id')

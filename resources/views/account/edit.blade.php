@@ -87,7 +87,8 @@
 
         $(this).postForm({
             url: "/account/update",
-            reload: "/account"
+            reload: "/account",
+            forceReload: true
         });
     });
 

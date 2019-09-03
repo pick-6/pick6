@@ -1,5 +1,5 @@
 <div class="text-center">
-    @if($hasWinnings)
+    @if($hasWinnings && !$gamesAreFree)
         <div class="margin-top-20">
             <div class="fc-yellow fs-16">Total Winnings:</div>
             <div class="fc-grey">

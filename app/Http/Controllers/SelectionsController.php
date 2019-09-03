@@ -33,6 +33,7 @@ class SelectionsController extends Controller
 
     public function store(Request $request)
     {
+        $freeGames = $this->gamesAreFree;
         $userId = \Auth::id();
         $gameId = $request->game_id;
 
@@ -50,17 +51,19 @@ class SelectionsController extends Controller
         }
 
         // update credit balance
-        $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
-        $pickCost = $getCost[0]['pick_cost'];
-        $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
-        $userCredit = $getUserCredit[0]['credit'];
-        $costOfPicks = $validPicks * $pickCost;
-        $updatedCreditAmount = $userCredit - $costOfPicks;
+        if (!$freeGames) {
+            $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get();
+            $pickCost = $getCost[0]['pick_cost'];
+            $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+            $userCredit = $getUserCredit[0]['credit'];
+            $costOfPicks = $validPicks * $pickCost;
+            $updatedCreditAmount = $userCredit - $costOfPicks;
+            $user = User::find($userId);
+            $user->credit = $updatedCreditAmount;
+            $user->save();
+        }
         $picks = count($request->selection)  > 1 ? "picks were" : "pick was";
 
-        $user = User::find($userId);
-        $user->credit = $updatedCreditAmount;
-        $user->save();
 
         $response = response()->json(['success' => true, 'msg' => "Your $picks saved. Good luck!", 'game' => $gameId]);
         return $response;
@@ -68,6 +71,8 @@ class SelectionsController extends Controller
 
     public function destroy(Request $request)
     {
+        $freeGames = $this->gamesAreFree;
+
         try
         {
             $user = \Auth::user();
@@ -96,17 +101,18 @@ class SelectionsController extends Controller
                 $selections->delete();
             }
 
-            // update credit balance
-            $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get(); // todo: update to get cost from request
-            $pickCost = $getCost[0]['pick_cost'];
-            $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
-            $userCredit = $getUserCredit[0]['credit'];
-            $updatedCreditAmount = $userCredit + $pickCost;
+            if (!$freeGames) {
+                // update credit balance
+                $getCost = Games::select('pick_cost')->where('id', '=', $gameId)->get(); // todo: update to get cost from request
+                $pickCost = $getCost[0]['pick_cost'];
+                $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+                $userCredit = $getUserCredit[0]['credit'];
+                $updatedCreditAmount = $userCredit + $pickCost;
 
-            $user = User::find($userId);
-            $user->credit = $updatedCreditAmount;
-            $user->save();
-
+                $user = User::find($userId);
+                $user->credit = $updatedCreditAmount;
+                $user->save();
+            }
             $response = response()->json([
                 'success' => true,
                 'msg' => "Your pick was deleted successfully!",
@@ -137,7 +143,7 @@ class SelectionsController extends Controller
                 $gameTime = $game->date_for_week . ' ' . $game->time;
                 $gameStarted = $gameTime <= Carbon::now('America/New_York');
                 $numberOfPicks = GamesController::numberOfPicksForGame($game->game_id);
-                $gameCancel = $numberOfPicks < $minGamePicks && $gameStarted;
+                $gameCancel = ($numberOfPicks < $minGamePicks) && $gameStarted;
 
                 if ($gameCancel) {
                     $cancelledGames[] =  $game->game_id;
@@ -165,6 +171,8 @@ class SelectionsController extends Controller
 
     public function removePicks($gameId)
     {
+        $freeGames = $this->gamesAreFree;
+
         try
         {
             $selections = Selections::select('selections.id', 'selections.user_id', 'games.pick_cost')
@@ -180,13 +188,15 @@ class SelectionsController extends Controller
 
                     $selection->delete();
 
-                    $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
-                    $userCredit = $getUserCredit[0]['credit'];
-                    $updatedCreditAmount = $userCredit + $cost;
+                    if (!$freeGames) {
+                        $getUserCredit = User::select('credit')->where('id', '=', $userId)->get();
+                        $userCredit = $getUserCredit[0]['credit'];
+                        $updatedCreditAmount = $userCredit + $cost;
 
-                    $user = User::find($userId);
-                    $user->credit = $updatedCreditAmount;
-                    $user->save();
+                        $user = User::find($userId);
+                        $user->credit = $updatedCreditAmount;
+                        $user->save();
+                    }
                 }
             }
         }

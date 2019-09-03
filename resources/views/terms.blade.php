@@ -1,5 +1,3 @@
-@extends('layouts.master')
-@section('content')
 <style type="text/css">
 	#termsPage .terms-wrapper {
 		height: 550px;
@@ -28,4 +26,3 @@
 		</div>
 	</div>
 </div>
-@stop

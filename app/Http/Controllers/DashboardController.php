@@ -39,6 +39,9 @@ class DashboardController extends Controller
         $seasonType = $this->season_type;
         $data['seasonType'] = $seasonType;
 
+        $currentSeason = $this->current_season;
+        $data['currentSeason'] = $currentSeason;
+
         $isPreSeason = $this->isPreSeason;
         $data['isPreSeason'] = $isPreSeason;
         $isRegularSeason = $this->isRegularSeason;
@@ -49,12 +52,15 @@ class DashboardController extends Controller
         $minGamePicks = $this->minGamePicks;
         $data['minGamePicks'] = $minGamePicks;
 
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
         // Games for the Week
-        $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek);
+        $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek, $currentSeason);
         $data['gamesForWeek'] = $gamesForWeek;
         $hasGamesForWeek = count($gamesForWeek) > 0;
         $data['hasGamesForWeek'] = $hasGamesForWeek;
-        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
+        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek, $currentSeason);
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
         if ($isPostSeason) {
             $data['gamesForWeekTitle'] = $this->postSeasonTitle;
@@ -65,25 +71,25 @@ class DashboardController extends Controller
         }
 
         // My Current Games
-        $myCurrentGames = GamesController::getMyCurrentGames($user->id, $seasonType, $currentWeek);
+        $myCurrentGames = GamesController::getMyCurrentGames($user->id, $seasonType, $currentWeek, $currentSeason);
         $data['myCurrentGames'] = $myCurrentGames;
         $hasCurrentGames = count($myCurrentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
-        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($user->id, $seasonType, $currentWeek);
+        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($user->id, $seasonType, $currentWeek, $currentSeason);
         $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
         $data['myCurrentGamesTitle'] = "My Current Games";
 
         // Next Week's Games
-        $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek);
+        $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek, $currentSeason);
         $data['nextWeekGames'] = $nextWeekGames;
         $hasNextWeekGames = count($nextWeekGames) > 0;
         $data['hasNextWeekGames'] = $hasNextWeekGames;
-        $datesOfNextWeekGames = GamesController::getDatesOfGames($seasonType, $nextWeek);
+        $datesOfNextWeekGames = GamesController::getDatesOfGames($seasonType, $nextWeek, $currentSeason);
         $data['datesOfNextWeekGames'] = $datesOfNextWeekGames;
         $data['nextWeekGamesTitle'] = "Next Week's Games";
 
         // Last Week's Results
-        $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType);
+        $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType, $currentSeason);
         $data['lastWeekResults'] = $lastWeekResults;
         $hasLastWkGames = count($lastWeekResults) > 0 ;
         $data['hasLastWkGames'] = $hasLastWkGames;
@@ -127,14 +133,18 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $currentWeek = $this->currentWeek;
+        $currentSeason = $this->current_season;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
 
-        $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek);
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
+        $gamesForWeek = GamesController::gamesForWeek($seasonType, $currentWeek, $currentSeason);
         $data['gamesForWeek'] = $gamesForWeek;
         $hasGamesForWeek = count($gamesForWeek) > 0;
         $data['hasGamesForWeek'] = $hasGamesForWeek;
-        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek);
+        $datesOfCurrentWeekGames = GamesController::getDatesOfGames($seasonType, $currentWeek, $currentSeason);
         $data['datesOfCurrentWeekGames'] = $datesOfCurrentWeekGames;
 
         $isPreSeason = $this->isPreSeason;
@@ -169,12 +179,16 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $currentWeek = $this->currentWeek;
+        $currentSeason = $this->current_season;
         $userId = $request->userId;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
         $isLoggedInUser = $userId == Auth::id();
         $data['isLoggedInUser'] = $isLoggedInUser;
-        
+
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
         $user = User::select('*')->where('id', '=', $userId)->get();
         if (count($user) < 1) {
             abort(404);
@@ -182,11 +196,11 @@ class DashboardController extends Controller
         $usersFirstName = $user[0]['first_name'];
         $data['first_name'] = $usersFirstName;
 
-        $myCurrentGames = GamesController::getMyCurrentGames($userId, $seasonType, $currentWeek);
+        $myCurrentGames = GamesController::getMyCurrentGames($userId, $seasonType, $currentWeek, $currentSeason);
         $data['myCurrentGames'] = $myCurrentGames;
         $hasCurrentGames = count($myCurrentGames) > 0;
         $data['hasCurrentGames'] = $hasCurrentGames;
-        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($userId, $seasonType, $currentWeek);
+        $datesOfMyCurrentGames = GamesController::getDatesOfMyCurrentGames($userId, $seasonType, $currentWeek, $currentSeason);
         $data['datesOfMyCurrentGames'] = $datesOfMyCurrentGames;
 
         $minGamePicks = $this->minGamePicks;
@@ -220,14 +234,18 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $nextWeek = $this->nextWeek;
+        $currentSeason = $this->current_season;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
 
-        $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek);
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
+        $nextWeekGames = GamesController::gamesForWeek($seasonType, $nextWeek, $currentSeason);
         $data['nextWeekGames'] = $nextWeekGames;
         $hasNextWeekGames = count($nextWeekGames) > 0;
         $data['hasNextWeekGames'] = $hasNextWeekGames;
-        $datesOfNextWeekGames = GamesController::getDatesOfGames($seasonType, $nextWeek);
+        $datesOfNextWeekGames = GamesController::getDatesOfGames($seasonType, $nextWeek, $currentSeason);
         $data['datesOfNextWeekGames'] = $datesOfNextWeekGames;
 
         $minGamePicks = $this->minGamePicks;
@@ -246,10 +264,14 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $lastWeek = $this->lastWeek;
+        $currentSeason = $this->current_season;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
 
-        $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType);
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
+        $lastWeekResults = GamesController::getWeekResults($lastWeek, $seasonType, $currentSeason);
         $data['lastWeekResults'] = $lastWeekResults;
         $hasLastWkGames = count($lastWeekResults) > 0 ;
         $data['hasLastWkGames'] = $hasLastWkGames;
@@ -270,10 +292,14 @@ class DashboardController extends Controller
 
         $seasonType = $this->season_type;
         $lastWeek = $this->lastWeek;
+        $currentSeason = $this->current_season;
         $isAdmin = $this->isAdmin;
         $data['isAdmin'] = $isAdmin;
 
-        $leaderboard = GamesController::getLeaderBoard();
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
+
+        $leaderboard = GamesController::getLeaderBoard($currentSeason);
         $data['leaderboard'] = $leaderboard;
         $hasLeaders = count($leaderboard) > 0 ;
         $data['hasLeaders'] = $hasLeaders;

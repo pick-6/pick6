@@ -45,9 +45,11 @@
     </tr>
     <tr class="transparent">
         <th class="gameTableHeader">
-            <a class="fc-black" href="#gameDetails" data-toggle="modal" title="View Game/Pot Details">
-                <i class="fas fa-info-circle fs-20"></i>
-            </a>
+            @if(!$gamesAreFree)
+                <a class="fc-black" href="#gameDetails" data-toggle="modal" title="View Game/Pot Details">
+                    <i class="fas fa-info-circle fs-20"></i>
+                </a>
+            @endif
         </th>
         <!-- Creates numbers 0-9 going across -->
         @for ($column = 0; $column < 10; $column++)

@@ -65,7 +65,8 @@
 
         $(this).postForm({
             url: "/account/updatePassword",
-            reload: "/account"
+            reload: "/account",
+            forceReload: true
         });
     });
 

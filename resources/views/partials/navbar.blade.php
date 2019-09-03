@@ -1,9 +1,14 @@
+<?php
+    use App\Http\Controllers\Controller;
+    $gamesAreFree = Controller::checkIfGamesAreFree();
+?>
+
 <!-- Navigation -->
 <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top margin-bottom-0">
     <div class="container">
         @include('partials.navbar.navHeader')
 
-        @if (Auth::check())
+        @if (Auth::check() && !$gamesAreFree)
             <div class="addCreditFromNav"></div>
         @endif
 

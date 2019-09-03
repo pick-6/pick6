@@ -23,14 +23,16 @@ class GamesController extends Controller
     {
         $this->middleware('auth');
         parent::__construct();
+        // $currentSeason = $this->current_season;
     }
 
-    public static function gamesForWeek($seasonType, $weekNo)
+    public static function gamesForWeek($seasonType, $weekNo, $season = 2)
     {
         $games = Games::select(DB::raw('games.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
         ->join(DB::raw('teams away_team'), 'away_team.id', '=', 'games.away')
         ->where('games.season_type', '=', $seasonType)
+        ->where('games.season', '=', $season)
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -39,21 +41,23 @@ class GamesController extends Controller
         return $games;
     }
 
-    public static function getDatesOfGames($seasonType, $weekNo)
+    public static function getDatesOfGames($seasonType, $weekNo, $currentSeason = 2)
     {
         $dateOfGames = Games::groupBy('date_for_week')
         ->where('games.season_type', '=', $seasonType)
+        ->where('games.season', '=', $currentSeason)
         ->where('week', '=', $weekNo)
         ->get();
         return $dateOfGames;
     }
 
-    public static function getDatesOfMyCurrentGames($userId, $seasonType, $weekNo)
+    public static function getDatesOfMyCurrentGames($userId, $seasonType, $weekNo, $currentSeason = 2)
     {
         $dateOfGames = Games::groupBy('date_for_week')
         ->join('selections', 'games.id', '=', 'selections.game_id')
         ->where('selections.user_id', "=", $userId)
         ->where('games.season_type', '=', $seasonType)
+        ->where('games.season', '=', $currentSeason)
         ->where('week', '=', $weekNo)
         ->get();
         return $dateOfGames;
@@ -91,7 +95,7 @@ class GamesController extends Controller
         return $myGames;
     }
 
-    public static function getMyCurrentGames($userId, $seasonType, $weekNo)
+    public static function getMyCurrentGames($userId, $seasonType, $weekNo, $currentSeason = 2)
     {
         $myCurrentGames = Games::select(DB::raw('games.*, selections.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
@@ -99,6 +103,7 @@ class GamesController extends Controller
         ->join('selections', 'games.id', '=', 'selections.game_id')
         ->where('selections.user_id', "=", $userId)
         ->where('games.season_type', '=', $seasonType)
+        ->where('games.season', '=', $currentSeason)
         ->where('games.week', '=', $weekNo)
         ->groupBy('selections.game_id')
         ->orderBy('games.date_for_week', 'ASC')
@@ -108,7 +113,7 @@ class GamesController extends Controller
         return $myCurrentGames;
     }
 
-    public static function getWeekResults($weekNo, $seasonType)
+    public static function getWeekResults($weekNo, $seasonType, $currentSeason = 2)
     {
         if ($weekNo == 0 && $seasonType > 1) {
             $seasonType = $seasonType - 1;
@@ -127,6 +132,7 @@ class GamesController extends Controller
         ->join('winnings', 'games.id', '=', 'winnings.game_id')
         ->join('users', 'winnings.winning_user', '=', 'users.id')
         ->where('games.season_type', '=', $seasonType)
+        ->where('games.season', '=', $currentSeason)
         ->where('games.week', '=', $weekNo)
         ->orderBy('games.date_for_week', 'ASC')
         ->orderBy('games.time', 'ASC')
@@ -135,10 +141,12 @@ class GamesController extends Controller
         return $weekResults;
     }
 
-    public static function getLeaderBoard()
+    public static function getLeaderBoard($currentSeason = 2)
     {
         $leaderboard = Winnings::select(DB::raw('users.id, concat(first_name, " " ,last_name) AS full_name, username, email, avatar, count(winning_user) AS wins'))
         ->join('users', 'winning_user', '=', 'users.id')
+        ->join('games', 'game_id', '=', 'games.id')
+        ->where('games.season', '=', $currentSeason)
         ->groupBy('winning_user')
         ->orderBy('wins', 'DESC')
         ->orderBy('users.last_name', 'ASC')
@@ -156,6 +164,8 @@ class GamesController extends Controller
         $data['currentWeek'] = $currentWeek;
         $seasonType = $this->season_type;
         $data['season_type'] = $seasonType;
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
 
         $gamesForWeek = $this->gamesForWeek($seasonType, $currentWeek);
         $data['gamesForWeek'] = $gamesForWeek;
@@ -183,6 +193,8 @@ class GamesController extends Controller
         $data['currentWeek'] = $currentWeek;
         $seasonType = $this->season_type;
         $data['seasonType'] = $seasonType;
+        $gamesAreFree = $this->gamesAreFree;
+        $data['gamesAreFree'] = $gamesAreFree;
 
         $thisGame = Games::select(DB::raw('games.*, home_team.id as homeId, home_team.city as home_city, home_team.name as home, away_team.id as awayId, away_team.city as away_city, away_team.name as away, home_team.logo AS home_logo, away_team.logo AS away_logo'))
         ->join(DB::raw('teams home_team'), 'home_team.id', '=', 'games.home')
@@ -256,7 +268,7 @@ class GamesController extends Controller
 
         $cost = Games::select('pick_cost')->where('id', '=', $id)->get();
         $pickCost = $cost[0]['pick_cost'];
-        $data['pickCost'] = $pickCost;
+        $data['pickCost'] = $gamesAreFree ? 0 : $pickCost;
 
         $creditForUser = User::select('credit')->where('id', '=', $user->id)->get();
         $userCredit = $creditForUser[0]['credit'];

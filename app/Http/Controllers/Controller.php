@@ -15,10 +15,13 @@ abstract class Controller extends BaseController
     public function __construct()
     {
         $this->isAdmin = Auth::check() ? Auth::user()->email == 'mattvaldez01@gmail.com' : false;
-        $this->current_season = 1;
+
+        $this->gamesAreFree = true;
+
+        $this->current_season = 2;
         // TO DO: get 'week' and 'season_type' numbers dynamically
-        $this->season_type = 3;
-        $this->currentWeek = 5;
+        $this->season_type = 2;
+        $this->currentWeek = 1;
 
         $this->lastWeek = $this->currentWeek - 1;
         $this->nextWeek = $this->currentWeek + 1;
@@ -27,8 +30,8 @@ abstract class Controller extends BaseController
         $this->isRegularSeason = $this->season_type == 2;
         $this->isPostSeason = $this->season_type == 3;
 
-        // $this->minGamePicks = 0;
-        $this->minGamePicks = 90;
+        $this->minGamePicks = 0;
+        //$this->minGamePicks = 90;
 
         $postSeasonTitle = "";
         switch ($this->currentWeek) {
@@ -49,5 +52,10 @@ abstract class Controller extends BaseController
                 break;
         }
         $this->postSeasonTitle = $postSeasonTitle;
+    }
+
+    public static function checkIfGamesAreFree(){
+        $gamesAreFree = true;
+        return $gamesAreFree;
     }
 }

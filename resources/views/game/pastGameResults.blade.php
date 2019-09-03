@@ -27,10 +27,12 @@
                     Winner:<br>
                     <a data-role-ajax="{{action('AccountController@show', $winningUserId)}}">{{ Auth::id() == $winningUserId ? "You Won!" : $winningUserFullName}}</a>
                 </h2>
-                <h2 class="fc-white">
-                    Total Amount:<br>
-                    <span class="fc-yellow">{{$total}}</span>
-                </h2>
+                @if(!$gamesAreFree)
+                    <h2 class="fc-white">
+                        Total Amount:<br>
+                        <span class="fc-yellow">{{$total}}</span>
+                    </h2>
+                @endif
             @endif
         </div>
     @endif

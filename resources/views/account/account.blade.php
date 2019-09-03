@@ -32,7 +32,9 @@
                     'icon' => 'cog',
                 ])
                 <ul class="dropdown-menu new-menu padding-0 text-left" style="top:-30px;left: 45px;background:#444">
-                    @include('partials.dropdown.account-items')
+                    @include('partials.dropdown.account-items', [
+                        'showAddCredit' => false
+                    ])
                 </ul>
             </div>
             <div class="showOnTablet">

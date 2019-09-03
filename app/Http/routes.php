@@ -42,7 +42,7 @@ Route::get('/checkGamesCancelled/{userId}', 'SelectionsController@checkGamesCanc
 // Account
 Route::get('/account', 'AccountController@show');
 Route::get('/account/edit', 'AccountController@edit');
-Route::put('/account/update', 'AccountController@update');
+Route::post('/account/update', 'AccountController@update');
 Route::put('/account/updatePassword', 'AccountController@updatePassword');
 Route::post('/account/updateFavTeam/{team}', 'AccountController@updateFavTeam');
 Route::get('/account/changePassword', 'AccountController@editPassword');

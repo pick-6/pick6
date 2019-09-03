@@ -1,23 +1,26 @@
 <?php
     use App\User;
-
+    use App\Http\Controllers\Controller;
+    $gamesAreFree = Controller::checkIfGamesAreFree();
     $creditForUser = User::select('credit')->where('id', '=', Auth::id())->get();
     $credit = $creditForUser[0]['credit'];
     $creditAmount = money_format('$%i', $credit);
 ?>
 
-<li class="showOnMobile padding-10 fc-white">
-    Credit Balance:
-    <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
-        {{$creditAmount}}
-    </span>
-    <span class="margin-left-10">
-        <a href="#addCreditModal" data-toggle="modal" class="fc-black btn-success btn-sm bold fs-12 no-decor">
-            <i class="fas fa-plus"></i>
-            Add
-        </a>
-    </span>
-</li>
+@if(!$gamesAreFree)
+    <li class="showOnMobile padding-10 fc-white">
+        Credit Balance:
+        <span class="{{ $credit <= 0 ? 'fc-red' : 'fc-green'}} creditBalance" id="creditBalance" data-balance="{{$credit}}">
+            {{$creditAmount}}
+        </span>
+        <span class="margin-left-10">
+            <a href="#addCreditModal" data-toggle="modal" class="fc-black btn-success btn-sm bold fs-12 no-decor">
+                <i class="fas fa-plus"></i>
+                Add
+            </a>
+        </span>
+    </li>
+@endif
 <li class="showOnMobile">
     <a data-role-ajax="/dashboard">
         <span class="inline-block" style="min-width:25px;font-size:1.25em;">

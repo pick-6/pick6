@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 <style type="text/css">
 	.howtoplay .carousel-control {
 		background-image: linear-gradient(rgba(0,0,0,0) 100%,rgba(0,0,0,0) 100%)!important;
@@ -90,10 +89,9 @@
 	</div>
 
 	<div class="text-center playBtn" style="padding: 20px 0px;">
-		<a href="{{Auth::check() ? '/play' : '/'}}" class="btn btn-xl getStartedBtn">
+		<a data-role-ajax="{{Auth::check() ? 'play' : '/SignUpLoginView'}}" class="btn btn-xl getStartedBtn">
 			Start Playing
 		</a>
 	</div>
 
 </div>
-@stop

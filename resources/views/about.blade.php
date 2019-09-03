@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+
 <style type="text/css">
 	@media (min-width:992px) {
 		#aboutPage {
@@ -28,4 +27,3 @@
 		sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</p>
 </div>
-@stop

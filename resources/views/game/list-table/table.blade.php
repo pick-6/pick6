@@ -5,7 +5,7 @@
     $showTime = $showTime ?? true;
     $showBtn = $showBtn ?? true;
     $showGameId = $showGameId ?? false;
-    $showPrice = $showPrice ?? true;
+    $showPrice = !$gamesAreFree ?? $showPrice ?? true;
     $showTeamName = $showTeamName ?? true;
     $showCity = $showCity ?? true;
 
